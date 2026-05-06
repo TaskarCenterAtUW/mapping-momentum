@@ -78,7 +78,7 @@ Changelog entries and version numbers are managed manually in `CHANGELOG.md`.
     3. Paste the release summary as the description.
     4. Click **Publish release**.
 
-### Getting Started (Windows 10/11)
+### Getting Started (Windows)
 
 This section of the guide explains how to set up a Windows environment for contributing to Mapping Momentum for the first time.
 
@@ -91,23 +91,22 @@ This section of the guide explains how to set up a Windows environment for contr
     cd mapping-momentum
     ```
 
-3. Install [Python 3](https://www.python.org/downloads/)
+3. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
-4. Set up Python virtual environment
-    1. Create the virtual environment
-
-        ```powershell
-        python3 -m venv .venv
-        ```
-
-    2. Activate the virtual environment
-
-        ```powershell
-        .\.venv\Scripts\Activate.ps1
-        ```
-
-5. Install requirements
+4. Create the virtual environment and install all dependencies
 
     ```powershell
-    pip install -r requirements.txt
+    uv sync --group dev
+    ```
+
+5. Activate the virtual environment
+
+    ```powershell
+    .\.venv\Scripts\Activate.ps1
+    ```
+
+6. Run the test suite to verify the setup
+
+    ```powershell
+    pytest
     ```
