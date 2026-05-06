@@ -1,0 +1,21 @@
+{
+    "schema_version": "1.0",
+    "type": "event",
+    "id": "nda-vancouver",
+    "name": "NDA Vancouver",
+    "date": "2016-01-20",
+    "activities": [
+        {
+            "id": "workspace",
+            "type": "workspace",
+            "label": "NDA Vancouver Walk/Roll",
+            "project_group_id": "832c0df9-1950-4c72-ac25-232c7752beb0",
+            "workspace_id": 931,
+            "environment": "prod",
+            "time_window": {
+                "start": "2016-01-20T20:00:00Z",
+                "end": "2026-01-21T01:00:00Z"
+            }
+        }
+    ]
+}
