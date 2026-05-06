@@ -1,6 +1,7 @@
 # Project
 mapping-momentum.code-workspace
 local-storage/
+local-output/
 
 # OS
 .DS_Store
