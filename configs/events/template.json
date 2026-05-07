@@ -1,0 +1,22 @@
+{
+    "_comment": "Copy this file and rename it to <event-id>.json. Remove this _comment field before use.",
+    "schema_version": "1.0",
+    "type": "event",
+    "id": "your-event-id",
+    "name": "Your Event Name",
+    "date": "YYYY-MM-DD",
+    "activities": [
+        {
+            "id": "workspace",
+            "type": "workspace",
+            "label": "Your Activity Label",
+            "project_group_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+            "workspace_id": 0,
+            "environment": "prod",
+            "time_window": {
+                "start": "YYYY-MM-DDTHH:MM:SSZ",
+                "end": "YYYY-MM-DDTHH:MM:SSZ"
+            }
+        }
+    ]
+}
