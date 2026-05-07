@@ -1,0 +1,21 @@
+{
+    "schema_version": "1.0",
+    "type": "event",
+    "id": "nda-everett",
+    "name": "NDA Everett",
+    "date": "2026-03-26",
+    "activities": [
+        {
+            "id": "workspace",
+            "type": "workspace",
+            "label": "NDA Everett Walk/Roll",
+            "project_group_id": "64ecc33b-b8ab-4dca-9458-bb792d2debf9",
+            "workspace_id": 1412,
+            "environment": "prod",
+            "time_window": {
+                "start": "2026-03-26T13:00:00Z",
+                "end": "2026-03-27T00:00:00Z"
+            }
+        }
+    ]
+}

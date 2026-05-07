@@ -1,0 +1,21 @@
+{
+    "schema_version": "1.0",
+    "type": "event",
+    "id": "nda-sedro-woolley",
+    "name": "NDA Sedro-Woolley",
+    "date": "2026-02-23",
+    "activities": [
+        {
+            "id": "workspace",
+            "type": "workspace",
+            "label": "NDA Sedro-Woolley Walk/Roll",
+            "project_group_id": "f57bdb7b-a424-44f2-a261-4b91e134dde7",
+            "workspace_id": 1210,
+            "environment": "prod",
+            "time_window": {
+                "start": "2026-02-23T15:00:00Z",
+                "end": "2026-02-24T00:00:00Z"
+            }
+        }
+    ]
+}

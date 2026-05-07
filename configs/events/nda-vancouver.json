@@ -3,7 +3,7 @@
     "type": "event",
     "id": "nda-vancouver",
     "name": "NDA Vancouver",
-    "date": "2016-01-20",
+    "date": "2026-01-20",
     "activities": [
         {
             "id": "workspace",
@@ -13,8 +13,8 @@
             "workspace_id": 931,
             "environment": "prod",
             "time_window": {
-                "start": "2016-01-20T20:00:00Z",
-                "end": "2026-01-21T01:00:00Z"
+                "start": "2026-01-20T18:00:00Z",
+                "end": "2026-01-21T04:00:00Z"
             }
         }
     ]

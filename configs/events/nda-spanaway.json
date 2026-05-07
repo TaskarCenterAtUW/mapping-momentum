@@ -1,0 +1,21 @@
+{
+    "schema_version": "1.0",
+    "type": "event",
+    "id": "nda-spanaway",
+    "name": "NDA Spanaway",
+    "date": "2026-01-29",
+    "activities": [
+        {
+            "id": "workspace",
+            "type": "workspace",
+            "label": "NDA Spanaway Walk/Roll",
+            "project_group_id": "3b92adbd-beac-4b11-bf1d-123810e29453",
+            "workspace_id": 1064,
+            "environment": "prod",
+            "time_window": {
+                "start": "2026-01-29T14:00:00Z",
+                "end": "2026-01-30T01:00:00Z"
+            }
+        }
+    ]
+}
