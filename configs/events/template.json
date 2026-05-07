@@ -7,7 +7,7 @@
     "date": "YYYY-MM-DD",
     "activities": [
         {
-            "id": "workspace",
+            "id": "walkabout",
             "type": "workspace",
             "label": "Your Activity Label",
             "project_group_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
