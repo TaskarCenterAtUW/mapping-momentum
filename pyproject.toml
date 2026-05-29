@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mapping-momentum"
-version = "0.1.0"
+version = "0.2.0"
 description = "Statistics engine and report generator for mapping participation metrics."
 requires-python = ">=3.14"
 classifiers = [ "Private :: Do Not Upload" ]
