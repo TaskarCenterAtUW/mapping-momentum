@@ -64,7 +64,12 @@ TIME_WINDOW_SCHEMA: dict = {
 WORKSPACE_ACTIVITY_SCHEMA: dict = {
     "type": "object",
     "required": [
-        "id", "type", "project_group_id", "workspace_id", "environment", "time_window",
+        "id",
+        "type",
+        "project_group_id",
+        "workspace_id",
+        "environment",
+        "time_window",
     ],
     "additionalProperties": False,
     "properties": {
