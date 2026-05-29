@@ -23,11 +23,12 @@ Use [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH):
 
 ### Conventional Commits
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+Follow [Conventional Commits](https://www.conventionalcommits.org/) using these prefixes:
 
-- `feat: description`
-- `fix: description`
-- `chore: description`
+- `feat:` — new feature
+- `fix:` — bug fix
+- `docs:` — documentation
+- `chore:` — config, tests, deps, refactoring, tooling
 
 Examples:
 
