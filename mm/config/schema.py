@@ -87,7 +87,12 @@ WORKSPACE_ACTIVITY_SCHEMA: dict = {
         },
         "project_group_id": {
             "type": "string",
-            "description": "TDEI project group UUID.",
+            "description": (
+                "TDEI project group UUID. Stored as metadata to document"
+                " which project group this workspace belongs to. Not used"
+                " for API key lookup — access is granted by manually adding"
+                " the Mapping Momentum TDEI account to the project group."
+            ),
         },
         "workspace_id": {
             "type": "integer",
