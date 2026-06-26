@@ -4,7 +4,7 @@ All tests are fully offline — no network calls, no real filesystem side
 effects beyond temporary files created via tmp_path.
 
 Test matrix:
-  - valid v1 event config loads successfully
+  - valid v1.1 event config loads successfully (file and directory paths)
   - schema validation rejects missing required fields
   - non-slug-safe event.id is rejected
   - non-slug-safe activity.id is rejected
@@ -14,6 +14,13 @@ Test matrix:
   - malformed timestamp in time_window is rejected
   - time_window where start >= end is rejected
   - missing credential env var is rejected
+  - v1.1: quest_definition_url required and non-empty
+  - v1.1: quest_definition_retrieval_date must be UTC ISO 8601 if present
+  - report optional object accepted
+  - showcase_photos URL src accepted
+  - showcase_photos relative src validated against event directory
+  - _event_dir key present in returned config
+  - missing event.json in directory raises FileNotFoundError
   - file not found raises FileNotFoundError
   - file with invalid JSON raises json.JSONDecodeError
 """
@@ -32,17 +39,21 @@ from mm.config.loader import ConfigError, load_event_config
 # Helpers
 # ---------------------------------------------------------------------------
 
-# A minimal valid v1 event config.  Individual tests mutate a deep copy.
+# A minimal valid v1.1 event config.  Individual tests mutate a deep copy.
 _VALID_PROJECT_GROUP_ID = "832c0df9-1950-4c72-ac25-232c7752beb0"
 _VALID_ENV_VAR = "MM_TDEI_API_KEY_PROD"
+_VALID_QUEST_URL = (
+    "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests"
+    "/refs/heads/main/quests/prod/SCLIO%20Vancouver/NDA%20Vancouver%20Walk%20Roll.json"
+)
 
 
 def _base_config() -> dict[str, Any]:
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "type": "event",
         "id": "nda-vancouver",
-        "name": "NDA Vancouver",
+        "name": "NDA Vancouver Walk/Roll",
         "date": "2026-01-20",
         "activities": [
             {
@@ -52,6 +63,7 @@ def _base_config() -> dict[str, Any]:
                 "project_group_id": _VALID_PROJECT_GROUP_ID,
                 "workspace_id": 931,
                 "environment": "prod",
+                "quest_definition_url": _VALID_QUEST_URL,
                 "time_window": {
                     "start": "2026-01-20T18:00:00Z",
                     "end": "2026-01-21T04:00:00Z",
@@ -66,6 +78,15 @@ def _write_config(tmp_path: Path, config: dict[str, Any]) -> Path:
     p = tmp_path / "event.json"
     p.write_text(json.dumps(config), encoding="utf-8")
     return p
+
+
+def _write_dir_config(tmp_path: Path, config: dict[str, Any]) -> Path:
+    """Write *config* as JSON inside an event directory and return the directory path."""
+    slug = config.get("id", "test-event")
+    event_dir = tmp_path / slug
+    event_dir.mkdir(parents=True, exist_ok=True)
+    (event_dir / "event.json").write_text(json.dumps(config), encoding="utf-8")
+    return event_dir
 
 
 # ---------------------------------------------------------------------------
@@ -130,6 +151,14 @@ def test_missing_top_level_field_raises(tmp_path: Path, missing_field: str) -> N
 def test_wrong_schema_version_raises(tmp_path: Path) -> None:
     config = _base_config()
     config["schema_version"] = "2.0"
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="Schema validation failed"):
+        load_event_config(p)
+
+
+def test_schema_version_1_0_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["schema_version"] = "1.0"
     p = _write_config(tmp_path, config)
     with pytest.raises(ConfigError, match="Schema validation failed"):
         load_event_config(p)
@@ -365,3 +394,200 @@ def test_invalid_json_raises_decode_error(tmp_path: Path) -> None:
     p.write_text("{not valid json}", encoding="utf-8")
     with pytest.raises(json.JSONDecodeError):
         load_event_config(p)
+
+
+# ---------------------------------------------------------------------------
+# Directory-based loading
+# ---------------------------------------------------------------------------
+
+
+def test_load_from_directory(tmp_path: Path) -> None:
+    event_dir = _write_dir_config(tmp_path, _base_config())
+    loaded = load_event_config(event_dir)
+    assert loaded["id"] == "nda-vancouver"
+    assert loaded["activities"][0]["workspace_id"] == 931
+
+
+def test_event_dir_in_returned_config_from_file(tmp_path: Path) -> None:
+    p = _write_config(tmp_path, _base_config())
+    loaded = load_event_config(p)
+    from pathlib import Path as _Path
+
+    assert "_event_dir" in loaded
+    assert loaded["_event_dir"] == tmp_path
+
+
+def test_event_dir_in_returned_config_from_directory(tmp_path: Path) -> None:
+    event_dir = _write_dir_config(tmp_path, _base_config())
+    loaded = load_event_config(event_dir)
+    assert loaded["_event_dir"] == event_dir
+
+
+def test_missing_event_json_in_directory_raises(tmp_path: Path) -> None:
+    empty_dir = tmp_path / "no-json-here"
+    empty_dir.mkdir()
+    with pytest.raises(FileNotFoundError, match="event.json"):
+        load_event_config(empty_dir)
+
+
+# ---------------------------------------------------------------------------
+# v1.1 — quest_definition_url
+# ---------------------------------------------------------------------------
+
+
+def test_v1_1_requires_quest_definition_url(tmp_path: Path) -> None:
+    config = _base_config()
+    del config["activities"][0]["quest_definition_url"]
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="quest_definition_url"):
+        load_event_config(p)
+
+
+def test_v1_1_empty_quest_definition_url_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["activities"][0]["quest_definition_url"] = ""
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="quest_definition_url"):
+        load_event_config(p)
+
+
+def test_v1_1_quest_definition_url_non_empty_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    config["activities"][0]["quest_definition_url"] = "https://example.com/quest.json"
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert loaded["activities"][0]["quest_definition_url"] == "https://example.com/quest.json"
+
+
+# ---------------------------------------------------------------------------
+# v1.1 — quest_definition_retrieval_date
+# ---------------------------------------------------------------------------
+
+
+def test_quest_definition_retrieval_date_valid_utc(tmp_path: Path) -> None:
+    config = _base_config()
+    config["activities"][0]["quest_definition_retrieval_date"] = "2026-06-26T14:32:00Z"
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert loaded["activities"][0]["quest_definition_retrieval_date"] == "2026-06-26T14:32:00Z"
+
+
+def test_quest_definition_retrieval_date_non_utc_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["activities"][0]["quest_definition_retrieval_date"] = "2026-06-26T14:32:00+05:00"
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError):
+        load_event_config(p)
+
+
+def test_quest_definition_retrieval_date_absent_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    assert "quest_definition_retrieval_date" not in config["activities"][0]
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert "quest_definition_retrieval_date" not in loaded["activities"][0]
+
+
+# ---------------------------------------------------------------------------
+# report (optional)
+# ---------------------------------------------------------------------------
+
+
+def test_report_with_title_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    config["report"] = {"title": "My Custom Report Title"}
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert loaded["report"]["title"] == "My Custom Report Title"
+
+
+def test_report_with_subtitle_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    config["report"] = {"title": "Title", "subtitle": "Custom subtitle"}
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert loaded["report"]["subtitle"] == "Custom subtitle"
+
+
+def test_report_with_unknown_field_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["report"] = {"title": "Title", "unknown_field": "x"}
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="Schema validation failed"):
+        load_event_config(p)
+
+
+def test_report_absent_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    assert "report" not in config
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert "report" not in loaded
+
+
+# ---------------------------------------------------------------------------
+# showcase_photos
+# ---------------------------------------------------------------------------
+
+
+def test_showcase_photos_url_src_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    config["showcase_photos"] = [
+        {"src": "https://example.com/photo.jpg", "caption": "A photo"}]
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert loaded["showcase_photos"][0]["src"] == "https://example.com/photo.jpg"
+
+
+def test_showcase_photos_http_src_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    config["showcase_photos"] = [{"src": "http://example.com/photo.jpg"}]
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert len(loaded["showcase_photos"]) == 1
+
+
+def test_showcase_photos_relative_src_existing_file_accepted(tmp_path: Path) -> None:
+    event_dir = _write_dir_config(tmp_path, _base_config())
+    showcase_dir = event_dir / "showcase"
+    showcase_dir.mkdir()
+    (showcase_dir / "001.jpg").write_bytes(b"fake-image")
+    config = _base_config()
+    config["showcase_photos"] = [
+        {"src": "showcase/001.jpg", "caption": "Volunteers"}]
+    (event_dir / "event.json").write_text(json.dumps(config), encoding="utf-8")
+    loaded = load_event_config(event_dir)
+    assert loaded["showcase_photos"][0]["src"] == "showcase/001.jpg"
+
+
+def test_showcase_photos_relative_src_missing_file_raises(tmp_path: Path) -> None:
+    event_dir = _write_dir_config(tmp_path, _base_config())
+    config = _base_config()
+    config["showcase_photos"] = [{"src": "showcase/missing.jpg"}]
+    (event_dir / "event.json").write_text(json.dumps(config), encoding="utf-8")
+    with pytest.raises(ConfigError, match="does not exist"):
+        load_event_config(event_dir)
+
+
+def test_showcase_photos_empty_src_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["showcase_photos"] = [{"src": ""}]
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="must not be empty"):
+        load_event_config(p)
+
+
+def test_showcase_photos_missing_src_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["showcase_photos"] = [{"caption": "No src field"}]
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="Schema validation failed"):
+        load_event_config(p)
+
+
+def test_showcase_photos_absent_accepted(tmp_path: Path) -> None:
+    config = _base_config()
+    assert "showcase_photos" not in config
+    p = _write_config(tmp_path, config)
+    loaded = load_event_config(p)
+    assert "showcase_photos" not in loaded

@@ -5,7 +5,9 @@ This module is the canonical machine-readable schema for v1 configs.
 All validation logic references these definitions; there is no second
 authoritative source.
 
-v1 supports one config type (event) with one activity type (workspace).
+v1.1 adds quest_definition_url (required per workspace activity, enforced by
+the loader), quest_definition_retrieval_date (optional metadata), report
+(optional display overrides), and showcase_photos (optional photo array).
 """
 
 import re
@@ -20,7 +22,7 @@ SLUG_PATTERN = re.compile(r"^[a-z0-9]([a-z0-9-]*[a-z0-9])?$")
 # ---------------------------------------------------------------------------
 # Supported schema versions and config types
 # ---------------------------------------------------------------------------
-SUPPORTED_SCHEMA_VERSIONS = {"1.0"}
+SUPPORTED_SCHEMA_VERSIONS = {"1.1"}
 SUPPORTED_CONFIG_TYPES = {"event"}  # v1 only; "project" is future
 
 # ---------------------------------------------------------------------------
@@ -104,6 +106,64 @@ WORKSPACE_ACTIVITY_SCHEMA: dict = {
             "description": "TDEI API environment (prod, stage, or dev). Required.",
         },
         "time_window": TIME_WINDOW_SCHEMA,
+        # New in v1.1 — optional in JSON Schema; loader enforces required for 1.1.
+        "quest_definition_url": {
+            "type": "string",
+            "description": (
+                "Raw URL of the upstream asr-quests quest definition file."
+                " Written by capture-quests; report runs read only the"
+                " committed quest-definition.json cache."
+            ),
+        },
+        "quest_definition_retrieval_date": {
+            "type": "string",
+            "description": (
+                "UTC ISO 8601 datetime when capture-quests last refreshed"
+                " the committed quest-definition.json cache."
+                " Set automatically; never set manually."
+            ),
+        },
+    },
+}
+
+
+# ---------------------------------------------------------------------------
+# v1.1 optional top-level objects
+# ---------------------------------------------------------------------------
+
+REPORT_SCHEMA: dict = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Report page title; defaults to event name.",
+        },
+        "subtitle": {
+            "type": "string",
+            "description": (
+                "Report subtitle; defaults to '<date> · <activity label>'."
+            ),
+        },
+    },
+}
+
+SHOWCASE_PHOTO_SCHEMA: dict = {
+    "type": "object",
+    "required": ["src"],
+    "additionalProperties": False,
+    "properties": {
+        "src": {
+            "type": "string",
+            "description": (
+                "URL or path relative to the event directory."
+                " Relative paths are resolved and validated at load time."
+            ),
+        },
+        "caption": {
+            "type": "string",
+            "description": "Optional caption displayed beneath the photo.",
+        },
     },
 }
 
@@ -121,7 +181,7 @@ EVENT_CONFIG_SCHEMA: dict = {
     "properties": {
         "schema_version": {
             "type": "string",
-            "enum": list(SUPPORTED_SCHEMA_VERSIONS),
+            "enum": sorted(SUPPORTED_SCHEMA_VERSIONS),
         },
         "type": {
             "type": "string",
@@ -143,6 +203,13 @@ EVENT_CONFIG_SCHEMA: dict = {
             "type": "array",
             "minItems": 1,
             "items": ACTIVITY_SCHEMA,
+        },
+        # New in v1.1 — optional in both versions.
+        "report": REPORT_SCHEMA,
+        "showcase_photos": {
+            "type": "array",
+            "items": SHOWCASE_PHOTO_SCHEMA,
+            "description": "Participant photos shown in the report hero strip.",
         },
     },
 }

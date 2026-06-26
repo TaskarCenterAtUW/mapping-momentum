@@ -5,6 +5,13 @@ Validation is intentionally strict: every detected problem raises a
 ``ConfigError`` with a human-readable description.  The caller should
 catch ``ConfigError`` and surface it to the user before doing any work.
 
+*path* may be either an ``event.json`` file or an event directory; in
+the latter case ``event.json`` is resolved automatically from the directory.
+The returned dict is augmented with a ``_event_dir`` key (a
+``pathlib.Path``) pointing to the event directory so callers can locate
+sibling assets (``quest-definition.json``, ``showcase/`` photos, etc.)
+without re-parsing the path.
+
 Validation layers (applied in order):
   1. JSON Schema structural validation (jsonschema).
   2. Slug-safety of ``event.id`` and each ``activity.id``.
@@ -15,6 +22,12 @@ Validation layers (applied in order):
   7. Presence of the expected credential environment variable for every
      ``workspace`` activity (``MM_TDEI_API_KEY_PROD``, ``MM_TDEI_API_KEY_STAGE``,
      or ``MM_TDEI_API_KEY_DEV`` depending on the activity's ``environment``).
+  8. ``quest_definition_url`` is present and non-empty on every
+     ``workspace`` activity.
+  9. ``quest_definition_retrieval_date``, when present, is a valid
+     UTC ISO 8601 timestamp.
+  10. ``showcase_photos`` relative ``src`` paths exist on disk (resolved
+      against the event directory).
 """
 
 from __future__ import annotations
@@ -67,9 +80,11 @@ def _parse_utc_timestamp(value: str, field_path: str) -> datetime:
     try:
         dt = datetime.fromisoformat(normalised)
     except ValueError:
-        raise ConfigError(f"{field_path}: {value!r} is not a valid ISO 8601 timestamp")
+        raise ConfigError(
+            f"{field_path}: {value!r} is not a valid ISO 8601 timestamp")
     if dt.tzinfo is None or dt.utcoffset() != timedelta(0):
-        raise ConfigError(f"{field_path}: timestamp must be in UTC (got {value!r})")
+        raise ConfigError(
+            f"{field_path}: timestamp must be in UTC (got {value!r})")
     return dt
 
 
@@ -79,26 +94,48 @@ def _parse_utc_timestamp(value: str, field_path: str) -> datetime:
 
 
 def load_event_config(path: str | Path) -> dict[str, Any]:
-    """Load and validate an event config file at *path*.
+    """Load and validate an event config from *path*.
 
-    Returns the validated config dict on success.
+    *path* may be:
+
+    - A path to an ``event.json`` file (existing behaviour).
+    - A path to an event directory; ``event.json`` is resolved inside it.
+
+    Returns the validated config dict augmented with ``_event_dir``
+    (a ``pathlib.Path`` to the event directory).  ``_event_dir`` is a
+    loader-only key not present in the on-disk JSON; do not serialise it.
+
     Raises ``ConfigError`` on any validation failure.
-    Raises ``FileNotFoundError`` if the file does not exist.
+    Raises ``FileNotFoundError`` if the path or resolved file does not exist.
     Raises ``json.JSONDecodeError`` if the file is not valid JSON.
     """
     path = Path(path)
 
-    with path.open(encoding="utf-8") as fh:
+    if path.is_dir():
+        event_dir = path
+        json_path = event_dir / "event.json"
+        if not json_path.exists():
+            raise FileNotFoundError(
+                f"No event.json found in event directory: {event_dir}"
+            )
+    elif path.is_file():
+        event_dir = path.parent
+        json_path = path
+    else:
+        raise FileNotFoundError(f"Config path does not exist: {path}")
+
+    with json_path.open(encoding="utf-8") as fh:
         try:
             config = json.load(fh)
         except json.JSONDecodeError as exc:
             raise json.JSONDecodeError(
-                f"Config file {path} is not valid JSON: {exc.msg}",
+                f"Config file {json_path} is not valid JSON: {exc.msg}",
                 exc.doc,
                 exc.pos,
             ) from exc
 
-    _validate_event_config(config)
+    _validate_event_config(config, event_dir)
+    config["_event_dir"] = event_dir
     return config
 
 
@@ -107,7 +144,7 @@ def load_event_config(path: str | Path) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def _validate_event_config(config: dict[str, Any]) -> None:
+def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
     """Run all validation layers on a parsed event config dict."""
 
     # --- Layer 1: JSON Schema ---
@@ -116,7 +153,8 @@ def _validate_event_config(config: dict[str, Any]) -> None:
     except jsonschema.ValidationError as exc:
         # Surface the most relevant part of the jsonschema error message.
         path_str = " -> ".join(str(p) for p in exc.absolute_path) or "(root)"
-        raise ConfigError(f"Schema validation failed at {path_str}: {exc.message}")
+        raise ConfigError(
+            f"Schema validation failed at {path_str}: {exc.message}")
 
     # --- Layer 2: Slug safety ---
     event_id: str = config["id"]
@@ -130,13 +168,19 @@ def _validate_event_config(config: dict[str, Any]) -> None:
     # --- Layer 3: Event date format ---
     date_val: str = config["date"]
     if not _DATE_RE.match(date_val):
-        raise ConfigError(f"event.date {date_val!r} must be in YYYY-MM-DD format")
+        raise ConfigError(
+            f"event.date {date_val!r} must be in YYYY-MM-DD format")
     try:
         datetime.strptime(date_val, "%Y-%m-%d")
     except ValueError:
-        raise ConfigError(f"event.date {date_val!r} is not a valid calendar date")
+        raise ConfigError(
+            f"event.date {date_val!r} is not a valid calendar date")
 
-    # --- Layers 4-7: Per-activity validation ---
+    # --- Layer 10: showcase_photos path validation ---
+    if "showcase_photos" in config:
+        _validate_showcase_photos(config["showcase_photos"], event_dir)
+
+    # --- Layers 4-9: Per-activity validation ---
     seen_ids: set[str] = set()
     for idx, activity in enumerate(config.get("activities", [])):
         prefix = f"activities[{idx}]"
@@ -158,12 +202,14 @@ def _validate_event_config(config: dict[str, Any]) -> None:
             )
         seen_ids.add(act_id)
 
-        # Layers 4 & 5: timestamp validation for workspace activities
+        # Layers 4, 5, 7, 8, 9: timestamp + credential validation
         if activity.get("type") == "workspace":
             _validate_workspace_activity(activity, prefix)
 
 
-def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
+def _validate_workspace_activity(
+    activity: dict[str, Any], prefix: str
+) -> None:
     """Validate workspace-specific fields for one activity."""
     tw = activity["time_window"]
     start = _parse_utc_timestamp(tw["start"], f"{prefix}.time_window.start")
@@ -188,3 +234,33 @@ def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
             f"{prefix}: required environment variable {env_var!r} is not set. "
             f"Set it to the TDEI API key for the {environment!r} environment."
         )
+
+    # Layer 8: quest_definition_url required
+    url = activity.get("quest_definition_url", "")
+    if not url:
+        raise ConfigError(
+            f"{prefix}.quest_definition_url is required"
+        )
+
+    # Layer 9: quest_definition_retrieval_date must be UTC ISO 8601 if present
+    retrieval_date = activity.get("quest_definition_retrieval_date")
+    if retrieval_date is not None:
+        _parse_utc_timestamp(
+            retrieval_date, f"{prefix}.quest_definition_retrieval_date"
+        )
+
+
+def _validate_showcase_photos(photos: list, event_dir: Path) -> None:
+    """Validate each showcase photo entry and check relative paths exist."""
+    for i, photo in enumerate(photos):
+        src: str = photo.get("src", "")
+        if not src:
+            raise ConfigError(f"showcase_photos[{i}].src must not be empty")
+        if not (src.startswith("http://") or src.startswith("https://")):
+            # Relative path — resolve against the event directory
+            resolved = event_dir / src
+            if not resolved.exists():
+                raise ConfigError(
+                    f"showcase_photos[{i}].src {src!r} does not exist "
+                    f"(resolved to {resolved})"
+                )

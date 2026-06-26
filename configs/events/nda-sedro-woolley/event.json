@@ -1,8 +1,8 @@
 {
-    "schema_version": "1.0",
+    "schema_version": "1.1",
     "type": "event",
     "id": "nda-sedro-woolley",
-    "name": "NDA Sedro-Woolley",
+    "name": "NDA Sedro-Woolley Walk/Roll",
     "date": "2026-02-23",
     "activities": [
         {
@@ -12,6 +12,7 @@
             "project_group_id": "f57bdb7b-a424-44f2-a261-4b91e134dde7",
             "workspace_id": 1210,
             "environment": "prod",
+            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Sedro-Woolley/NDA%20Sedro-Woolley%20Walk%20Roll.json",
             "time_window": {
                 "start": "2026-02-23T15:00:00Z",
                 "end": "2026-02-24T00:00:00Z"

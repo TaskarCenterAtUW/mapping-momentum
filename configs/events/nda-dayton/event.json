@@ -1,8 +1,8 @@
 {
-    "schema_version": "1.0",
+    "schema_version": "1.1",
     "type": "event",
     "id": "nda-dayton",
-    "name": "NDA Dayton",
+    "name": "NDA Dayton Walk/Roll",
     "date": "0000-00-00",
     "activities": [
         {
@@ -12,6 +12,7 @@
             "project_group_id": "0a731ba6-7067-41eb-8e04-c56f0b984fa3",
             "workspace_id": 1380,
             "environment": "prod",
+            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Dayton/NDA%20Dayton%20Walk%20Roll.json",
             "time_window": {
                 "start": "0000-00-00T00:00:00Z",
                 "end": "0000-00-00T00:00:00Z"

@@ -1,10 +1,13 @@
 {
-    "_comment": "Copy this file and rename it to <event-id>.json. Remove this _comment field before use.",
-    "schema_version": "1.0",
+    "_comment": "Copy this directory and rename it to <event-id>. Remove this _comment field before use.",
+    "schema_version": "1.1",
     "type": "event",
     "id": "your-event-id",
     "name": "Your Event Name",
     "date": "YYYY-MM-DD",
+    "report": {
+        "title": "Your Event Name — Contribution Report"
+    },
     "activities": [
         {
             "id": "walkabout",
@@ -13,6 +16,7 @@
             "project_group_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
             "workspace_id": 0,
             "environment": "prod",
+            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/YOUR-PROJECT/YOUR-QUEST.json",
             "time_window": {
                 "start": "YYYY-MM-DDTHH:MM:SSZ",
                 "end": "YYYY-MM-DDTHH:MM:SSZ"

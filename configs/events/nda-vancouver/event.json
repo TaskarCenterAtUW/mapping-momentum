@@ -1,9 +1,12 @@
 {
-    "schema_version": "1.0",
+    "schema_version": "1.1",
     "type": "event",
     "id": "nda-vancouver",
-    "name": "NDA Vancouver",
+    "name": "NDA Vancouver Walk/Roll",
     "date": "2026-01-20",
+    "report": {
+        "title": "NDA Vancouver Walk/Roll — Contribution Report"
+    },
     "activities": [
         {
             "id": "walkabout",
@@ -12,6 +15,7 @@
             "project_group_id": "832c0df9-1950-4c72-ac25-232c7752beb0",
             "workspace_id": 931,
             "environment": "prod",
+            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Vancouver/NDA%20Vancouver%20Walk%20Roll.json",
             "time_window": {
                 "start": "2026-01-20T18:00:00Z",
                 "end": "2026-01-21T04:00:00Z"
