@@ -37,9 +37,7 @@ from collections import defaultdict
 from typing import Callable
 
 # Registry: source_type → list of compute functions registered for that source.
-_REGISTRY: dict[str, list[Callable[..., dict[str, int | float]]]] = defaultdict(
-    list
-)
+_REGISTRY: dict[str, list[Callable[..., dict[str, int | float]]]] = defaultdict(list)
 
 
 def register(

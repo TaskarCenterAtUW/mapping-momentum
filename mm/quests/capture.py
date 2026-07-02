@@ -98,6 +98,4 @@ def stamp_retrieval_date(
             activity["quest_definition_retrieval_date"] = retrieval_date
             write_json(event_json_path, config)
             return
-    raise KeyError(
-        f"no activity with id {activity_id!r} found in {event_json_path}"
-    )
+    raise KeyError(f"no activity with id {activity_id!r} found in {event_json_path}")

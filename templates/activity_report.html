@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" crossorigin="anonymous">
+  <style>
+    /* --- Base --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { font-family: system-ui, -apple-system, sans-serif; color: #212529; background: #f8f9fa; line-height: 1.5; }
+    img { max-width: 100%; display: block; }
+    a { color: #0d6efd; }
+
+    /* --- Skip link (K4) --- */
+    .skip-link {
+      position: absolute; top: -40px; left: 0; padding: 8px 16px;
+      background: #212529; color: #fff; text-decoration: none; z-index: 9999;
+      border-radius: 0 0 4px 0;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* --- Screen-reader only --- */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+    }
+
+    /* --- Layout --- */
+    .page-header { background: #fff; border-bottom: 1px solid #dee2e6; padding: 1.25rem 1.5rem 1rem; }
+    .page-header h1 { font-size: clamp(1.25rem, 3vw, 1.875rem); font-weight: 700; }
+    .report-subtitle { color: #6c757d; font-size: 0.9375rem; margin-top: 0.25rem; }
+    main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+    /* --- Showcase (C3) --- */
+    .showcase { margin-bottom: 1.5rem; }
+    .showcase-list { list-style: none; display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 4px; }
+    .showcase-list li { flex: 0 0 auto; }
+    .showcase-btn {
+      border: none; background: none; padding: 0; cursor: pointer;
+      border-radius: 6px; overflow: hidden; display: block;
+    }
+    .showcase-btn:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+    .showcase-img { width: 180px; height: 120px; object-fit: cover; }
+
+    /* --- Activity header (C2) --- */
+    .activity-header { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+    .activity-header h2 { font-size: 1.25rem; font-weight: 700; }
+    .badge {
+      display: inline-block; padding: 0.2em 0.65em; border-radius: 999px;
+      font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
+      background: #e9ecef; color: #495057;
+    }
+
+    /* --- Map (C4-C8) --- */
+    .map-wrapper {
+      position: relative; margin-bottom: 1.5rem;
+      border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;
+    }
+    #map { height: 460px; width: 100%; }
+    .map-wrapper.map-expanded { position: fixed; inset: 0; z-index: 1000; border-radius: 0; }
+    .map-wrapper.map-expanded #map { height: 100%; }
+    #btn-expand {
+      position: absolute; top: 8px; right: 8px; z-index: 10;
+      background: rgba(255,255,255,0.9); border: 1px solid #ccc; border-radius: 4px;
+      width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    #btn-expand:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+    #btn-expand svg { fill: #212529; }
+
+    /* MapLibre popup customization */
+    .maplibregl-popup-content {
+      padding: 0; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-height: 420px; overflow-y: auto;
+      min-width: 260px; max-width: 340px;
+    }
+    .mm-popup { font-size: 0.8125rem; }
+    .mm-popup-header {
+      padding: 0.5rem 0.75rem 0.375rem; background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .mm-popup-kind {
+      font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; color: #fff;
+    }
+    .mm-popup-kind--quest { background: #0d6efd; }
+    .mm-popup-kind--create { background: #198754; }
+    .mm-popup-kind--note { background: #6c757d; }
+    .mm-popup-category { font-weight: 600; color: #212529; }
+    .mm-popup-pager {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem;
+      background: #fff; border-bottom: 1px solid #dee2e6; font-size: 0.8125rem;
+    }
+    .mm-popup-pager-pos { flex: 1; text-align: center; color: #6c757d; font-size: 0.75rem; }
+    .mm-popup-nav {
+      border: 1px solid #dee2e6; background: #fff; border-radius: 4px;
+      width: 24px; height: 24px; cursor: pointer; font-size: 0.875rem; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mm-popup-nav:disabled { opacity: 0.4; cursor: default; }
+    .mm-popup-nav:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-meta { padding: 0.375rem 0.75rem; color: #6c757d; font-size: 0.75rem; }
+    .mm-popup-toggle-row { display: flex; gap: 4px; padding: 0.375rem 0.75rem; }
+    .mm-popup-view-btn {
+      border: 1px solid #dee2e6; background: #fff; border-radius: 4px;
+      padding: 2px 10px; cursor: pointer; font-size: 0.75rem;
+    }
+    .mm-popup-view-btn[aria-pressed="true"] {
+      background: #0d6efd; color: #fff; border-color: #0d6efd;
+    }
+    .mm-popup-view-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-tags { padding: 0 0.75rem 0.5rem; }
+    .mm-popup-tags dl { display: grid; grid-template-columns: minmax(100px,1fr) 1.5fr; gap: 2px 6px; }
+    .mm-popup-tags dt { font-weight: 500; color: #495057; word-break: break-all; font-size: 0.75rem; }
+    .mm-popup-tags dd { color: #212529; word-break: break-all; }
+    .mm-popup-diff-old { text-decoration: line-through; color: #dc3545; }
+    .mm-popup-diff-new { color: #198754; }
+    .mm-popup-note-text { padding: 0.375rem 0.75rem 0.5rem; font-style: italic; color: #495057; }
+    .mm-popup-photos { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 0.75rem 0.5rem; }
+    .mm-popup-photo-btn {
+      border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
+    }
+    .mm-popup-photo-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-photo-thumb { width: 64px; height: 64px; object-fit: cover; }
+    .mm-no-data-popup { padding: 0.5rem 0.75rem; color: #6c757d; }
+
+    /* Marker elements */
+    .mm-marker {
+      width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.7);
+      cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+    }
+    .mm-marker--note {
+      border-radius: 3px; /* square for notes — shape provides non-color distinction (V2) */
+    }
+    .mm-marker:focus-visible { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px rgba(0,0,0,0.4); }
+
+    /* --- Cards (C10-C12) --- */
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .card {
+      background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem;
+    }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .card-header h3 {
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #6c757d;
+    }
+    .card-count {
+      font-size: 0.8125rem; font-weight: 700; background: #e9ecef;
+      color: #495057; padding: 1px 8px; border-radius: 999px;
+    }
+    .chart-wrapper { position: relative; }
+    .no-data { color: #6c757d; font-size: 0.875rem; padding: 0.5rem 0; }
+
+    /* --- Questions Answered (C13) --- */
+    .questions-section { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .questions-section .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .questions-section .section-header h3 {
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #6c757d;
+    }
+    .cat-details { border-bottom: 1px solid #f0f0f0; }
+    .cat-details:last-child { border-bottom: none; }
+    .cat-summary {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.625rem 0.25rem; cursor: pointer; list-style: none; font-weight: 600;
+    }
+    .cat-summary::-webkit-details-marker { display: none; }
+    .cat-summary::before { content: "▶"; font-size: 0.625rem; color: #6c757d; margin-right: 0.5rem; transition: transform 0.15s; }
+    .cat-details[open] > .cat-summary::before { transform: rotate(90deg); }
+    .cat-summary:focus-visible { outline: 2px solid #0d6efd; border-radius: 3px; }
+    .cat-name { flex: 1; }
+    .cat-total { font-size: 0.8125rem; color: #6c757d; font-weight: 400; }
+    .cat-questions { padding: 0 0 0.25rem 1rem; }
+    .q-details { border-top: 1px solid #f4f4f4; }
+    .q-summary {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.25rem;
+      cursor: pointer; font-size: 0.9rem; list-style: none;
+    }
+    .q-summary::-webkit-details-marker { display: none; }
+    .q-summary::before { content: "▶"; font-size: 0.5625rem; color: #aaa; transition: transform 0.15s; }
+    .q-details[open] > .q-summary::before { transform: rotate(90deg); }
+    .q-summary:focus-visible { outline: 2px solid #0d6efd; border-radius: 3px; }
+    .q-label { flex: 1; }
+    .q-count { font-size: 0.8125rem; color: #6c757d; white-space: nowrap; }
+    .q-body { padding: 0 0 0.5rem 1rem; }
+    .choices-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-bottom: 0.5rem; }
+    .choices-table th { text-align: left; color: #6c757d; font-weight: 600; font-size: 0.75rem; padding: 4px 8px 4px 0; border-bottom: 1px solid #dee2e6; }
+    .choices-table td { padding: 4px 8px 4px 0; vertical-align: top; }
+    .q-gallery { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.375rem; }
+    .q-gallery-btn {
+      border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
+    }
+    .q-gallery-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .q-gallery-thumb { width: 56px; height: 56px; object-fit: cover; }
+
+    /* --- Photo modal (C14) --- */
+    #photo-modal {
+      border: none; border-radius: 10px; padding: 0; background: #000;
+      max-width: min(92vw, 900px); max-height: 90vh; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+    #photo-modal::backdrop { background: rgba(0,0,0,0.75); }
+    .modal-inner {
+      display: grid; grid-template-columns: 40px 1fr 40px; grid-template-rows: 1fr auto 40px;
+      width: 100%; height: 100%;
+    }
+    .modal-img-wrap { grid-column: 1/-1; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    #modal-img { max-width: 100%; max-height: calc(90vh - 80px); object-fit: contain; border-radius: 6px; }
+    #modal-caption {
+      grid-column: 1/-1; text-align: center; color: #ccc; font-size: 0.875rem;
+      padding: 0.375rem 1rem;
+    }
+    .modal-prev-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    .modal-next-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    .modal-close-wrap {
+      grid-column: 1/-1; display: flex; align-items: center; justify-content: flex-end;
+      padding: 0.5rem;
+    }
+    .modal-btn {
+      border: none; background: rgba(255,255,255,0.15); color: #fff;
+      border-radius: 6px; cursor: pointer; width: 32px; height: 32px;
+      font-size: 1.25rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-btn:hover { background: rgba(255,255,255,0.25); }
+    .modal-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .modal-btn:disabled { opacity: 0.3; cursor: default; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="page-header" role="banner">
+    <h1>{{ title }}</h1>
+    <p class="report-subtitle">{{ subtitle }}</p>
+  </header>
+
+  <main id="main-content">
+
+    {# C3: Showcase strip — only if showcase photos exist #}
+    {% if stats.showcase_photos %}
+    <section class="showcase" aria-label="Event showcase photos">
+      <ul class="showcase-list" role="list">
+        {% for photo in stats.showcase_photos %}
+        <li>
+          <button type="button" class="showcase-btn"
+                  aria-label="View photo{% if photo.caption %}: {{ photo.caption }}{% endif %}"
+                  data-gallery-index="{{ loop.index0 }}">
+            <img src="{{ photo.src }}"
+                 alt="{{ photo.caption if photo.caption else 'Event photo ' ~ loop.index }}"
+                 class="showcase-img" loading="lazy">
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <section aria-labelledby="activity-heading">
+
+      {# C2: Activity heading + badges #}
+      <div class="activity-header">
+        <h2 id="activity-heading">{{ activity_label }}</h2>
+        <span class="badge">{{ stats.changeset_count or 0 }} changesets</span>
+        <span class="badge">{{ stats.note_count or 0 }} notes</span>
+      </div>
+
+      {# C4-C8: MapLibre map #}
+      <div class="map-wrapper" id="map-wrapper">
+        <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <button type="button" id="btn-expand" aria-label="Expand map to full screen" aria-expanded="false">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M1.5 1h4v1.5H3v2.5H1.5V1zm9 0H15v4h-1.5V2.5H11V1zm-9 9H3v2.5h2.5V14h-4v-4zm11.5 2.5H11V14h4v-4h-1.5v2.5z"/>
+          </svg>
+        </button>
+      </div>
+
+      {# C10-C12: Cards grid #}
+      <div class="cards-grid">
+
+        {# C10: Quest Types #}
+        <section class="card" aria-labelledby="qt-heading">
+          <div class="card-header">
+            <h3 id="qt-heading">Quest Types</h3>
+            <span class="card-count">{{ stats.quest_type_breakdown | sum(attribute='count') if stats.quest_type_breakdown else 0 }}</span>
+          </div>
+          {% if stats.quest_type_breakdown %}
+          <div class="chart-wrapper" style="height:{{ [stats.quest_type_breakdown | length * 32, 80] | max }}px">
+            <canvas id="chart-qt"
+                    role="img"
+                    aria-label="Quest types: {% for e in stats.quest_type_breakdown %}{{ e.category or 'unknown' }} {{ e.count }}{% if not loop.last %}, {% endif %}{% endfor %}">
+            </canvas>
+          </div>
+          <table class="sr-only">
+            <caption>Quest types breakdown</caption>
+            <thead><tr><th>Category</th><th>Count</th><th>Photos</th></tr></thead>
+            <tbody>
+              {% for e in stats.quest_type_breakdown %}
+              <tr><td>{{ e.category or '(unknown)' }}</td><td>{{ e.count }}</td><td>{{ e.photo_count or '—' }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="no-data">No data</p>
+          {% endif %}
+        </section>
+
+        {# C11: Features Created #}
+        <section class="card" aria-labelledby="fc-heading">
+          <div class="card-header">
+            <h3 id="fc-heading">Features Created</h3>
+            <span class="card-count">{{ stats.features_created | sum(attribute='count') if stats.features_created else 0 }}</span>
+          </div>
+          {% if stats.features_created %}
+          <div class="chart-wrapper" style="height:{{ [stats.features_created | length * 32, 60] | max }}px">
+            <canvas id="chart-fc"
+                    role="img"
+                    aria-label="Features created: {% for e in stats.features_created %}{{ e.feature_type }} {{ e.count }}{% if not loop.last %}, {% endif %}{% endfor %}">
+            </canvas>
+          </div>
+          <table class="sr-only">
+            <caption>Features created by type</caption>
+            <thead><tr><th>Type</th><th>Count</th></tr></thead>
+            <tbody>
+              {% for e in stats.features_created %}
+              <tr><td>{{ e.feature_type }}</td><td>{{ e.count }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="no-data">No data</p>
+          {% endif %}
+        </section>
+
+        {# C12: Contributors #}
+        <section class="card" aria-labelledby="cb-heading">
+          <div class="card-header">
+            <h3 id="cb-heading">Contributors</h3>
+            <span class="card-count">{{ stats.contributors_breakdown | length if stats.contributors_breakdown else 0 }}</span>
+          </div>
+          {% if stats.contributors_breakdown %}
+          <div class="chart-wrapper" style="height:{{ [stats.contributors_breakdown | length * 32, 80] | max }}px">
+            <canvas id="chart-cb"
+                    role="img"
+                    aria-label="Contributors: {% for e in stats.contributors_breakdown %}{{ e.user }} {{ e.count }}{% if not loop.last %}, {% endif %}{% endfor %}">
+            </canvas>
+          </div>
+          <table class="sr-only">
+            <caption>Contributors breakdown</caption>
+            <thead><tr><th>User</th><th>Count</th><th>Photos</th></tr></thead>
+            <tbody>
+              {% for e in stats.contributors_breakdown %}
+              <tr><td>{{ e.user }}</td><td>{{ e.count }}</td><td>{{ e.photo_count or '—' }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="no-data">No data</p>
+          {% endif %}
+        </section>
+
+      </div>{# /cards-grid #}
+
+      {# C13: Questions Answered #}
+      {% if stats.questions_answered %}
+      {% set qa_total = stats.questions_answered | sum(attribute='total') %}
+      <section class="questions-section" aria-labelledby="qa-heading">
+        <div class="section-header">
+          <h3 id="qa-heading">Questions Answered</h3>
+          <span class="card-count">{{ qa_total }} total</span>
+        </div>
+        {% for cat in stats.questions_answered %}
+        <details class="cat-details">
+          <summary class="cat-summary">
+            <span class="cat-name">{{ cat.category }}</span>
+            <span class="cat-total">{{ cat.total }} answers</span>
+          </summary>
+          <div class="cat-questions">
+            {% for q in cat.questions %}
+            <details class="q-details">
+              <summary class="q-summary">
+                <span class="q-label">{{ q.label }}</span>
+                <span class="q-count">{{ q.times_answered }}&times;</span>
+              </summary>
+              <div class="q-body">
+                {% if q.choices %}
+                <table class="choices-table">
+                  <caption class="sr-only">Choice distribution: {{ q.label }}</caption>
+                  <thead>
+                    <tr><th scope="col">Answer</th><th scope="col">Count</th></tr>
+                  </thead>
+                  <tbody>
+                    {% for choice in q.choices %}
+                    <tr>
+                      <td>{{ choice.label }}</td>
+                      <td>{{ choice.count }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% endif %}
+                {# C9: per-question KartaView gallery (populated by JS) #}
+                <div class="q-gallery" data-tag="{{ q.tag }}"></div>
+              </div>
+            </details>
+            {% endfor %}
+          </div>
+        </details>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+    </section>{# /activity section #}
+  </main>
+
+  {# C14: Photo gallery modal — uses native <dialog> for built-in focus trap + Escape key (K3) #}
+  <dialog id="photo-modal" aria-label="Photo gallery">
+    <div class="modal-inner">
+      <div class="modal-close-wrap">
+        <button type="button" id="modal-close" class="modal-btn" aria-label="Close photo gallery">&times;</button>
+      </div>
+      <div class="modal-img-wrap">
+        <img id="modal-img" src="" alt="" class="">
+      </div>
+      <figcaption id="modal-caption" class="" role="status"></figcaption>
+      <div class="modal-prev-wrap">
+        <button type="button" id="modal-prev" class="modal-btn" aria-label="Previous photo">&#8249;</button>
+      </div>
+      <div style="grid-column:2;grid-row:3;display:flex;align-items:center;justify-content:center;">
+        <span id="modal-pos" aria-live="polite" class="sr-only"></span>
+      </div>
+      <div class="modal-next-wrap">
+        <button type="button" id="modal-next" class="modal-btn" aria-label="Next photo">&#8250;</button>
+      </div>
+    </div>
+  </dialog>
+
+  {# Inline stats as JSON — _safe_json escapes <, >, & to prevent XSS via tag injection #}
+  <script>const STATS = {{ stats_json | safe }};</script>
+
+  {# CDN dependencies — report degrades gracefully if either fails to load #}
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // -------------------------------------------------------------------------
+    // Category colour palette (C5/C10) — must match plan.md §3
+    // -------------------------------------------------------------------------
+    const PALETTE = {
+      'Sidewalks':     '#0d6efd',
+      'Crossings':     '#fd7e14',
+      'Bus Stops':     '#198754',
+      'Curbs':         '#dc3545',
+      'Intersections': '#6f42c1',
+      'Street Lamps':  '#ffc107',
+    };
+
+    function categoryColor(cat) {
+      if (PALETTE[cat]) return PALETTE[cat];
+      // Deterministic fallback — stable across runs for the same string (V2, C10)
+      if (!cat) return '#6c757d';
+      let h = 0;
+      for (let i = 0; i < cat.length; i++) h = ((h * 31) + cat.charCodeAt(i)) | 0;
+      return 'hsl(' + (Math.abs(h) % 360) + ',55%,42%)';
+    }
+
+    // -------------------------------------------------------------------------
+    // HTML escaping helper (used in JS-generated popup HTML)
+    // -------------------------------------------------------------------------
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // -------------------------------------------------------------------------
+    // MAP (C4-C8) — only initialise if MapLibre loaded successfully
+    // -------------------------------------------------------------------------
+    var map, activeGeomLayerId = null;
+
+    if (typeof maplibregl !== 'undefined') {
+      // Compute map centre from markers bounding box
+      var markers = STATS.markers || [];
+      var mapCenter = [-98.35, 39.50], mapZoom = 3;
+      if (markers.length > 0) {
+        var lons = markers.map(function(m){ return m.lon; });
+        var lats = markers.map(function(m){ return m.lat; });
+        mapCenter = [
+          (Math.min.apply(null,lons) + Math.max.apply(null,lons)) / 2,
+          (Math.min.apply(null,lats) + Math.max.apply(null,lats)) / 2
+        ];
+        mapZoom = 14;
+      }
+
+      map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://tiles.openfreemap.org/styles/liberty',
+        center: mapCenter,
+        zoom: mapZoom,
+        attributionControl: true,
+      });
+
+      map.addControl(new maplibregl.NavigationControl(), 'top-left');
+
+      map.on('load', function () {
+        markers.forEach(function (m) {
+          var el = document.createElement('div');
+          el.className = 'mm-marker mm-marker--' + m.kind;
+          el.style.background = m.kind === 'note' ? '#6c757d' : categoryColor(m.category);
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'button');
+          el.setAttribute('aria-label',
+            (m.kind === 'note' ? 'Note' : (m.category || m.kind)) +
+            ' by ' + (m.versions.length > 0 ? m.versions[m.versions.length-1].user : (m.user || 'unknown'))
+          );
+
+          var popup = new maplibregl.Popup({ closeButton: true, maxWidth: '360px', offset: 8 });
+
+          function openMarkerPopup() {
+            removeGeomLayer();
+            popup.setLngLat([m.lon, m.lat]).setHTML(buildPopupHTML(m, 0)).addTo(map);
+            attachPopupListeners(popup, m);
+            if (m.geom && m.geom.length > 1) addGeomLayer(m.geom);
+          }
+
+          el.addEventListener('click', openMarkerPopup);
+          el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMarkerPopup(); }
+          });
+          popup.on('close', removeGeomLayer);
+
+          new maplibregl.Marker({ element: el })
+            .setLngLat([m.lon, m.lat])
+            .addTo(map);
+        });
+      });
+    }
+
+    // Build popup HTML for a marker at a given version index.
+    // Elements without changeset version history (notes are never
+    // changeset-versioned — see mm.sources.workspace.parse_notes) fall back
+    // to a synthetic single "version" built from the marker's own
+    // user/timestamp/tags/readable/photos so their author, timestamp, and
+    // note text are still rendered rather than silently dropped.
+    function buildPopupHTML(m, vIdx) {
+      var versions = m.versions || [];
+      var v = versions.length > 0 ? versions[vIdx] : (m.user ? {
+        action: 'note',
+        user: m.user,
+        timestamp: m.timestamp || '',
+        tags: m.tags || {},
+        readable: {},
+        photos: m.photos || []
+      } : null);
+      var html = '<div class="mm-popup">';
+
+      // Header — kind badge + category
+      html += '<div class="mm-popup-header">';
+      html += '<span class="mm-popup-kind mm-popup-kind--' + m.kind + '">' + esc(m.kind) + '</span>';
+      if (m.category) html += ' <span class="mm-popup-category">' + esc(m.category) + '</span>';
+      html += '</div>';
+
+      // Version pager (C6)
+      if (versions.length > 1) {
+        html += '<div class="mm-popup-pager" role="group" aria-label="Version history">';
+        html += '<button type="button" class="mm-popup-nav" data-dir="prev" aria-label="Older version"' + (vIdx === 0 ? ' disabled' : '') + '>&#8249;</button>';
+        html += '<span class="mm-popup-pager-pos">' + (vIdx + 1) + '\u202f/\u202f' + versions.length + '</span>';
+        html += '<button type="button" class="mm-popup-nav" data-dir="next" aria-label="Newer version"' + (vIdx === versions.length - 1 ? ' disabled' : '') + '>&#8250;</button>';
+        html += '</div>';
+      }
+
+      if (v) {
+        // User / timestamp / action
+        html += '<div class="mm-popup-meta">' +
+          esc(v.user) + ' &middot; ' +
+          esc((v.timestamp || '').replace('T',' ').replace('Z',' UTC')) + ' &middot; ' +
+          '<em>' + esc(v.action) + '</em>' +
+          '</div>';
+
+        var readableKeys = Object.keys(m.readable || {});
+        if (readableKeys.length > 0) {
+          // Quest ⇆ Tags toggle (C7)
+          html += '<div class="mm-popup-toggle-row" role="group" aria-label="View toggle">';
+          html += '<button type="button" class="mm-popup-view-btn" data-view="quest" aria-pressed="true">Quest</button>';
+          html += '<button type="button" class="mm-popup-view-btn" data-view="tags" aria-pressed="false">Tags</button>';
+          html += '</div>';
+
+          // Quest view — readable diff for this version (C7)
+          html += '<div class="mm-popup-tags mm-popup-tags--quest">';
+          var diff = v.readable || {};
+          var diffKeys = Object.keys(diff);
+          if (diffKeys.length > 0) {
+            html += '<dl>';
+            diffKeys.forEach(function (k) {
+              var entry = diff[k];
+              html += '<dt>' + esc(k) + '</dt>';
+              if (entry.old !== null && entry.old !== undefined)
+                html += '<dd class="mm-popup-diff-old">' + esc(String(entry.old)) + '</dd>';
+              if (entry.new !== null && entry.new !== undefined)
+                html += '<dd class="mm-popup-diff-new">' + esc(String(entry.new)) + '</dd>';
+            });
+            html += '</dl>';
+          } else {
+            // No diff for this version — show current readable state
+            html += '<dl>';
+            readableKeys.forEach(function (k) {
+              html += '<dt>' + esc(k) + '</dt><dd>' + esc(String(m.readable[k])) + '</dd>';
+            });
+            html += '</dl>';
+          }
+          html += '</div>';
+
+          // Tags view — raw key/values (C7)
+          var rawTags = v.tags || {};
+          var rawKeys = Object.keys(rawTags);
+          html += '<div class="mm-popup-tags mm-popup-tags--raw" hidden>';
+          if (rawKeys.length > 0) {
+            html += '<dl>';
+            rawKeys.forEach(function (k) {
+              html += '<dt>' + esc(k) + '</dt><dd>' + esc(rawTags[k]) + '</dd>';
+            });
+            html += '</dl>';
+          } else {
+            html += '<p class="mm-no-data-popup">No tags</p>';
+          }
+          html += '</div>';
+
+        } else {
+          // No quest tags — show raw tags only
+          var rawTags2 = v.tags || {};
+          var rawKeys2 = Object.keys(rawTags2);
+          if (rawKeys2.length > 0) {
+            html += '<div class="mm-popup-tags"><dl>';
+            rawKeys2.forEach(function (k) {
+              html += '<dt>' + esc(k) + '</dt><dd>' + esc(rawTags2[k]) + '</dd>';
+            });
+            html += '</dl></div>';
+          }
+        }
+
+        // Note body
+        if (m.kind === 'note' && m.text) {
+          html += '<p class="mm-popup-note-text">' + esc(m.text) + '</p>';
+        }
+
+        // Per-version KartaView photos (C9)
+        var vPhotos = v.photos || [];
+        if (vPhotos.length > 0) {
+          html += '<div class="mm-popup-photos">';
+          vPhotos.forEach(function (url, idx) {
+            html += '<button type="button" class="mm-popup-photo-btn"' +
+              ' data-photo-url="' + esc(url) + '"' +
+              ' aria-label="View photo ' + (idx + 1) + '">' +
+              '<img src="' + esc(url) + '" alt="" class="mm-popup-photo-thumb" loading="lazy">' +
+              '</button>';
+          });
+          html += '</div>';
+        }
+      } else {
+        html += '<p class="mm-no-data-popup">No version data</p>';
+      }
+
+      html += '</div>'; // .mm-popup
+      return html;
+    }
+
+    // Attach click listeners to popup content after it renders
+    function attachPopupListeners(popup, m) {
+      // Use a short delay to ensure the DOM has rendered
+      setTimeout(function () {
+        var el = popup.getElement();
+        if (!el) return;
+        el.addEventListener('click', function (e) {
+          // Version navigation
+          var navBtn = e.target.closest('.mm-popup-nav');
+          if (navBtn) {
+            var posEl = el.querySelector('.mm-popup-pager-pos');
+            if (!posEl) return;
+            var parts = posEl.textContent.split('/');
+            var cur = parseInt(parts[0].trim(), 10) - 1;
+            var dir = navBtn.dataset.dir;
+            var newIdx = dir === 'prev' ? cur - 1 : cur + 1;
+            if (newIdx < 0 || newIdx >= (m.versions || []).length) return;
+            popup.setHTML(buildPopupHTML(m, newIdx));
+            attachPopupListeners(popup, m);
+            return;
+          }
+          // Quest ⇆ Tags toggle
+          var viewBtn = e.target.closest('.mm-popup-view-btn');
+          if (viewBtn) {
+            var view = viewBtn.dataset.view;
+            el.querySelectorAll('.mm-popup-view-btn').forEach(function (b) {
+              b.setAttribute('aria-pressed', b.dataset.view === view ? 'true' : 'false');
+            });
+            var questDiv = el.querySelector('.mm-popup-tags--quest');
+            var rawDiv   = el.querySelector('.mm-popup-tags--raw');
+            if (questDiv) questDiv.hidden = (view === 'tags');
+            if (rawDiv)   rawDiv.hidden   = (view === 'quest');
+            return;
+          }
+          // Photo button
+          var photoBtn = e.target.closest('.mm-popup-photo-btn');
+          if (photoBtn) {
+            var url = photoBtn.dataset.photoUrl;
+            openModal([{ src: url, caption: '' }], 0, photoBtn);
+          }
+        });
+      }, 0);
+    }
+
+    // Way geometry highlight (C8)
+    function addGeomLayer(geom) {
+      if (!map) return;
+      var coords = geom.map(function (p) { return [p[1], p[0]]; }); // [lon, lat]
+      var id = 'mm-active-way';
+      activeGeomLayerId = id;
+      if (map.getLayer(id)) map.removeLayer(id);
+      if (map.getSource(id)) map.removeSource(id);
+      map.addSource(id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
+      map.addLayer({ id: id, type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#e040fb', 'line-width': 4, 'line-opacity': 0.85 } });
+    }
+
+    function removeGeomLayer() {
+      if (!map || !activeGeomLayerId) return;
+      if (map.getLayer(activeGeomLayerId)) map.removeLayer(activeGeomLayerId);
+      if (map.getSource(activeGeomLayerId)) map.removeSource(activeGeomLayerId);
+      activeGeomLayerId = null;
+    }
+
+    // Map expand/collapse (accessible button)
+    var btnExpand = document.getElementById('btn-expand');
+    btnExpand.addEventListener('click', function () {
+      var wrapper = document.getElementById('map-wrapper');
+      var expanded = wrapper.classList.toggle('map-expanded');
+      btnExpand.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btnExpand.setAttribute('aria-label', expanded ? 'Collapse map' : 'Expand map to full screen');
+      if (map) map.resize();
+    });
+
+    // -------------------------------------------------------------------------
+    // CHARTS (C10-C12) — only initialise if Chart.js loaded successfully
+    // -------------------------------------------------------------------------
+    if (typeof Chart !== 'undefined') {
+      function hBarOptions(barMax) {
+        return {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { return ' ' + ctx.raw; } } } },
+          scales: {
+            x: { beginAtZero: true, max: barMax ? Math.ceil(barMax * 1.15) : undefined, grid: { display: false }, ticks: { display: false } },
+            y: { grid: { display: false }, ticks: { font: { size: 12 } } }
+          }
+        };
+      }
+
+      // C10: Quest Types
+      var qtEl = document.getElementById('chart-qt');
+      var qt = STATS.quest_type_breakdown || [];
+      if (qtEl && qt.length) {
+        new Chart(qtEl, {
+          type: 'bar',
+          data: {
+            labels: qt.map(function (e) { return e.category || '(unknown)'; }),
+            datasets: [{ data: qt.map(function (e) { return e.count; }), backgroundColor: qt.map(function (e) { return categoryColor(e.category); }), borderWidth: 0 }]
+          },
+          options: hBarOptions(Math.max.apply(null, qt.map(function (e) { return e.count; })))
+        });
+      }
+
+      // C11: Features Created
+      var fcEl = document.getElementById('chart-fc');
+      var fc = STATS.features_created || [];
+      if (fcEl && fc.length) {
+        new Chart(fcEl, {
+          type: 'bar',
+          data: {
+            labels: fc.map(function (e) { return e.feature_type; }),
+            datasets: [{ data: fc.map(function (e) { return e.count; }), backgroundColor: '#0d6efd', borderWidth: 0 }]
+          },
+          options: hBarOptions(Math.max.apply(null, fc.map(function (e) { return e.count; })))
+        });
+      }
+
+      // C12: Contributors
+      var cbEl = document.getElementById('chart-cb');
+      var cb = STATS.contributors_breakdown || [];
+      if (cbEl && cb.length) {
+        new Chart(cbEl, {
+          type: 'bar',
+          data: {
+            labels: cb.map(function (e) { return e.user; }),
+            datasets: [{ data: cb.map(function (e) { return e.count; }), backgroundColor: '#dc3545', borderWidth: 0 }]
+          },
+          options: hBarOptions(Math.max.apply(null, cb.map(function (e) { return e.count; })))
+        });
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // QUESTIONS ANSWERED — per-question photo galleries (C9)
+    // -------------------------------------------------------------------------
+    // Build an index: tag → [photo URLs] from all markers that have that tag
+    var questionPhotoIndex = {};
+    (STATS.markers || []).forEach(function (m) {
+      if (m.kind === 'note') return;
+      var readable = m.readable || {};
+      Object.keys(readable).forEach(function (tag) {
+        if (m.photos && m.photos.length > 0) {
+          if (!questionPhotoIndex[tag]) questionPhotoIndex[tag] = [];
+          m.photos.forEach(function (url) {
+            if (questionPhotoIndex[tag].indexOf(url) === -1) questionPhotoIndex[tag].push(url);
+          });
+        }
+      });
+    });
+
+    document.querySelectorAll('.q-gallery[data-tag]').forEach(function (galleryEl) {
+      var tag = galleryEl.dataset.tag;
+      var photos = questionPhotoIndex[tag] || [];
+      photos.forEach(function (url, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'q-gallery-btn';
+        btn.setAttribute('aria-label', 'View photo ' + (idx + 1));
+        btn.dataset.photoUrl = url;
+        btn.addEventListener('click', function () {
+          openModal(photos.map(function (u) { return { src: u, caption: '' }; }), idx, btn);
+        });
+        var img = document.createElement('img');
+        img.src = url;
+        img.alt = '';
+        img.className = 'q-gallery-thumb';
+        img.loading = 'lazy';
+        btn.appendChild(img);
+        galleryEl.appendChild(btn);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // SHOWCASE (C3) — open modal on click
+    // -------------------------------------------------------------------------
+    var showcasePhotos = (STATS.showcase_photos || []).map(function (p) {
+      return { src: p.src, caption: p.caption || '' };
+    });
+    document.querySelectorAll('.showcase-btn[data-gallery-index]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.dataset.galleryIndex, 10);
+        openModal(showcasePhotos, idx, btn);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // PHOTO MODAL (C14) — native <dialog> for focus trap + Escape key (K3/K7)
+    // -------------------------------------------------------------------------
+    var photoModal   = document.getElementById('photo-modal');
+    var modalImg     = document.getElementById('modal-img');
+    var modalCaption = document.getElementById('modal-caption');
+    var modalPos     = document.getElementById('modal-pos');
+    var modalPrev    = document.getElementById('modal-prev');
+    var modalNext    = document.getElementById('modal-next');
+    var modalClose   = document.getElementById('modal-close');
+
+    var modalPhotos  = [];
+    var modalIdx     = 0;
+    var modalTrigger = null;
+
+    function openModal(photos, idx, trigger) {
+      if (!photos || photos.length === 0) return;
+      modalPhotos  = photos;
+      modalIdx     = idx;
+      modalTrigger = trigger || null;
+      updateModalPhoto();
+      photoModal.showModal();
+      modalClose.focus(); // focus the close button (K7)
+    }
+
+    function updateModalPhoto() {
+      var p = modalPhotos[modalIdx];
+      modalImg.src = p.src;
+      modalImg.alt = p.caption || ('Photo ' + (modalIdx + 1) + ' of ' + modalPhotos.length);
+      modalCaption.textContent = p.caption || '';
+      modalPos.textContent = (modalIdx + 1) + ' of ' + modalPhotos.length;
+      modalPrev.disabled = (modalIdx === 0);
+      modalNext.disabled = (modalIdx === modalPhotos.length - 1);
+    }
+
+    // Return focus to the triggering element when the dialog closes (K7)
+    photoModal.addEventListener('close', function () {
+      if (modalTrigger && typeof modalTrigger.focus === 'function') modalTrigger.focus();
+    });
+
+    modalClose.addEventListener('click', function () { photoModal.close(); });
+    modalPrev.addEventListener('click', function () { if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } });
+    modalNext.addEventListener('click', function () { if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } });
+
+    // Keyboard navigation within the modal
+    photoModal.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp')  { e.preventDefault(); if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } }
+    });
+
+  }());
+  </script>
+</body>
+</html>

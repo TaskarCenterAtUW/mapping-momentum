@@ -141,9 +141,7 @@ def build_lookups(raw: dict[str, Any]) -> QuestDefinition:
         If ``raw`` lacks the top-level ``"elements"`` list.
     """
     if "elements" not in raw:
-        raise ValueError(
-            "quest definition is missing the top-level 'elements' list"
-        )
+        raise ValueError("quest definition is missing the top-level 'elements' list")
 
     tag_to_title: dict[str, str] = {}
     tag_value_to_label: dict[str, dict[str, str]] = {}

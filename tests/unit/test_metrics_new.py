@@ -380,14 +380,12 @@ def test_features_created_groups_by_type() -> None:
 def test_features_created_count_correct() -> None:
     result = features_mod.compute(_ELEMENTS)
     by_type = {e["feature_type"]: e for e in result["features_created"]}
-    assert by_type["way"]["count"] == 1   # elem 3
+    assert by_type["way"]["count"] == 1  # elem 3
     assert by_type["node"]["count"] == 1  # elem 6
 
 
 def test_features_created_sorted_descending() -> None:
-    elements = [
-        _elem(id_=i, kind="create", type_="node") for i in range(5)
-    ] + [
+    elements = [_elem(id_=i, kind="create", type_="node") for i in range(5)] + [
         _elem(id_=10 + i, kind="create", type_="way") for i in range(2)
     ]
     result = features_mod.compute(elements)
@@ -477,8 +475,7 @@ def test_questions_answered_choices_from_readable() -> None:
     ]
     result = questions_mod.compute(elements)
     by_cat = {e["category"]: e for e in result["questions_answered"]}
-    choices = {c["value"]: c for c in by_cat["Kerbs"]
-               ["questions"][0]["choices"]}
+    choices = {c["value"]: c for c in by_cat["Kerbs"]["questions"][0]["choices"]}
     assert choices["lowered"]["label"] == "Ramp"
 
 

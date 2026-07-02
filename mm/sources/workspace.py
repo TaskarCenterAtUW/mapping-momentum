@@ -80,8 +80,7 @@ def _base_url(env: str) -> str:
     except KeyError:
         known = ", ".join(sorted(_BASE_URLS))
         raise ValueError(
-            f"Unknown workspace environment {env!r}. "
-            f"Expected one of: {known}"
+            f"Unknown workspace environment {env!r}. Expected one of: {known}"
         )
 
 
@@ -94,9 +93,7 @@ def _parse_utc(value: str) -> datetime:
     normalised = value.replace("Z", "+00:00")
     dt = datetime.fromisoformat(normalised)
     if dt.utcoffset() != timedelta(0):
-        raise ValueError(
-            f"Timestamp {value!r} is not UTC"
-        )
+        raise ValueError(f"Timestamp {value!r} is not UTC")
     return dt
 
 
@@ -132,9 +129,7 @@ def fetch_bbox(env: str, workspace_id: int, api_key: str) -> BBox:
         If the API response is missing expected bbox fields.
     """
     url = f"{_base_url(env)}/api/v1/workspace/bbox"
-    data: dict[str, Any] = fetch_json(
-        url, headers=_api_headers(api_key, workspace_id)
-    )
+    data: dict[str, Any] = fetch_json(url, headers=_api_headers(api_key, workspace_id))
     try:
         return (
             float(data["minLon"]),
@@ -247,9 +242,7 @@ def parse_osm_xml(xml_bytes: bytes) -> list[Element]:
 
         elif tag == "way":
             entry["nodes"] = [
-                int(child.attrib["ref"])
-                for child in elem
-                if child.tag == "nd"
+                int(child.attrib["ref"]) for child in elem if child.tag == "nd"
             ]
 
         elements.append(entry)
@@ -288,7 +281,7 @@ def filter_by_time(
     for elem in elements:
         try:
             ts = _parse_utc(elem["timestamp"])
-        except (KeyError, ValueError):
+        except KeyError, ValueError:
             continue
         if t_start <= ts < t_end:
             result.append(elem)
@@ -366,9 +359,7 @@ def _decode_tag_value(quest_def: Any, tag: str, value: str | None) -> str | None
     return choices.get(value, value)
 
 
-def _build_readable_current(
-    tags: dict[str, str], quest_def: Any
-) -> dict[str, str]:
+def _build_readable_current(tags: dict[str, str], quest_def: Any) -> dict[str, str]:
     """Return decoded current quest tags: ``{tag_key: decoded_label}``.
 
     Only tags that appear in the quest definition's ``tag_to_title`` are
@@ -398,9 +389,7 @@ def _build_readable_diff(
     if quest_def is None:
         return {}
     quest_tags = {
-        t
-        for t in old_tags.keys() | new_tags.keys()
-        if t in quest_def.tag_to_title
+        t for t in old_tags.keys() | new_tags.keys() if t in quest_def.tag_to_title
     }
     result: dict[str, Any] = {}
     for tag in quest_tags:
@@ -459,10 +448,7 @@ def fetch_changesets(
     """
     t_start_str = _to_utc_str(window_start)
     t_end_str = _to_utc_str(window_end)
-    url = (
-        f"{_base_url(env)}/{_CHANGESETS_PATH}"
-        f"?t_start={t_start_str}&t_end={t_end_str}"
-    )
+    url = f"{_base_url(env)}/{_CHANGESETS_PATH}?t_start={t_start_str}&t_end={t_end_str}"
     return fetch_json(url, headers=_api_headers(api_key, workspace_id))
 
 
@@ -568,9 +554,7 @@ def parse_osmchange(xml_bytes: bytes) -> list[tuple[str, Element]]:
                     entry["lon"] = float(attrib["lon"])
             elif tag == "way":
                 entry["nodes"] = [
-                    int(child.attrib["ref"])
-                    for child in elem
-                    if child.tag == "nd"
+                    int(child.attrib["ref"]) for child in elem if child.tag == "nd"
                 ]
 
             results.append((action, entry))
@@ -616,15 +600,14 @@ def build_version_histories(
         # Sort by timestamp ascending; fall back to stable order on ties
         try:
             group.sort(key=lambda t: _parse_utc(t[1]["timestamp"]))
-        except (KeyError, ValueError):
+        except KeyError, ValueError:
             pass  # preserve insertion order if timestamps are unparseable
 
         versions: list[Version] = []
         prev_tags: dict[str, str] = {}
         for action, elem in group:
             current_tags = elem.get("tags", {})
-            readable_diff = _build_readable_diff(
-                prev_tags, current_tags, quest_def)
+            readable_diff = _build_readable_diff(prev_tags, current_tags, quest_def)
             photos = extract_photos(current_tags)
             versions.append(
                 Version(

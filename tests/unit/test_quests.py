@@ -48,8 +48,7 @@ from mm.quests.capture import capture_quest_definition, stamp_retrieval_date
 # Shared fixtures / helpers
 # ---------------------------------------------------------------------------
 
-_FIXTURE_PATH = Path(__file__).parent / "fixtures" / \
-    "quest-definition-sample.json"
+_FIXTURE_PATH = Path(__file__).parent / "fixtures" / "quest-definition-sample.json"
 
 _SAMPLE_RAW: dict[str, Any] = {
     "version": "3.0.0",
@@ -152,7 +151,10 @@ def test_build_lookups_tag_to_title_text_entry_present() -> None:
     """TextEntry quests must appear in tag_to_title."""
     qd = build_lookups(_SAMPLE_RAW)
     assert "ext:sidewalk_navigation_hazards_text" in qd.tag_to_title
-    assert qd.tag_to_title["ext:sidewalk_navigation_hazards_text"] == "Describe the hazards"
+    assert (
+        qd.tag_to_title["ext:sidewalk_navigation_hazards_text"]
+        == "Describe the hazards"
+    )
 
 
 def test_build_lookups_all_tags_present() -> None:
@@ -244,7 +246,9 @@ def test_build_lookups_quest_missing_tag_is_skipped() -> None:
                         "quest_title": "No tag quest",
                         "quest_type": "ExclusiveChoice",
                         # no quest_tag field
-                        "quest_answer_choices": [{"value": "yes", "choice_text": "Yes"}],
+                        "quest_answer_choices": [
+                            {"value": "yes", "choice_text": "Yes"}
+                        ],
                     }
                 ],
             }
@@ -361,6 +365,7 @@ def test_capture_returns_utc_timestamp(tmp_path: Path) -> None:
 
     # Must match YYYY-MM-DDTHH:MM:SSZ
     import re
+
     assert re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", ts)
 
 

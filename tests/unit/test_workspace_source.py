@@ -297,9 +297,7 @@ def test_fetch_bbox_returns_tuple() -> None:
 
 def test_fetch_bbox_missing_field_raises() -> None:
     # Response is missing maxLat.
-    body = json.dumps(
-        {"minLon": -122.5, "minLat": 49.0, "maxLon": -122.4}
-    ).encode()
+    body = json.dumps({"minLon": -122.5, "minLat": 49.0, "maxLon": -122.4}).encode()
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
         with pytest.raises(ValueError, match="missing expected fields"):
             fetch_bbox("prod", 931, "test-key")
@@ -309,7 +307,11 @@ def test_fetch_bbox_http_error_propagates() -> None:
     from mm.common.http import HTTPError
 
     http_exc = urllib.error.HTTPError(
-        url="http://x", code=401, msg="Unauthorized", hdrs=None, fp=None  # type: ignore[arg-type]
+        url="http://x",
+        code=401,
+        msg="Unauthorized",
+        hdrs=None,
+        fp=None,  # type: ignore[arg-type]
     )
     with patch("urllib.request.urlopen", side_effect=http_exc):
         with pytest.raises(HTTPError, match="401"):
@@ -351,7 +353,11 @@ def test_fetch_osm_xml_http_error_propagates() -> None:
     from mm.common.http import HTTPError
 
     http_exc = urllib.error.HTTPError(
-        url="http://x", code=403, msg="Forbidden", hdrs=None, fp=None  # type: ignore[arg-type]
+        url="http://x",
+        code=403,
+        msg="Forbidden",
+        hdrs=None,
+        fp=None,  # type: ignore[arg-type]
     )
     with patch("urllib.request.urlopen", side_effect=http_exc):
         with pytest.raises(HTTPError, match="403"):

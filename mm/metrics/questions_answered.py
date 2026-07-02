@@ -107,8 +107,7 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
             tag_data["times_answered"] += 1
 
             if raw_value not in tag_data["choices"]:
-                tag_data["choices"][raw_value] = {
-                    "label": decoded_label, "count": 0}
+                tag_data["choices"][raw_value] = {"label": decoded_label, "count": 0}
             tag_data["choices"][raw_value]["count"] += 1
 
     result = []
@@ -119,8 +118,7 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
         for tag in sorted(tags_data):
             td = tags_data[tag]
             label = (
-                quest_def.tag_to_title.get(
-                    tag, tag) if quest_def is not None else tag
+                quest_def.tag_to_title.get(tag, tag) if quest_def is not None else tag
             )
             choices = [
                 {"value": v, "label": info["label"], "count": info["count"]}
@@ -134,7 +132,6 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
                     "choices": choices,
                 }
             )
-        result.append(
-            {"category": category, "total": total, "questions": questions})
+        result.append({"category": category, "total": total, "questions": questions})
 
     return {"questions_answered": result}

@@ -36,6 +36,19 @@ def _build_parser() -> argparse.ArgumentParser:
         metavar="PATH",
         help="Root directory for generated output (default: local-output/).",
     )
+    event_parser.add_argument(
+        "--render-from-stats",
+        metavar="PATH",
+        help=(
+            "Render index.html from an existing stats.json without fetching "
+            "live data.  Useful for re-rendering after template changes."
+        ),
+    )
+    event_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print stats to stdout without writing any files.",
+    )
 
     # --- capture-quests subcommand ---
     cq_parser = subparsers.add_parser(
@@ -77,9 +90,12 @@ def run_cli(argv: list[str] | None = None) -> int:
 def _cmd_event(args: argparse.Namespace) -> int:
     """Handle the ``event`` subcommand.
 
-    Validates the config; the full pipeline (fetch → metrics → render) will be
-    implemented in later slices.  For now, a successful load prints a summary
-    and exits cleanly.
+    When ``--render-from-stats`` is given, renders index.html from an existing
+    stats.json without any network calls (useful for testing the template).
+
+    Otherwise the full pipeline would run (fetch → enrich → metrics → render),
+    but that path requires confirmed live API endpoints and is gated behind
+    Slice F.  For now, a config-only validation run prints a summary.
     """
     from mm.config.loader import ConfigError, load_event_config
 
@@ -94,10 +110,59 @@ def _cmd_event(args: argparse.Namespace) -> int:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 
-    event_id = config["id"]
+    event_id: str = config["id"]
+    output_dir = Path(getattr(args, "output_dir", "local-output"))
+
+    # --render-from-stats: re-render HTML from an existing stats.json
+    render_from = getattr(args, "render_from_stats", None)
+    if render_from:
+        return _render_from_stats(config, Path(render_from), output_dir, event_id)
+
+    # Validate and summarise without fetching live data
     activity_ids = [a["id"] for a in config["activities"]]
     print(f"Loaded event {event_id!r} with activities: {activity_ids}")
-    print("Pipeline not yet implemented — later slices pending.")
+    print("Live data fetch not yet wired (pending Slice F / confirmed endpoints).")
+    return 0
+
+
+def _render_from_stats(
+    config: dict,
+    stats_path: Path,
+    output_dir: Path,
+    event_id: str,
+) -> int:
+    """Render index.html from an existing stats.json file.
+
+    Reads the stats.json at *stats_path*, finds the matching activity config,
+    and renders the HTML report to the standard output path.
+    """
+    from mm.common.io import read_json
+    from mm.outputs.html_report import render_report, write_report
+
+    if not stats_path.exists():
+        print(f"error: stats.json not found: {stats_path}", file=sys.stderr)
+        return 1
+
+    try:
+        stats: dict = read_json(stats_path)
+    except Exception as exc:
+        print(f"error: could not read {stats_path}: {exc}", file=sys.stderr)
+        return 1
+
+    activity_id: str = stats.get("activity_id", "")
+    # Find matching activity config
+    activity = next(
+        (a for a in config.get("activities", []) if a.get("id") == activity_id),
+        None,
+    )
+    if activity is None:
+        # Fall back to first activity if activity_id doesn't match
+        activities = config.get("activities", [])
+        activity = activities[0] if activities else {}
+
+    html = render_report(stats, config, activity)
+    dest = write_report(html, output_dir, event_id, activity_id or "activity")
+    print(f"Report written to {dest}")
     return 0
 
 

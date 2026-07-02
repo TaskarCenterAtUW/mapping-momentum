@@ -14,10 +14,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-_USER_AGENT = (
-    "mapping-momentum/1.0 "
-    "(github.com/taskarcenteratuw/mapping-momentum)"
-)
+_USER_AGENT = "mapping-momentum/1.0 (github.com/taskarcenteratuw/mapping-momentum)"
 
 
 class HTTPError(OSError):
@@ -57,13 +54,9 @@ def fetch_bytes(
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return resp.read()  # type: ignore[no-any-return]
     except urllib.error.HTTPError as exc:
-        raise HTTPError(
-            f"HTTP {exc.code} from {url}: {exc.reason}"
-        ) from exc
+        raise HTTPError(f"HTTP {exc.code} from {url}: {exc.reason}") from exc
     except urllib.error.URLError as exc:
-        raise HTTPError(
-            f"Request failed for {url}: {exc.reason}"
-        ) from exc
+        raise HTTPError(f"Request failed for {url}: {exc.reason}") from exc
 
 
 def fetch_json(

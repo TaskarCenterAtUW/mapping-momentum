@@ -456,7 +456,10 @@ def test_v1_1_quest_definition_url_non_empty_accepted(tmp_path: Path) -> None:
     config["activities"][0]["quest_definition_url"] = "https://example.com/quest.json"
     p = _write_config(tmp_path, config)
     loaded = load_event_config(p)
-    assert loaded["activities"][0]["quest_definition_url"] == "https://example.com/quest.json"
+    assert (
+        loaded["activities"][0]["quest_definition_url"]
+        == "https://example.com/quest.json"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -469,12 +472,17 @@ def test_quest_definition_retrieval_date_valid_utc(tmp_path: Path) -> None:
     config["activities"][0]["quest_definition_retrieval_date"] = "2026-06-26T14:32:00Z"
     p = _write_config(tmp_path, config)
     loaded = load_event_config(p)
-    assert loaded["activities"][0]["quest_definition_retrieval_date"] == "2026-06-26T14:32:00Z"
+    assert (
+        loaded["activities"][0]["quest_definition_retrieval_date"]
+        == "2026-06-26T14:32:00Z"
+    )
 
 
 def test_quest_definition_retrieval_date_non_utc_raises(tmp_path: Path) -> None:
     config = _base_config()
-    config["activities"][0]["quest_definition_retrieval_date"] = "2026-06-26T14:32:00+05:00"
+    config["activities"][0]["quest_definition_retrieval_date"] = (
+        "2026-06-26T14:32:00+05:00"
+    )
     p = _write_config(tmp_path, config)
     with pytest.raises(ConfigError):
         load_event_config(p)
@@ -533,7 +541,8 @@ def test_report_absent_accepted(tmp_path: Path) -> None:
 def test_showcase_photos_url_src_accepted(tmp_path: Path) -> None:
     config = _base_config()
     config["showcase_photos"] = [
-        {"src": "https://example.com/photo.jpg", "caption": "A photo"}]
+        {"src": "https://example.com/photo.jpg", "caption": "A photo"}
+    ]
     p = _write_config(tmp_path, config)
     loaded = load_event_config(p)
     assert loaded["showcase_photos"][0]["src"] == "https://example.com/photo.jpg"
@@ -553,8 +562,7 @@ def test_showcase_photos_relative_src_existing_file_accepted(tmp_path: Path) -> 
     showcase_dir.mkdir()
     (showcase_dir / "001.jpg").write_bytes(b"fake-image")
     config = _base_config()
-    config["showcase_photos"] = [
-        {"src": "showcase/001.jpg", "caption": "Volunteers"}]
+    config["showcase_photos"] = [{"src": "showcase/001.jpg", "caption": "Volunteers"}]
     (event_dir / "event.json").write_text(json.dumps(config), encoding="utf-8")
     loaded = load_event_config(event_dir)
     assert loaded["showcase_photos"][0]["src"] == "showcase/001.jpg"

@@ -40,7 +40,7 @@ Pytest configuration lives in [pyproject.toml](pyproject.toml), so there is no s
 Run the unit tests with:
 
 ```powershell
-python -m pytest tests/unit/test_config_loader.py
+python -m pytest
 ```
 
 ## Run The CLI
@@ -49,7 +49,7 @@ The packaged console script is `mapping-momentum`.
 
 ```powershell
 $env:MM_TDEI_API_KEY_PROD = 'test-api-key'
-mapping-momentum event --config configs/events/nda-vancouver.json
+mapping-momentum event --config configs/events/nda-vancouver/event.json
 ```
 
 The CLI currently validates and loads the config. The fetch, metrics, and report-rendering pipeline will be added in later slices.

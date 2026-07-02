@@ -80,11 +80,9 @@ def _parse_utc_timestamp(value: str, field_path: str) -> datetime:
     try:
         dt = datetime.fromisoformat(normalised)
     except ValueError:
-        raise ConfigError(
-            f"{field_path}: {value!r} is not a valid ISO 8601 timestamp")
+        raise ConfigError(f"{field_path}: {value!r} is not a valid ISO 8601 timestamp")
     if dt.tzinfo is None or dt.utcoffset() != timedelta(0):
-        raise ConfigError(
-            f"{field_path}: timestamp must be in UTC (got {value!r})")
+        raise ConfigError(f"{field_path}: timestamp must be in UTC (got {value!r})")
     return dt
 
 
@@ -153,8 +151,7 @@ def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
     except jsonschema.ValidationError as exc:
         # Surface the most relevant part of the jsonschema error message.
         path_str = " -> ".join(str(p) for p in exc.absolute_path) or "(root)"
-        raise ConfigError(
-            f"Schema validation failed at {path_str}: {exc.message}")
+        raise ConfigError(f"Schema validation failed at {path_str}: {exc.message}")
 
     # --- Layer 2: Slug safety ---
     event_id: str = config["id"]
@@ -168,13 +165,11 @@ def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
     # --- Layer 3: Event date format ---
     date_val: str = config["date"]
     if not _DATE_RE.match(date_val):
-        raise ConfigError(
-            f"event.date {date_val!r} must be in YYYY-MM-DD format")
+        raise ConfigError(f"event.date {date_val!r} must be in YYYY-MM-DD format")
     try:
         datetime.strptime(date_val, "%Y-%m-%d")
     except ValueError:
-        raise ConfigError(
-            f"event.date {date_val!r} is not a valid calendar date")
+        raise ConfigError(f"event.date {date_val!r} is not a valid calendar date")
 
     # --- Layer 10: showcase_photos path validation ---
     if "showcase_photos" in config:
@@ -207,9 +202,7 @@ def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
             _validate_workspace_activity(activity, prefix)
 
 
-def _validate_workspace_activity(
-    activity: dict[str, Any], prefix: str
-) -> None:
+def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
     """Validate workspace-specific fields for one activity."""
     tw = activity["time_window"]
     start = _parse_utc_timestamp(tw["start"], f"{prefix}.time_window.start")
@@ -238,9 +231,7 @@ def _validate_workspace_activity(
     # Layer 8: quest_definition_url required
     url = activity.get("quest_definition_url", "")
     if not url:
-        raise ConfigError(
-            f"{prefix}.quest_definition_url is required"
-        )
+        raise ConfigError(f"{prefix}.quest_definition_url is required")
 
     # Layer 9: quest_definition_retrieval_date must be UTC ISO 8601 if present
     retrieval_date = activity.get("quest_definition_retrieval_date")

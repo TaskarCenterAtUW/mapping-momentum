@@ -313,8 +313,7 @@ def test_build_version_histories_photos_extracted() -> None:
     )
     actions = parse_osmchange(_osmchange(create_with_photo))
     histories = build_version_histories(actions)
-    assert histories[("node", 10)][0]["photos"] == [
-        "https://example.com/photo.jpg"]
+    assert histories[("node", 10)][0]["photos"] == ["https://example.com/photo.jpg"]
 
 
 def test_build_version_histories_multiple_elements() -> None:
@@ -373,8 +372,14 @@ def _make_history(actions_and_tags: list[tuple[str, dict]]) -> list[Version]:
 
 def test_enrich_elements_attaches_versions() -> None:
     node = _make_map_node()
-    hist = {("node", 1): _make_history(
-        [("create", {"ext:surface": "asphalt"}), ("modify", {"ext:surface": "concrete"})])}
+    hist = {
+        ("node", 1): _make_history(
+            [
+                ("create", {"ext:surface": "asphalt"}),
+                ("modify", {"ext:surface": "concrete"}),
+            ]
+        )
+    }
     result = enrich_elements([node], hist)
     assert len(result) == 1
     assert len(result[0]["versions"]) == 2
@@ -382,47 +387,41 @@ def test_enrich_elements_attaches_versions() -> None:
 
 def test_enrich_elements_kind_create_from_first_action() -> None:
     node = _make_map_node()
-    hist = {("node", 1): _make_history(
-        [("create", {"ext:surface": "concrete"})])}
+    hist = {("node", 1): _make_history([("create", {"ext:surface": "concrete"})])}
     result = enrich_elements([node], hist)
     assert result[0]["kind"] == "create"
 
 
 def test_enrich_elements_kind_quest_from_modify_action() -> None:
     node = _make_map_node()
-    hist = {("node", 1): _make_history(
-        [("modify", {"ext:surface": "concrete"})])}
+    hist = {("node", 1): _make_history([("modify", {"ext:surface": "concrete"})])}
     result = enrich_elements([node], hist)
     assert result[0]["kind"] == "quest"
 
 
 def test_enrich_elements_category_from_quest_def() -> None:
     node = _make_map_node(tags={"ext:surface": "concrete"})
-    hist = {("node", 1): _make_history(
-        [("modify", {"ext:surface": "concrete"})])}
+    hist = {("node", 1): _make_history([("modify", {"ext:surface": "concrete"})])}
     result = enrich_elements([node], hist, quest_def=_QUEST_DEF)
     assert result[0]["category"] == "Sidewalks"
 
 
 def test_enrich_elements_category_empty_without_quest_def() -> None:
     node = _make_map_node()
-    hist = {("node", 1): _make_history(
-        [("modify", {"ext:surface": "concrete"})])}
+    hist = {("node", 1): _make_history([("modify", {"ext:surface": "concrete"})])}
     result = enrich_elements([node], hist)
     assert result[0]["category"] == ""
 
 
 def test_enrich_elements_readable_current_state() -> None:
     node = _make_map_node(tags={"ext:surface": "concrete"})
-    hist = {("node", 1): _make_history(
-        [("modify", {"ext:surface": "concrete"})])}
+    hist = {("node", 1): _make_history([("modify", {"ext:surface": "concrete"})])}
     result = enrich_elements([node], hist, quest_def=_QUEST_DEF)
     assert result[0]["readable"] == {"ext:surface": "Concrete"}
 
 
 def test_enrich_elements_photos_from_current_tags() -> None:
-    tags = {"ext:surface": "asphalt",
-            PHOTO_TAG_KEY: "https://example.com/p.jpg"}
+    tags = {"ext:surface": "asphalt", PHOTO_TAG_KEY: "https://example.com/p.jpg"}
     node = _make_map_node(tags=tags)
     hist = {("node", 1): _make_history([("modify", tags)])}
     result = enrich_elements([node], hist)
@@ -439,7 +438,9 @@ def test_enrich_elements_geom_defaults_to_none() -> None:
 def test_enrich_elements_deleted_element_included() -> None:
     # Element in history but not in map → was deleted
     hist = {
-        ("node", 99): _make_history([("create", {"ext:surface": "asphalt"}), ("delete", {})])
+        ("node", 99): _make_history(
+            [("create", {"ext:surface": "asphalt"}), ("delete", {})]
+        )
     }
     result = enrich_elements([], hist)
     assert len(result) == 1
@@ -519,14 +520,16 @@ def test_parse_notes_standard_enriched_fields() -> None:
 
 
 def test_parse_notes_skips_missing_lat() -> None:
-    bad = [{"id": 1, "lon": -122.5, "text": "x",
-            "user": "a", "uid": 1, "timestamp": ""}]
+    bad = [
+        {"id": 1, "lon": -122.5, "text": "x", "user": "a", "uid": 1, "timestamp": ""}
+    ]
     assert parse_notes(bad) == []
 
 
 def test_parse_notes_skips_missing_text() -> None:
-    bad = [{"id": 1, "lat": 49.0, "lon": -122.5,
-            "user": "a", "uid": 1, "timestamp": ""}]
+    bad = [
+        {"id": 1, "lat": 49.0, "lon": -122.5, "user": "a", "uid": 1, "timestamp": ""}
+    ]
     assert parse_notes(bad) == []
 
 
@@ -623,8 +626,7 @@ def test_resolve_way_geometry_does_not_modify_nodes() -> None:
     node = _make_node_elem(1, 49.001, -122.501)
     elements = [node, _make_way_elem(50, [1])]
     resolve_way_geometry(elements)
-    assert "geom" not in node or node.get(
-        "geom") is None or True  # node unchanged
+    assert "geom" not in node or node.get("geom") is None or True  # node unchanged
 
 
 def test_resolve_way_geometry_modifies_in_place() -> None:
@@ -654,7 +656,8 @@ def test_extract_photos_present_returns_url() -> None:
 def test_extract_photos_custom_key() -> None:
     tags = {"my_photo": "https://example.com/img.png"}
     assert extract_photos(tags, photo_tag_key="my_photo") == [
-        "https://example.com/img.png"]
+        "https://example.com/img.png"
+    ]
 
 
 def test_extract_photos_empty_tags() -> None:
@@ -669,8 +672,9 @@ def test_extract_photos_empty_tags() -> None:
 def test_fetch_changesets_constructs_correct_url() -> None:
     t_start = datetime(2026, 1, 20, 18, 0, 0, tzinfo=UTC)
     t_end = datetime(2026, 1, 21, 4, 0, 0, tzinfo=UTC)
-    expected = [{"id": 100, "user": "alice", "uid": 10,
-                 "created_at": "2026-01-20T19:00:00Z"}]
+    expected = [
+        {"id": 100, "user": "alice", "uid": 10, "created_at": "2026-01-20T19:00:00Z"}
+    ]
 
     with _mock_fetch_json(expected) as mock_fj:
         result = fetch_changesets("prod", 931, t_start, t_end, "key123")
