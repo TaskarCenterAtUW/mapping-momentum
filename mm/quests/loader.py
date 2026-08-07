@@ -140,30 +140,84 @@ def build_lookups(raw: dict[str, Any]) -> QuestDefinition:
     ValueError
         If ``raw`` lacks the top-level ``"elements"`` list.
     """
-    if "elements" not in raw:
+    if not isinstance(raw, dict) or not isinstance(raw.get("elements"), list):
         raise ValueError("quest definition is missing the top-level 'elements' list")
 
     tag_to_title: dict[str, str] = {}
     tag_value_to_label: dict[str, dict[str, str]] = {}
     tag_to_category: dict[str, str] = {}
 
-    for element in raw["elements"]:
+    for element_index, element in enumerate(raw["elements"]):
+        if not isinstance(element, dict):
+            raise ValueError(f"elements[{element_index}] must be an object")
         category: str = element.get("element_type", "")
-        for quest in element.get("quests", []):
+        if not isinstance(category, str):
+            raise ValueError(f"elements[{element_index}].element_type must be a string")
+        quests = element.get("quests", [])
+        if not isinstance(quests, list):
+            raise ValueError(f"elements[{element_index}].quests must be a list")
+        for quest_index, quest in enumerate(quests):
+            if not isinstance(quest, dict):
+                raise ValueError(
+                    f"elements[{element_index}].quests[{quest_index}] must be an object"
+                )
             tag: str = quest.get("quest_tag", "")
             if not tag:
                 continue
+            if not isinstance(tag, str):
+                raise ValueError(
+                    f"elements[{element_index}].quests[{quest_index}].quest_tag "
+                    "must be a string"
+                )
+            title = quest.get("quest_title", "")
+            if not isinstance(title, str):
+                raise ValueError(
+                    f"elements[{element_index}].quests[{quest_index}].quest_title "
+                    "must be a string"
+                )
 
-            tag_to_title[tag] = quest.get("quest_title", "")
-            tag_to_category[tag] = category
+            # Some upstream definitions reuse generic OSM keys such as
+            # ``surface`` for different element types. Preserve each
+            # category's first definition while retaining a deterministic
+            # global lookup for decoding the shared tag.
+            is_first_definition = tag not in tag_to_title
+            if is_first_definition:
+                tag_to_title[tag] = title
+                tag_to_category[tag] = category
 
             choices = quest.get("quest_answer_choices")
-            if choices:
-                tag_value_to_label[tag] = {
-                    c["value"]: c.get("choice_text", c["value"])
-                    for c in choices
-                    if "value" in c
-                }
+            if choices is None:
+                continue
+            if not isinstance(choices, list):
+                raise ValueError(
+                    f"elements[{element_index}].quests[{quest_index}]."
+                    "quest_answer_choices must be a list"
+                )
+            labels: dict[str, str] = {}
+            for choice_index, choice in enumerate(choices):
+                if not isinstance(choice, dict) or not isinstance(
+                    choice.get("value"), str
+                ):
+                    raise ValueError(
+                        f"elements[{element_index}].quests[{quest_index}]."
+                        f"quest_answer_choices[{choice_index}] must contain a "
+                        "string value"
+                    )
+                value = choice["value"]
+                label = choice.get("choice_text", value)
+                if not isinstance(label, str):
+                    raise ValueError(
+                        f"elements[{element_index}].quests[{quest_index}]."
+                        f"quest_answer_choices[{choice_index}].choice_text must "
+                        "be a string"
+                    )
+                if value in labels:
+                    raise ValueError(
+                        f"duplicate answer value for quest {tag!r}: {value!r}"
+                    )
+                labels[value] = label
+            if labels and is_first_definition:
+                tag_value_to_label[tag] = labels
 
     return QuestDefinition(
         tag_to_title=tag_to_title,

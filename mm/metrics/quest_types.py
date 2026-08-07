@@ -41,7 +41,8 @@ def compute(elements: list[dict]) -> dict:
     Returns
     -------
     dict
-        ``{"quest_type_breakdown": [{"category": str, "count": int, "photo_count": int}, …]}``
+        ``{"quest_type_breakdown": [{"category": str, "count": int,``
+        ``"photo_count": int}, …]}``
     """
     counts: Counter[str] = Counter()
     photo_counts: Counter[str] = Counter()
@@ -59,6 +60,8 @@ def compute(elements: list[dict]) -> dict:
             "count": count,
             "photo_count": photo_counts[category],
         }
-        for category, count in counts.most_common()
+        for category, count in sorted(
+            counts.items(), key=lambda item: (-item[1], item[0])
+        )
     ]
     return {"quest_type_breakdown": breakdown}

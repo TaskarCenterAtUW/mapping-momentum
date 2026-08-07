@@ -1,6 +1,4 @@
 ---
-agent: ask
-model: gpt-4.1
 description: Convert a loosely formatted date/time/timezone into ISO 8601 UTC JSON for event configs.
 ---
 
@@ -25,7 +23,7 @@ Before producing output, reason through the following steps internally (do not o
 
 1. **Parse date**: Identify year, month, and day from the input. If the year is omitted, assume the current year.
 2. **Parse time**: Identify hours and minutes (and seconds if given). If seconds are absent, use `00`. Normalize 12-hour AM/PM to 24-hour.
-3. **Identify timezone**: Map the timezone abbreviation to a UTC offset using DST rules below.
+3. **Identify timezone**: Map the timezone abbreviation to a UTC offset using DST rules below. If a timezone was not specified in the input, immediately STOP here and respond with "Unable to parse: no timezone detected."
 4. **Convert to UTC**: Subtract the UTC offset from the local time, rolling over date/hour as needed.
 5. **Format**: Produce `YYYY-MM-DDTHH:MM:SSZ` (always UTC, always `Z` suffix, zero-padded).
 6. **Detect range vs. single**: If two times are present, produce `time_window`; if one, produce `time`.

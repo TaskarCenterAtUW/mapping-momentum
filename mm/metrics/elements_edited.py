@@ -36,5 +36,5 @@ def compute(elements: list[dict]) -> dict[str, int | float]:
     dict[str, int | float]
         ``{"elements_edited": <int>}``
     """
-    elements_edited = len(elements)
+    elements_edited = sum(1 for element in elements if element.get("kind") != "note")
     return {"elements_edited": elements_edited}

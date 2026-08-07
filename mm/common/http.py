@@ -15,6 +15,8 @@ import urllib.request
 from typing import Any
 
 _USER_AGENT = "mapping-momentum/1.0 (github.com/taskarcenteratuw/mapping-momentum)"
+_MAX_RESPONSE_BYTES = 25 * 1024 * 1024
+_READ_CHUNK_BYTES = 64 * 1024
 
 
 class HTTPError(OSError):
@@ -26,7 +28,8 @@ def fetch_bytes(
     url: str,
     *,
     headers: dict[str, str] | None = None,
-    timeout: int = 30,
+    timeout: float = 30,
+    max_bytes: int = _MAX_RESPONSE_BYTES,
 ) -> bytes:
     """Fetch the response body from *url* as raw bytes.
 
@@ -39,6 +42,9 @@ def fetch_bytes(
         set automatically.
     timeout:
         Socket timeout in seconds (default: 30).
+    max_bytes:
+        Maximum response size in bytes. Callers handling large, structured
+        API payloads may provide a higher endpoint-specific limit.
 
     Raises
     ------
@@ -52,7 +58,31 @@ def fetch_bytes(
     req = urllib.request.Request(url, headers=all_headers)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.read()  # type: ignore[no-any-return]
+            content_length = resp.headers.get("Content-Length")
+            if content_length is not None:
+                try:
+                    if int(content_length) > max_bytes:
+                        raise HTTPError(
+                            f"Response from {url} exceeds the {max_bytes} byte limit"
+                        )
+                except ValueError:
+                    # Ignore malformed advisory headers and enforce the limit
+                    # while reading the body below.
+                    pass
+
+            chunks: list[bytes] = []
+            total = 0
+            while True:
+                chunk = resp.read(_READ_CHUNK_BYTES)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > max_bytes:
+                    raise HTTPError(
+                        f"Response from {url} exceeds the {max_bytes} byte limit"
+                    )
+                chunks.append(chunk)
+            return b"".join(chunks)
     except urllib.error.HTTPError as exc:
         raise HTTPError(f"HTTP {exc.code} from {url}: {exc.reason}") from exc
     except urllib.error.URLError as exc:

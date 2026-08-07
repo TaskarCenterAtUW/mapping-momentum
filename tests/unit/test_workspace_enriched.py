@@ -56,13 +56,13 @@ fetch_changesets / fetch_changeset_xml / fetch_notes:
 
 from __future__ import annotations
 
-import json
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
+from mm.quests.loader import QuestDefinition
 from mm.sources.base import Element, Version
 from mm.sources.workspace import (
     PHOTO_TAG_KEY,
@@ -348,7 +348,6 @@ def _make_map_node(
 
 def _make_history(actions_and_tags: list[tuple[str, dict]]) -> list[Version]:
     versions = []
-    prev: dict = {}
     timestamps = [
         "2026-01-20T19:00:00Z",
         "2026-01-20T20:00:00Z",
@@ -366,7 +365,6 @@ def _make_history(actions_and_tags: list[tuple[str, dict]]) -> list[Version]:
                 photos=[],
             )
         )
-        prev = tags
     return versions
 
 
@@ -418,6 +416,18 @@ def test_enrich_elements_readable_current_state() -> None:
     hist = {("node", 1): _make_history([("modify", {"ext:surface": "concrete"})])}
     result = enrich_elements([node], hist, quest_def=_QUEST_DEF)
     assert result[0]["readable"] == {"ext:surface": "Concrete"}
+
+
+def test_enrich_elements_excludes_free_text_from_readable() -> None:
+    quest_def = QuestDefinition(
+        tag_to_title={"ext:hazard": "Describe the hazard"},
+        tag_value_to_label={},
+        tag_to_category={"ext:hazard": "Sidewalks"},
+    )
+    node = _make_map_node(tags={"ext:hazard": "Crack"})
+    hist = {("node", 1): _make_history([("modify", {"ext:hazard": "Crack"})])}
+    result = enrich_elements([node], hist, quest_def=quest_def)
+    assert result[0]["readable"] == {}
 
 
 def test_enrich_elements_photos_from_current_tags() -> None:
@@ -558,6 +568,16 @@ def test_parse_notes_window_filtering_end_exclusive() -> None:
     assert 2 not in ids  # timestamp == t_end → excluded
 
 
+def test_parse_notes_excludes_missing_timestamp_in_window() -> None:
+    raw = [{"id": 1, "lat": 1, "lon": 2, "text": "note", "user": "a", "uid": 1}]
+    result = parse_notes(
+        raw,
+        datetime(2026, 1, 1, tzinfo=UTC),
+        datetime(2026, 1, 2, tzinfo=UTC),
+    )
+    assert result == []
+
+
 def test_parse_notes_empty_input() -> None:
     assert parse_notes([]) == []
 
@@ -673,27 +693,36 @@ def test_fetch_changesets_constructs_correct_url() -> None:
     t_start = datetime(2026, 1, 20, 18, 0, 0, tzinfo=UTC)
     t_end = datetime(2026, 1, 21, 4, 0, 0, tzinfo=UTC)
     expected = [
-        {"id": 100, "user": "alice", "uid": 10, "created_at": "2026-01-20T19:00:00Z"}
+        {
+            "id": 100,
+            "user": "alice",
+            "uid": 10,
+            "created_at": "2026-01-20T19:00:00Z",
+        }
     ]
+    body = (
+        b'<osm><changeset id="100" uid="10" user="alice" '
+        b'created_at="2026-01-20T19:00:00Z"/></osm>'
+    )
 
-    with _mock_fetch_json(expected) as mock_fj:
+    with _mock_fetch_bytes(body) as mock_fb:
         result = fetch_changesets("prod", 931, t_start, t_end, "key123")
 
     assert result == expected
-    call_url = mock_fj.call_args[0][0]
-    assert "api/v1/workspace/changesets" in call_url
-    assert "t_start=2026-01-20T18:00:00Z" in call_url
-    assert "t_end=2026-01-21T04:00:00Z" in call_url
+    call_url = mock_fb.call_args[0][0]
+    assert "api/0.6/changesets" in call_url
+    assert "time=2026-01-20T18:00:00Z,2026-01-21T04:00:00Z" in call_url
 
 
 def test_fetch_changesets_sends_auth_headers() -> None:
     t_start = datetime(2026, 1, 20, 18, 0, 0, tzinfo=UTC)
     t_end = datetime(2026, 1, 21, 4, 0, 0, tzinfo=UTC)
 
-    with _mock_fetch_json([]) as mock_fj:
+    body = b"<osm/>"
+    with _mock_fetch_bytes(body) as mock_fb:
         fetch_changesets("prod", 931, t_start, t_end, "mykey")
 
-    headers = mock_fj.call_args[1]["headers"]
+    headers = mock_fb.call_args[1]["headers"]
     assert headers["Authorization"] == "mykey"
     assert headers["X-Workspace"] == "931"
 
@@ -710,7 +739,7 @@ def test_fetch_changeset_xml_constructs_correct_url() -> None:
 
     assert result == xml_bytes
     call_url = mock_fb.call_args[0][0]
-    assert "api/v1/workspace/changeset/100" in call_url
+    assert "api/0.6/changeset/100/download" in call_url
 
 
 def test_fetch_changeset_xml_sends_auth_headers() -> None:
@@ -728,24 +757,51 @@ def test_fetch_changeset_xml_sends_auth_headers() -> None:
 
 
 def test_fetch_notes_constructs_correct_url() -> None:
-    with _mock_fetch_json([]) as mock_fj:
+    bbox = {
+        "min_lon": -122.5,
+        "min_lat": 49.0,
+        "max_lon": -122.4,
+        "max_lat": 49.1,
+    }
+    with _mock_fetch_json(bbox), _mock_fetch_bytes(b"<osm/>") as mock_fb:
         fetch_notes("prod", 931, "key123")
 
-    call_url = mock_fj.call_args[0][0]
-    assert "api/v1/workspace/notes" in call_url
+    call_url = mock_fb.call_args[0][0]
+    assert "api/0.6/notes" in call_url
+    assert "bbox=-122.5,49.0,-122.4,49.1" in call_url
 
 
 def test_fetch_notes_sends_auth_headers() -> None:
-    with _mock_fetch_json([]) as mock_fj:
+    bbox = {
+        "min_lon": -122.5,
+        "min_lat": 49.0,
+        "max_lon": -122.4,
+        "max_lat": 49.1,
+    }
+    with _mock_fetch_json(bbox), _mock_fetch_bytes(b"<osm/>") as mock_fb:
         fetch_notes("prod", 931, "mykey")
 
-    headers = mock_fj.call_args[1]["headers"]
+    headers = mock_fb.call_args[1]["headers"]
     assert headers["Authorization"] == "mykey"
     assert headers["X-Workspace"] == "931"
 
 
 def test_fetch_notes_returns_list() -> None:
-    notes = [{"id": 1, "text": "x"}]
-    with _mock_fetch_json(notes):
+    bbox = {
+        "min_lon": -122.5,
+        "min_lat": 49.0,
+        "max_lon": -122.4,
+        "max_lat": 49.1,
+    }
+    notes_xml = (
+        b'<osm><note lat="49.0" lon="-122.5">'
+        b"<id>1</id>"
+        b"<date_created>2026-01-20 19:00:00 UTC</date_created>"
+        b"<comments><comment><text>x</text></comment></comments>"
+        b"</note></osm>"
+    )
+    with _mock_fetch_json(bbox), _mock_fetch_bytes(notes_xml):
         result = fetch_notes("prod", 931, "key")
-    assert result == notes
+    assert result[0]["id"] == 1
+    assert result[0]["text"] == "x"
+    assert result[0]["timestamp"] == "2026-01-20T19:00:00Z"

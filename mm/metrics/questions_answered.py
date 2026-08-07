@@ -13,14 +13,16 @@ questions_answered : list[dict]
 
         {
             "category": str,   # e.g. "Sidewalks"
-            "total":    int,   # total answer counts across all questions in this category
+            "total":    int,   # total answer counts across all questions
+                                  # in this category
             "questions": [
                 {
                     "tag":            str,        # OSM tag key, e.g. "ext:surface"
                     "label":          str,        # human-readable question title
                                                   # (falls back to tag key when no
                                                   # quest definition is available)
-                    "times_answered": int,        # elements that have a value for this tag
+                    "times_answered": int,        # elements with a value
+                                                  # for this tag
                     "choices": [
                         {
                             "value": str,   # raw OSM tag value, e.g. "asphalt"
@@ -85,7 +87,7 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
     dict
         ``{"questions_answered": [<category_entry>, …]}``
     """
-    # category → tag → {"times_answered": int, "choices": {value: {"label": str, "count": int}}}
+    # category → tag → answer counts and choice labels.
     data: dict[str, dict[str, Any]] = {}
 
     for elem in elements:

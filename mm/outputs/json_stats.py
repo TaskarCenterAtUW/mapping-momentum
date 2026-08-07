@@ -39,26 +39,30 @@ All scalar metric keys from the registered compute functions, plus::
 from __future__ import annotations
 
 import base64
+import importlib
 import inspect
 from pathlib import Path
 from typing import Any
 
-# Import all metric modules so they self-register.
-import mm.metrics.changeset_count  # noqa: F401
-import mm.metrics.contributor_count  # noqa: F401
-import mm.metrics.contributors_breakdown  # noqa: F401
-import mm.metrics.elements_edited  # noqa: F401
-import mm.metrics.features_created  # noqa: F401
-import mm.metrics.node_count  # noqa: F401
-import mm.metrics.notes  # noqa: F401
-import mm.metrics.quest_types  # noqa: F401
-import mm.metrics.questions_answered  # noqa: F401
-import mm.metrics.relation_count  # noqa: F401
-import mm.metrics.way_count  # noqa: F401
-
-from mm.common.io import write_json
+from mm.common.io import require_safe_path_component, write_json
 from mm.metrics.base import get_metrics_for_source
 from mm.sources.base import Element, SourceResult
+
+# Import all metric modules so they self-register.
+for _metric_module in (
+    "mm.metrics.changeset_count",
+    "mm.metrics.contributor_count",
+    "mm.metrics.contributors_breakdown",
+    "mm.metrics.elements_edited",
+    "mm.metrics.features_created",
+    "mm.metrics.node_count",
+    "mm.metrics.notes",
+    "mm.metrics.quest_types",
+    "mm.metrics.questions_answered",
+    "mm.metrics.relation_count",
+    "mm.metrics.way_count",
+):
+    importlib.import_module(_metric_module)
 
 
 # ---------------------------------------------------------------------------
@@ -261,6 +265,8 @@ def write_stats(
 
     Returns the path to the written file.
     """
-    dest = output_dir / "events" / event_id / activity_id / "stats.json"
+    safe_event_id = require_safe_path_component(event_id, "event_id")
+    safe_activity_id = require_safe_path_component(activity_id, "activity_id")
+    dest = output_dir / "events" / safe_event_id / safe_activity_id / "stats.json"
     write_json(dest, stats)
     return dest

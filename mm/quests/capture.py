@@ -40,7 +40,7 @@ def capture_quest_definition(url: str, dest: Path) -> str:
         ``quest_definition_url`` in the event activity config).
     dest:
         Destination file path.  Parent directories are created if absent.
-        Typically ``configs/events/<slug>/quest-definition.json``.
+        Typically ``configs/events/<slug>/quest-definitions/<activity-id>.json``.
 
     Returns
     -------
@@ -59,6 +59,12 @@ def capture_quest_definition(url: str, dest: Path) -> str:
     raw_bytes = fetch_bytes(url)
     # Validate JSON before writing — raises json.JSONDecodeError on bad input.
     definition = json.loads(raw_bytes)
+    if not isinstance(definition, dict) or not isinstance(
+        definition.get("elements"), list
+    ):
+        raise ValueError(
+            "quest definition must be a JSON object with an 'elements' list"
+        )
 
     retrieval_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 

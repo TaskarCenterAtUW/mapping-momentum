@@ -1,19 +1,25 @@
 """
 mm.cli — subcommand definitions for the Mapping Momentum CLI.
 
-Entry point: generate-stats.py (at repo root) delegates to run_cli().
+Entry point: the ``mapping-momentum`` console script delegates to ``run_cli``.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
+import os
+import shutil
 import sys
+import tempfile
 from pathlib import Path
+
+from mm.config.schema import SLUG_PATTERN
 
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="generate-stats",
+        prog="mapping-momentum",
         description="Generate statistics and HTML reports for mapping events.",
     )
     subparsers = parser.add_subparsers(dest="command", metavar="COMMAND")
@@ -30,6 +36,14 @@ def _build_parser() -> argparse.ArgumentParser:
         metavar="PATH",
         help="Path to the event directory or its event.json file.",
     )
+
+    capture_parser = subparsers.add_parser(
+        "capture",
+        help="Capture raw Workspace responses for an offline fixture.",
+    )
+    capture_parser.add_argument("--config", required=True, metavar="PATH")
+    capture_parser.add_argument("--activity-id", required=True, metavar="ID")
+    capture_parser.add_argument("--fixture-name", required=True, metavar="NAME")
     event_parser.add_argument(
         "--output-dir",
         default="local-output",
@@ -81,6 +95,8 @@ def run_cli(argv: list[str] | None = None) -> int:
         return _cmd_event(args)
     if args.command == "capture-quests":
         return _cmd_capture_quests(args)
+    if args.command == "capture":
+        return _cmd_capture(args)
 
     # Should be unreachable given subparsers.required = True, but be safe.
     parser.print_help()
@@ -93,9 +109,7 @@ def _cmd_event(args: argparse.Namespace) -> int:
     When ``--render-from-stats`` is given, renders index.html from an existing
     stats.json without any network calls (useful for testing the template).
 
-    Otherwise the full pipeline would run (fetch → enrich → metrics → render),
-    but that path requires confirmed live API endpoints and is gated behind
-    Slice F.  For now, a config-only validation run prints a summary.
+    Otherwise runs the complete fetch → enrich → metrics → render pipeline.
     """
     from mm.config.loader import ConfigError, load_event_config
 
@@ -106,7 +120,7 @@ def _cmd_event(args: argparse.Namespace) -> int:
 
     try:
         config = load_event_config(config_path)
-    except ConfigError as exc:
+    except (ConfigError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 
@@ -118,10 +132,107 @@ def _cmd_event(args: argparse.Namespace) -> int:
     if render_from:
         return _render_from_stats(config, Path(render_from), output_dir, event_id)
 
-    # Validate and summarise without fetching live data
-    activity_ids = [a["id"] for a in config["activities"]]
-    print(f"Loaded event {event_id!r} with activities: {activity_ids}")
-    print("Live data fetch not yet wired (pending Slice F / confirmed endpoints).")
+    from mm.pipeline import run_activity
+
+    try:
+        for activity in config["activities"]:
+            stats = run_activity(
+                config,
+                activity,
+                output_dir=output_dir,
+                dry_run=bool(getattr(args, "dry_run", False)),
+            )
+            if getattr(args, "dry_run", False):
+                print(json.dumps(stats, indent=2, ensure_ascii=False))
+            else:
+                print(
+                    "Report written to "
+                    f"{output_dir / 'events' / event_id / activity['id']}"
+                )
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+    return 0
+
+
+def _cmd_capture(args: argparse.Namespace) -> int:
+    """Capture raw map, changeset, and notes payloads for an offline fixture."""
+    from mm.common.io import write_json
+    from mm.config.loader import ConfigError, load_event_config
+    from mm.config.schema import ENV_CREDENTIAL_VAR
+    from mm.pipeline import parse_window
+    from mm.sources.workspace import (
+        fetch_bbox,
+        fetch_changeset_xml,
+        fetch_changesets,
+        fetch_notes,
+        fetch_osm_xml,
+    )
+
+    try:
+        config = load_event_config(Path(args.config))
+    except (ConfigError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+    activity = next(
+        (item for item in config["activities"] if item["id"] == args.activity_id),
+        None,
+    )
+    if activity is None:
+        print(f"error: activity not found: {args.activity_id}", file=sys.stderr)
+        return 1
+    api_key = os.environ.get(ENV_CREDENTIAL_VAR[activity["environment"]])
+    if not api_key:
+        print("error: required API credential is not set", file=sys.stderr)
+        return 1
+
+    start, end = parse_window(activity)
+    env = activity["environment"]
+    workspace_id = activity["workspace_id"]
+    if not isinstance(args.fixture_name, str) or not SLUG_PATTERN.fullmatch(
+        args.fixture_name
+    ):
+        print(
+            "error: fixture name must contain only lowercase letters, digits, "
+            "and hyphens",
+            file=sys.stderr,
+        )
+        return 1
+
+    fixture_root = Path("tests/golden/fixtures").resolve()
+    fixture_root.parent.mkdir(parents=True, exist_ok=True)
+    fixture_dir = (fixture_root / args.fixture_name).resolve()
+    if fixture_dir.parent != fixture_root:
+        print("error: fixture path escapes the fixture directory", file=sys.stderr)
+        return 1
+
+    try:
+        with tempfile.TemporaryDirectory(dir=fixture_root.parent) as temp_name:
+            staging_dir = Path(temp_name) / args.fixture_name
+            staging_dir.mkdir()
+            map_bytes = fetch_osm_xml(
+                env, workspace_id, fetch_bbox(env, workspace_id, api_key), api_key
+            )
+            (staging_dir / "map.osm").write_bytes(map_bytes)
+            changesets = fetch_changesets(env, workspace_id, start, end, api_key)
+            write_json(staging_dir / "changesets.json", changesets)
+            for item in changesets:
+                if "id" in item:
+                    (staging_dir / f"changeset-{item['id']}.osmchange").write_bytes(
+                        fetch_changeset_xml(env, workspace_id, int(item["id"]), api_key)
+                    )
+            write_json(
+                staging_dir / "notes.json", fetch_notes(env, workspace_id, api_key)
+            )
+            if fixture_dir.exists():
+                shutil.rmtree(fixture_dir)
+            fixture_dir.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(staging_dir), str(fixture_dir))
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(f"error: fixture capture failed: {exc}", file=sys.stderr)
+        return 1
+
+    print(f"Fixture captured to {fixture_dir}")
     return 0
 
 
@@ -171,7 +282,7 @@ def _cmd_capture_quests(args: argparse.Namespace) -> int:
 
     For each workspace activity in the event config that has a
     ``quest_definition_url``, fetches the upstream quest definition and
-    writes it to ``<event-dir>/quest-definition.json``.  Stamps the
+    writes it to ``<event-dir>/quest-definitions/<activity-id>.json``. Stamps the
     retrieval timestamp into ``event.json`` so cache freshness is
     recorded without a network round-trip.
     """
@@ -185,7 +296,7 @@ def _cmd_capture_quests(args: argparse.Namespace) -> int:
 
     try:
         config = load_event_config(config_path)
-    except ConfigError as exc:
+    except (ConfigError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 
@@ -200,7 +311,7 @@ def _cmd_capture_quests(args: argparse.Namespace) -> int:
         if not url:
             continue
         act_id: str = activity["id"]
-        dest = event_dir / "quest-definition.json"
+        dest = event_dir / "quest-definitions" / f"{act_id}.json"
 
         print(f"[{act_id}] fetching {url}")
         try:

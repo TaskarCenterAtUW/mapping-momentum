@@ -31,5 +31,5 @@ def compute(elements: list[dict]) -> dict[str, int | float]:
     dict[str, int | float]
         ``{"contributor_count": <int>}``
     """
-    contributor_count = len({e["user"] for e in elements})
+    contributor_count = len({e["user"] for e in elements if e.get("user")})
     return {"contributor_count": contributor_count}

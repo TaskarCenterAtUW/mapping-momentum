@@ -9,7 +9,7 @@ catch ``ConfigError`` and surface it to the user before doing any work.
 the latter case ``event.json`` is resolved automatically from the directory.
 The returned dict is augmented with a ``_event_dir`` key (a
 ``pathlib.Path``) pointing to the event directory so callers can locate
-sibling assets (``quest-definition.json``, ``showcase/`` photos, etc.)
+sibling assets (``quest-definitions/``, ``showcase/`` photos, etc.)
 without re-parsing the path.
 
 Validation layers (applied in order):
@@ -38,6 +38,7 @@ import re
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import jsonschema
 
@@ -232,6 +233,9 @@ def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
     url = activity.get("quest_definition_url", "")
     if not url:
         raise ConfigError(f"{prefix}.quest_definition_url is required")
+    parsed_url = urlparse(url)
+    if parsed_url.scheme != "https" or not parsed_url.netloc:
+        raise ConfigError(f"{prefix}.quest_definition_url must be an HTTPS URL")
 
     # Layer 9: quest_definition_retrieval_date must be UTC ISO 8601 if present
     retrieval_date = activity.get("quest_definition_retrieval_date")
@@ -249,7 +253,14 @@ def _validate_showcase_photos(photos: list, event_dir: Path) -> None:
             raise ConfigError(f"showcase_photos[{i}].src must not be empty")
         if not (src.startswith("http://") or src.startswith("https://")):
             # Relative path — resolve against the event directory
-            resolved = event_dir / src
+            resolved = (event_dir / src).resolve()
+            try:
+                resolved.relative_to(event_dir.resolve())
+            except ValueError as exc:
+                raise ConfigError(
+                    f"showcase_photos[{i}].src {src!r} must stay inside "
+                    "the event directory"
+                ) from exc
             if not resolved.exists():
                 raise ConfigError(
                     f"showcase_photos[{i}].src {src!r} does not exist "

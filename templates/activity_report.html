@@ -9,7 +9,7 @@
     /* --- Base --- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; }
-    body { font-family: system-ui, -apple-system, sans-serif; color: #212529; background: #f8f9fa; line-height: 1.5; }
+    body { font-family: system-ui, -apple-system, sans-serif; color: #212529; background: #f8f9fa; line-height: 1.5; padding: 1.5rem; }
     img { max-width: 100%; display: block; }
     a { color: #0d6efd; }
 
@@ -28,10 +28,10 @@
     }
 
     /* --- Layout --- */
-    .page-header { background: #fff; border-bottom: 1px solid #dee2e6; padding: 1.25rem 1.5rem 1rem; }
+    .page-header { max-width: 1200px; margin: 0 auto 2rem; background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem 1.5rem 1rem; }
     .page-header h1 { font-size: clamp(1.25rem, 3vw, 1.875rem); font-weight: 700; }
     .report-subtitle { color: #6c757d; font-size: 0.9375rem; margin-top: 0.25rem; }
-    main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    main { max-width: 1200px; margin: 0 auto; padding: 0; }
 
     /* --- Showcase (C3) --- */
     .showcase { margin-bottom: 1.5rem; }
@@ -136,10 +136,8 @@
     .mm-marker:focus-visible { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px rgba(0,0,0,0.4); }
 
     /* --- Cards (C10-C12) --- */
-    .cards-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem; margin-bottom: 1.5rem;
-    }
+    .cards-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
+    .cards-column { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
     .card {
       background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem;
     }
@@ -153,7 +151,15 @@
       color: #495057; padding: 1px 8px; border-radius: 999px;
     }
     .chart-wrapper { position: relative; }
-    .no-data { color: #6c757d; font-size: 0.875rem; padding: 0.5rem 0; }
+    .breakdown-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .breakdown-table th { text-align: left; color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding-bottom: 0.5rem; border-bottom: 1px solid #dee2e6; }
+    .breakdown-table td { padding: 0.35rem 0; vertical-align: middle; }
+    .breakdown-table td:first-child { width: 38%; padding-right: 0.5rem; overflow-wrap: anywhere; }
+    .bar-cell { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.5rem; }
+    .bar-track { height: 0.875rem; min-width: 2px; border-radius: 3px; }
+    .bar-value { min-width: 2rem; text-align: right; font-variant-numeric: tabular-nums; }
+    .photo-cell { width: 3.5rem; text-align: right; white-space: nowrap; }
+    .no-data { color: #6c757d; font-size: 0.875rem; padding: 0.5rem 0; font-style: italic; }
 
     /* --- Questions Answered (C13) --- */
     .questions-section { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
@@ -196,6 +202,16 @@
     .q-gallery-btn:focus-visible { outline: 2px solid #0d6efd; }
     .q-gallery-thumb { width: 56px; height: 56px; object-fit: cover; }
 
+    .questions-section { grid-column: 1 / -1; }
+    .question-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .question-table th { text-align: left; color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding: 0.35rem 0.5rem 0.5rem 0; border-bottom: 1px solid #dee2e6; }
+    .question-table td { padding: 0.35rem 0.5rem 0.35rem 0; vertical-align: middle; }
+    .question-table .question-tag { color: #6c757d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
+    .question-table .question-count { width: 28%; }
+    .question-table .choice-row td { background: #f8f9fa; font-size: 0.8125rem; }
+    .question-table .choice-label { padding-left: 1.25rem; }
+    .question-table .choice-value { color: #6c757d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
+
     /* --- Photo modal (C14) --- */
     #photo-modal {
       border: none; border-radius: 10px; padding: 0; background: #000;
@@ -227,6 +243,13 @@
     .modal-btn:hover { background: rgba(255,255,255,0.25); }
     .modal-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
     .modal-btn:disabled { opacity: 0.3; cursor: default; }
+
+    @media (max-width: 700px) {
+      body { padding: 0.75rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .questions-section { grid-column: auto; }
+      .question-table .question-tag { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -280,6 +303,8 @@
       {# C10-C12: Cards grid #}
       <div class="cards-grid">
 
+        <div class="cards-column">
+
         {# C10: Quest Types #}
         <section class="card" aria-labelledby="qt-heading">
           <div class="card-header">
@@ -287,12 +312,15 @@
             <span class="card-count">{{ stats.quest_type_breakdown | sum(attribute='count') if stats.quest_type_breakdown else 0 }}</span>
           </div>
           {% if stats.quest_type_breakdown %}
-          <div class="chart-wrapper" style="height:{{ [stats.quest_type_breakdown | length * 32, 80] | max }}px">
-            <canvas id="chart-qt"
-                    role="img"
-                    aria-label="Quest types: {% for e in stats.quest_type_breakdown %}{{ e.category or 'unknown' }} {{ e.count }}{% if not loop.last %}, {% endif %}{% endfor %}">
-            </canvas>
-          </div>
+          <table class="breakdown-table" aria-label="Quest types breakdown">
+            <thead><tr><th>Category</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
+            <tbody>
+            {% set qt_max = stats.quest_type_breakdown | map(attribute='count') | max %}
+            {% for e in stats.quest_type_breakdown %}
+            <tr><td>{{ e.category or '(unknown)' }}</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:{{ (e.count / qt_max * 100) if qt_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td><td class="photo-cell">{% if e.photo_count %}{{ e.photo_count }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
           <table class="sr-only">
             <caption>Quest types breakdown</caption>
             <thead><tr><th>Category</th><th>Count</th><th>Photos</th></tr></thead>
@@ -314,12 +342,15 @@
             <span class="card-count">{{ stats.features_created | sum(attribute='count') if stats.features_created else 0 }}</span>
           </div>
           {% if stats.features_created %}
-          <div class="chart-wrapper" style="height:{{ [stats.features_created | length * 32, 60] | max }}px">
-            <canvas id="chart-fc"
-                    role="img"
-                    aria-label="Features created: {% for e in stats.features_created %}{{ e.feature_type }} {{ e.count }}{% if not loop.last %}, {% endif %}{% endfor %}">
-            </canvas>
-          </div>
+          <table class="breakdown-table" aria-label="Features created breakdown">
+            <thead><tr><th>Type</th><th>Count</th></tr></thead>
+            <tbody>
+            {% set fc_max = stats.features_created | map(attribute='count') | max %}
+            {% for e in stats.features_created %}
+            <tr><td>{{ e.feature_type }}</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:{{ (e.count / fc_max * 100) if fc_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
           <table class="sr-only">
             <caption>Features created by type</caption>
             <thead><tr><th>Type</th><th>Count</th></tr></thead>
@@ -333,6 +364,9 @@
           <p class="no-data">No data</p>
           {% endif %}
         </section>
+        </div>{# /cards-column #}
+
+        <div class="cards-column">
 
         {# C12: Contributors #}
         <section class="card" aria-labelledby="cb-heading">
@@ -341,12 +375,15 @@
             <span class="card-count">{{ stats.contributors_breakdown | length if stats.contributors_breakdown else 0 }}</span>
           </div>
           {% if stats.contributors_breakdown %}
-          <div class="chart-wrapper" style="height:{{ [stats.contributors_breakdown | length * 32, 80] | max }}px">
-            <canvas id="chart-cb"
-                    role="img"
-                    aria-label="Contributors: {% for e in stats.contributors_breakdown %}{{ e.user }} {{ e.count }}{% if not loop.last %}, {% endif %}{% endfor %}">
-            </canvas>
-          </div>
+          <table class="breakdown-table" aria-label="Contributors breakdown">
+            <thead><tr><th>Contributor</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
+            <tbody>
+            {% set contributor_max = stats.contributors_breakdown | map(attribute='count') | max %}
+            {% for e in stats.contributors_breakdown %}
+            <tr><td>{{ e.user or '(unknown)' }}</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:{{ (e.count / contributor_max * 100) if contributor_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td><td class="photo-cell">{% if e.photo_count %}{{ e.photo_count }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
           <table class="sr-only">
             <caption>Contributors breakdown</caption>
             <thead><tr><th>User</th><th>Count</th><th>Photos</th></tr></thead>
@@ -360,6 +397,7 @@
           <p class="no-data">No data</p>
           {% endif %}
         </section>
+        </div>{# /cards-column #}
 
       </div>{# /cards-grid #}
 
@@ -378,34 +416,19 @@
             <span class="cat-total">{{ cat.total }} answers</span>
           </summary>
           <div class="cat-questions">
+          <table class="question-table">
+            <thead><tr><th>Question</th><th>Tag</th><th class="question-count">Times answered</th></tr></thead>
+            <tbody>
             {% for q in cat.questions %}
-            <details class="q-details">
-              <summary class="q-summary">
-                <span class="q-label">{{ q.label }}</span>
-                <span class="q-count">{{ q.times_answered }}&times;</span>
-              </summary>
-              <div class="q-body">
-                {% if q.choices %}
-                <table class="choices-table">
-                  <caption class="sr-only">Choice distribution: {{ q.label }}</caption>
-                  <thead>
-                    <tr><th scope="col">Answer</th><th scope="col">Count</th></tr>
-                  </thead>
-                  <tbody>
-                    {% for choice in q.choices %}
-                    <tr>
-                      <td>{{ choice.label }}</td>
-                      <td>{{ choice.count }}</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-                {% endif %}
-                {# C9: per-question KartaView gallery (populated by JS) #}
-                <div class="q-gallery" data-tag="{{ q.tag }}"></div>
-              </div>
-            </details>
+            <tr class="question-row"><td>{{ q.label }}</td><td class="question-tag">{{ q.tag }}</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:{{ (q.times_answered / (cat.questions | map(attribute='times_answered') | max) * 100) if (cat.questions | map(attribute='times_answered') | max) else 0 }}%"></span><strong class="bar-value">{{ q.times_answered }}</strong></div></td></tr>
+            {% for choice in q.choices %}
+            <tr class="choice-row"><td class="choice-label">{{ choice.label }}</td><td class="choice-value">{{ choice.value }}</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:{{ (choice.count / q.times_answered * 100) if q.times_answered else 0 }}%"></span><strong class="bar-value">{{ choice.count }}</strong></div></td></tr>
             {% endfor %}
+            {# C9: per-question KartaView gallery (populated by JS) #}
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="{{ q.tag }}"></div></td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
           </div>
         </details>
         {% endfor %}
@@ -440,9 +463,8 @@
   {# Inline stats as JSON — _safe_json escapes <, >, & to prevent XSS via tag injection #}
   <script>const STATS = {{ stats_json | safe }};</script>
 
-  {# CDN dependencies — report degrades gracefully if either fails to load #}
+  {# Map CDN dependency — cards and tables remain usable if it fails #}
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" crossorigin="anonymous"></script>
 
   <script>
   (function () {
@@ -744,66 +766,6 @@
       btnExpand.setAttribute('aria-label', expanded ? 'Collapse map' : 'Expand map to full screen');
       if (map) map.resize();
     });
-
-    // -------------------------------------------------------------------------
-    // CHARTS (C10-C12) — only initialise if Chart.js loaded successfully
-    // -------------------------------------------------------------------------
-    if (typeof Chart !== 'undefined') {
-      function hBarOptions(barMax) {
-        return {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { return ' ' + ctx.raw; } } } },
-          scales: {
-            x: { beginAtZero: true, max: barMax ? Math.ceil(barMax * 1.15) : undefined, grid: { display: false }, ticks: { display: false } },
-            y: { grid: { display: false }, ticks: { font: { size: 12 } } }
-          }
-        };
-      }
-
-      // C10: Quest Types
-      var qtEl = document.getElementById('chart-qt');
-      var qt = STATS.quest_type_breakdown || [];
-      if (qtEl && qt.length) {
-        new Chart(qtEl, {
-          type: 'bar',
-          data: {
-            labels: qt.map(function (e) { return e.category || '(unknown)'; }),
-            datasets: [{ data: qt.map(function (e) { return e.count; }), backgroundColor: qt.map(function (e) { return categoryColor(e.category); }), borderWidth: 0 }]
-          },
-          options: hBarOptions(Math.max.apply(null, qt.map(function (e) { return e.count; })))
-        });
-      }
-
-      // C11: Features Created
-      var fcEl = document.getElementById('chart-fc');
-      var fc = STATS.features_created || [];
-      if (fcEl && fc.length) {
-        new Chart(fcEl, {
-          type: 'bar',
-          data: {
-            labels: fc.map(function (e) { return e.feature_type; }),
-            datasets: [{ data: fc.map(function (e) { return e.count; }), backgroundColor: '#0d6efd', borderWidth: 0 }]
-          },
-          options: hBarOptions(Math.max.apply(null, fc.map(function (e) { return e.count; })))
-        });
-      }
-
-      // C12: Contributors
-      var cbEl = document.getElementById('chart-cb');
-      var cb = STATS.contributors_breakdown || [];
-      if (cbEl && cb.length) {
-        new Chart(cbEl, {
-          type: 'bar',
-          data: {
-            labels: cb.map(function (e) { return e.user; }),
-            datasets: [{ data: cb.map(function (e) { return e.count; }), backgroundColor: '#dc3545', borderWidth: 0 }]
-          },
-          options: hBarOptions(Math.max.apply(null, cb.map(function (e) { return e.count; })))
-        });
-      }
-    }
 
     // -------------------------------------------------------------------------
     // QUESTIONS ANSWERED — per-question photo galleries (C9)

@@ -81,7 +81,7 @@ def _write_config(tmp_path: Path, config: dict[str, Any]) -> Path:
 
 
 def _write_dir_config(tmp_path: Path, config: dict[str, Any]) -> Path:
-    """Write *config* as JSON inside an event directory and return the directory path."""
+    """Write config as JSON inside an event directory."""
     slug = config.get("id", "test-event")
     event_dir = tmp_path / slug
     event_dir.mkdir(parents=True, exist_ok=True)
@@ -411,7 +411,6 @@ def test_load_from_directory(tmp_path: Path) -> None:
 def test_event_dir_in_returned_config_from_file(tmp_path: Path) -> None:
     p = _write_config(tmp_path, _base_config())
     loaded = load_event_config(p)
-    from pathlib import Path as _Path
 
     assert "_event_dir" in loaded
     assert loaded["_event_dir"] == tmp_path
@@ -460,6 +459,20 @@ def test_v1_1_quest_definition_url_non_empty_accepted(tmp_path: Path) -> None:
         loaded["activities"][0]["quest_definition_url"]
         == "https://example.com/quest.json"
     )
+
+
+@pytest.mark.parametrize(
+    "invalid_url",
+    ["http://example.com/quest.json", "file:///tmp/quest.json", "not-a-url"],
+)
+def test_v1_1_quest_definition_url_must_be_https(
+    tmp_path: Path, invalid_url: str
+) -> None:
+    config = _base_config()
+    config["activities"][0]["quest_definition_url"] = invalid_url
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="must be an HTTPS URL"):
+        load_event_config(p)
 
 
 # ---------------------------------------------------------------------------

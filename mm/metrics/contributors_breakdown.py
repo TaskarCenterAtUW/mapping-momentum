@@ -40,13 +40,16 @@ def compute(elements: list[dict]) -> dict:
     Returns
     -------
     dict
-        ``{"contributors_breakdown": [{"user": str, "count": int, "photo_count": int}, …]}``
+        ``{"contributors_breakdown": [{"user": str, "count": int,``
+        ``"photo_count": int}, …]}``
     """
     counts: Counter[str] = Counter()
     photo_counts: Counter[str] = Counter()
 
     for elem in elements:
         user: str = elem.get("user", "")
+        if not user:
+            continue
         counts[user] += 1
         photo_counts[user] += len(elem.get("photos", []))
 
@@ -56,6 +59,6 @@ def compute(elements: list[dict]) -> dict:
             "count": count,
             "photo_count": photo_counts[user],
         }
-        for user, count in counts.most_common()
+        for user, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
     ]
     return {"contributors_breakdown": breakdown}

@@ -408,7 +408,13 @@ def test_render_report_title_in_h1() -> None:
 def test_render_report_subtitle_present() -> None:
     config = _minimal_config()
     html = render_report(_sample_stats(), config, config["activities"][0])
-    assert "2026-01-20" in html
+    assert "January 20, 2026" in html
+
+
+def test_render_report_subtitle_uses_human_readable_date() -> None:
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+    assert "January 20, 2026" in html
 
 
 def test_render_report_activity_label_in_h2() -> None:
@@ -476,6 +482,15 @@ def test_render_report_questions_answered_present() -> None:
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
     )
     assert "Questions Answered" in html
+
+
+def test_render_report_breakdowns_use_reference_tables() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    assert 'class="breakdown-table"' in html
+    assert 'class="question-table"' in html
+    assert "Times answered" in html
 
 
 def test_render_report_showcase_section_absent_when_no_photos() -> None:
@@ -570,3 +585,10 @@ def test_write_report_content_correct(tmp_path: Path) -> None:
     html = "<html><body>hello world</body></html>"
     dest = write_report(html, tmp_path, "test-event", "walkabout")
     assert "hello world" in dest.read_text(encoding="utf-8")
+
+
+def test_write_report_replaces_existing_file(tmp_path: Path) -> None:
+    dest = write_report("first", tmp_path, "test-event", "walkabout")
+    replacement = write_report("second", tmp_path, "test-event", "walkabout")
+    assert replacement == dest
+    assert replacement.read_text(encoding="utf-8") == "second"

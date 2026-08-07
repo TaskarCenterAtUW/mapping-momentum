@@ -34,15 +34,16 @@ Design notes
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Callable
+from typing import Any, Callable, TypeVar
 
 # Registry: source_type → list of compute functions registered for that source.
-_REGISTRY: dict[str, list[Callable[..., dict[str, int | float]]]] = defaultdict(list)
+MetricFunction = TypeVar("MetricFunction", bound=Callable[..., dict[str, Any]])
+_REGISTRY: dict[str, list[Callable[..., dict[str, Any]]]] = defaultdict(list)
 
 
 def register(
     *source_types: str,
-) -> Callable:
+) -> Callable[[MetricFunction], MetricFunction]:
     """Decorator that registers a ``compute`` function for one or more source
     types.
 
@@ -66,7 +67,7 @@ def register(
             ...
     """
 
-    def decorator(fn: Callable) -> Callable:
+    def decorator(fn: MetricFunction) -> MetricFunction:
         for src in source_types:
             _REGISTRY[src].append(fn)
         return fn
@@ -76,7 +77,7 @@ def register(
 
 def get_metrics_for_source(
     source_type: str,
-) -> list[Callable[..., dict[str, int | float]]]:
+) -> list[Callable[..., dict[str, Any]]]:
     """Return all registered ``compute`` callables for *source_type*.
 
     Parameters

@@ -12,11 +12,12 @@
             "project_group_id": "f57bdb7b-a424-44f2-a261-4b91e134dde7",
             "workspace_id": 1210,
             "environment": "prod",
-            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Sedro-Woolley/NDA%20Sedro-Woolley%20Walk%20Roll.json",
+            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Vancouver/NDA%20Vancouver%20Walk%20Roll.json",
             "time_window": {
-                "start": "2026-02-23T15:00:00Z",
-                "end": "2026-02-24T00:00:00Z"
-            }
+                "start": "2026-02-22T15:00:00Z",
+                "end": "2026-02-25T00:00:00Z"
+            },
+            "quest_definition_retrieval_date": "2026-08-07T01:46:28Z"
         }
     ]
 }

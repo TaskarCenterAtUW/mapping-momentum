@@ -48,6 +48,7 @@ def compute(elements: list[dict]) -> dict:
             counts[feature_type] += 1
 
     created = [
-        {"feature_type": ft, "count": count} for ft, count in counts.most_common()
+        {"feature_type": ft, "count": count}
+        for ft, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
     ]
     return {"features_created": created}

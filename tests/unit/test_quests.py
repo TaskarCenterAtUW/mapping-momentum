@@ -41,8 +41,8 @@ from unittest.mock import patch
 
 import pytest
 
-from mm.quests.loader import QuestDefinition, build_lookups, load_quest_definition
 from mm.quests.capture import capture_quest_definition, stamp_retrieval_date
+from mm.quests.loader import QuestDefinition, build_lookups, load_quest_definition
 
 # ---------------------------------------------------------------------------
 # Shared fixtures / helpers
@@ -226,6 +226,59 @@ def test_build_lookups_text_entry_has_category() -> None:
 def test_build_lookups_missing_elements_raises() -> None:
     with pytest.raises(ValueError, match="'elements'"):
         build_lookups({"version": "3.0.0"})
+
+
+def test_build_lookups_rejects_malformed_choice() -> None:
+    raw = {
+        "elements": [
+            {
+                "element_type": "Sidewalks",
+                "quests": [
+                    {
+                        "quest_tag": "ext:surface",
+                        "quest_title": "Surface",
+                        "quest_answer_choices": ["not-an-object"],
+                    }
+                ],
+            }
+        ]
+    }
+    with pytest.raises(ValueError, match=r"quest_answer_choices\[0\]"):
+        build_lookups(raw)
+
+
+def test_build_lookups_preserves_first_definition_for_duplicate_tag() -> None:
+    raw = {
+        "elements": [
+            {
+                "element_type": "Footways",
+                "quests": [
+                    {
+                        "quest_tag": "surface",
+                        "quest_title": "Footway surface",
+                        "quest_answer_choices": [
+                            {"value": "asphalt", "choice_text": "Asphalt"}
+                        ],
+                    }
+                ],
+            },
+            {
+                "element_type": "Sidewalks",
+                "quests": [
+                    {
+                        "quest_tag": "surface",
+                        "quest_title": "Sidewalk surface",
+                        "quest_answer_choices": [
+                            {"value": "concrete", "choice_text": "Concrete"}
+                        ],
+                    }
+                ],
+            },
+        ]
+    }
+    definition = build_lookups(raw)
+    assert definition.tag_to_title["surface"] == "Footway surface"
+    assert definition.tag_to_category["surface"] == "Footways"
 
 
 def test_build_lookups_empty_elements_returns_empty() -> None:

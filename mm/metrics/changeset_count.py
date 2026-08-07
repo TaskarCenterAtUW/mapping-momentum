@@ -34,5 +34,11 @@ def compute(elements: list[dict]) -> dict[str, int | float]:
     dict[str, int | float]
         ``{"changeset_count": <int>}``
     """
-    changeset_count = len({e["changeset"] for e in elements})
+    changeset_count = len(
+        {
+            e["changeset"]
+            for e in elements
+            if e.get("kind") != "note" and e.get("changeset") is not None
+        }
+    )
     return {"changeset_count": changeset_count}

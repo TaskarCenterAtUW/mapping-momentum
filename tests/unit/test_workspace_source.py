@@ -37,6 +37,7 @@ from __future__ import annotations
 import json
 import urllib.error
 from datetime import datetime, timezone
+from email.message import Message
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -94,7 +95,8 @@ def _osm(*body_parts: bytes) -> bytes:
 def _mock_urlopen(body: bytes, status: int = 200):
     """Return a context-manager mock for ``urllib.request.urlopen``."""
     resp = MagicMock()
-    resp.read.return_value = body
+    resp.headers = {}
+    resp.read.side_effect = [body, b""]
     resp.__enter__ = lambda s: s
     resp.__exit__ = MagicMock(return_value=False)
     return resp
@@ -288,7 +290,7 @@ def test_filter_skips_bad_timestamp() -> None:
 
 def test_fetch_bbox_returns_tuple() -> None:
     body = json.dumps(
-        {"minLon": -122.5, "minLat": 49.0, "maxLon": -122.4, "maxLat": 49.1}
+        {"min_lon": -122.5, "min_lat": 49.0, "max_lon": -122.4, "max_lat": 49.1}
     ).encode()
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
         bbox = fetch_bbox("prod", 931, "test-key")
@@ -297,9 +299,18 @@ def test_fetch_bbox_returns_tuple() -> None:
 
 def test_fetch_bbox_missing_field_raises() -> None:
     # Response is missing maxLat.
-    body = json.dumps({"minLon": -122.5, "minLat": 49.0, "maxLon": -122.4}).encode()
+    body = json.dumps({"min_lon": -122.5, "min_lat": 49.0,
+                      "max_lon": -122.4}).encode()
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
         with pytest.raises(ValueError, match="missing expected fields"):
+            fetch_bbox("prod", 931, "test-key")
+
+
+def test_fetch_bbox_rejects_invalid_coordinates() -> None:
+    body = json.dumps({"min_lon": 1, "min_lat": 2,
+                      "max_lon": 1, "max_lat": 3}).encode()
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
+        with pytest.raises(ValueError, match="coordinates are invalid"):
             fetch_bbox("prod", 931, "test-key")
 
 
@@ -310,7 +321,7 @@ def test_fetch_bbox_http_error_propagates() -> None:
         url="http://x",
         code=401,
         msg="Unauthorized",
-        hdrs=None,
+        hdrs=Message(),
         fp=None,  # type: ignore[arg-type]
     )
     with patch("urllib.request.urlopen", side_effect=http_exc):
@@ -330,7 +341,8 @@ def test_fetch_bbox_unknown_env_raises() -> None:
 
 def test_fetch_osm_xml_returns_bytes() -> None:
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(_FULL_OSM)):
-        result = fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+        result = fetch_osm_xml(
+            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
     assert result == _FULL_OSM
 
 
@@ -356,7 +368,7 @@ def test_fetch_osm_xml_http_error_propagates() -> None:
         url="http://x",
         code=403,
         msg="Forbidden",
-        hdrs=None,
+        hdrs=Message(),
         fp=None,  # type: ignore[arg-type]
     )
     with patch("urllib.request.urlopen", side_effect=http_exc):
@@ -377,3 +389,55 @@ def test_fetch_osm_xml_bbox_in_url() -> None:
 
     url = captured_req[0].full_url
     assert "bbox=-122.5,49.0,-122.4,49.1" in url
+
+
+def test_fetch_osm_xml_splits_truncated_tiles_until_valid() -> None:
+    truncated = b'<osm version="0.6"><node'
+    valid = _osm(_NODE_ALICE)
+    responses = [truncated, truncated, valid, valid, valid, valid]
+
+    def fake_urlopen(req, timeout=30):
+        return _mock_urlopen(responses.pop(0))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        result = fetch_osm_xml(
+            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+
+    assert b'<node id="1"' in result
+    assert not responses
+
+
+def test_fetch_osm_xml_retries_a_truncated_tile() -> None:
+    truncated = b'<osm version="0.6"><node'
+    valid = _osm(_NODE_ALICE)
+    responses = [truncated, valid]
+
+    def fake_urlopen(req, timeout=30):
+        return _mock_urlopen(responses.pop(0))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        result = fetch_osm_xml(
+            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+
+    assert result == valid
+    assert not responses
+
+
+def test_fetch_osm_xml_reports_maximum_tile_depth() -> None:
+    truncated = b'<osm version="0.6"><node'
+    with (
+        patch(
+            "urllib.request.urlopen",
+            side_effect=lambda *args, **kwargs: _mock_urlopen(truncated),
+        ),
+        patch("mm.sources.workspace._MAX_MAP_SPLIT_DEPTH", 1),
+    ):
+        with pytest.raises(ValueError, match="maximum tile depth"):
+            fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+
+
+def test_fetch_osm_xml_allows_large_map_payloads() -> None:
+    with patch("mm.sources.workspace.fetch_bytes") as fetch:
+        fetch.return_value = _FULL_OSM
+        fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+    assert fetch.call_args.kwargs["max_bytes"] > 25 * 1024 * 1024

@@ -1,13 +1,17 @@
 [build-system]
-requires = [ "hatchling" ]
+requires = [
+    "hatchling"
+]
 build-backend = "hatchling.build"
 
 [project]
 name = "mapping-momentum"
-version = "0.2.0"
+version = "1.0.0"
 description = "Statistics engine and report generator for mapping participation metrics."
 requires-python = ">=3.14"
-classifiers = [ "Private :: Do Not Upload" ]
+classifiers = [
+    "Private :: Do Not Upload"
+]
 dependencies = [
     "jinja2>=3.1",
     "jsonschema>=4.23"
@@ -17,7 +21,12 @@ dependencies = [
 mapping-momentum = "mm.cli:run_cli"
 
 [tool.hatch.build.targets.wheel]
-packages = [ "mm" ]
+packages = [
+    "mm"
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"templates/activity_report.html" = "templates/activity_report.html"
 
 [dependency-groups]
 dev = [
@@ -27,7 +36,9 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-testpaths = [ "tests" ]
+testpaths = [
+    "tests"
+]
 addopts = "-v"
 markers = [
     "integration: marks tests as requiring live API calls",
@@ -39,4 +50,9 @@ target-version = "py314"
 line-length = 88
 
 [tool.ruff.lint]
-select = [ "E", "F", "I", "W" ]
+select = [
+    "E",
+    "F",
+    "I",
+    "W"
+]

@@ -2,10 +2,8 @@
 mm.outputs.html_report — render the self-contained HTML report for one activity.
 
 The report is rendered from a Jinja2 template (``templates/activity_report.html``)
-with all event data inlined.  The only runtime CDN dependencies are MapLibre GL JS
-(map + tiles) and Chart.js (bar charts).  All other content — including every stats
-payload — is embedded directly in the output HTML, making it publishable as a
-single file.
+with all event data inlined. MapLibre GL JS is the only runtime CDN dependency;
+cards remain usable when the map script or tiles are unavailable.
 
 Usage::
 
@@ -18,13 +16,24 @@ Usage::
 from __future__ import annotations
 
 import json
+import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-# Template directory: two levels above this file → <repo-root>/templates/
-_DEFAULT_TEMPLATE_DIR = Path(__file__).parent.parent.parent / "templates"
+from mm.common.io import require_safe_path_component, write_text
+
+# Hatch installs shared data under the interpreter prefix. The repository
+# fallback keeps source-checkout execution convenient.
+_INSTALLED_TEMPLATE_DIR = Path(sys.prefix) / "templates"
+_SOURCE_TEMPLATE_DIR = Path(__file__).parent.parent.parent / "templates"
+_DEFAULT_TEMPLATE_DIR = (
+    _INSTALLED_TEMPLATE_DIR
+    if (_INSTALLED_TEMPLATE_DIR / "activity_report.html").is_file()
+    else _SOURCE_TEMPLATE_DIR
+)
 
 
 def _safe_json(data: Any) -> str:
@@ -85,11 +94,20 @@ def render_report(
     report_cfg: dict = config.get("report") or {}
     title: str = report_cfg.get("title") or config.get("name") or "Contribution Report"
     date_str: str = config.get("date") or ""
+    try:
+        date_display = datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %-d, %Y")
+    except ValueError:
+        # Windows' strftime does not support ``%-d`` on every Python build.
+        try:
+            parsed_date = datetime.strptime(date_str, "%Y-%m-%d")
+            date_display = f"{parsed_date:%B} {parsed_date.day}, {parsed_date:%Y}"
+        except ValueError:
+            date_display = date_str
     activity_label: str = activity.get("label") or activity.get("id") or ""
     default_subtitle = (
-        f"{date_str}\u00a0\u00b7\u00a0{activity_label}"
-        if date_str and activity_label
-        else (date_str or activity_label)
+        f"{date_display}\u00a0\u00b7\u00a0{activity_label}"
+        if date_display and activity_label
+        else (date_display or activity_label)
     )
     subtitle: str = report_cfg.get("subtitle") or default_subtitle
 
@@ -110,13 +128,15 @@ def write_report(
     event_id: str,
     activity_id: str,
 ) -> Path:
-    """Write the rendered HTML to ``<output_dir>/events/<event_id>/<activity_id>/index.html``.
+    """Write HTML to ``<output_dir>/events/<event_id>/<activity_id>/index.html``.
 
     Parent directories are created automatically.
 
     Returns the path to the written file.
     """
-    dest = output_dir / "events" / event_id / activity_id / "index.html"
+    safe_event_id = require_safe_path_component(event_id, "event_id")
+    safe_activity_id = require_safe_path_component(activity_id, "activity_id")
+    dest = output_dir / "events" / safe_event_id / safe_activity_id / "index.html"
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(html, encoding="utf-8")
+    write_text(dest, html)
     return dest

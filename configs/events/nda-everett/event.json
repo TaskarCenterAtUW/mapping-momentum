@@ -12,11 +12,12 @@
             "project_group_id": "64ecc33b-b8ab-4dca-9458-bb792d2debf9",
             "workspace_id": 1412,
             "environment": "prod",
-            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Everett/NDA%20Everett%20Walk%20Roll.json",
+            "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/SCLIO%20Vancouver/NDA%20Vancouver%20Walk%20Roll.json",
             "time_window": {
-                "start": "2026-03-26T13:00:00Z",
-                "end": "2026-03-27T00:00:00Z"
-            }
+                "start": "2026-03-25T13:00:00Z",
+                "end": "2026-03-28T00:00:00Z"
+            },
+            "quest_definition_retrieval_date": "2026-08-07T01:46:17Z"
         }
     ]
 }

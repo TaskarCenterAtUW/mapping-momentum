@@ -34,23 +34,29 @@ practical threat; nonetheless the parser is used without any DTD loading.
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+from collections.abc import Iterable
 from datetime import datetime, timedelta, timezone
+from math import isfinite
 from typing import Any
 
-from mm.common.http import fetch_bytes, fetch_json
+from mm.common.http import HTTPError, fetch_bytes, fetch_json
 from mm.sources.base import Element, Version
 
 # ---------------------------------------------------------------------------
 # API base URLs per environment
 # ---------------------------------------------------------------------------
 
-# Maps the ``environment`` field from the activity config to the TDEI API
-# base URL.  Endpoints are appended as path segments below.
+# Maps each environment to the authenticated OSM-compatible Workspaces API.
+# The newer api.tdei.us v1 routes currently reject valid Workspaces keys.
 _BASE_URLS: dict[str, str] = {
-    "prod": "https://api.tdei.us",
-    "stage": "https://api-stage.tdei.us",
-    "dev": "https://api-dev.tdei.us",
+    "prod": "https://osm.workspaces.sidewalks.washington.edu",
+    "stage": "https://osm.workspaces-stage.sidewalks.washington.edu",
+    "dev": "https://osm.workspaces-dev.sidewalks.washington.edu",
 }
+_MAX_MAP_SPLIT_DEPTH = 12
+_MAX_MAP_REQUESTS = 20_000
+_MAX_MAP_RESPONSE_BYTES = 100 * 1024 * 1024
+_MAX_MAP_PARSE_ATTEMPTS = 2
 
 # ---------------------------------------------------------------------------
 # Public type alias
@@ -128,19 +134,28 @@ def fetch_bbox(env: str, workspace_id: int, api_key: str) -> BBox:
     ValueError
         If the API response is missing expected bbox fields.
     """
-    url = f"{_base_url(env)}/api/v1/workspace/bbox"
-    data: dict[str, Any] = fetch_json(url, headers=_api_headers(api_key, workspace_id))
+    url = f"{_base_url(env)}/api/0.6/workspaces/{workspace_id}/bbox.json"
+    data = fetch_json(url, headers=_api_headers(api_key, workspace_id))
+    if not isinstance(data, dict):
+        raise ValueError("Workspace bbox response must be a JSON object")
     try:
-        return (
-            float(data["minLon"]),
-            float(data["minLat"]),
-            float(data["maxLon"]),
-            float(data["maxLat"]),
+        bbox = (
+            float(data["min_lon"]),
+            float(data["min_lat"]),
+            float(data["max_lon"]),
+            float(data["max_lat"]),
         )
-    except (KeyError, TypeError) as exc:
+    except (KeyError, TypeError, ValueError) as exc:
         raise ValueError(
             f"Workspace bbox response missing expected fields: {exc}"
         ) from exc
+    left, bottom, right, top = bbox
+    if not all(isfinite(value) for value in bbox):
+        raise ValueError(
+            "Workspace bbox response contains non-finite coordinates")
+    if not (-180 <= left < right <= 180 and -90 <= bottom < top <= 90):
+        raise ValueError(f"Workspace bbox coordinates are invalid: {bbox!r}")
+    return bbox
 
 
 def fetch_osm_xml(
@@ -175,10 +190,106 @@ def fetch_osm_xml(
     mm.common.http.HTTPError
         On non-2xx response or connection failure.
     """
+    request_count = [0]
+    return _fetch_map_xml(
+        env,
+        workspace_id,
+        bbox,
+        api_key,
+        depth=0,
+        request_count=request_count,
+    )
+
+
+def _fetch_map_xml(
+    env: str,
+    workspace_id: int,
+    bbox: BBox,
+    api_key: str,
+    *,
+    depth: int,
+    request_count: list[int],
+) -> bytes:
+    """Fetch one map tile, recursively splitting truncated responses."""
     left, bottom, right, top = bbox
     bbox_str = f"{left},{bottom},{right},{top}"
-    url = f"{_base_url(env)}/api/v1/workspace/map?bbox={bbox_str}"
-    return fetch_bytes(url, headers=_api_headers(api_key, workspace_id))
+    url = f"{_base_url(env)}/api/0.6/map?bbox={bbox_str}"
+    headers = _api_headers(api_key, workspace_id)
+    headers["Accept"] = "application/xml, text/xml, */*"
+    parse_error: ET.ParseError | None = None
+    for _attempt in range(_MAX_MAP_PARSE_ATTEMPTS):
+        request_count[0] += 1
+        if request_count[0] > _MAX_MAP_REQUESTS:
+            raise ValueError(
+                f"Workspace map request limit ({_MAX_MAP_REQUESTS}) exceeded; "
+                "the requested area may be too large or the API response may be "
+                "persistently truncated"
+            )
+        try:
+            payload = fetch_bytes(
+                url,
+                headers=headers,
+                max_bytes=_MAX_MAP_RESPONSE_BYTES,
+            )
+        except HTTPError as exc:
+            # The OSM-compatible endpoint uses 404 for an empty tile.
+            if str(exc).startswith("HTTP 404"):
+                return b'<?xml version="1.0"?><osm version="0.6" />'
+            raise
+
+        try:
+            ET.fromstring(payload)  # noqa: S314 — trusted API source
+            return payload
+        except ET.ParseError as exc:
+            parse_error = exc
+
+    assert parse_error is not None
+    if depth >= _MAX_MAP_SPLIT_DEPTH:
+        raise ValueError(
+            "Workspace map response remained truncated at the maximum "
+            f"tile depth ({_MAX_MAP_SPLIT_DEPTH}) for bbox {bbox!r}"
+        ) from parse_error
+
+    try:
+        # A malformed response is normally a server-side truncation. Split
+        # the bbox and retry each child independently so dense areas do not
+        # prevent the rest of the workspace from being downloaded.
+        mid_lon = (left + right) / 2
+        mid_lat = (bottom + top) / 2
+        tiles = (
+            (left, bottom, mid_lon, mid_lat),
+            (mid_lon, bottom, right, mid_lat),
+            (left, mid_lat, mid_lon, top),
+            (mid_lon, mid_lat, right, top),
+        )
+        roots = [
+            ET.fromstring(
+                _fetch_map_xml(
+                    env,
+                    workspace_id,
+                    tile,
+                    api_key,
+                    depth=depth + 1,
+                    request_count=request_count,
+                )
+            )
+            for tile in tiles
+        ]
+        combined = roots[0]
+        seen: set[tuple[str, str]] = set()
+        for child in combined:
+            seen.add((child.tag, child.attrib.get("id", "")))
+        for tile_root in roots[1:]:
+            for child in tile_root:
+                key = (child.tag, child.attrib.get("id", ""))
+                if key not in seen:
+                    combined.append(child)
+                    seen.add(key)
+        return ET.tostring(combined, encoding="utf-8", xml_declaration=True)
+    except ET.ParseError as exc:
+        raise ValueError(
+            f"Workspace map child response was malformed for bbox {bbox!r}"
+        ) from exc
 
 
 def parse_osm_xml(xml_bytes: bytes) -> list[Element]:
@@ -288,6 +399,26 @@ def filter_by_time(
     return result
 
 
+def filter_actions_by_time(
+    actions: list[tuple[str, Element]],
+    t_start: datetime,
+    t_end: datetime,
+) -> list[tuple[str, Element]]:
+    """Return changeset actions whose element timestamp is in the event window."""
+    filtered: list[tuple[str, Element]] = []
+    for action, element in actions:
+        timestamp = element.get("timestamp")
+        if not timestamp:
+            continue
+        try:
+            parsed = _parse_utc(timestamp)
+        except ValueError:
+            continue
+        if t_start <= parsed < t_end:
+            filtered.append((action, element))
+    return filtered
+
+
 # ---------------------------------------------------------------------------
 # Convenience: UTC timezone constant
 # ---------------------------------------------------------------------------
@@ -328,9 +459,9 @@ PHOTO_TAG_KEY: str = "ext:kartaview_url"
 #         "text": "…", "timestamp": "…",
 #         "user": "alice", "uid": 10}, …]
 #
-_CHANGESETS_PATH = "api/v1/workspace/changesets"
-_CHANGESET_PATH_TMPL = "api/v1/workspace/changeset/{changeset_id}"
-_NOTES_PATH = "api/v1/workspace/notes"
+_CHANGESETS_PATH = "api/0.6/changesets"
+_CHANGESET_PATH_TMPL = "api/0.6/changeset/{changeset_id}/download"
+_NOTES_PATH = "api/0.6/notes"
 
 
 # ---------------------------------------------------------------------------
@@ -367,11 +498,14 @@ def _build_readable_current(tags: dict[str, str], quest_def: Any) -> dict[str, s
     """
     if quest_def is None:
         return {}
-    return {
-        tag: _decode_tag_value(quest_def, tag, value)  # type: ignore[misc]
-        for tag, value in tags.items()
-        if tag in quest_def.tag_to_title
-    }
+    readable: dict[str, str] = {}
+    for tag, value in tags.items():
+        if tag not in quest_def.tag_value_to_label:
+            continue
+        decoded = _decode_tag_value(quest_def, tag, value)
+        if decoded is not None:
+            readable[tag] = decoded
+    return readable
 
 
 def _build_readable_diff(
@@ -389,7 +523,9 @@ def _build_readable_diff(
     if quest_def is None:
         return {}
     quest_tags = {
-        t for t in old_tags.keys() | new_tags.keys() if t in quest_def.tag_to_title
+        t
+        for t in old_tags.keys() | new_tags.keys()
+        if t in quest_def.tag_value_to_label
     }
     result: dict[str, Any] = {}
     for tag in quest_tags:
@@ -443,13 +579,29 @@ def fetch_changesets(
 
     Notes
     -----
-    Endpoint and query-parameter names are assumed pending confirmation
-    against the live TDEI Workspace API.
+    The Workspaces OSM-compatible API returns an XML ``<osm>`` document
+    containing ``<changeset>`` entries.  The ``time`` query parameter uses
+    the inclusive ISO-8601 interval format supported by that API.
     """
     t_start_str = _to_utc_str(window_start)
     t_end_str = _to_utc_str(window_end)
-    url = f"{_base_url(env)}/{_CHANGESETS_PATH}?t_start={t_start_str}&t_end={t_end_str}"
-    return fetch_json(url, headers=_api_headers(api_key, workspace_id))
+    url = f"{_base_url(env)}/{_CHANGESETS_PATH}?time={t_start_str},{t_end_str}"
+    payload = fetch_bytes(url, headers=_api_headers(api_key, workspace_id))
+    root = ET.fromstring(payload)  # noqa: S314 — trusted Workspaces API source
+
+    changesets: list[dict[str, Any]] = []
+    for changeset in root.findall("changeset"):
+        try:
+            item: dict[str, Any] = {
+                "id": int(changeset.attrib["id"]),
+                "uid": int(changeset.attrib["uid"]),
+                "user": changeset.attrib["user"],
+                "created_at": changeset.attrib["created_at"],
+            }
+        except KeyError, ValueError:
+            continue
+        changesets.append(item)
+    return changesets
 
 
 def fetch_changeset_xml(
@@ -483,7 +635,7 @@ def fetch_changeset_xml(
 
     Notes
     -----
-    Endpoint path is assumed pending confirmation against the live API.
+    The download route is the standard OSM-compatible Workspaces route.
     """
     path = _CHANGESET_PATH_TMPL.format(changeset_id=changeset_id)
     url = f"{_base_url(env)}/{path}"
@@ -596,18 +748,17 @@ def build_version_histories(
         groups.setdefault(key, []).append((action, elem))
 
     histories: dict[tuple[str, int], list[Version]] = {}
-    for key, group in groups.items():
+    for key in sorted(groups):
+        group = groups[key]
         # Sort by timestamp ascending; fall back to stable order on ties
-        try:
-            group.sort(key=lambda t: _parse_utc(t[1]["timestamp"]))
-        except KeyError, ValueError:
-            pass  # preserve insertion order if timestamps are unparseable
+        group.sort(key=lambda t: (t[1].get("timestamp", ""), t[0]))
 
         versions: list[Version] = []
         prev_tags: dict[str, str] = {}
         for action, elem in group:
             current_tags = elem.get("tags", {})
-            readable_diff = _build_readable_diff(prev_tags, current_tags, quest_def)
+            readable_diff = _build_readable_diff(
+                prev_tags, current_tags, quest_def)
             photos = extract_photos(current_tags)
             versions.append(
                 Version(
@@ -760,11 +911,68 @@ def fetch_notes(
 
     Notes
     -----
-    Endpoint path and response shape are assumed pending confirmation
-    against the live TDEI Workspace API.
+    The endpoint returns the OSM-compatible XML notes document.  The current
+    response does not include author fields, so note parsing uses an empty
+    author and UID zero when those fields are unavailable.
     """
-    url = f"{_base_url(env)}/{_NOTES_PATH}"
-    return fetch_json(url, headers=_api_headers(api_key, workspace_id))
+    bbox = fetch_bbox(env, workspace_id, api_key)
+    left, bottom, right, top = bbox
+    url = f"{_base_url(env)}/{_NOTES_PATH}?bbox={left},{bottom},{right},{top}"
+    payload = fetch_bytes(url, headers=_api_headers(api_key, workspace_id))
+    root = ET.fromstring(payload)  # noqa: S314 — trusted Workspaces API source
+
+    notes: list[dict[str, Any]] = []
+    for note in root.findall("note"):
+        try:
+            comment = note.find("./comments/comment")
+            date_created = note.findtext("date_created", "")
+            user = ""
+            uid = 0
+            if comment is not None:
+                user = comment.attrib.get("user", "")
+                uid = int(comment.attrib.get("uid", "0"))
+            notes.append(
+                {
+                    "id": int(note.findtext("id", "0")),
+                    "lat": float(note.attrib["lat"]),
+                    "lon": float(note.attrib["lon"]),
+                    "text": note.findtext("./comments/comment/text", ""),
+                    "timestamp": _normalise_note_timestamp(date_created),
+                    "user": user,
+                    "uid": uid,
+                }
+            )
+        except KeyError, TypeError, ValueError:
+            continue
+    return notes
+
+
+def _normalise_note_timestamp(value: str) -> str:
+    """Convert a Workspaces note timestamp to an ISO-8601 UTC string."""
+    if not value:
+        return ""
+    return value.replace(" UTC", "Z").replace(" ", "T")
+
+
+def parse_changesets(
+    changeset_payloads: Iterable[bytes | list[tuple[str, Element]]],
+    quest_def: Any = None,
+) -> dict[tuple[str, int], list[Version]]:
+    """Parse and combine several changeset documents into version histories.
+
+    ``changeset_payloads`` accepts either raw OsmChange XML bytes or already
+    parsed action pairs.  Supporting both forms keeps the aggregation logic
+    useful for the live pipeline and for offline golden fixtures.  Histories
+    are sorted by element type/id and timestamp, so response ordering cannot
+    change report output.
+    """
+    actions: list[tuple[str, Element]] = []
+    for payload in changeset_payloads:
+        if isinstance(payload, bytes):
+            actions.extend(parse_osmchange(payload))
+        else:
+            actions.extend(payload)
+    return build_version_histories(actions, quest_def=quest_def)
 
 
 def parse_notes(
@@ -804,7 +1012,9 @@ def parse_notes(
             continue
 
         timestamp = note.get("timestamp", "")
-        if timestamp and (window_start is not None or window_end is not None):
+        if window_start is not None or window_end is not None:
+            if not timestamp:
+                continue
             try:
                 ts = _parse_utc(timestamp)
             except ValueError:
@@ -842,10 +1052,14 @@ def parse_notes(
 # ---------------------------------------------------------------------------
 
 
-def resolve_way_geometry(elements: list[Element]) -> None:
+def resolve_way_geometry(
+    elements: list[Element],
+    coordinate_source: Iterable[Element] | None = None,
+) -> None:
     """Add ``geom`` to way elements by resolving member-node coordinates.
 
-    Builds a coordinate lookup from all node elements in *elements*,
+    Builds a coordinate lookup from all node elements in *coordinate_source*
+    when supplied, otherwise from *elements*,
     then for each way element constructs ``geom`` as a list of
     ``[lat, lon]`` pairs corresponding to the way's ``nodes`` ref list.
     Node refs without a matching coordinate are omitted from the polyline.
@@ -860,10 +1074,15 @@ def resolve_way_geometry(elements: list[Element]) -> None:
     elements:
         Mixed list of nodes, ways, and other elements from the pipeline.
         Both enriched and un-enriched elements are supported.
+    coordinate_source:
+        Optional complete map snapshot used to resolve nodes that are not
+        themselves event-edited elements.  This is important for ways whose
+        member nodes were created before the event window.
     """
+    source = coordinate_source if coordinate_source is not None else elements
     node_coords: dict[int, tuple[float, float]] = {
         e["id"]: (e["lat"], e["lon"])
-        for e in elements
+        for e in source
         if e.get("type") == "node" and "lat" in e and "lon" in e
     }
 
