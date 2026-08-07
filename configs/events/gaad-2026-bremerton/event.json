@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1",
+  "type": "event",
+  "id": "gaad-2026-bremerton",
+  "name": "GAAD 2026 Bremerton",
+  "date": "2026-05-15",
+  "report": {
+    "title": "GAAD 2026 Bremerton — Contribution Report"
+  },
+  "activities": [
+    {
+      "id": "walkabout",
+      "type": "workspace",
+      "label": "GAAD 2026 Bremerton",
+      "project_group_id": "f413e938-cdcb-4f84-b6ad-b827c1dc548e",
+      "workspace_id": 1778,
+      "environment": "prod",
+      "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/GAAD%20-%20Global%20Accessibility%20Awareness%20Day%202026/%5BTemplate%5D%20GAAD%202026.json",
+      "time_window": {
+        "start": "2026-05-14T10:00:00Z",
+        "end": "2026-05-16T17:00:00Z"
+      },
+      "quest_definition_retrieval_date": "2026-08-07T02:22:26Z"
+    }
+  ]
+}

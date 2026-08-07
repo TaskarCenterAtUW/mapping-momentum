@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1",
+  "type": "event",
+  "id": "sdf-2025",
+  "name": "Seattle Design Festival 2025",
+  "date": "2025-08-16",
+  "report": {
+    "title": "Seattle Design Festival 2025 — Contribution Report"
+  },
+  "activities": [
+    {
+      "id": "walkabout",
+      "type": "workspace",
+      "label": "Seattle Design Festival 2025",
+      "project_group_id": "97120eab-fd58-4b41-8f8f-f3e76363ae0a",
+      "workspace_id": 125,
+      "environment": "prod",
+      "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/Seattle%20Design%20Festival/Seattle%20Design%20Festival%202025.json",
+      "time_window": {
+        "start": "2025-08-14T04:00:00Z",
+        "end": "2025-08-18T18:00:00Z"
+      },
+      "quest_definition_retrieval_date": "2026-08-07T02:22:57Z"
+    }
+  ]
+}

@@ -2,26 +2,36 @@
 
 # Changelog
 
-Changes to Mapping Momentum are documented here.
+All notable changes to this project will be documented in this file.
 
-This project adheres to [Semantic Versioning](https://semver.org/) and
+The format is based on [Keep a Changelog](https://keepachangelog.com/),
+and this project adheres to [Semantic Versioning](https://semver.org/) and
 [Conventional Commits](https://www.conventionalcommits.org/).
 
-## v0.2.0 (2026-04-22)
+<!--
+## [Unreleased] - 2026-00-00
 
-### Features
+### Added
 
-- Add CHANGELOG.md
-- Add CONTRIBUTING.md
-- Add LICENSE
-- Add .editorconfig
-- Add .prettierrc.js
-- Add requirements.txt
-- Update .gitignore
-- Update README.md
+-
 
-## v0.1.0 (2026-04-22)
+### Fixed
 
-### Features
+-
 
-- Initial creation
+-->
+
+## [1.0.0] - 2026-08-07
+
+### Added
+
+- Initial release
+
+## [0.1.0] - 2026-04-22
+
+### Added
+
+- Initial commit
+
+[0.2.0]: https://github.com/taskarcenteratuw/mapping-momentum/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/taskarcenteratuw/mapping-momentum/releases/tag/v0.1.0
