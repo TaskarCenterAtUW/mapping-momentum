@@ -43,6 +43,7 @@ import importlib
 import inspect
 from pathlib import Path
 from typing import Any
+from urllib.parse import parse_qs, urlparse
 
 from mm.common.io import require_safe_path_component, write_json
 from mm.metrics.base import get_metrics_for_source
@@ -143,6 +144,7 @@ _IMAGE_MIME_TYPES: dict[str, str] = {
     ".gif": "image/gif",
     ".webp": "image/webp",
     ".svg": "image/svg+xml",
+    ".avif": "image/avif",
 }
 
 
@@ -162,26 +164,102 @@ def _resolve_showcase_photos(
     *event_dir*) are read from disk and embedded as ``data:`` URIs so the
     resulting stats.json / HTML report is fully self-contained.
     """
-    result: list[dict] = []
-    for photo in photos:
-        src: str = photo.get("src", "")
-        caption: str = photo.get("caption", "")
+    return _resolve_image_collection(photos, event_dir)
+
+
+def _resolve_image_collection(
+    sources: str | list[Any],
+    event_dir: Path | None,
+) -> list[dict[str, str]]:
+    """Resolve image files, directories, and URL sources into image objects."""
+    entries = [sources] if isinstance(sources, str) else sources
+    result: list[dict[str, str]] = []
+    for entry in entries:
+        if isinstance(entry, str):
+            src, caption = entry, ""
+        else:
+            src = entry.get("src", "")
+            caption = entry.get("caption", "")
         if not src:
             continue
         if src.startswith(("http://", "https://", "data:")):
             result.append({"src": src, "caption": caption})
-        elif event_dir is not None:
-            photo_path = event_dir / src
-            if photo_path.exists():
-                mime = _guess_image_mime(photo_path)
-                encoded = base64.b64encode(photo_path.read_bytes()).decode()
-                result.append(
-                    {"src": f"data:{mime};base64,{encoded}", "caption": caption}
-                )
-        else:
-            # No event_dir provided — keep original src
+            continue
+        if event_dir is None:
             result.append({"src": src, "caption": caption})
+            continue
+
+        path = (event_dir / src).resolve()
+        try:
+            path.relative_to(event_dir.resolve())
+        except ValueError:
+            continue
+        paths = (
+            sorted(
+                child
+                for child in path.iterdir()
+                if child.is_file() and child.suffix.lower() in _IMAGE_MIME_TYPES
+            )
+            if path.is_dir()
+            else [path]
+            if path.is_file()
+            else []
+        )
+        for image_path in paths:
+            mime = _guess_image_mime(image_path)
+            encoded = base64.b64encode(image_path.read_bytes()).decode()
+            result.append(
+                {"src": f"data:{mime};base64,{encoded}", "caption": caption}
+            )
     return result
+
+
+def _normalise_quotes(quotes: list[Any]) -> list[dict[str, str]]:
+    """Return quote entries with a stable text and attribution shape."""
+    result: list[dict[str, str]] = []
+    for quote in quotes:
+        if isinstance(quote, str):
+            result.append(
+                {
+                    "text": quote,
+                    "first_name": "",
+                    "last_name": "",
+                    "organization": "",
+                    "title": "",
+                }
+            )
+            continue
+        result.append(
+            {
+                "text": quote.get("quote") or quote.get("text", ""),
+                "first_name": quote.get("first_name", ""),
+                "last_name": quote.get("last_name", ""),
+                "organization": quote.get("organization", ""),
+                "title": quote.get("title", ""),
+            }
+        )
+    return result
+
+
+def _video_embed_url(url: str) -> tuple[str, str]:
+    """Return an embeddable URL and its rendering kind for a video URL."""
+    parsed = urlparse(url)
+    host = parsed.netloc.lower().split(":", 1)[0]
+    if host in {"youtube.com", "www.youtube.com", "m.youtube.com"}:
+        video_id = parse_qs(parsed.query).get("v", [""])[0]
+        if parsed.path.startswith("/shorts/"):
+            video_id = parsed.path.removeprefix("/shorts/").split("/", 1)[0]
+        if video_id:
+            return f"https://www.youtube.com/embed/{video_id}", "iframe"
+    if host == "youtu.be":
+        video_id = parsed.path.strip("/").split("/", 1)[0]
+        if video_id:
+            return f"https://www.youtube.com/embed/{video_id}", "iframe"
+    if host in {"vimeo.com", "www.vimeo.com"}:
+        video_id = parsed.path.strip("/").split("/", 1)[0]
+        if video_id.isdigit():
+            return f"https://player.vimeo.com/video/{video_id}", "iframe"
+    return url, "video"
 
 
 # ---------------------------------------------------------------------------
@@ -194,6 +272,10 @@ def build_stats(
     *,
     quest_def: Any = None,
     showcase_photos: list[dict] | None = None,
+    pictures: str | list[Any] | None = None,
+    quotes: list[Any] | None = None,
+    slideshow_url: str | list[str] | None = None,
+    video_url: str | None = None,
     event_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Assemble the full stats dict for one activity.
@@ -213,6 +295,15 @@ def build_stats(
         List of ``{"src": str, "caption": str}`` dicts from the event
         config.  Local paths are embedded as data URIs when *event_dir*
         is provided.
+    pictures:
+        A relative image directory or list of relative image paths.  Files are
+        embedded as data URIs when *event_dir* is provided.
+    quotes:
+        Quote text entries with optional attribution fields.
+    slideshow_url:
+        A slideshow/directory URL or a list of individual image URLs.
+    video_url:
+        A hosted video URL or direct video-file URL.
     event_dir:
         Path to the event directory.  Used to resolve relative showcase
         photo paths.
@@ -249,6 +340,23 @@ def build_stats(
     stats["showcase_photos"] = _resolve_showcase_photos(
         showcase_photos or [], event_dir
     )
+    stats["pictures"] = _resolve_image_collection(pictures or [], event_dir)
+    stats["quotes"] = _normalise_quotes(quotes or [])
+    stats["slideshow_url"] = slideshow_url
+    stats["slideshow_images"] = (
+        [{"src": url, "caption": ""} for url in slideshow_url]
+        if isinstance(slideshow_url, list)
+        else []
+    )
+    if video_url:
+        embed_url, video_kind = _video_embed_url(video_url)
+        stats["video_url"] = video_url
+        stats["video_embed_url"] = embed_url
+        stats["video_kind"] = video_kind
+    else:
+        stats["video_url"] = ""
+        stats["video_embed_url"] = ""
+        stats["video_kind"] = ""
 
     return stats
 

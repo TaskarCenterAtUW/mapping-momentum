@@ -111,10 +111,22 @@ def run_activity(
         window_end=window_end,
         elements=elements,
     )
+    report_config = config.get("report") or {}
+
+    def report_feature(name: str, default: Any) -> Any:
+        """Read a content feature from the event, then report overrides."""
+        if name in config:
+            return config[name]
+        return report_config.get(name, default)
+
     stats = build_stats(
         result,
         quest_def=quest_def,
         showcase_photos=config.get("showcase_photos", []),
+        pictures=report_feature("pictures", []),
+        quotes=report_feature("quotes", []),
+        slideshow_url=report_feature("slideshow_url", None),
+        video_url=report_feature("video_url", None),
         event_dir=event_dir,
     )
     if not dry_run:

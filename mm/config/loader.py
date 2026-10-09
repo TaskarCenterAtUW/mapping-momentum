@@ -28,6 +28,7 @@ Validation layers (applied in order):
      UTC ISO 8601 timestamp.
   10. ``showcase_photos`` relative ``src`` paths exist on disk (resolved
       against the event directory).
+  11. ``pictures`` paths and web media URLs are valid for report embedding.
 """
 
 from __future__ import annotations
@@ -65,6 +66,7 @@ _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 # Accepted UTC timestamp suffixes: 'Z' or explicit '+00:00'.
 _UTC_SUFFIX_RE = re.compile(r"(Z|\+00:00)$")
+_IMAGE_SUFFIXES = {".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
 
 
 def _parse_utc_timestamp(value: str, field_path: str) -> datetime:
@@ -176,6 +178,9 @@ def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
     if "showcase_photos" in config:
         _validate_showcase_photos(config["showcase_photos"], event_dir)
 
+    # --- Layer 11: report content/media validation ---
+    _validate_report_features(config, event_dir)
+
     # --- Layers 4-9: Per-activity validation ---
     seen_ids: set[str] = set()
     for idx, activity in enumerate(config.get("activities", [])):
@@ -266,3 +271,82 @@ def _validate_showcase_photos(photos: list, event_dir: Path) -> None:
                     f"showcase_photos[{i}].src {src!r} does not exist "
                     f"(resolved to {resolved})"
                 )
+
+
+def _validate_report_features(config: dict[str, Any], event_dir: Path) -> None:
+    """Validate optional report content and media fields."""
+    for source in (config, config.get("report") or {}):
+        if "pictures" in source:
+            _validate_pictures(source["pictures"], event_dir, "pictures")
+        if "quotes" in source:
+            _validate_quotes(source["quotes"], "quotes")
+        if "slideshow_url" in source:
+            _validate_web_urls(source["slideshow_url"], "slideshow_url")
+        if "video_url" in source:
+            _validate_web_urls(source["video_url"], "video_url", single=True)
+
+
+def _validate_pictures(value: str | list, event_dir: Path, field_name: str) -> None:
+    """Validate a picture directory or a list of relative picture paths."""
+    sources = [value] if isinstance(value, str) else value
+    for index, picture in enumerate(sources):
+        if isinstance(picture, str):
+            src = picture
+        else:
+            src = picture.get("src", "")
+        prefix = f"{field_name}[{index}]" if isinstance(value, list) else field_name
+        if not src:
+            raise ConfigError(f"{prefix}.src must not be empty")
+        path = Path(src)
+        if path.is_absolute():
+            raise ConfigError(f"{prefix}.src {src!r} must be relative")
+        resolved = (event_dir / path).resolve()
+        try:
+            resolved.relative_to(event_dir.resolve())
+        except ValueError as exc:
+            raise ConfigError(
+                f"{prefix}.src {src!r} must stay inside the event directory"
+            ) from exc
+        if not resolved.exists():
+            raise ConfigError(
+                f"{prefix}.src {src!r} does not exist (resolved to {resolved})"
+            )
+        if resolved.is_file() and resolved.suffix.lower() not in _IMAGE_SUFFIXES:
+            raise ConfigError(
+                f"{prefix}.src {src!r} does not have a supported image extension"
+            )
+        if not resolved.is_file() and not resolved.is_dir():
+            raise ConfigError(f"{prefix}.src {src!r} is not a file or directory")
+
+
+def _validate_quotes(quotes: list, field_name: str) -> None:
+    """Validate quote text and optional attribution fields."""
+    for index, quote in enumerate(quotes):
+        if isinstance(quote, str):
+            if not quote.strip():
+                raise ConfigError(f"{field_name}[{index}] must not be empty")
+            continue
+        text = quote.get("quote") or quote.get("text")
+        if not isinstance(text, str) or not text.strip():
+            raise ConfigError(
+                f"{field_name}[{index}] must include non-empty 'quote' or 'text'"
+            )
+
+
+def _validate_web_urls(
+    value: str | list[str],
+    field_name: str,
+    *,
+    single: bool = False,
+) -> None:
+    """Validate one web media URL or a list of web image URLs."""
+    urls = [value] if isinstance(value, str) else value
+    if single and not isinstance(value, str):
+        raise ConfigError(f"{field_name} must be a single URL")
+    for index, url in enumerate(urls):
+        parsed = urlparse(url)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            suffix = f"[{index}]" if isinstance(value, list) else ""
+            raise ConfigError(
+                f"{field_name}{suffix} must be an HTTP or HTTPS URL (got {url!r})"
+            )

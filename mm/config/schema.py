@@ -7,7 +7,7 @@ authoritative source.
 
 v1.1 adds quest_definition_url (required per workspace activity, enforced by
 the loader), quest_definition_retrieval_date (optional metadata), report
-(optional display overrides), and showcase_photos (optional photo array).
+(optional display overrides), and optional report media/content fields.
 """
 
 import re
@@ -167,6 +167,111 @@ SHOWCASE_PHOTO_SCHEMA: dict = {
     },
 }
 
+PICTURE_SCHEMA: dict = {
+    "oneOf": [
+        {
+            "type": "string",
+            "minLength": 1,
+            "description": "Relative path to an image file.",
+        },
+        {
+            "type": "object",
+            "required": ["src"],
+            "additionalProperties": False,
+            "properties": {
+                "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Relative path to an image file.",
+                },
+                "caption": {
+                    "type": "string",
+                    "description": "Optional image caption.",
+                },
+            },
+        },
+    ]
+}
+
+PICTURES_SCHEMA: dict = {
+    "oneOf": [
+        {
+            "type": "string",
+            "minLength": 1,
+            "description": "Relative path to an image directory.",
+        },
+        {
+            "type": "array",
+            "items": PICTURE_SCHEMA,
+            "description": "Relative paths to individual image files.",
+        },
+    ]
+}
+
+QUOTE_SCHEMA: dict = {
+    "oneOf": [
+        {
+            "type": "string",
+            "minLength": 1,
+        },
+        {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "quote": {"type": "string", "minLength": 1},
+                "text": {"type": "string", "minLength": 1},
+                "first_name": {"type": "string"},
+                "last_name": {"type": "string"},
+                "organization": {"type": "string"},
+                "title": {"type": "string"},
+            },
+            "anyOf": [{"required": ["quote"]}, {"required": ["text"]}],
+        },
+    ]
+}
+
+QUOTES_SCHEMA: dict = {
+    "type": "array",
+    "items": QUOTE_SCHEMA,
+}
+
+SLIDESHOW_URL_SCHEMA: dict = {
+    "oneOf": [
+        {
+            "type": "string",
+            "minLength": 1,
+            "description": "URL to a slideshow or image directory.",
+        },
+        {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "string",
+                "minLength": 1,
+                "description": "URL to an individual image.",
+            },
+            "description": "URLs to individual slideshow images.",
+        },
+    ]
+}
+
+VIDEO_URL_SCHEMA: dict = {
+    "type": "string",
+    "minLength": 1,
+    "description": "URL to a hosted video or a video file.",
+}
+
+# Content may be placed at the event level or in ``report``.  Keeping both
+# locations valid lets event metadata stay separate from presentation options.
+REPORT_SCHEMA["properties"].update(
+    {
+        "pictures": PICTURES_SCHEMA,
+        "quotes": QUOTES_SCHEMA,
+        "slideshow_url": SLIDESHOW_URL_SCHEMA,
+        "video_url": VIDEO_URL_SCHEMA,
+    }
+)
+
 # v1: only workspace activities are allowed; the schema uses oneOf so that
 # future activity types can be added here without restructuring.
 ACTIVITY_SCHEMA: dict = {
@@ -211,5 +316,9 @@ EVENT_CONFIG_SCHEMA: dict = {
             "items": SHOWCASE_PHOTO_SCHEMA,
             "description": "Participant photos shown in the report hero strip.",
         },
+        "pictures": PICTURES_SCHEMA,
+        "quotes": QUOTES_SCHEMA,
+        "slideshow_url": SLIDESHOW_URL_SCHEMA,
+        "video_url": VIDEO_URL_SCHEMA,
     },
 }
