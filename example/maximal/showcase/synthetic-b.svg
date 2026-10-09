@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#fce7f3"/>
+  <path d="M90 250 210 80l120 170z" fill="#db2777"/>
+  <path d="M310 250 430 80l120 170z" fill="#be123c"/>
+  <text x="320" y="330" fill="#831843" font-family="sans-serif" font-size="28" text-anchor="middle">Synthetic showcase B</text>
+</svg>
