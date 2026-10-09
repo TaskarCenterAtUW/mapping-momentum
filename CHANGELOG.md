@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/) and
   optional attribution, slideshow image URLs, and hosted or direct video URLs.
 - Embedded local report pictures into generated stats and rendered the new
   content sections in HTML reports.
+- Added complete synthetic minimal and maximal offline runs under `example/`,
+  including raw Workspace payloads, quest caches, SVG assets, and an end-to-end
+  runner.
 
 ### Fixed
 
