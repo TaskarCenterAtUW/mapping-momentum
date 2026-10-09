@@ -8,18 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/) and
 [Conventional Commits](https://www.conventionalcommits.org/).
 
-<!--
-## [Unreleased] - 2026-00-00
+## [Unreleased] - 2026-10-09
 
 ### Added
 
--
+- Added report support for local picture files/directories, quote lists with
+  optional attribution, slideshow image URLs, and hosted or direct video URLs.
+- Embedded local report pictures into generated stats and rendered the new
+  content sections in HTML reports.
 
 ### Fixed
 
--
-
--->
+- Corrected Python exception tuple syntax in Workspace parsing and time
+  filtering so the full test suite runs on Python 3.
 
 ## [1.0.0] - 2026-08-07
 
