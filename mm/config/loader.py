@@ -66,7 +66,7 @@ _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 # Accepted UTC timestamp suffixes: 'Z' or explicit '+00:00'.
 _UTC_SUFFIX_RE = re.compile(r"(Z|\+00:00)$")
-_IMAGE_SUFFIXES = {".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
+_IMAGE_SUFFIXES = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
 
 
 def _parse_utc_timestamp(value: str, field_path: str) -> datetime:
@@ -317,6 +317,16 @@ def _validate_pictures(value: str | list, event_dir: Path, field_name: str) -> N
             )
         if not resolved.is_file() and not resolved.is_dir():
             raise ConfigError(f"{prefix}.src {src!r} is not a file or directory")
+        if resolved.is_dir():
+            for child in resolved.iterdir():
+                if not child.is_file():
+                    continue
+                try:
+                    child.resolve().relative_to(event_dir.resolve())
+                except ValueError as exc:
+                    raise ConfigError(
+                        f"{prefix}.src contains a file outside the event directory"
+                    ) from exc
 
 
 def _validate_quotes(quotes: list, field_name: str) -> None:

@@ -32,7 +32,13 @@ All scalar metric keys from the registered compute functions, plus::
         },
         …
       ],
-      "showcase_photos": [{"src": str, "caption": str}, …]
+      "showcase_photos": [{"src": str, "caption": str}, …],
+      "pictures": [{"src": str, "caption": str}, …],
+      "quotes": [{"text": str, "first_name": str, …}, …],
+      "slideshow_url": str | [str] | null,
+      "video_url": str,
+      "video_embed_url": str,
+      "video_kind": "iframe" | "video" | ""
     }
 """
 
@@ -189,22 +195,27 @@ def _resolve_image_collection(
             result.append({"src": src, "caption": caption})
             continue
 
+        event_root = event_dir.resolve()
         path = (event_dir / src).resolve()
         try:
-            path.relative_to(event_dir.resolve())
+            path.relative_to(event_root)
         except ValueError:
             continue
-        paths = (
-            sorted(
-                child
-                for child in path.iterdir()
-                if child.is_file() and child.suffix.lower() in _IMAGE_MIME_TYPES
-            )
-            if path.is_dir()
-            else [path]
-            if path.is_file()
-            else []
-        )
+        if path.is_dir():
+            paths = []
+            for child in sorted(path.iterdir()):
+                if not child.is_file() or child.suffix.lower() not in _IMAGE_MIME_TYPES:
+                    continue
+                try:
+                    child = child.resolve()
+                    child.relative_to(event_root)
+                except ValueError:
+                    continue
+                paths.append(child)
+        elif path.is_file():
+            paths = [path]
+        else:
+            paths = []
         for image_path in paths:
             mime = _guess_image_mime(image_path)
             encoded = base64.b64encode(image_path.read_bytes()).decode()
