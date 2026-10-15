@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/) and
 - Added complete synthetic minimal and maximal offline runs under `example/`,
   including raw Workspace payloads, quest caches, SVG assets, and an end-to-end
   runner.
+- Included generated `stats.json` and `index.html` artifacts for both offline
+  examples, with links and regeneration commands in `example/README.md`.
 
 ### Fixed
 
