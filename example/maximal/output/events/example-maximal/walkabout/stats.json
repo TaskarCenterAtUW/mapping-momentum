@@ -1,0 +1,314 @@
+{
+  "activity_id": "walkabout",
+  "source_type": "workspace",
+  "window_start": "2026-10-02T10:00:00+00:00",
+  "window_end": "2026-10-02T12:00:00+00:00",
+  "changeset_count": 3,
+  "contributor_count": 3,
+  "contributors_breakdown": [
+    {
+      "user": "synthetic-mapper-a",
+      "count": 2,
+      "photo_count": 1
+    },
+    {
+      "user": "synthetic-observer",
+      "count": 2,
+      "photo_count": 0
+    },
+    {
+      "user": "synthetic-mapper-b",
+      "count": 1,
+      "photo_count": 1
+    }
+  ],
+  "elements_edited": 3,
+  "features_created": [
+    {
+      "feature_type": "node",
+      "count": 1
+    },
+    {
+      "feature_type": "way",
+      "count": 1
+    }
+  ],
+  "node_count": 2,
+  "note_count": 2,
+  "quest_type_breakdown": [
+    {
+      "category": "Synthetic Surfaces",
+      "count": 2,
+      "photo_count": 2
+    },
+    {
+      "category": "Synthetic Crossings",
+      "count": 1,
+      "photo_count": 0
+    }
+  ],
+  "questions_answered": [
+    {
+      "category": "Synthetic Crossings",
+      "total": 1,
+      "questions": [
+        {
+          "tag": "crossing",
+          "label": "Does this crossing have a signal?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Synthetic Surfaces",
+      "total": 2,
+      "questions": [
+        {
+          "tag": "surface",
+          "label": "What surface is present?",
+          "times_answered": 2,
+          "choices": [
+            {
+              "value": "asphalt",
+              "label": "Asphalt",
+              "count": 1
+            },
+            {
+              "value": "concrete",
+              "label": "Concrete",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relation_count": 0,
+  "way_count": 1,
+  "markers": [
+    {
+      "id": 1,
+      "type": "node",
+      "kind": "create",
+      "category": "Synthetic Surfaces",
+      "lat": 47.601,
+      "lon": -122.331,
+      "geom": null,
+      "tags": {
+        "surface": "asphalt",
+        "ext:kartaview_url": "https://photos.example.invalid/synthetic-a.jpg"
+      },
+      "readable": {
+        "surface": "Asphalt"
+      },
+      "photos": [
+        "https://photos.example.invalid/synthetic-a.jpg"
+      ],
+      "user": "synthetic-mapper-a",
+      "timestamp": "2026-10-02T10:15:00Z",
+      "versions": [
+        {
+          "action": "create",
+          "user": "synthetic-mapper-a",
+          "timestamp": "2026-10-02T10:15:00Z",
+          "changeset": 2001,
+          "tags": {
+            "surface": "asphalt",
+            "ext:kartaview_url": "https://photos.example.invalid/synthetic-a.jpg"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            }
+          },
+          "photos": [
+            "https://photos.example.invalid/synthetic-a.jpg"
+          ]
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 2,
+      "type": "node",
+      "kind": "quest",
+      "category": "Synthetic Surfaces",
+      "lat": 47.6015,
+      "lon": -122.3315,
+      "geom": null,
+      "tags": {
+        "surface": "concrete",
+        "ext:kartaview_url": "https://photos.example.invalid/synthetic-b.jpg"
+      },
+      "readable": {
+        "surface": "Concrete"
+      },
+      "photos": [
+        "https://photos.example.invalid/synthetic-b.jpg"
+      ],
+      "user": "synthetic-mapper-b",
+      "timestamp": "2026-10-02T10:45:00Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "synthetic-mapper-b",
+          "timestamp": "2026-10-02T10:45:00Z",
+          "changeset": 2002,
+          "tags": {
+            "surface": "concrete",
+            "ext:kartaview_url": "https://photos.example.invalid/synthetic-b.jpg"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": [
+            "https://photos.example.invalid/synthetic-b.jpg"
+          ]
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 9001,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6012,
+      "lon": -122.3312,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "synthetic-observer",
+      "timestamp": "2026-10-02T11:30:00Z",
+      "versions": [],
+      "text": "Synthetic note about a curb ramp."
+    },
+    {
+      "id": 9002,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6018,
+      "lon": -122.3318,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "synthetic-observer",
+      "timestamp": "2026-10-02T11:45:00Z",
+      "versions": [],
+      "text": "Synthetic note about a crossing signal."
+    },
+    {
+      "id": 20,
+      "type": "way",
+      "kind": "create",
+      "category": "Synthetic Crossings",
+      "lat": 47.60125,
+      "lon": -122.33125000000001,
+      "geom": [
+        [
+          47.601,
+          -122.331
+        ],
+        [
+          47.6015,
+          -122.3315
+        ]
+      ],
+      "tags": {
+        "crossing": "yes"
+      },
+      "readable": {
+        "crossing": "Yes"
+      },
+      "photos": [],
+      "user": "synthetic-mapper-a",
+      "timestamp": "2026-10-02T11:15:00Z",
+      "versions": [
+        {
+          "action": "create",
+          "user": "synthetic-mapper-a",
+          "timestamp": "2026-10-02T11:15:00Z",
+          "changeset": 2003,
+          "tags": {
+            "crossing": "yes"
+          },
+          "readable": {
+            "crossing": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    }
+  ],
+  "showcase_photos": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNlY2ZjY2IiLz4KICA8Y2lyY2xlIGN4PSIyMjAiIGN5PSIxNzUiIHI9Ijk1IiBmaWxsPSIjNjVhMzBkIi8+CiAgPGNpcmNsZSBjeD0iNDIwIiBjeT0iMTc1IiByPSI5NSIgZmlsbD0iIzBmNzY2ZSIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjMzY1MzE0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHNob3djYXNlIEE8L3RleHQ+Cjwvc3ZnPgo=",
+      "caption": "Synthetic field team illustration A"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmY2U3ZjMiLz4KICA8cGF0aCBkPSJNOTAgMjUwIDIxMCA4MGwxMjAgMTcweiIgZmlsbD0iI2RiMjc3NyIvPgogIDxwYXRoIGQ9Ik0zMTAgMjUwIDQzMCA4MGwxMjAgMTcweiIgZmlsbD0iI2JlMTIzYyIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjODMxODQzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHNob3djYXNlIEI8L3RleHQ+Cjwvc3ZnPgo=",
+      "caption": "Synthetic field team illustration B"
+    }
+  ],
+  "pictures": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNkYmVhZmUiLz4KICA8Y2lyY2xlIGN4PSIxODAiIGN5PSIxODAiIHI9IjkwIiBmaWxsPSIjMjU2M2ViIi8+CiAgPHBhdGggZD0iTTMyMCAyNzAgNDMwIDkwbDExMCAxODB6IiBmaWxsPSIjMTZhMzRhIi8+CiAgPHRleHQgeD0iMzIwIiB5PSIzMzAiIGZpbGw9IiMxNzI1NTQiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TeW50aGV0aWMgcGljdHVyZSBBPC90ZXh0Pgo8L3N2Zz4K",
+      "caption": ""
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmZWYzYzciLz4KICA8cmVjdCB4PSI5MCIgeT0iODAiIHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjQiIGZpbGw9IiNkOTc3MDYiLz4KICA8cGF0aCBkPSJNMzUwIDI2MGgxOTBMNDQ1IDgweiIgZmlsbD0iIzkzMzNlYSIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjNDUxYTAzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHBpY3R1cmUgQjwvdGV4dD4KPC9zdmc+Cg==",
+      "caption": ""
+    }
+  ],
+  "quotes": [
+    {
+      "text": "Synthetic maps help us practice careful observation.",
+      "first_name": "Nova",
+      "last_name": "Example",
+      "organization": "Example Cooperative",
+      "title": "Volunteer Mapper"
+    },
+    {
+      "text": "Every small edit makes the sample map clearer.",
+      "first_name": "Pixel",
+      "last_name": "Sample",
+      "organization": "Synthetic Access Lab",
+      "title": "Workshop Lead"
+    }
+  ],
+  "slideshow_url": [
+    "https://assets.example.invalid/slideshow/01.svg",
+    "https://assets.example.invalid/slideshow/02.svg"
+  ],
+  "slideshow_images": [
+    {
+      "src": "https://assets.example.invalid/slideshow/01.svg",
+      "caption": ""
+    },
+    {
+      "src": "https://assets.example.invalid/slideshow/02.svg",
+      "caption": ""
+    }
+  ],
+  "video_url": "https://video.example.invalid/synthetic-mapping.mp4",
+  "video_embed_url": "https://video.example.invalid/synthetic-mapping.mp4",
+  "video_kind": "video"
+}

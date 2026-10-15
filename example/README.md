@@ -20,6 +20,28 @@ Each command validates `event.json`, loads the local quest definition, parses
 the synthetic map/changeset/note payloads, enriches elements, computes metrics,
 and writes both `stats.json` and `index.html`.
 
+## Generated outputs
+
+Generated outputs are checked in so they can be reviewed without running the
+examples:
+
+- [Minimal stats](minimal/output/events/example-minimal/walkabout/stats.json)
+  · [Minimal report](minimal/output/events/example-minimal/walkabout/index.html)
+- [Maximal stats](maximal/output/events/example-maximal/walkabout/stats.json)
+  · [Maximal report](maximal/output/events/example-maximal/walkabout/index.html)
+
+Regenerate the committed artifacts with:
+
+```bash
+python example/run_offline.py \
+  --config example/minimal \
+  --output-dir example/minimal/output
+
+python example/run_offline.py \
+  --config example/maximal \
+  --output-dir example/maximal/output
+```
+
 ## Minimal
 
 `minimal/` contains only the fields and payloads needed for one valid report:
