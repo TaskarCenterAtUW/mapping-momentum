@@ -41,6 +41,16 @@ def parse_window(activity: dict[str, Any]) -> tuple[datetime, datetime]:
     return parse(window["start"]), parse(window["end"])
 
 
+def get_report_feature(
+    config: dict[str, Any], name: str, default: Any
+) -> Any:
+    """Return a report feature, with nested report values taking precedence."""
+    report_config = config.get("report") or {}
+    if name in report_config:
+        return report_config[name]
+    return config.get(name, default)
+
+
 def run_activity(
     config: dict[str, Any],
     activity: dict[str, Any],
@@ -111,22 +121,14 @@ def run_activity(
         window_end=window_end,
         elements=elements,
     )
-    report_config = config.get("report") or {}
-
-    def report_feature(name: str, default: Any) -> Any:
-        """Read a content feature from the event, then report overrides."""
-        if name in config:
-            return config[name]
-        return report_config.get(name, default)
-
     stats = build_stats(
         result,
         quest_def=quest_def,
         showcase_photos=config.get("showcase_photos", []),
-        pictures=report_feature("pictures", []),
-        quotes=report_feature("quotes", []),
-        slideshow_url=report_feature("slideshow_url", None),
-        video_url=report_feature("video_url", None),
+        pictures=get_report_feature(config, "pictures", []),
+        quotes=get_report_feature(config, "quotes", []),
+        slideshow_url=get_report_feature(config, "slideshow_url", None),
+        video_url=get_report_feature(config, "video_url", None),
         event_dir=event_dir,
     )
     if not dry_run:
