@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/) and
 
 - Corrected Python exception tuple syntax in Workspace parsing and time
   filtering so the full test suite runs on Python 3.
+- Made nested `report` media settings override event-level settings and scoped
+  offline example credentials to config validation.
 
 ## [1.0.0] - 2026-08-07
 
