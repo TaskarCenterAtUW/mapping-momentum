@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.1",
+  "type": "event",
+  "id": "example-minimal",
+  "name": "Synthetic Minimal Mapping Event",
+  "date": "2026-10-01",
+  "activities": [
+    {
+      "id": "walkabout",
+      "type": "workspace",
+      "label": "Synthetic Minimal Walk",
+      "project_group_id": "00000000-0000-4000-8000-000000000001",
+      "workspace_id": 1,
+      "environment": "dev",
+      "quest_definition_url": "https://example.invalid/quests/minimal.json",
+      "time_window": {
+        "start": "2026-10-01T10:00:00Z",
+        "end": "2026-10-01T11:00:00Z"
+      }
+    }
+  ]
+}

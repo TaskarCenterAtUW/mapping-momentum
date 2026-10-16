@@ -80,6 +80,34 @@ Use `--dry-run` to compute and print stats without writing report files. The
 normal report path reads the local quest cache and fetches only Workspace map,
 changeset, and note data.
 
+## Report content
+
+Optional event content can be configured at the event level or inside the
+`report` object:
+
+```json
+{
+  "pictures": ["pictures/volunteers.jpg"],
+  "quotes": [
+    {
+      "quote": "Everyone can contribute.",
+      "first_name": "Alex",
+      "last_name": "Mapper",
+      "organization": "TDEI",
+      "title": "Participant"
+    }
+  ],
+  "slideshow_url": ["https://example.com/event/001.jpg"],
+  "video_url": "https://www.youtube.com/watch?v=VIDEO_ID"
+}
+```
+
+`pictures` accepts a list of relative image paths or a relative directory.
+Local files are embedded in the report. `slideshow_url` accepts one slideshow
+or image-directory URL, or a list of individual image URLs. `video_url`
+accepts a hosted video URL (YouTube and Vimeo links are embedded) or a direct
+video-file URL. Quote attribution fields are optional.
+
 Large or dense Workspace areas may return large or truncated map XML. The map
 fetcher allows larger map payloads, retries transient malformed responses,
 automatically subdivides persistent truncation, and enforces a bounded request
