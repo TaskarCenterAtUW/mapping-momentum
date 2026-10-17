@@ -28,6 +28,7 @@ from mm.sources.base import SourceResult  # noqa: E402
 from mm.sources.workspace import (  # noqa: E402
     build_version_histories,
     enrich_elements,
+    filter_actions_by_time,
     parse_notes,
     parse_osm_xml,
     parse_osmchange,
@@ -68,12 +69,13 @@ def run_offline(event_dir: Path, output_dir: Path) -> tuple[Path, Path]:
     for path in sorted(changeset_dir.glob("*.osmchange")):
         actions.extend(parse_osmchange(path.read_bytes()))
 
+    window_start, window_end = parse_window(activity)
+    actions = filter_actions_by_time(actions, window_start, window_end)
     histories = build_version_histories(actions, quest_def=quest_def)
     elements = enrich_elements(snapshot, histories, quest_def=quest_def)
     resolve_way_geometry(elements, coordinate_source=snapshot)
 
     notes_path = offline_dir / "notes.json"
-    window_start, window_end = parse_window(activity)
     elements.extend(
         parse_notes(
             read_json(notes_path),

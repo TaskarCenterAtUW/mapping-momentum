@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import os
+import shutil
 from pathlib import Path
 
 from example.run_offline import run_offline
-from mm.common.io import read_json
+from mm.common.io import read_json, write_json
 from mm.config.schema import ENV_CREDENTIAL_VAR
 from mm.pipeline import get_report_feature
 
@@ -44,6 +45,20 @@ def test_maximal_example_runs_every_report_feature(tmp_path: Path) -> None:
     assert "Synthetic maps help us practice careful observation." in html
     assert "https://assets.example.invalid/slideshow/01.svg" in html
     assert "https://video.example.invalid/synthetic-mapping.mp4" in html
+
+
+def test_offline_example_filters_changesets_to_activity_window(tmp_path: Path) -> None:
+    example_dir = tmp_path / "maximal"
+    shutil.copytree(EXAMPLE_ROOT / "maximal", example_dir)
+    event_path = example_dir / "event.json"
+    event = read_json(event_path)
+    event["activities"][0]["time_window"]["end"] = "2026-10-02T10:30:00Z"
+    write_json(event_path, event)
+
+    stats_path, _ = run_offline(example_dir, tmp_path / "output")
+
+    stats = read_json(stats_path)
+    assert stats["changeset_count"] == 1
 
 
 def test_nested_report_features_override_event_scope() -> None:
