@@ -256,6 +256,13 @@ def _video_embed_url(url: str) -> tuple[str, str]:
     """Return an embeddable URL and its rendering kind for a video URL."""
     parsed = urlparse(url)
     host = parsed.netloc.lower().split(":", 1)[0]
+    if (
+        host in {"youtube.com", "www.youtube.com", "m.youtube.com"}
+        and parsed.path.startswith("/embed/")
+    ) or (
+        host == "player.vimeo.com" and parsed.path.startswith("/video/")
+    ):
+        return url, "iframe"
     if host in {"youtube.com", "www.youtube.com", "m.youtube.com"}:
         video_id = parse_qs(parsed.query).get("v", [""])[0]
         if parsed.path.startswith("/shorts/"):
