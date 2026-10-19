@@ -64,6 +64,8 @@ Use structured branch names:
 #### Changelog & Tagging a Release
 
 Changelog entries and version numbers are managed manually in `CHANGELOG.md`.
+Update the `Unreleased` section after every major completed work step; use a
+versioned section when preparing a release.
 
 1. Determine the correct [Semantic Version](https://semver.org/) bump and prepend a versioned and dated section with new `### Features` / `### Fixes` entries to `CHANGELOG.md`.
 

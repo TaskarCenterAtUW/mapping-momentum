@@ -41,6 +41,16 @@ def parse_window(activity: dict[str, Any]) -> tuple[datetime, datetime]:
     return parse(window["start"]), parse(window["end"])
 
 
+def get_report_feature(
+    config: dict[str, Any], name: str, default: Any
+) -> Any:
+    """Return a report feature, with nested report values taking precedence."""
+    report_config = config.get("report") or {}
+    if name in report_config:
+        return report_config[name]
+    return config.get(name, default)
+
+
 def run_activity(
     config: dict[str, Any],
     activity: dict[str, Any],
@@ -115,6 +125,10 @@ def run_activity(
         result,
         quest_def=quest_def,
         showcase_photos=config.get("showcase_photos", []),
+        pictures=get_report_feature(config, "pictures", []),
+        quotes=get_report_feature(config, "quotes", []),
+        slideshow_url=get_report_feature(config, "slideshow_url", None),
+        video_url=get_report_feature(config, "video_url", None),
         event_dir=event_dir,
     )
     if not dry_run:

@@ -392,7 +392,7 @@ def filter_by_time(
     for elem in elements:
         try:
             ts = _parse_utc(elem["timestamp"])
-        except KeyError, ValueError:
+        except (KeyError, ValueError):
             continue
         if t_start <= ts < t_end:
             result.append(elem)
@@ -598,7 +598,7 @@ def fetch_changesets(
                 "user": changeset.attrib["user"],
                 "created_at": changeset.attrib["created_at"],
             }
-        except KeyError, ValueError:
+        except (KeyError, ValueError):
             continue
         changesets.append(item)
     return changesets
@@ -942,7 +942,7 @@ def fetch_notes(
                     "uid": uid,
                 }
             )
-        except KeyError, TypeError, ValueError:
+        except (KeyError, TypeError, ValueError):
             continue
     return notes
 

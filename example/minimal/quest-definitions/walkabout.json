@@ -1,0 +1,28 @@
+{
+  "version": "3.0.0",
+  "elements": [
+    {
+      "element_type": "Synthetic Paths",
+      "element_type_icon": "path",
+      "quest_query": "nodes with (surface=asphalt)",
+      "quests": [
+        {
+          "quest_id": 1,
+          "quest_title": "What surface is present?",
+          "quest_type": "ExclusiveChoice",
+          "quest_tag": "surface",
+          "quest_answer_choices": [
+            {
+              "value": "asphalt",
+              "choice_text": "Asphalt"
+            },
+            {
+              "value": "concrete",
+              "choice_text": "Concrete"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

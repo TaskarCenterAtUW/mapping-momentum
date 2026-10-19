@@ -1,0 +1,51 @@
+{
+  "version": "3.0.0",
+  "elements": [
+    {
+      "element_type": "Synthetic Surfaces",
+      "element_type_icon": "surface",
+      "quest_query": "nodes with (surface=*)",
+      "quests": [
+        {
+          "quest_id": 10,
+          "quest_title": "What surface is present?",
+          "quest_type": "ExclusiveChoice",
+          "quest_tag": "surface",
+          "quest_answer_choices": [
+            {
+              "value": "asphalt",
+              "choice_text": "Asphalt"
+            },
+            {
+              "value": "concrete",
+              "choice_text": "Concrete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element_type": "Synthetic Crossings",
+      "element_type_icon": "crossing",
+      "quest_query": "ways with (crossing=yes)",
+      "quests": [
+        {
+          "quest_id": 20,
+          "quest_title": "Does this crossing have a signal?",
+          "quest_type": "ExclusiveChoice",
+          "quest_tag": "crossing",
+          "quest_answer_choices": [
+            {
+              "value": "yes",
+              "choice_text": "Yes"
+            },
+            {
+              "value": "no",
+              "choice_text": "No"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
