@@ -274,9 +274,18 @@ def _video_embed_url(url: str) -> tuple[str, str]:
         if video_id:
             return f"https://www.youtube.com/embed/{video_id}", "iframe"
     if host in {"vimeo.com", "www.vimeo.com"}:
-        video_id = parsed.path.strip("/").split("/", 1)[0]
+        from urllib.parse import urlencode
+
+        path_parts = parsed.path.strip("/").split("/")
+        video_id = path_parts[0]
         if video_id.isdigit():
-            return f"https://player.vimeo.com/video/{video_id}", "iframe"
+            query = parse_qs(parsed.query, keep_blank_values=True)
+            if len(path_parts) > 1 and path_parts[1]:
+                query["h"] = [path_parts[1]]
+            embed_url = f"https://player.vimeo.com/video/{video_id}"
+            if query:
+                embed_url += f"?{urlencode(query, doseq=True)}"
+            return embed_url, "iframe"
     return url, "video"
 
 
