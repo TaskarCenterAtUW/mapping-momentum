@@ -44,6 +44,35 @@
     .showcase-btn:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
     .showcase-img { width: 180px; height: 120px; object-fit: cover; }
 
+    /* --- Event content --- */
+    .media-section {
+      background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+      padding: 1rem; margin-bottom: 1.5rem;
+    }
+    .media-section h2 {
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #6c757d; margin-bottom: 0.75rem;
+    }
+    .picture-list, .slideshow-list {
+      list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .picture-list figure, .slideshow-list figure { max-width: 240px; }
+    .picture-list img, .slideshow-list img {
+      width: 240px; height: 160px; object-fit: cover; border-radius: 6px;
+    }
+    .picture-list figcaption, .slideshow-list figcaption {
+      color: #6c757d; font-size: 0.8125rem; margin-top: 0.25rem;
+    }
+    .quote-list { display: grid; gap: 1rem; list-style: none; }
+    .quote-list blockquote { border-left: 3px solid #0d6efd; padding-left: 0.75rem; }
+    .quote-list blockquote p { font-size: 1rem; font-style: italic; }
+    .quote-attribution { color: #6c757d; font-size: 0.8125rem; margin-top: 0.25rem; }
+    .slideshow-frame, .video-frame {
+      width: 100%; min-height: 360px; border: 0; border-radius: 6px;
+      background: #f8f9fa;
+    }
+    .video-player { width: 100%; max-height: 560px; border-radius: 6px; }
+
     /* --- Activity header (C2) --- */
     .activity-header { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
     .activity-header h2 { font-size: 1.25rem; font-weight: 700; }
@@ -278,6 +307,74 @@
         </li>
         {% endfor %}
       </ul>
+    </section>
+    {% endif %}
+
+    {% if stats.pictures %}
+    <section class="media-section" aria-labelledby="pictures-heading">
+      <h2 id="pictures-heading">Pictures</h2>
+      <ul class="picture-list" role="list">
+        {% for picture in stats.pictures %}
+        <li>
+          <figure>
+            <img src="{{ picture.src }}" alt="{{ picture.caption or 'Event picture ' ~ loop.index }}" loading="lazy">
+            {% if picture.caption %}<figcaption>{{ picture.caption }}</figcaption>{% endif %}
+          </figure>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if stats.quotes %}
+    <section class="media-section" aria-labelledby="quotes-heading">
+      <h2 id="quotes-heading">Quotes</h2>
+      <ul class="quote-list" role="list">
+        {% for quote in stats.quotes %}
+        <li>
+          <blockquote>
+            <p>{{ quote.text }}</p>
+            {% set attribution = [quote.first_name, quote.last_name, quote.title, quote.organization] | select | join(', ') %}
+            {% if attribution %}<footer class="quote-attribution">{{ attribution }}</footer>{% endif %}
+          </blockquote>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if stats.slideshow_images %}
+    <section class="media-section" aria-labelledby="slideshow-heading">
+      <h2 id="slideshow-heading">Slideshow</h2>
+      <ul class="slideshow-list" role="list">
+        {% for image in stats.slideshow_images %}
+        <li>
+          <figure>
+            <img src="{{ image.src }}" alt="Slideshow image {{ loop.index }}" loading="lazy">
+          </figure>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% elif stats.slideshow_url %}
+    <section class="media-section" aria-labelledby="slideshow-heading">
+      <h2 id="slideshow-heading">Slideshow</h2>
+      <iframe class="slideshow-frame" src="{{ stats.slideshow_url }}" title="Event slideshow" loading="lazy"></iframe>
+    </section>
+    {% endif %}
+
+    {% if stats.video_url %}
+    <section class="media-section" aria-labelledby="video-heading">
+      <h2 id="video-heading">Video</h2>
+      {% if stats.video_kind == "iframe" %}
+      <iframe class="video-frame" src="{{ stats.video_embed_url }}" title="Event video"
+              loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      {% else %}
+      <video class="video-player" controls preload="metadata">
+        <source src="{{ stats.video_url }}">
+        Your browser does not support embedded video.
+      </video>
+      {% endif %}
     </section>
     {% endif %}
 

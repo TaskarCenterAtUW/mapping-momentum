@@ -1,0 +1,100 @@
+{
+  "activity_id": "walkabout",
+  "source_type": "workspace",
+  "window_start": "2026-10-01T10:00:00+00:00",
+  "window_end": "2026-10-01T11:00:00+00:00",
+  "changeset_count": 1,
+  "contributor_count": 1,
+  "contributors_breakdown": [
+    {
+      "user": "synthetic-mapper-a",
+      "count": 1,
+      "photo_count": 0
+    }
+  ],
+  "elements_edited": 1,
+  "features_created": [
+    {
+      "feature_type": "node",
+      "count": 1
+    }
+  ],
+  "node_count": 1,
+  "note_count": 0,
+  "quest_type_breakdown": [
+    {
+      "category": "Synthetic Paths",
+      "count": 1,
+      "photo_count": 0
+    }
+  ],
+  "questions_answered": [
+    {
+      "category": "Synthetic Paths",
+      "total": 1,
+      "questions": [
+        {
+          "tag": "surface",
+          "label": "What surface is present?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "asphalt",
+              "label": "Asphalt",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relation_count": 0,
+  "way_count": 0,
+  "markers": [
+    {
+      "id": 1,
+      "type": "node",
+      "kind": "create",
+      "category": "Synthetic Paths",
+      "lat": 47.6001,
+      "lon": -122.3301,
+      "geom": null,
+      "tags": {
+        "surface": "asphalt"
+      },
+      "readable": {
+        "surface": "Asphalt"
+      },
+      "photos": [],
+      "user": "synthetic-mapper-a",
+      "timestamp": "2026-10-01T10:15:00Z",
+      "versions": [
+        {
+          "action": "create",
+          "user": "synthetic-mapper-a",
+          "timestamp": "2026-10-01T10:15:00Z",
+          "changeset": 1001,
+          "tags": {
+            "surface": "asphalt"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    }
+  ],
+  "showcase_photos": [],
+  "pictures": [],
+  "quotes": [],
+  "slideshow_url": null,
+  "slideshow_images": [],
+  "video_url": "",
+  "video_embed_url": "",
+  "video_kind": ""
+}

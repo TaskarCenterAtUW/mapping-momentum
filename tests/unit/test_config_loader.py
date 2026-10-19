@@ -612,3 +612,60 @@ def test_showcase_photos_absent_accepted(tmp_path: Path) -> None:
     p = _write_config(tmp_path, config)
     loaded = load_event_config(p)
     assert "showcase_photos" not in loaded
+
+
+# ---------------------------------------------------------------------------
+# Report content and media
+# ---------------------------------------------------------------------------
+
+
+def test_pictures_file_list_and_directory_accepted(tmp_path: Path) -> None:
+    event_dir = _write_dir_config(tmp_path, _base_config())
+    pictures_dir = event_dir / "pictures"
+    pictures_dir.mkdir()
+    (pictures_dir / "001.jpg").write_bytes(b"fake-image")
+    (pictures_dir / "002.png").write_bytes(b"fake-image")
+    config = _base_config()
+    config["pictures"] = ["pictures/001.jpg"]
+    config["report"] = {
+        "pictures": "pictures",
+        "quotes": [
+            {
+                "quote": "Mapping is for everyone.",
+                "first_name": "Ada",
+                "last_name": "Lovelace",
+                "organization": "TDEI",
+                "title": "Participant",
+            }
+        ],
+        "slideshow_url": ["https://example.com/001.jpg"],
+        "video_url": "https://youtu.be/example",
+    }
+    (event_dir / "event.json").write_text(json.dumps(config), encoding="utf-8")
+    loaded = load_event_config(event_dir)
+    assert loaded["pictures"] == ["pictures/001.jpg"]
+    assert loaded["report"]["pictures"] == "pictures"
+
+
+def test_pictures_missing_path_raises(tmp_path: Path) -> None:
+    config = _base_config()
+    config["pictures"] = ["pictures/missing.jpg"]
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="does not exist"):
+        load_event_config(p)
+
+
+def test_report_media_invalid_urls_raise(tmp_path: Path) -> None:
+    config = _base_config()
+    config["slideshow_url"] = ["pictures/001.jpg"]
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="HTTP or HTTPS URL"):
+        load_event_config(p)
+
+
+def test_quote_requires_text(tmp_path: Path) -> None:
+    config = _base_config()
+    config["quotes"] = [{"first_name": "Only"}]
+    p = _write_config(tmp_path, config)
+    with pytest.raises(ConfigError, match="Schema validation failed"):
+        load_event_config(p)

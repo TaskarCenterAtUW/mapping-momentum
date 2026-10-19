@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osmChange version="0.6">
+  <modify>
+    <node id="2" lat="47.6015" lon="-122.3315" version="2"
+          timestamp="2026-10-02T10:45:00Z" uid="1002"
+          user="synthetic-mapper-b" changeset="2002">
+      <tag k="surface" v="concrete"/>
+      <tag k="ext:kartaview_url" v="https://photos.example.invalid/synthetic-b.jpg"/>
+    </node>
+  </modify>
+</osmChange>

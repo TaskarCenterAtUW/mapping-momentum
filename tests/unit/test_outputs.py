@@ -303,6 +303,35 @@ def test_build_stats_showcase_empty_without_photos() -> None:
     assert stats["showcase_photos"] == []
 
 
+def test_build_stats_media_features(tmp_path: Path) -> None:
+    pictures_dir = tmp_path / "pictures"
+    pictures_dir.mkdir()
+    (pictures_dir / "002.png").write_bytes(b"png")
+    (pictures_dir / "001.jpg").write_bytes(b"jpg")
+    stats = build_stats(
+        _make_source_result(),
+        pictures="pictures",
+        quotes=[
+            {
+                "quote": "A welcoming map.",
+                "first_name": "Ada",
+                "organization": "TDEI",
+            }
+        ],
+        slideshow_url=["https://example.com/one.jpg", "https://example.com/two.jpg"],
+        video_url="https://www.youtube.com/watch?v=abc123",
+        event_dir=tmp_path,
+    )
+    assert [item["src"].split(",")[0] for item in stats["pictures"]] == [
+        "data:image/jpeg;base64",
+        "data:image/png;base64",
+    ]
+    assert stats["quotes"][0]["text"] == "A welcoming map."
+    assert len(stats["slideshow_images"]) == 2
+    assert stats["video_embed_url"] == "https://www.youtube.com/embed/abc123"
+    assert stats["video_kind"] == "iframe"
+
+
 def test_build_stats_marker_has_version_history() -> None:
     node = _enriched_node()
     stats = build_stats(_make_source_result([node]))
@@ -505,6 +534,22 @@ def test_render_report_showcase_section_present_with_photos() -> None:
     html = render_report(stats, _minimal_config(), _minimal_config()["activities"][0])
     assert "showcase" in html
     assert "https://example.com/img.jpg" in html
+
+
+def test_render_report_media_sections_present() -> None:
+    stats = build_stats(
+        _make_source_result(),
+        quotes=[{"text": "A quote.", "last_name": "Mapper"}],
+        slideshow_url=["https://example.com/slide.jpg"],
+        video_url="https://example.com/video.mp4",
+    )
+    html = render_report(stats, _minimal_config(), _minimal_config()["activities"][0])
+    assert "Pictures" not in html
+    assert "A quote." in html
+    assert "Slideshow" in html
+    assert "https://example.com/slide.jpg" in html
+    assert "Video" in html
+    assert "https://example.com/video.mp4" in html
 
 
 def test_render_report_photo_modal_dialog_present() -> None:
