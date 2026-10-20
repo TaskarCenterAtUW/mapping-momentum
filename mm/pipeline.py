@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from mm.config.schema import ENV_CREDENTIAL_VAR
 from mm.outputs.html_report import render_report, write_report
 from mm.outputs.json_stats import build_stats, write_stats
 from mm.quests.loader import load_quest_definition
@@ -56,6 +54,7 @@ def run_activity(
     activity: dict[str, Any],
     *,
     output_dir: Path,
+    access_token: str,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     """Fetch, enrich, measure, and optionally write one activity report.
@@ -79,22 +78,22 @@ def run_activity(
             f"expected {cache_candidates[0]}"
         )
     quest_def = load_quest_definition(quest_cache)
-    env_var = ENV_CREDENTIAL_VAR[activity["environment"]]
-    api_key = os.environ.get(env_var)
-    if not api_key:
-        raise ValueError(f"required environment variable {env_var!r} is not set")
+    env = activity["environment"]
 
     window_start, window_end = parse_window(activity)
-    env = activity["environment"]
     workspace_id = activity["workspace_id"]
-    bbox = fetch_bbox(env, workspace_id, api_key)
-    snapshot = parse_osm_xml(fetch_osm_xml(env, workspace_id, bbox, api_key))
-    metadata = fetch_changesets(env, workspace_id, window_start, window_end, api_key)
+    bbox = fetch_bbox(env, workspace_id, access_token)
+    snapshot = parse_osm_xml(
+        fetch_osm_xml(env, workspace_id, bbox, access_token)
+    )
+    metadata = fetch_changesets(
+        env, workspace_id, window_start, window_end, access_token
+    )
     actions = []
     for item in metadata:
         if "id" in item:
             changeset_xml = fetch_changeset_xml(
-                env, workspace_id, int(item["id"]), api_key
+                env, workspace_id, int(item["id"]), access_token
             )
             actions.extend(
                 filter_actions_by_time(
@@ -110,7 +109,11 @@ def run_activity(
     elements = enrich_elements(snapshot, histories, quest_def=quest_def)
     resolve_way_geometry(elements, coordinate_source=snapshot)
     elements.extend(
-        parse_notes(fetch_notes(env, workspace_id, api_key), window_start, window_end)
+        parse_notes(
+            fetch_notes(env, workspace_id, access_token),
+            window_start,
+            window_end,
+        )
     )
     elements.sort(key=lambda item: (item.get("type", ""), item.get("id", 0)))
 

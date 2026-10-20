@@ -19,22 +19,18 @@ Validation layers (applied in order):
   4. ISO 8601 UTC format for every ``time_window.start`` / ``.end``.
   5. Chronological order of each time window (start < end).
   6. Uniqueness of ``activity.id`` values within one event.
-  7. Presence of the expected credential environment variable for every
-     ``workspace`` activity (``MM_TDEI_API_KEY_PROD``, ``MM_TDEI_API_KEY_STAGE``,
-     or ``MM_TDEI_API_KEY_DEV`` depending on the activity's ``environment``).
-  8. ``quest_definition_url`` is present and non-empty on every
+  7. ``quest_definition_url`` is present and non-empty on every
      ``workspace`` activity.
-  9. ``quest_definition_retrieval_date``, when present, is a valid
+  8. ``quest_definition_retrieval_date``, when present, is a valid
      UTC ISO 8601 timestamp.
-  10. ``showcase_photos`` relative ``src`` paths exist on disk (resolved
+  9. ``showcase_photos`` relative ``src`` paths exist on disk (resolved
       against the event directory).
-  11. ``pictures`` paths and web media URLs are valid for report embedding.
+  10. ``pictures`` paths and web media URLs are valid for report embedding.
 """
 
 from __future__ import annotations
 
 import json
-import os
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -44,7 +40,6 @@ from urllib.parse import urlparse
 import jsonschema
 
 from mm.config.schema import (
-    ENV_CREDENTIAL_VAR,
     EVENT_CONFIG_SCHEMA,
     SLUG_PATTERN,
 )
@@ -174,14 +169,14 @@ def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
     except ValueError:
         raise ConfigError(f"event.date {date_val!r} is not a valid calendar date")
 
-    # --- Layer 10: showcase_photos path validation ---
+    # --- Layer 9: showcase_photos path validation ---
     if "showcase_photos" in config:
         _validate_showcase_photos(config["showcase_photos"], event_dir)
 
-    # --- Layer 11: report content/media validation ---
+    # --- Layer 10: report content/media validation ---
     _validate_report_features(config, event_dir)
 
-    # --- Layers 4-9: Per-activity validation ---
+    # --- Layers 4-8: Per-activity validation ---
     seen_ids: set[str] = set()
     for idx, activity in enumerate(config.get("activities", [])):
         prefix = f"activities[{idx}]"
@@ -203,7 +198,7 @@ def _validate_event_config(config: dict[str, Any], event_dir: Path) -> None:
             )
         seen_ids.add(act_id)
 
-        # Layers 4, 5, 7, 8, 9: timestamp + credential validation
+        # Layers 4, 5, 7, 8: timestamp and quest metadata validation
         if activity.get("type") == "workspace":
             _validate_workspace_activity(activity, prefix)
 
@@ -225,16 +220,7 @@ def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
             f"(got start={tw['start']!r}, end={tw['end']!r})"
         )
 
-    # Layer 7: credential env var presence
-    environment: str = activity["environment"]
-    env_var = ENV_CREDENTIAL_VAR[environment]
-    if not os.environ.get(env_var):
-        raise ConfigError(
-            f"{prefix}: required environment variable {env_var!r} is not set. "
-            f"Set it to the TDEI API key for the {environment!r} environment."
-        )
-
-    # Layer 8: quest_definition_url required
+    # Layer 7: quest_definition_url required
     url = activity.get("quest_definition_url", "")
     if not url:
         raise ConfigError(f"{prefix}.quest_definition_url is required")
@@ -242,7 +228,7 @@ def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
     if parsed_url.scheme != "https" or not parsed_url.netloc:
         raise ConfigError(f"{prefix}.quest_definition_url must be an HTTPS URL")
 
-    # Layer 9: quest_definition_retrieval_date must be UTC ISO 8601 if present
+    # Layer 8: quest_definition_retrieval_date must be UTC ISO 8601 if present
     retrieval_date = activity.get("quest_definition_retrieval_date")
     if retrieval_date is not None:
         _parse_utc_timestamp(

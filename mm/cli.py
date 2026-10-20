@@ -7,14 +7,16 @@ Entry point: the ``mapping-momentum`` console script delegates to ``run_cli``.
 from __future__ import annotations
 
 import argparse
+import getpass
 import json
-import os
 import shutil
 import sys
 import tempfile
+import warnings
 from pathlib import Path
 
 from mm.config.schema import SLUG_PATTERN
+from mm.sources.workspace import authenticate
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -103,6 +105,41 @@ def run_cli(argv: list[str] | None = None) -> int:
     return 1
 
 
+def _authenticate_interactively(environment: str) -> str:
+    """Prompt for TDEI credentials and return a short-lived access token."""
+    if not (
+        sys.stdin.isatty()
+        and sys.stdout.isatty()
+        and sys.stderr.isatty()
+    ):
+        raise ValueError(
+            "TDEI credentials must be entered from an interactive terminal."
+        )
+
+    try:
+        username = input(f"TDEI {environment} username: ").strip()
+    except EOFError as exc:
+        raise ValueError("No TDEI username was entered.") from exc
+    if not username:
+        raise ValueError("TDEI username cannot be empty.")
+
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", getpass.GetPassWarning)
+            password = getpass.getpass(f"TDEI {environment} password: ")
+    except getpass.GetPassWarning as exc:
+        raise ValueError(
+            "Cannot read the TDEI password without echo; use an interactive "
+            "terminal."
+        ) from exc
+    except EOFError as exc:
+        raise ValueError("No TDEI password was entered.") from exc
+    if not password:
+        raise ValueError("TDEI password cannot be empty.")
+
+    return authenticate(environment, username, password)
+
+
 def _cmd_event(args: argparse.Namespace) -> int:
     """Handle the ``event`` subcommand.
 
@@ -135,11 +172,18 @@ def _cmd_event(args: argparse.Namespace) -> int:
     from mm.pipeline import run_activity
 
     try:
+        access_tokens: dict[str, str] = {}
         for activity in config["activities"]:
+            environment = activity["environment"]
+            if environment not in access_tokens:
+                access_tokens[environment] = _authenticate_interactively(
+                    environment
+                )
             stats = run_activity(
                 config,
                 activity,
                 output_dir=output_dir,
+                access_token=access_tokens[environment],
                 dry_run=bool(getattr(args, "dry_run", False)),
             )
             if getattr(args, "dry_run", False):
@@ -159,7 +203,6 @@ def _cmd_capture(args: argparse.Namespace) -> int:
     """Capture raw map, changeset, and notes payloads for an offline fixture."""
     from mm.common.io import write_json
     from mm.config.loader import ConfigError, load_event_config
-    from mm.config.schema import ENV_CREDENTIAL_VAR
     from mm.pipeline import parse_window
     from mm.sources.workspace import (
         fetch_bbox,
@@ -181,13 +224,9 @@ def _cmd_capture(args: argparse.Namespace) -> int:
     if activity is None:
         print(f"error: activity not found: {args.activity_id}", file=sys.stderr)
         return 1
-    api_key = os.environ.get(ENV_CREDENTIAL_VAR[activity["environment"]])
-    if not api_key:
-        print("error: required API credential is not set", file=sys.stderr)
-        return 1
+    env = activity["environment"]
 
     start, end = parse_window(activity)
-    env = activity["environment"]
     workspace_id = activity["workspace_id"]
     if not isinstance(args.fixture_name, str) or not SLUG_PATTERN.fullmatch(
         args.fixture_name
@@ -207,22 +246,31 @@ def _cmd_capture(args: argparse.Namespace) -> int:
         return 1
 
     try:
+        access_token = _authenticate_interactively(env)
         with tempfile.TemporaryDirectory(dir=fixture_root.parent) as temp_name:
             staging_dir = Path(temp_name) / args.fixture_name
             staging_dir.mkdir()
             map_bytes = fetch_osm_xml(
-                env, workspace_id, fetch_bbox(env, workspace_id, api_key), api_key
+                env,
+                workspace_id,
+                fetch_bbox(env, workspace_id, access_token),
+                access_token,
             )
             (staging_dir / "map.osm").write_bytes(map_bytes)
-            changesets = fetch_changesets(env, workspace_id, start, end, api_key)
+            changesets = fetch_changesets(
+                env, workspace_id, start, end, access_token
+            )
             write_json(staging_dir / "changesets.json", changesets)
             for item in changesets:
                 if "id" in item:
                     (staging_dir / f"changeset-{item['id']}.osmchange").write_bytes(
-                        fetch_changeset_xml(env, workspace_id, int(item["id"]), api_key)
+                        fetch_changeset_xml(
+                            env, workspace_id, int(item["id"]), access_token
+                        )
                     )
             write_json(
-                staging_dir / "notes.json", fetch_notes(env, workspace_id, api_key)
+                staging_dir / "notes.json",
+                fetch_notes(env, workspace_id, access_token),
             )
             if fixture_dir.exists():
                 shutil.rmtree(fixture_dir)

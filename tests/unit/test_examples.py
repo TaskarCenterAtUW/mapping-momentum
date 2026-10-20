@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-import os
 import shutil
 from pathlib import Path
 
 from example.run_offline import run_offline
 from mm.common.io import read_json, write_json
-from mm.config.schema import ENV_CREDENTIAL_VAR
 from mm.pipeline import get_report_feature
 
 EXAMPLE_ROOT = Path(__file__).parents[2] / "example"
@@ -68,14 +66,3 @@ def test_nested_report_features_override_event_scope() -> None:
     }
 
     assert get_report_feature(config, "pictures", []) == ["report.jpg"]
-
-
-def test_offline_run_restores_credentials(tmp_path: Path, monkeypatch) -> None:
-    for env_var in ENV_CREDENTIAL_VAR.values():
-        monkeypatch.delenv(env_var, raising=False)
-
-    run_offline(EXAMPLE_ROOT / "minimal", tmp_path / "minimal-output")
-
-    assert all(
-        env_var not in os.environ for env_var in ENV_CREDENTIAL_VAR.values()
-    )

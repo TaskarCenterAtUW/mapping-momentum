@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.2.0] - 2026-10-19
+
+### Changed
+
+- Updated Workspace authentication to use interactive TDEI login prompts and send the short-lived access token using the workspace-ID Basic auth format. The CLI no longer requires persistent credential environment variables.
+- Increased the Workspace API data-request timeout to 120 seconds for large workspaces and added endpoint context to timeout errors.
+- Automatically subdivided oversized map responses into smaller Workspace requests instead of failing at the per-response byte limit.
+
 ## [1.1.1] - 2026-10-19
 
 ### Added

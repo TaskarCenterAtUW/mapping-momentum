@@ -13,7 +13,7 @@ Test matrix:
   - non-UTC timestamp in time_window is rejected
   - malformed timestamp in time_window is rejected
   - time_window where start >= end is rejected
-  - missing credential env var is rejected
+  - event configuration can be validated without runtime credentials
   - v1.1: quest_definition_url required and non-empty
   - v1.1: quest_definition_retrieval_date must be UTC ISO 8601 if present
   - report optional object accepted
@@ -41,7 +41,6 @@ from mm.config.loader import ConfigError, load_event_config
 
 # A minimal valid v1.1 event config.  Individual tests mutate a deep copy.
 _VALID_PROJECT_GROUP_ID = "832c0df9-1950-4c72-ac25-232c7752beb0"
-_VALID_ENV_VAR = "MM_TDEI_API_KEY_PROD"
 _VALID_QUEST_URL = (
     "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests"
     "/refs/heads/main/quests/prod/SCLIO%20Vancouver/NDA%20Vancouver%20Walk%20Roll.json"
@@ -90,22 +89,15 @@ def _write_dir_config(tmp_path: Path, config: dict[str, Any]) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Fixtures
-# ---------------------------------------------------------------------------
-
-
-@pytest.fixture(autouse=True)
-def _set_credential_env(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Set the required TDEI credential env var for the base config."""
-    monkeypatch.setenv(_VALID_ENV_VAR, "test-api-key")
-
-
-# ---------------------------------------------------------------------------
 # Happy path
 # ---------------------------------------------------------------------------
 
 
-def test_valid_config_loads(tmp_path: Path) -> None:
+def test_valid_config_loads_without_tdei_credentials(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("MM_TDEI_USERNAME_PROD", raising=False)
+    monkeypatch.delenv("MM_TDEI_PASSWORD_PROD", raising=False)
     config = _base_config()
     p = _write_config(tmp_path, config)
     loaded = load_event_config(p)
@@ -327,55 +319,6 @@ def test_start_after_end_raises(tmp_path: Path) -> None:
     config["activities"][0]["time_window"]["end"] = "2026-01-01T14:00:00Z"
     p = _write_config(tmp_path, config)
     with pytest.raises(ConfigError, match="start must be before end"):
-        load_event_config(p)
-
-
-# ---------------------------------------------------------------------------
-# Credential env var
-# ---------------------------------------------------------------------------
-
-
-def test_missing_credential_env_var_raises(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.delenv(_VALID_ENV_VAR, raising=False)
-    config = _base_config()
-    p = _write_config(tmp_path, config)
-    with pytest.raises(ConfigError, match="environment variable"):
-        load_event_config(p)
-
-
-@pytest.mark.parametrize(
-    "environment, expected_var",
-    [
-        ("prod", "MM_TDEI_API_KEY_PROD"),
-        ("stage", "MM_TDEI_API_KEY_STAGE"),
-        ("dev", "MM_TDEI_API_KEY_DEV"),
-    ],
-)
-def test_credential_var_per_environment(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, environment: str, expected_var: str
-) -> None:
-    """Each environment maps to its own named credential variable."""
-    # Clear the prod key set by the autouse fixture, then set only the one we need.
-    monkeypatch.delenv("MM_TDEI_API_KEY_PROD", raising=False)
-    monkeypatch.setenv(expected_var, "some-key")
-    config = _base_config()
-    config["activities"][0]["environment"] = environment
-    p = _write_config(tmp_path, config)
-    loaded = load_event_config(p)
-    assert loaded["activities"][0]["environment"] == environment
-
-
-def test_credential_var_missing_for_stage(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    """Activity in 'stage' fails if MM_TDEI_API_KEY_STAGE is not set."""
-    monkeypatch.delenv("MM_TDEI_API_KEY_STAGE", raising=False)
-    config = _base_config()
-    config["activities"][0]["environment"] = "stage"
-    p = _write_config(tmp_path, config)
-    with pytest.raises(ConfigError, match="MM_TDEI_API_KEY_STAGE"):
         load_event_config(p)
 
 
