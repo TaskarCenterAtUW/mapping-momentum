@@ -34,6 +34,7 @@ Test matrix:
 
 from __future__ import annotations
 
+import base64
 import json
 import urllib.error
 from datetime import datetime, timezone
@@ -44,6 +45,7 @@ import pytest
 
 from mm.sources.workspace import (
     BBox,
+    authenticate,
     fetch_bbox,
     fetch_osm_xml,
     filter_by_time,
@@ -292,9 +294,12 @@ def test_fetch_bbox_returns_tuple() -> None:
     body = json.dumps(
         {"min_lon": -122.5, "min_lat": 49.0, "max_lon": -122.4, "max_lat": 49.1}
     ).encode()
-    with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
+    with patch(
+        "urllib.request.urlopen", return_value=_mock_urlopen(body)
+    ) as mock_urlopen:
         bbox = fetch_bbox("prod", 931, "test-key")
     assert bbox == (-122.5, 49.0, -122.4, 49.1)
+    assert mock_urlopen.call_args.kwargs["timeout"] == 120
 
 
 def test_fetch_bbox_missing_field_raises() -> None:
@@ -329,9 +334,84 @@ def test_fetch_bbox_http_error_propagates() -> None:
             fetch_bbox("prod", 931, "bad-key")
 
 
+@pytest.mark.parametrize("wrapped", [False, True])
+def test_fetch_bbox_timeout_reports_request_url(wrapped: bool) -> None:
+    from mm.common.http import HTTPError
+
+    timeout_error: BaseException = TimeoutError(
+        "The read operation timed out"
+    )
+    if wrapped:
+        timeout_error = urllib.error.URLError(timeout_error)
+
+    with patch("urllib.request.urlopen", side_effect=timeout_error):
+        with pytest.raises(
+            HTTPError,
+            match=r"workspaces/931/bbox\.json timed out after 120 seconds",
+        ):
+            fetch_bbox("prod", 931, "test-key")
+
+
 def test_fetch_bbox_unknown_env_raises() -> None:
     with pytest.raises(ValueError, match="Unknown workspace environment"):
         fetch_bbox("staging", 931, "test-key")
+
+
+@pytest.mark.parametrize("content_length", [None, "5"])
+def test_fetch_bytes_raises_response_too_large_error(
+    content_length: str | None,
+) -> None:
+    from mm.common.http import ResponseTooLargeError, fetch_bytes
+
+    response = _mock_urlopen(b"12345")
+    response.headers = (
+        {} if content_length is None else {"Content-Length": content_length}
+    )
+    with patch("urllib.request.urlopen", return_value=response):
+        with pytest.raises(ResponseTooLargeError, match="4 byte limit"):
+            fetch_bytes("https://example.com/data", max_bytes=4)
+
+
+@pytest.mark.parametrize(
+    ("environment", "auth_url"),
+    [
+        ("prod", "https://api.tdei.us/api/v1/authenticate"),
+        ("stage", "https://api-stage.tdei.us/api/v1/authenticate"),
+        ("dev", "https://api-dev.tdei.us/api/v1/authenticate"),
+    ],
+)
+def test_authenticate_uses_environment_and_returns_access_token(
+    environment: str, auth_url: str
+) -> None:
+    """Send credentials to the matching environment's login endpoint."""
+    captured_req = []
+
+    def fake_urlopen(req, timeout=30):
+        captured_req.append(req)
+        return _mock_urlopen(b'{"access_token":"test-access-token"}')
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        token = authenticate(environment, "test-user", "test-password")
+
+    req = captured_req[0]
+    assert token == "test-access-token"
+    assert req.full_url == auth_url
+    assert req.get_method() == "POST"
+    assert json.loads(req.data) == {
+        "username": "test-user",
+        "password": "test-password",
+    }
+    assert req.get_header("Content-type") == "application/json"
+
+
+def test_authenticate_rejects_missing_access_token() -> None:
+    """Reject successful-looking auth responses without an access token."""
+    with patch(
+        "urllib.request.urlopen",
+        return_value=_mock_urlopen(b'{"refresh_token":"refresh"}'),
+    ):
+        with pytest.raises(ValueError, match="access_token"):
+            authenticate("prod", "test-user", "test-password")
 
 
 # ---------------------------------------------------------------------------
@@ -340,10 +420,14 @@ def test_fetch_bbox_unknown_env_raises() -> None:
 
 
 def test_fetch_osm_xml_returns_bytes() -> None:
-    with patch("urllib.request.urlopen", return_value=_mock_urlopen(_FULL_OSM)):
+    with patch(
+        "urllib.request.urlopen",
+        return_value=_mock_urlopen(_FULL_OSM),
+    ) as mock_urlopen:
         result = fetch_osm_xml(
             "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
     assert result == _FULL_OSM
+    assert mock_urlopen.call_args.kwargs["timeout"] == 120
 
 
 def test_fetch_osm_xml_includes_auth_headers() -> None:
@@ -354,11 +438,17 @@ def test_fetch_osm_xml_includes_auth_headers() -> None:
         return _mock_urlopen(b"<osm/>")
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
-        fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "my-api-key")
+        fetch_osm_xml(
+            "prod",
+            931,
+            (-122.5, 49.0, -122.4, 49.1),
+            "test-access-token",
+        )
 
     req = captured_req[0]
-    assert req.get_header("Authorization") == "my-api-key"
-    assert req.get_header("X-workspace") == "931"
+    basic_auth = base64.b64encode(b"931:test-access-token").decode("ascii")
+    assert req.get_header("Authorization") == f"Basic {basic_auth}"
+    assert req.get_header("X-workspace") is None
 
 
 def test_fetch_osm_xml_http_error_propagates() -> None:
@@ -421,6 +511,45 @@ def test_fetch_osm_xml_retries_a_truncated_tile() -> None:
 
     assert result == valid
     assert not responses
+
+
+def test_fetch_osm_xml_splits_oversized_tiles() -> None:
+    from mm.common.http import ResponseTooLargeError
+
+    requests: list[str] = []
+
+    def fake_fetch_bytes(url: str, **_kwargs: object) -> bytes:
+        requests.append(url)
+        if len(requests) == 1:
+            raise ResponseTooLargeError("map tile exceeds response limit")
+        return b"<osm/>"
+
+    with patch(
+        "mm.sources.workspace.fetch_bytes",
+        side_effect=fake_fetch_bytes,
+    ):
+        result = fetch_osm_xml(
+            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key"
+        )
+
+    assert result.startswith(b"<?xml")
+    assert len(requests) == 5
+
+
+def test_fetch_osm_xml_errors_if_oversized_at_maximum_depth() -> None:
+    from mm.common.http import ResponseTooLargeError
+
+    with (
+        patch(
+            "mm.sources.workspace.fetch_bytes",
+            side_effect=ResponseTooLargeError("map tile exceeds limit"),
+        ),
+        patch("mm.sources.workspace._MAX_MAP_SPLIT_DEPTH", 0),
+    ):
+        with pytest.raises(ValueError, match="exceeded the 104857600 byte limit"):
+            fetch_osm_xml(
+                "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key"
+            )
 
 
 def test_fetch_osm_xml_reports_maximum_tile_depth() -> None:

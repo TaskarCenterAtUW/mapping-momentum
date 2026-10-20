@@ -35,15 +35,6 @@ SUPPORTED_ACTIVITY_TYPES = {"workspace"}  # "tasking_manager" is future
 # ---------------------------------------------------------------------------
 SUPPORTED_ENVIRONMENTS = {"prod", "stage", "dev"}
 
-# Maps each environment to the environment variable that must hold the TDEI
-# API key for that environment.  These are the canonical names used in both
-# local development and GitHub Actions secrets.
-ENV_CREDENTIAL_VAR: dict[str, str] = {
-    "prod": "MM_TDEI_API_KEY_PROD",
-    "stage": "MM_TDEI_API_KEY_STAGE",
-    "dev": "MM_TDEI_API_KEY_DEV",
-}
-
 # ---------------------------------------------------------------------------
 # JSON Schema — top-level event config
 # ---------------------------------------------------------------------------
@@ -92,7 +83,7 @@ WORKSPACE_ACTIVITY_SCHEMA: dict = {
             "description": (
                 "TDEI project group UUID. Stored as metadata to document"
                 " which project group this workspace belongs to. Not used"
-                " for API key lookup — access is granted by manually adding"
+                " for authentication — access is granted by manually adding"
                 " the Mapping Momentum TDEI account to the project group."
             ),
         },
@@ -106,7 +97,6 @@ WORKSPACE_ACTIVITY_SCHEMA: dict = {
             "description": "TDEI API environment (prod, stage, or dev). Required.",
         },
         "time_window": TIME_WINDOW_SCHEMA,
-        # New in v1.1 — optional in JSON Schema; loader enforces required for 1.1.
         "quest_definition_url": {
             "type": "string",
             "description": (

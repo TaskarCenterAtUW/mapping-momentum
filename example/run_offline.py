@@ -8,7 +8,6 @@ event configuration.
 from __future__ import annotations
 
 import argparse
-import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -19,7 +18,6 @@ if str(ROOT) not in sys.path:
 
 from mm.common.io import read_json  # noqa: E402
 from mm.config.loader import load_event_config  # noqa: E402
-from mm.config.schema import ENV_CREDENTIAL_VAR  # noqa: E402
 from mm.outputs.html_report import render_report, write_report  # noqa: E402
 from mm.outputs.json_stats import build_stats, write_stats  # noqa: E402
 from mm.pipeline import get_report_feature, parse_window  # noqa: E402
@@ -41,22 +39,7 @@ def run_offline(event_dir: Path, output_dir: Path) -> tuple[Path, Path]:
     event_dir = event_dir.resolve()
     config_path = event_dir / "event.json"
 
-    # Config validation intentionally keeps the same credential checks as live
-    # runs.  This synthetic key is never sent anywhere.
-    original_credentials = {
-        env_var: os.environ.get(env_var) for env_var in ENV_CREDENTIAL_VAR.values()
-    }
-    try:
-        for env_var in ENV_CREDENTIAL_VAR.values():
-            if not os.environ.get(env_var):
-                os.environ[env_var] = "offline-example-key"
-        config = load_event_config(config_path)
-    finally:
-        for env_var, value in original_credentials.items():
-            if value is None:
-                os.environ.pop(env_var, None)
-            else:
-                os.environ[env_var] = value
+    config = load_event_config(config_path)
     activity = config["activities"][0]
 
     quest_path = event_dir / "quest-definitions" / f"{activity['id']}.json"

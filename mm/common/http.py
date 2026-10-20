@@ -1,7 +1,7 @@
 """
 mm.common.http — HTTP utilities for the Mapping Momentum pipeline.
 
-Provides ``fetch_bytes`` and ``fetch_json`` as thin wrappers around
+Provides ``fetch_bytes``, ``fetch_json``, and ``post_json`` as thin wrappers around
 ``urllib`` so the rest of the codebase never imports ``urllib`` directly.
 Both functions raise ``HTTPError`` on non-2xx responses or connection
 failures.
@@ -24,12 +24,17 @@ class HTTPError(OSError):
     connection fails."""
 
 
+class ResponseTooLargeError(HTTPError):
+    """Raised when a response body exceeds its configured byte limit."""
+
+
 def fetch_bytes(
     url: str,
     *,
     headers: dict[str, str] | None = None,
     timeout: float = 30,
     max_bytes: int = _MAX_RESPONSE_BYTES,
+    data: bytes | None = None,
 ) -> bytes:
     """Fetch the response body from *url* as raw bytes.
 
@@ -45,6 +50,8 @@ def fetch_bytes(
     max_bytes:
         Maximum response size in bytes. Callers handling large, structured
         API payloads may provide a higher endpoint-specific limit.
+    data:
+        Optional request body. When provided, ``urllib`` sends a POST request.
 
     Raises
     ------
@@ -55,14 +62,14 @@ def fetch_bytes(
     all_headers: dict[str, str] = {"User-Agent": _USER_AGENT}
     if headers:
         all_headers.update(headers)
-    req = urllib.request.Request(url, headers=all_headers)
+    req = urllib.request.Request(url, data=data, headers=all_headers)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             content_length = resp.headers.get("Content-Length")
             if content_length is not None:
                 try:
                     if int(content_length) > max_bytes:
-                        raise HTTPError(
+                        raise ResponseTooLargeError(
                             f"Response from {url} exceeds the {max_bytes} byte limit"
                         )
                 except ValueError:
@@ -78,7 +85,7 @@ def fetch_bytes(
                     break
                 total += len(chunk)
                 if total > max_bytes:
-                    raise HTTPError(
+                    raise ResponseTooLargeError(
                         f"Response from {url} exceeds the {max_bytes} byte limit"
                     )
                 chunks.append(chunk)
@@ -86,7 +93,16 @@ def fetch_bytes(
     except urllib.error.HTTPError as exc:
         raise HTTPError(f"HTTP {exc.code} from {url}: {exc.reason}") from exc
     except urllib.error.URLError as exc:
+        if isinstance(exc.reason, TimeoutError):
+            raise HTTPError(
+                f"Request to {url} timed out after {timeout:g} seconds: "
+                f"{exc.reason}"
+            ) from exc
         raise HTTPError(f"Request failed for {url}: {exc.reason}") from exc
+    except TimeoutError as exc:
+        raise HTTPError(
+            f"Request to {url} timed out after {timeout:g} seconds: {exc}"
+        ) from exc
 
 
 def fetch_json(
@@ -115,4 +131,27 @@ def fetch_json(
         If the response body is not valid JSON.
     """
     raw = fetch_bytes(url, headers=headers, timeout=timeout)
+    return json.loads(raw)
+
+
+def post_json(
+    url: str,
+    payload: Any,
+    *,
+    headers: dict[str, str] | None = None,
+    timeout: float = 30,
+) -> Any:
+    """POST a JSON payload to *url* and decode the JSON response."""
+    request_headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    }
+    if headers:
+        request_headers.update(headers)
+    raw = fetch_bytes(
+        url,
+        headers=request_headers,
+        timeout=timeout,
+        data=json.dumps(payload).encode("utf-8"),
+    )
     return json.loads(raw)

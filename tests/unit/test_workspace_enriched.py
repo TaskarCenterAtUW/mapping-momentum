@@ -56,6 +56,7 @@ fetch_changesets / fetch_changeset_xml / fetch_notes:
 
 from __future__ import annotations
 
+import base64
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from unittest.mock import patch
@@ -712,6 +713,7 @@ def test_fetch_changesets_constructs_correct_url() -> None:
     call_url = mock_fb.call_args[0][0]
     assert "api/0.6/changesets" in call_url
     assert "time=2026-01-20T18:00:00Z,2026-01-21T04:00:00Z" in call_url
+    assert mock_fb.call_args.kwargs["timeout"] == 120
 
 
 def test_fetch_changesets_sends_auth_headers() -> None:
@@ -723,8 +725,8 @@ def test_fetch_changesets_sends_auth_headers() -> None:
         fetch_changesets("prod", 931, t_start, t_end, "mykey")
 
     headers = mock_fb.call_args[1]["headers"]
-    assert headers["Authorization"] == "mykey"
-    assert headers["X-Workspace"] == "931"
+    encoded = base64.b64encode(b"931:mykey").decode("ascii")
+    assert headers["Authorization"] == f"Basic {encoded}"
 
 
 # ---------------------------------------------------------------------------
@@ -740,6 +742,7 @@ def test_fetch_changeset_xml_constructs_correct_url() -> None:
     assert result == xml_bytes
     call_url = mock_fb.call_args[0][0]
     assert "api/0.6/changeset/100/download" in call_url
+    assert mock_fb.call_args.kwargs["timeout"] == 120
 
 
 def test_fetch_changeset_xml_sends_auth_headers() -> None:
@@ -747,8 +750,8 @@ def test_fetch_changeset_xml_sends_auth_headers() -> None:
         fetch_changeset_xml("prod", 931, 100, "mykey")
 
     headers = mock_fb.call_args[1]["headers"]
-    assert headers["Authorization"] == "mykey"
-    assert headers["X-Workspace"] == "931"
+    encoded = base64.b64encode(b"931:mykey").decode("ascii")
+    assert headers["Authorization"] == f"Basic {encoded}"
 
 
 # ---------------------------------------------------------------------------
@@ -769,6 +772,7 @@ def test_fetch_notes_constructs_correct_url() -> None:
     call_url = mock_fb.call_args[0][0]
     assert "api/0.6/notes" in call_url
     assert "bbox=-122.5,49.0,-122.4,49.1" in call_url
+    assert mock_fb.call_args.kwargs["timeout"] == 120
 
 
 def test_fetch_notes_sends_auth_headers() -> None:
@@ -782,8 +786,8 @@ def test_fetch_notes_sends_auth_headers() -> None:
         fetch_notes("prod", 931, "mykey")
 
     headers = mock_fb.call_args[1]["headers"]
-    assert headers["Authorization"] == "mykey"
-    assert headers["X-Workspace"] == "931"
+    encoded = base64.b64encode(b"931:mykey").decode("ascii")
+    assert headers["Authorization"] == f"Basic {encoded}"
 
 
 def test_fetch_notes_returns_list() -> None:

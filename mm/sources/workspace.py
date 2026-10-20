@@ -4,10 +4,10 @@ mm.sources.workspace — TDEI Workspace / POSM source adapter.
 Provides four public functions that together implement the workspace
 data-fetch pipeline:
 
-    fetch_bbox(env, workspace_id, api_key)
+    fetch_bbox(env, workspace_id, access_token)
         → BBox (left, bottom, right, top)
 
-    fetch_osm_xml(env, workspace_id, bbox, api_key)
+    fetch_osm_xml(env, workspace_id, bbox, access_token)
         → bytes  (raw OSM XML)
 
     parse_osm_xml(xml_bytes)
@@ -16,14 +16,14 @@ data-fetch pipeline:
     filter_by_time(elements, t_start, t_end)
         → list[Element]  (elements whose timestamp ∈ [t_start, t_end))
 
-Authentication uses two headers on every request:
-    Authorization: <api_key>
-    X-Workspace:   <workspace_id>
+Workspace requests use HTTP Basic credentials with the workspace ID as the
+username and a short-lived TDEI access token as the password. The token is
+minted from the environment-specific TDEI authentication API before fetching.
 
 ``project_group_id`` from the event config is stored as config metadata
 and is never used in any HTTP request here.  Access control is managed
 by manually adding the Mapping Momentum TDEI account to the relevant
-project groups; the API key itself is per-environment, not per-project-group.
+project groups.
 
 Note on XML parsing: ``xml.etree.ElementTree`` does not resolve external
 entities by default, making it safe against XXE.  Data is fetched only
@@ -33,13 +33,20 @@ practical threat; nonetheless the parser is used without any DTD loading.
 
 from __future__ import annotations
 
+import base64
 import xml.etree.ElementTree as ET
 from collections.abc import Iterable
 from datetime import datetime, timedelta, timezone
 from math import isfinite
 from typing import Any
 
-from mm.common.http import HTTPError, fetch_bytes, fetch_json
+from mm.common.http import (
+    HTTPError,
+    ResponseTooLargeError,
+    fetch_bytes,
+    fetch_json,
+    post_json,
+)
 from mm.sources.base import Element, Version
 
 # ---------------------------------------------------------------------------
@@ -47,12 +54,17 @@ from mm.sources.base import Element, Version
 # ---------------------------------------------------------------------------
 
 # Maps each environment to the authenticated OSM-compatible Workspaces API.
-# The newer api.tdei.us v1 routes currently reject valid Workspaces keys.
 _BASE_URLS: dict[str, str] = {
     "prod": "https://osm.workspaces.sidewalks.washington.edu",
     "stage": "https://osm.workspaces-stage.sidewalks.washington.edu",
     "dev": "https://osm.workspaces-dev.sidewalks.washington.edu",
 }
+_AUTH_BASE_URLS: dict[str, str] = {
+    "prod": "https://api.tdei.us",
+    "stage": "https://api-stage.tdei.us",
+    "dev": "https://api-dev.tdei.us",
+}
+_WORKSPACE_REQUEST_TIMEOUT_SECONDS = 120
 _MAX_MAP_SPLIT_DEPTH = 12
 _MAX_MAP_REQUESTS = 20_000
 _MAX_MAP_RESPONSE_BYTES = 100 * 1024 * 1024
@@ -71,11 +83,13 @@ BBox = tuple[float, float, float, float]
 # ---------------------------------------------------------------------------
 
 
-def _api_headers(api_key: str, workspace_id: int) -> dict[str, str]:
-    """Return the auth headers required by every Workspace API request."""
+def _api_headers(access_token: str, workspace_id: int) -> dict[str, str]:
+    """Return Basic auth headers for a Workspace API request."""
+    credentials = base64.b64encode(
+        f"{workspace_id}:{access_token}".encode("utf-8")
+    ).decode("ascii")
     return {
-        "Authorization": api_key,
-        "X-Workspace": str(workspace_id),
+        "Authorization": f"Basic {credentials}",
     }
 
 
@@ -88,6 +102,31 @@ def _base_url(env: str) -> str:
         raise ValueError(
             f"Unknown workspace environment {env!r}. Expected one of: {known}"
         )
+
+
+def authenticate(env: str, username: str, password: str) -> str:
+    """Exchange TDEI login credentials for an environment-specific token."""
+    try:
+        base_url = _AUTH_BASE_URLS[env]
+    except KeyError:
+        known = ", ".join(sorted(_AUTH_BASE_URLS))
+        raise ValueError(
+            f"Unknown workspace environment {env!r}. Expected one of: {known}"
+        ) from None
+
+    response = post_json(
+        f"{base_url}/api/v1/authenticate",
+        {"username": username, "password": password},
+    )
+    if not isinstance(response, dict):
+        raise ValueError("TDEI authentication response must be a JSON object")
+    access_token = response.get("access_token")
+    if not isinstance(access_token, str) or not access_token.strip():
+        raise ValueError(
+            "TDEI authentication response did not contain a non-empty "
+            "'access_token'"
+        )
+    return access_token.strip()
 
 
 def _parse_utc(value: str) -> datetime:
@@ -108,7 +147,7 @@ def _parse_utc(value: str) -> datetime:
 # ---------------------------------------------------------------------------
 
 
-def fetch_bbox(env: str, workspace_id: int, api_key: str) -> BBox:
+def fetch_bbox(env: str, workspace_id: int, access_token: str) -> BBox:
     """Fetch the bounding box for *workspace_id* from the Workspace API.
 
     Parameters
@@ -117,10 +156,8 @@ def fetch_bbox(env: str, workspace_id: int, api_key: str) -> BBox:
         Target environment (``"prod"``, ``"stage"``, or ``"dev"``).
     workspace_id:
         Numeric workspace identifier.
-    api_key:
-        TDEI API key for the target environment (prod, stage, or dev).
-        One key covers all project groups accessible to the Mapping
-        Momentum TDEI account in that environment.
+    access_token:
+        Short-lived TDEI access token for the target environment.
 
     Returns
     -------
@@ -135,7 +172,11 @@ def fetch_bbox(env: str, workspace_id: int, api_key: str) -> BBox:
         If the API response is missing expected bbox fields.
     """
     url = f"{_base_url(env)}/api/0.6/workspaces/{workspace_id}/bbox.json"
-    data = fetch_json(url, headers=_api_headers(api_key, workspace_id))
+    data = fetch_json(
+        url,
+        headers=_api_headers(access_token, workspace_id),
+        timeout=_WORKSPACE_REQUEST_TIMEOUT_SECONDS,
+    )
     if not isinstance(data, dict):
         raise ValueError("Workspace bbox response must be a JSON object")
     try:
@@ -162,7 +203,7 @@ def fetch_osm_xml(
     env: str,
     workspace_id: int,
     bbox: BBox,
-    api_key: str,
+    access_token: str,
 ) -> bytes:
     """Fetch the OSM XML map data for *workspace_id* within *bbox*.
 
@@ -175,10 +216,8 @@ def fetch_osm_xml(
     bbox:
         Bounding box ``(left, bottom, right, top)`` as returned by
         :func:`fetch_bbox`.
-    api_key:
-        TDEI API key for the target environment (prod, stage, or dev).
-        One key covers all project groups accessible to the Mapping
-        Momentum TDEI account in that environment.
+    access_token:
+        Short-lived TDEI access token for the target environment.
 
     Returns
     -------
@@ -195,7 +234,7 @@ def fetch_osm_xml(
         env,
         workspace_id,
         bbox,
-        api_key,
+        access_token,
         depth=0,
         request_count=request_count,
     )
@@ -205,18 +244,18 @@ def _fetch_map_xml(
     env: str,
     workspace_id: int,
     bbox: BBox,
-    api_key: str,
+    access_token: str,
     *,
     depth: int,
     request_count: list[int],
 ) -> bytes:
-    """Fetch one map tile, recursively splitting truncated responses."""
+    """Fetch one map tile, splitting oversized or truncated responses."""
     left, bottom, right, top = bbox
     bbox_str = f"{left},{bottom},{right},{top}"
     url = f"{_base_url(env)}/api/0.6/map?bbox={bbox_str}"
-    headers = _api_headers(api_key, workspace_id)
+    headers = _api_headers(access_token, workspace_id)
     headers["Accept"] = "application/xml, text/xml, */*"
-    parse_error: ET.ParseError | None = None
+    split_error: ET.ParseError | ResponseTooLargeError | None = None
     for _attempt in range(_MAX_MAP_PARSE_ATTEMPTS):
         request_count[0] += 1
         if request_count[0] > _MAX_MAP_REQUESTS:
@@ -229,8 +268,12 @@ def _fetch_map_xml(
             payload = fetch_bytes(
                 url,
                 headers=headers,
+                timeout=_WORKSPACE_REQUEST_TIMEOUT_SECONDS,
                 max_bytes=_MAX_MAP_RESPONSE_BYTES,
             )
+        except ResponseTooLargeError as exc:
+            split_error = exc
+            break
         except HTTPError as exc:
             # The OSM-compatible endpoint uses 404 for an empty tile.
             if str(exc).startswith("HTTP 404"):
@@ -241,19 +284,24 @@ def _fetch_map_xml(
             ET.fromstring(payload)  # noqa: S314 — trusted API source
             return payload
         except ET.ParseError as exc:
-            parse_error = exc
+            split_error = exc
 
-    assert parse_error is not None
+    assert split_error is not None
     if depth >= _MAX_MAP_SPLIT_DEPTH:
+        if isinstance(split_error, ResponseTooLargeError):
+            raise ValueError(
+                "Workspace map response exceeded the "
+                f"{_MAX_MAP_RESPONSE_BYTES} byte limit at the maximum "
+                f"tile depth ({_MAX_MAP_SPLIT_DEPTH}) for bbox {bbox!r}"
+            ) from split_error
         raise ValueError(
             "Workspace map response remained truncated at the maximum "
             f"tile depth ({_MAX_MAP_SPLIT_DEPTH}) for bbox {bbox!r}"
-        ) from parse_error
+        ) from split_error
 
     try:
-        # A malformed response is normally a server-side truncation. Split
-        # the bbox and retry each child independently so dense areas do not
-        # prevent the rest of the workspace from being downloaded.
+        # Split oversized or truncated responses so dense areas do not prevent
+        # the rest of the workspace from being downloaded.
         mid_lon = (left + right) / 2
         mid_lat = (bottom + top) / 2
         tiles = (
@@ -268,7 +316,7 @@ def _fetch_map_xml(
                     env,
                     workspace_id,
                     tile,
-                    api_key,
+                    access_token,
                     depth=depth + 1,
                     request_count=request_count,
                 )
@@ -438,7 +486,7 @@ PHOTO_TAG_KEY: str = "ext:kartaview_url"
 # ---------------------------------------------------------------------------
 #
 # All paths are relative to _base_url(env) and are combined with
-# workspace auth headers from _api_headers(api_key, workspace_id).
+# workspace auth headers from _api_headers(access_token, workspace_id).
 #
 # Expected response shapes (to be confirmed during integration testing):
 #
@@ -549,7 +597,7 @@ def fetch_changesets(
     workspace_id: int,
     window_start: datetime,
     window_end: datetime,
-    api_key: str,
+    access_token: str,
 ) -> list[dict[str, Any]]:
     """Fetch metadata for all changesets active during the event window.
 
@@ -563,8 +611,8 @@ def fetch_changesets(
         Inclusive start of the event time window (UTC, timezone-aware).
     window_end:
         Exclusive end of the event time window (UTC, timezone-aware).
-    api_key:
-        TDEI API key for the target environment.
+    access_token:
+        Short-lived TDEI access token for the target environment.
 
     Returns
     -------
@@ -586,7 +634,11 @@ def fetch_changesets(
     t_start_str = _to_utc_str(window_start)
     t_end_str = _to_utc_str(window_end)
     url = f"{_base_url(env)}/{_CHANGESETS_PATH}?time={t_start_str},{t_end_str}"
-    payload = fetch_bytes(url, headers=_api_headers(api_key, workspace_id))
+    payload = fetch_bytes(
+        url,
+        headers=_api_headers(access_token, workspace_id),
+        timeout=_WORKSPACE_REQUEST_TIMEOUT_SECONDS,
+    )
     root = ET.fromstring(payload)  # noqa: S314 — trusted Workspaces API source
 
     changesets: list[dict[str, Any]] = []
@@ -608,7 +660,7 @@ def fetch_changeset_xml(
     env: str,
     workspace_id: int,
     changeset_id: int,
-    api_key: str,
+    access_token: str,
 ) -> bytes:
     """Fetch the OsmChange XML for a single changeset.
 
@@ -620,8 +672,8 @@ def fetch_changeset_xml(
         Numeric workspace identifier.
     changeset_id:
         The numeric changeset ID to download.
-    api_key:
-        TDEI API key for the target environment.
+    access_token:
+        Short-lived TDEI access token for the target environment.
 
     Returns
     -------
@@ -639,7 +691,11 @@ def fetch_changeset_xml(
     """
     path = _CHANGESET_PATH_TMPL.format(changeset_id=changeset_id)
     url = f"{_base_url(env)}/{path}"
-    return fetch_bytes(url, headers=_api_headers(api_key, workspace_id))
+    return fetch_bytes(
+        url,
+        headers=_api_headers(access_token, workspace_id),
+        timeout=_WORKSPACE_REQUEST_TIMEOUT_SECONDS,
+    )
 
 
 def parse_osmchange(xml_bytes: bytes) -> list[tuple[str, Element]]:
@@ -884,7 +940,7 @@ def enrich_elements(
 def fetch_notes(
     env: str,
     workspace_id: int,
-    api_key: str,
+    access_token: str,
 ) -> list[dict[str, Any]]:
     """Fetch all notes for the workspace.
 
@@ -894,8 +950,8 @@ def fetch_notes(
         Target environment.
     workspace_id:
         Numeric workspace identifier.
-    api_key:
-        TDEI API key for the target environment.
+    access_token:
+        Short-lived TDEI access token for the target environment.
 
     Returns
     -------
@@ -915,10 +971,14 @@ def fetch_notes(
     response does not include author fields, so note parsing uses an empty
     author and UID zero when those fields are unavailable.
     """
-    bbox = fetch_bbox(env, workspace_id, api_key)
+    bbox = fetch_bbox(env, workspace_id, access_token)
     left, bottom, right, top = bbox
     url = f"{_base_url(env)}/{_NOTES_PATH}?bbox={left},{bottom},{right},{top}"
-    payload = fetch_bytes(url, headers=_api_headers(api_key, workspace_id))
+    payload = fetch_bytes(
+        url,
+        headers=_api_headers(access_token, workspace_id),
+        timeout=_WORKSPACE_REQUEST_TIMEOUT_SECONDS,
+    )
     root = ET.fromstring(payload)  # noqa: S314 — trusted Workspaces API source
 
     notes: list[dict[str, Any]] = []
