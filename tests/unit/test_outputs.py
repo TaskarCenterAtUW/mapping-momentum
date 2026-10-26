@@ -56,6 +56,7 @@ from typing import Any
 
 import pytest
 
+from mm.outputs.anonymize import anonymize_stats
 from mm.outputs.html_report import _safe_json, render_report, write_report
 from mm.outputs.json_stats import build_stats, write_stats
 from mm.sources.base import SourceResult
@@ -339,6 +340,53 @@ def test_build_stats_marker_has_version_history() -> None:
     assert len(m["versions"]) == 1
     assert m["versions"][0]["action"] == "modify"
     assert m["versions"][0]["user"] == "alice"
+
+
+# ---------------------------------------------------------------------------
+# anonymize_stats
+# ---------------------------------------------------------------------------
+
+
+def test_anonymize_stats_redacts_names_consistently_without_mutating_input() -> None:
+    stats = {
+        "contributors_breakdown": [
+            {"user": "alice", "count": 2},
+            {"user": "bob", "count": 1},
+        ],
+        "markers": [
+            {
+                "user": "alice",
+                "text": "Alice added a note.",
+                "versions": [{"user": "bob"}, {"user": "carol"}],
+            }
+        ],
+        "quotes": [
+            {
+                "text": "Dana Reader volunteered.",
+                "first_name": "Dana",
+                "last_name": "Reader",
+            }
+        ],
+    }
+
+    anonymized = anonymize_stats(stats)
+
+    assert anonymized["contributors_breakdown"] == [
+        {"user": "Participant 1", "count": 2},
+        {"user": "Participant 2", "count": 1},
+    ]
+    assert anonymized["markers"][0]["user"] == "Participant 1"
+    assert anonymized["markers"][0]["versions"] == [
+        {"user": "Participant 2"},
+        {"user": "Participant 3"},
+    ]
+    assert anonymized["markers"][0]["text"] == "Participant 1 added a note."
+    assert anonymized["quotes"][0]["first_name"] == "Participant 4"
+    assert anonymized["quotes"][0]["last_name"] == ""
+    assert anonymized["quotes"][0]["text"] == "Participant 4 volunteered."
+    assert stats["contributors_breakdown"][0]["user"] == "alice"
+    assert stats["markers"][0]["user"] == "alice"
+    assert anonymize_stats(anonymized) == anonymized
 
 
 # ---------------------------------------------------------------------------

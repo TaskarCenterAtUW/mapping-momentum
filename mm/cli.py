@@ -65,6 +65,12 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print stats to stdout without writing any files.",
     )
+    event_parser.add_argument(
+        "-a",
+        "--anonymize",
+        action="store_true",
+        help="Replace participant names with anonymous labels in report output.",
+    )
 
     # --- capture-quests subcommand ---
     cq_parser = subparsers.add_parser(
@@ -107,11 +113,7 @@ def run_cli(argv: list[str] | None = None) -> int:
 
 def _authenticate_interactively(environment: str) -> str:
     """Prompt for TDEI credentials and return a short-lived access token."""
-    if not (
-        sys.stdin.isatty()
-        and sys.stdout.isatty()
-        and sys.stderr.isatty()
-    ):
+    if not (sys.stdin.isatty() and sys.stdout.isatty() and sys.stderr.isatty()):
         raise ValueError(
             "TDEI credentials must be entered from an interactive terminal."
         )
@@ -129,8 +131,7 @@ def _authenticate_interactively(environment: str) -> str:
             password = getpass.getpass(f"TDEI {environment} password: ")
     except getpass.GetPassWarning as exc:
         raise ValueError(
-            "Cannot read the TDEI password without echo; use an interactive "
-            "terminal."
+            "Cannot read the TDEI password without echo; use an interactive terminal."
         ) from exc
     except EOFError as exc:
         raise ValueError("No TDEI password was entered.") from exc
@@ -166,8 +167,15 @@ def _cmd_event(args: argparse.Namespace) -> int:
 
     # --render-from-stats: re-render HTML from an existing stats.json
     render_from = getattr(args, "render_from_stats", None)
+    anonymize = bool(getattr(args, "anonymize", False))
     if render_from:
-        return _render_from_stats(config, Path(render_from), output_dir, event_id)
+        return _render_from_stats(
+            config,
+            Path(render_from),
+            output_dir,
+            event_id,
+            anonymize=anonymize,
+        )
 
     from mm.pipeline import run_activity
 
@@ -176,15 +184,14 @@ def _cmd_event(args: argparse.Namespace) -> int:
         for activity in config["activities"]:
             environment = activity["environment"]
             if environment not in access_tokens:
-                access_tokens[environment] = _authenticate_interactively(
-                    environment
-                )
+                access_tokens[environment] = _authenticate_interactively(environment)
             stats = run_activity(
                 config,
                 activity,
                 output_dir=output_dir,
                 access_token=access_tokens[environment],
                 dry_run=bool(getattr(args, "dry_run", False)),
+                anonymize=anonymize,
             )
             if getattr(args, "dry_run", False):
                 print(json.dumps(stats, indent=2, ensure_ascii=False))
@@ -257,9 +264,7 @@ def _cmd_capture(args: argparse.Namespace) -> int:
                 access_token,
             )
             (staging_dir / "map.osm").write_bytes(map_bytes)
-            changesets = fetch_changesets(
-                env, workspace_id, start, end, access_token
-            )
+            changesets = fetch_changesets(env, workspace_id, start, end, access_token)
             write_json(staging_dir / "changesets.json", changesets)
             for item in changesets:
                 if "id" in item:
@@ -289,6 +294,8 @@ def _render_from_stats(
     stats_path: Path,
     output_dir: Path,
     event_id: str,
+    *,
+    anonymize: bool = False,
 ) -> int:
     """Render index.html from an existing stats.json file.
 
@@ -297,6 +304,7 @@ def _render_from_stats(
     """
     from mm.common.io import read_json
     from mm.outputs.html_report import render_report, write_report
+    from mm.outputs.json_stats import write_stats
 
     if not stats_path.exists():
         print(f"error: stats.json not found: {stats_path}", file=sys.stderr)
@@ -307,6 +315,10 @@ def _render_from_stats(
     except Exception as exc:
         print(f"error: could not read {stats_path}: {exc}", file=sys.stderr)
         return 1
+    if anonymize:
+        from mm.outputs.anonymize import anonymize_stats
+
+        stats = anonymize_stats(stats)
 
     activity_id: str = stats.get("activity_id", "")
     # Find matching activity config
@@ -320,6 +332,8 @@ def _render_from_stats(
         activity = activities[0] if activities else {}
 
     html = render_report(stats, config, activity)
+    if anonymize:
+        write_stats(stats, output_dir, event_id, activity_id or "activity")
     dest = write_report(html, output_dir, event_id, activity_id or "activity")
     print(f"Report written to {dest}")
     return 0

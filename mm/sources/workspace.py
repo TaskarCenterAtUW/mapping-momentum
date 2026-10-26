@@ -123,8 +123,7 @@ def authenticate(env: str, username: str, password: str) -> str:
     access_token = response.get("access_token")
     if not isinstance(access_token, str) or not access_token.strip():
         raise ValueError(
-            "TDEI authentication response did not contain a non-empty "
-            "'access_token'"
+            "TDEI authentication response did not contain a non-empty 'access_token'"
         )
     return access_token.strip()
 
@@ -192,8 +191,7 @@ def fetch_bbox(env: str, workspace_id: int, access_token: str) -> BBox:
         ) from exc
     left, bottom, right, top = bbox
     if not all(isfinite(value) for value in bbox):
-        raise ValueError(
-            "Workspace bbox response contains non-finite coordinates")
+        raise ValueError("Workspace bbox response contains non-finite coordinates")
     if not (-180 <= left < right <= 180 and -90 <= bottom < top <= 90):
         raise ValueError(f"Workspace bbox coordinates are invalid: {bbox!r}")
     return bbox
@@ -440,7 +438,7 @@ def filter_by_time(
     for elem in elements:
         try:
             ts = _parse_utc(elem["timestamp"])
-        except (KeyError, ValueError):
+        except KeyError, ValueError:
             continue
         if t_start <= ts < t_end:
             result.append(elem)
@@ -650,7 +648,7 @@ def fetch_changesets(
                 "user": changeset.attrib["user"],
                 "created_at": changeset.attrib["created_at"],
             }
-        except (KeyError, ValueError):
+        except KeyError, ValueError:
             continue
         changesets.append(item)
     return changesets
@@ -813,8 +811,7 @@ def build_version_histories(
         prev_tags: dict[str, str] = {}
         for action, elem in group:
             current_tags = elem.get("tags", {})
-            readable_diff = _build_readable_diff(
-                prev_tags, current_tags, quest_def)
+            readable_diff = _build_readable_diff(prev_tags, current_tags, quest_def)
             photos = extract_photos(current_tags)
             versions.append(
                 Version(
@@ -1002,7 +999,7 @@ def fetch_notes(
                     "uid": uid,
                 }
             )
-        except (KeyError, TypeError, ValueError):
+        except KeyError, TypeError, ValueError:
             continue
     return notes
 

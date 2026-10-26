@@ -61,11 +61,11 @@ Run these commands from the repository root after completing Setup. The packaged
 
 Use `--dry-run` with the `event` command to print stats without writing report files.
 
+Add `--anonymize` (or `-a`) to replace contributor names, map edit-history authors, and quote attributions with labels such as `Participant 1`. The anonymized values are used in both `stats.json` and `index.html`, including `--dry-run` output. Known names are also replaced at whole-word boundaries in note and quote text. When used with `--render-from-stats`, a sanitized copy of `stats.json` and the anonymized HTML are written to the output directory; the input stats file is left unchanged unless it is itself the output file. Review other identifying details in free-form content and images before publication; the option cannot infer names that are not present in structured contributor or quote attribution data.
+
 ### Optional: Capture a Workspace fixture
 
-This is for creating an offline test fixture, not a step in report generation.
-The fixture name must contain only lowercase letters, digits, and hyphens.
-This command also prompts for TDEI credentials.
+This is for creating an offline test fixture, not a step in report generation. The fixture name must contain only lowercase letters, digits, and hyphens. This command also prompts for TDEI credentials.
 
 ```powershell
 mapping-momentum capture --config configs/events/nda-vancouver `

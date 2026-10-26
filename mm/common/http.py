@@ -95,8 +95,7 @@ def fetch_bytes(
     except urllib.error.URLError as exc:
         if isinstance(exc.reason, TimeoutError):
             raise HTTPError(
-                f"Request to {url} timed out after {timeout:g} seconds: "
-                f"{exc.reason}"
+                f"Request to {url} timed out after {timeout:g} seconds: {exc.reason}"
             ) from exc
         raise HTTPError(f"Request failed for {url}: {exc.reason}") from exc
     except TimeoutError as exc:

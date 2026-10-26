@@ -8,9 +8,7 @@ from typing import Any
 from mm import pipeline
 
 
-def test_run_activity_uses_provided_access_token(
-    tmp_path: Path, monkeypatch
-) -> None:
+def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) -> None:
     """Pass the CLI-provided token to every Workspace request."""
     event_dir = tmp_path
     quest_path = event_dir / "quest-definitions" / "walkabout.json"
@@ -69,17 +67,37 @@ def test_run_activity_uses_provided_access_token(
     monkeypatch.setattr(pipeline, "resolve_way_geometry", lambda *_a, **_k: None)
     monkeypatch.setattr(pipeline, "fetch_notes", fake_notes)
     monkeypatch.setattr(pipeline, "parse_notes", lambda *_a, **_k: [])
-    monkeypatch.setattr(pipeline, "build_stats", lambda *_a, **_k: {"ok": True})
+    raw_stats = {
+        "ok": True,
+        "contributors_breakdown": [{"user": "alice", "count": 1, "photo_count": 0}],
+        "markers": [
+            {
+                "user": "alice",
+                "versions": [{"user": "alice"}],
+                "text": "Note from alice",
+            }
+        ],
+    }
+    monkeypatch.setattr(pipeline, "build_stats", lambda *_a, **_k: raw_stats)
 
     stats = pipeline.run_activity(
         config,
         activity,
-        output_dir=tmp_path / "unused-output",
+        output_dir=tmp_path / "output",
         access_token="stage-access-token",
-        dry_run=True,
+        anonymize=True,
     )
 
-    assert stats == {"ok": True}
+    assert stats["contributors_breakdown"][0]["user"] == "Participant 1"
+    assert stats["markers"][0]["user"] == "Participant 1"
+    assert stats["markers"][0]["versions"][0]["user"] == "Participant 1"
+    assert stats["markers"][0]["text"] == "Note from Participant 1"
+    assert raw_stats["contributors_breakdown"][0]["user"] == "alice"
+    output_dir = tmp_path / "output" / "events" / "sample-event" / "walkabout"
+    saved_stats = output_dir / "stats.json"
+    saved_html = output_dir / "index.html"
+    assert "alice" not in saved_stats.read_text(encoding="utf-8")
+    assert "Participant 1" in saved_html.read_text(encoding="utf-8")
     assert request_calls == [
         ("bbox", "stage", 931, "stage-access-token"),
         ("map", "stage", 931, "stage-access-token"),

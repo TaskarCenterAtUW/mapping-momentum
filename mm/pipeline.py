@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from mm.outputs.anonymize import anonymize_stats
 from mm.outputs.html_report import render_report, write_report
 from mm.outputs.json_stats import build_stats, write_stats
 from mm.quests.loader import load_quest_definition
@@ -39,9 +40,7 @@ def parse_window(activity: dict[str, Any]) -> tuple[datetime, datetime]:
     return parse(window["start"]), parse(window["end"])
 
 
-def get_report_feature(
-    config: dict[str, Any], name: str, default: Any
-) -> Any:
+def get_report_feature(config: dict[str, Any], name: str, default: Any) -> Any:
     """Return a report feature, with nested report values taking precedence."""
     report_config = config.get("report") or {}
     if name in report_config:
@@ -56,6 +55,7 @@ def run_activity(
     output_dir: Path,
     access_token: str,
     dry_run: bool = False,
+    anonymize: bool = False,
 ) -> dict[str, Any]:
     """Fetch, enrich, measure, and optionally write one activity report.
 
@@ -83,9 +83,7 @@ def run_activity(
     window_start, window_end = parse_window(activity)
     workspace_id = activity["workspace_id"]
     bbox = fetch_bbox(env, workspace_id, access_token)
-    snapshot = parse_osm_xml(
-        fetch_osm_xml(env, workspace_id, bbox, access_token)
-    )
+    snapshot = parse_osm_xml(fetch_osm_xml(env, workspace_id, bbox, access_token))
     metadata = fetch_changesets(
         env, workspace_id, window_start, window_end, access_token
     )
@@ -134,6 +132,8 @@ def run_activity(
         video_url=get_report_feature(config, "video_url", None),
         event_dir=event_dir,
     )
+    if anonymize:
+        stats = anonymize_stats(stats)
     if not dry_run:
         event_id = config["id"]
         write_stats(stats, output_dir, event_id, activity["id"])

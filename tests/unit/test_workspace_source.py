@@ -304,16 +304,14 @@ def test_fetch_bbox_returns_tuple() -> None:
 
 def test_fetch_bbox_missing_field_raises() -> None:
     # Response is missing maxLat.
-    body = json.dumps({"min_lon": -122.5, "min_lat": 49.0,
-                      "max_lon": -122.4}).encode()
+    body = json.dumps({"min_lon": -122.5, "min_lat": 49.0, "max_lon": -122.4}).encode()
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
         with pytest.raises(ValueError, match="missing expected fields"):
             fetch_bbox("prod", 931, "test-key")
 
 
 def test_fetch_bbox_rejects_invalid_coordinates() -> None:
-    body = json.dumps({"min_lon": 1, "min_lat": 2,
-                      "max_lon": 1, "max_lat": 3}).encode()
+    body = json.dumps({"min_lon": 1, "min_lat": 2, "max_lon": 1, "max_lat": 3}).encode()
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
         with pytest.raises(ValueError, match="coordinates are invalid"):
             fetch_bbox("prod", 931, "test-key")
@@ -338,9 +336,7 @@ def test_fetch_bbox_http_error_propagates() -> None:
 def test_fetch_bbox_timeout_reports_request_url(wrapped: bool) -> None:
     from mm.common.http import HTTPError
 
-    timeout_error: BaseException = TimeoutError(
-        "The read operation timed out"
-    )
+    timeout_error: BaseException = TimeoutError("The read operation timed out")
     if wrapped:
         timeout_error = urllib.error.URLError(timeout_error)
 
@@ -424,8 +420,7 @@ def test_fetch_osm_xml_returns_bytes() -> None:
         "urllib.request.urlopen",
         return_value=_mock_urlopen(_FULL_OSM),
     ) as mock_urlopen:
-        result = fetch_osm_xml(
-            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+        result = fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
     assert result == _FULL_OSM
     assert mock_urlopen.call_args.kwargs["timeout"] == 120
 
@@ -490,8 +485,7 @@ def test_fetch_osm_xml_splits_truncated_tiles_until_valid() -> None:
         return _mock_urlopen(responses.pop(0))
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
-        result = fetch_osm_xml(
-            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+        result = fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
 
     assert b'<node id="1"' in result
     assert not responses
@@ -506,8 +500,7 @@ def test_fetch_osm_xml_retries_a_truncated_tile() -> None:
         return _mock_urlopen(responses.pop(0))
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
-        result = fetch_osm_xml(
-            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
+        result = fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
 
     assert result == valid
     assert not responses
@@ -528,9 +521,7 @@ def test_fetch_osm_xml_splits_oversized_tiles() -> None:
         "mm.sources.workspace.fetch_bytes",
         side_effect=fake_fetch_bytes,
     ):
-        result = fetch_osm_xml(
-            "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key"
-        )
+        result = fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
 
     assert result.startswith(b"<?xml")
     assert len(requests) == 5
@@ -547,9 +538,7 @@ def test_fetch_osm_xml_errors_if_oversized_at_maximum_depth() -> None:
         patch("mm.sources.workspace._MAX_MAP_SPLIT_DEPTH", 0),
     ):
         with pytest.raises(ValueError, match="exceeded the 104857600 byte limit"):
-            fetch_osm_xml(
-                "prod", 931, (-122.5, 49.0, -122.4, 49.1), "key"
-            )
+            fetch_osm_xml("prod", 931, (-122.5, 49.0, -122.4, 49.1), "key")
 
 
 def test_fetch_osm_xml_reports_maximum_tile_depth() -> None:

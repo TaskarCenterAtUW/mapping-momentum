@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import builtins
 import io
+import json
 import warnings
 from pathlib import Path
 
@@ -45,9 +46,7 @@ def test_interactive_authentication_hides_password_prompt(
         lambda prompt: prompts.append(prompt) or "tdei-password",
     )
 
-    def fake_authenticate(
-        environment: str, username: str, password: str
-    ) -> str:
+    def fake_authenticate(environment: str, username: str, password: str) -> str:
         credentials.append((environment, username, password))
         return "short-lived-token"
 
@@ -120,10 +119,16 @@ def test_event_command_prompts_once_per_environment(
     )
     monkeypatch.setattr(
         "mm.pipeline.run_activity",
-        lambda _config, activity, **kwargs: runs.append(
-            (activity["id"], kwargs["access_token"])
-        )
-        or {"activity_id": activity["id"]},
+        lambda _config, activity, **kwargs: (
+            runs.append(
+                (
+                    activity["id"],
+                    kwargs["access_token"],
+                    kwargs["anonymize"],
+                )
+            )
+            or {"activity_id": activity["id"]}
+        ),
     )
 
     result = cli._cmd_event(
@@ -132,6 +137,7 @@ def test_event_command_prompts_once_per_environment(
             output_dir=tmp_path / "output",
             render_from_stats=None,
             dry_run=True,
+            anonymize=True,
         )
     )
 
@@ -139,6 +145,67 @@ def test_event_command_prompts_once_per_environment(
     assert result == 0
     assert prompts == ["prod"]
     assert runs == [
-        ("walkabout", "prod-token"),
-        ("rollabout", "prod-token"),
+        ("walkabout", "prod-token", True),
+        ("rollabout", "prod-token", True),
     ]
+
+
+def test_event_parser_accepts_anonymize_flag() -> None:
+    """Support both the long and short anonymization options."""
+    for option in ("--anonymize", "-a"):
+        args = cli._build_parser().parse_args(
+            ["event", "--config", "event.json", option]
+        )
+        assert args.anonymize is True
+
+
+def test_render_from_stats_anonymizes_report_and_saved_stats(
+    tmp_path: Path,
+) -> None:
+    """Keep both rendered artifacts anonymized without changing source stats."""
+    source_stats = {
+        "activity_id": "walkabout",
+        "contributors_breakdown": [{"user": "alice", "count": 1, "photo_count": 0}],
+        "markers": [
+            {
+                "user": "alice",
+                "versions": [{"user": "alice"}],
+                "text": "Note from alice",
+            }
+        ],
+        "quotes": [
+            {
+                "text": "Alex Mapper joined the event.",
+                "first_name": "Alex",
+                "last_name": "Mapper",
+            }
+        ],
+    }
+    stats_path = tmp_path / "source-stats.json"
+    stats_path.write_text(json.dumps(source_stats), encoding="utf-8")
+    config = {
+        "id": "sample-event",
+        "name": "Sample Event",
+        "activities": [{"id": "walkabout", "label": "Walkabout"}],
+    }
+    output_dir = tmp_path / "output"
+
+    result = cli._render_from_stats(
+        config,
+        stats_path,
+        output_dir,
+        "sample-event",
+        anonymize=True,
+    )
+
+    assert result == 0
+    rendered_dir = output_dir / "events" / "sample-event" / "walkabout"
+    output_stats = json.loads((rendered_dir / "stats.json").read_text(encoding="utf-8"))
+    html = (rendered_dir / "index.html").read_text(encoding="utf-8")
+    assert output_stats["contributors_breakdown"][0]["user"] == "Participant 1"
+    assert "alice" not in html
+    assert "Participant 1" in html
+    assert output_stats["quotes"][0]["first_name"] == "Participant 2"
+    assert "Alex Mapper" not in html
+    assert "Participant 2" in html
+    assert json.loads(stats_path.read_text(encoding="utf-8")) == source_stats

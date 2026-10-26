@@ -219,9 +219,7 @@ def _resolve_image_collection(
         for image_path in paths:
             mime = _guess_image_mime(image_path)
             encoded = base64.b64encode(image_path.read_bytes()).decode()
-            result.append(
-                {"src": f"data:{mime};base64,{encoded}", "caption": caption}
-            )
+            result.append({"src": f"data:{mime};base64,{encoded}", "caption": caption})
     return result
 
 
@@ -259,9 +257,7 @@ def _video_embed_url(url: str) -> tuple[str, str]:
     if (
         host in {"youtube.com", "www.youtube.com", "m.youtube.com"}
         and parsed.path.startswith("/embed/")
-    ) or (
-        host == "player.vimeo.com" and parsed.path.startswith("/video/")
-    ):
+    ) or (host == "player.vimeo.com" and parsed.path.startswith("/video/")):
         return url, "iframe"
     if host in {"youtube.com", "www.youtube.com", "m.youtube.com"}:
         video_id = parse_qs(parsed.query).get("v", [""])[0]
