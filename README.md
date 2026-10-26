@@ -13,9 +13,17 @@ Mapping Momentum generates deterministic per-activity statistics and a self-cont
 - Python 3.14
 - `uv`
 - A virtual environment at `.venv/`
-- An interactive terminal and a TDEI account with access to the target workspace.
+- A TDEI account with access to the target workspace. Live commands require an interactive terminal unless credentials are supplied through environment variables.
 
-For live Workspace requests, the `event` and `capture` commands prompt for the TDEI username and password. The password is hidden while entered. The CLI exchanges the credentials for a short-lived access token and does not write the credentials to disk or environment variables.
+For live Workspace requests, the `event` and `capture` commands use a short-lived access token. By default, they prompt for the TDEI username and password, with the password hidden. For programmatic runs, set both environment variables for each activity environment:
+
+| Activity environment | Username variable        | Password variable        |
+| -------------------- | ------------------------ | ------------------------ |
+| `prod`               | `MM_TDEI_USERNAME_PROD`  | `MM_TDEI_PASSWORD_PROD`  |
+| `stage`              | `MM_TDEI_USERNAME_STAGE` | `MM_TDEI_PASSWORD_STAGE` |
+| `dev`                | `MM_TDEI_USERNAME_DEV`   | `MM_TDEI_PASSWORD_DEV`   |
+
+Set both variables for an environment or neither; partial pairs and empty values are errors. If neither is set, interactive authentication remains available. The CLI does not print or persist credential values; it sends them to the TDEI authentication endpoint and retains only the resulting token in memory. Inject credentials from a CI or OS secret store, limit their lifetime, and avoid putting values in source files, command-line arguments, or logs. Environment variables may be visible to other processes running as the same user.
 
 ## Setup
 
@@ -52,7 +60,7 @@ Run these commands from the repository root after completing Setup. The packaged
     mapping-momentum capture-quests --config configs/events/2026-01-20-nda-vancouver
     ```
 
-2. Generate the report for every activity in the event. The command reads the local quest cache, fetches live Workspace map, changeset, and note data, then prompts for your TDEI username and hidden password. The credentials aren't saved. Reports are written under `local-output/events/<event-id>/<activity-id>/` as `stats.json` and `index.html`.
+2. Generate the report for every activity in the event. The command reads the local quest cache and fetches live Workspace map, changeset, and note data. It prompts for credentials unless the matching environment-variable pair is set. Reports are written under `local-output/events/<event-id>/<activity-id>/` as `stats.json` and `index.html`.
 
     ```powershell
     mapping-momentum event --config configs/events/2026-01-20-nda-vancouver/event.json `
@@ -65,7 +73,7 @@ Add `--anonymize` (or `-a`) to replace contributor names, map edit-history autho
 
 ### Optional: Capture a Workspace fixture
 
-This is for creating an offline test fixture, not a step in report generation. The fixture name must contain only lowercase letters, digits, and hyphens. This command also prompts for TDEI credentials.
+This is for creating an offline test fixture, not a step in report generation. The fixture name must contain only lowercase letters, digits, and hyphens. This command uses the same environment-variable credentials or interactive prompt as the `event` command.
 
 ```powershell
 mapping-momentum capture --config configs/events/2026-01-20-nda-vancouver `

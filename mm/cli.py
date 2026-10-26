@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import getpass
 import json
+import os
 import shutil
 import sys
 import tempfile
@@ -111,32 +112,52 @@ def run_cli(argv: list[str] | None = None) -> int:
     return 1
 
 
-def _authenticate_interactively(environment: str) -> str:
-    """Prompt for TDEI credentials and return a short-lived access token."""
-    if not (sys.stdin.isatty() and sys.stdout.isatty() and sys.stderr.isatty()):
+def _get_access_token(environment: str) -> str:
+    """Authenticate from a complete environment pair or secure prompts."""
+    username_var = f"MM_TDEI_USERNAME_{environment.upper()}"
+    password_var = f"MM_TDEI_PASSWORD_{environment.upper()}"
+    has_username = username_var in os.environ
+    has_password = password_var in os.environ
+
+    if has_username != has_password:
         raise ValueError(
-            "TDEI credentials must be entered from an interactive terminal."
+            f"{username_var} and {password_var} must be set together."
         )
 
-    try:
-        username = input(f"TDEI {environment} username: ").strip()
-    except EOFError as exc:
-        raise ValueError("No TDEI username was entered.") from exc
-    if not username:
-        raise ValueError("TDEI username cannot be empty.")
+    if has_username:
+        username = os.environ[username_var].strip()
+        password = os.environ[password_var]
+        if not username:
+            raise ValueError(f"Environment variable {username_var} cannot be empty.")
+        if not password:
+            raise ValueError(f"Environment variable {password_var} cannot be empty.")
+    else:
+        if not (sys.stdin.isatty() and sys.stdout.isatty() and sys.stderr.isatty()):
+            raise ValueError(
+                "TDEI credentials require an interactive terminal or both "
+                f"{username_var} and {password_var} environment variables."
+            )
 
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("error", getpass.GetPassWarning)
-            password = getpass.getpass(f"TDEI {environment} password: ")
-    except getpass.GetPassWarning as exc:
-        raise ValueError(
-            "Cannot read the TDEI password without echo; use an interactive terminal."
-        ) from exc
-    except EOFError as exc:
-        raise ValueError("No TDEI password was entered.") from exc
-    if not password:
-        raise ValueError("TDEI password cannot be empty.")
+        try:
+            username = input(f"TDEI {environment} username: ").strip()
+        except EOFError as exc:
+            raise ValueError("No TDEI username was entered.") from exc
+        if not username:
+            raise ValueError("TDEI username cannot be empty.")
+
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("error", getpass.GetPassWarning)
+                password = getpass.getpass(f"TDEI {environment} password: ")
+        except getpass.GetPassWarning as exc:
+            raise ValueError(
+                "Cannot read the TDEI password without echo; "
+                "use an interactive terminal."
+            ) from exc
+        except EOFError as exc:
+            raise ValueError("No TDEI password was entered.") from exc
+        if not password:
+            raise ValueError("TDEI password cannot be empty.")
 
     return authenticate(environment, username, password)
 
@@ -184,7 +205,7 @@ def _cmd_event(args: argparse.Namespace) -> int:
         for activity in config["activities"]:
             environment = activity["environment"]
             if environment not in access_tokens:
-                access_tokens[environment] = _authenticate_interactively(environment)
+                access_tokens[environment] = _get_access_token(environment)
             stats = run_activity(
                 config,
                 activity,
@@ -253,7 +274,7 @@ def _cmd_capture(args: argparse.Namespace) -> int:
         return 1
 
     try:
-        access_token = _authenticate_interactively(env)
+        access_token = _get_access_token(env)
         with tempfile.TemporaryDirectory(dir=fixture_root.parent) as temp_name:
             staging_dir = Path(temp_name) / args.fixture_name
             staging_dir.mkdir()
