@@ -1,0 +1,6636 @@
+{
+  "activity_id": "walkabout",
+  "source_type": "workspace",
+  "window_start": "2025-08-14T04:00:00+00:00",
+  "window_end": "2025-08-18T18:00:00+00:00",
+  "changeset_count": 79,
+  "contributor_count": 10,
+  "contributors_breakdown": [
+    {
+      "user": "Participant 1",
+      "count": 43,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 2",
+      "count": 13,
+      "photo_count": 1
+    },
+    {
+      "user": "Participant 3",
+      "count": 11,
+      "photo_count": 2
+    },
+    {
+      "user": "Participant 4",
+      "count": 4,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 5",
+      "count": 2,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 6",
+      "count": 2,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 7",
+      "count": 1,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 8",
+      "count": 1,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 9",
+      "count": 1,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 10",
+      "count": 1,
+      "photo_count": 0
+    }
+  ],
+  "elements_edited": 79,
+  "features_created": [],
+  "node_count": 21,
+  "note_count": 8,
+  "quest_type_breakdown": [
+    {
+      "category": "Footways",
+      "count": 34,
+      "photo_count": 0
+    },
+    {
+      "category": "Curbs",
+      "count": 17,
+      "photo_count": 0
+    },
+    {
+      "category": "Sidewalks",
+      "count": 15,
+      "photo_count": 0
+    },
+    {
+      "category": "Crossings",
+      "count": 9,
+      "photo_count": 0
+    },
+    {
+      "category": "Intersections",
+      "count": 4,
+      "photo_count": 3
+    }
+  ],
+  "questions_answered": [
+    {
+      "category": "Crossings",
+      "total": 74,
+      "questions": [
+        {
+          "tag": "crossing:markings",
+          "label": "Does this crossing have markings on the roadway?",
+          "times_answered": 8,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:markings:condition",
+          "label": "What is the condition of the markings at this crossing?",
+          "times_answered": 7,
+          "choices": [
+            {
+              "value": "2",
+              "label": "Poor",
+              "count": 1
+            },
+            {
+              "value": "3",
+              "label": "Fair",
+              "count": 5
+            },
+            {
+              "value": "4",
+              "label": "Good",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals",
+          "label": "Does this crossing have signals for pedestrians?",
+          "times_answered": 6,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals:arrow",
+          "label": "Do the pedestrian signals at this crossing have a tactile arrow?",
+          "times_answered": 6,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals:arrow:alignment",
+          "label": "Is the tactile arrow aligned with the direction of travel for the crossing?",
+          "times_answered": 6,
+          "choices": [
+            {
+              "value": "aligned",
+              "label": "Aligned",
+              "count": 4
+            },
+            {
+              "value": "misaligned",
+              "label": "Misaligned",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals:button",
+          "label": "Does this crossing have a button to press to request a walk signal?",
+          "times_answered": 6,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals:button:reachable",
+          "label": "Is this pedestrian signal button within reach for people using mobility aids?",
+          "times_answered": 5,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals:sound",
+          "label": "Do the pedestrian signals at this crossing have an audible indication for when it is safe to cross?",
+          "times_answered": 6,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:signals:vibration",
+          "label": "Do the pedestrian signals at this crossing have a vibrating tactile indication for when it is safe to cross?",
+          "times_answered": 6,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 3
+            },
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing:surface:condition",
+          "label": "What is the condition of this crosswalk's surface?",
+          "times_answered": 9,
+          "choices": [
+            {
+              "value": "2",
+              "label": "Poor",
+              "count": 1
+            },
+            {
+              "value": "4",
+              "label": "Good",
+              "count": 4
+            },
+            {
+              "value": "5",
+              "label": "Excellent",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "tag": "surface",
+          "label": "What is the surface material of this footway?",
+          "times_answered": 9,
+          "choices": [
+            {
+              "value": "asphalt",
+              "label": "Asphalt",
+              "count": 2
+            },
+            {
+              "value": "concrete",
+              "label": "Concrete",
+              "count": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Curbs",
+      "total": 45,
+      "questions": [
+        {
+          "tag": "ext:ramp:alignment_with_crossing",
+          "label": "Is this curb ramp aligned with the direction of travel for the crossing?",
+          "times_answered": 11,
+          "choices": [
+            {
+              "value": "aligned",
+              "label": "Aligned",
+              "count": 5
+            },
+            {
+              "value": "misaligned",
+              "label": "Misaligned",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "kerb",
+          "label": "What type of curb is this?",
+          "times_answered": 17,
+          "choices": [
+            {
+              "value": "flush",
+              "label": "Flush",
+              "count": 6
+            },
+            {
+              "value": "lowered",
+              "label": "Ramp",
+              "count": 11
+            }
+          ]
+        },
+        {
+          "tag": "tactile_paving",
+          "label": "Does this curb have tactile paving?",
+          "times_answered": 17,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 17
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Footways",
+      "total": 66,
+      "questions": [
+        {
+          "tag": "ext:footway:surface:condition",
+          "label": "What is the condition of this footway's surface?",
+          "times_answered": 32,
+          "choices": [
+            {
+              "value": "2",
+              "label": "Poor",
+              "count": 1
+            },
+            {
+              "value": "3",
+              "label": "Fair",
+              "count": 7
+            },
+            {
+              "value": "4",
+              "label": "Good",
+              "count": 9
+            },
+            {
+              "value": "5",
+              "label": "Excellent",
+              "count": 15
+            }
+          ]
+        },
+        {
+          "tag": "surface",
+          "label": "What is the surface material of this footway?",
+          "times_answered": 34,
+          "choices": [
+            {
+              "value": "asphalt",
+              "label": "Asphalt",
+              "count": 1
+            },
+            {
+              "value": "concrete",
+              "label": "Concrete",
+              "count": 30
+            },
+            {
+              "value": "paving_stones",
+              "label": "Brick",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Intersections",
+      "total": 15,
+      "questions": [
+        {
+          "tag": "ext:intersection:picture",
+          "label": "Take a picture of the intersection.",
+          "times_answered": 4,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Ok!",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "tag": "ext:intersection:safe_and_accessible",
+          "label": "Do you feel this intersection is accessible and safe for people with disabilities or mobility aids?",
+          "times_answered": 3,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No, unsafe or inaccessible",
+              "count": 2
+            },
+            {
+              "value": "yes",
+              "label": "Yes, safe and accessible",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:intersection:visibility_rating",
+          "label": "How would you rate the visibility of pedestrians to drivers at this intersection?",
+          "times_answered": 4,
+          "choices": [
+            {
+              "value": "2",
+              "label": "Poor",
+              "count": 1
+            },
+            {
+              "value": "3",
+              "label": "Fair",
+              "count": 2
+            },
+            {
+              "value": "4",
+              "label": "Good",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:intersection:well_maintained",
+          "label": "Is this intersection well-maintained and free of obstacles?",
+          "times_answered": 4,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 2
+            },
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Sidewalks",
+      "total": 44,
+      "questions": [
+        {
+          "tag": "ext:sidewalk:obstruction",
+          "label": "Is this sidewalk free from temporary obstructions?",
+          "times_answered": 14,
+          "choices": [
+            {
+              "value": "No",
+              "label": "No",
+              "count": 8
+            },
+            {
+              "value": "Yes",
+              "label": "Yes",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk:surface:condition",
+          "label": "What is the condition of this sidewalk's surface?",
+          "times_answered": 15,
+          "choices": [
+            {
+              "value": "3",
+              "label": "Fair",
+              "count": 3
+            },
+            {
+              "value": "4",
+              "label": "Good",
+              "count": 6
+            },
+            {
+              "value": "5",
+              "label": "Excellent",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "tag": "surface",
+          "label": "What is the surface material of this footway?",
+          "times_answered": 15,
+          "choices": [
+            {
+              "value": "asphalt",
+              "label": "Asphalt",
+              "count": 2
+            },
+            {
+              "value": "concrete",
+              "label": "Concrete",
+              "count": 12
+            },
+            {
+              "value": "paving_stones",
+              "label": "Brick",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relation_count": 0,
+  "way_count": 58,
+  "markers": [
+    {
+      "id": 6605038,
+      "type": "node",
+      "kind": "quest",
+      "category": "Intersections",
+      "lat": 47.6267824,
+      "lon": -122.3396985,
+      "geom": null,
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:intersection": "yes",
+        "ext:intersection:picture": "yes",
+        "ext:intersection:safe_and_accessible": "no",
+        "ext:intersection:visibility_rating": "2",
+        "ext:intersection:well_maintained": "yes"
+      },
+      "readable": {
+        "ext:intersection:picture": "Ok!",
+        "ext:intersection:safe_and_accessible": "No, unsafe or inaccessible",
+        "ext:intersection:visibility_rating": "Poor",
+        "ext:intersection:well_maintained": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T23:34:54Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:34:54Z",
+          "changeset": 129,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "no",
+            "ext:intersection:visibility_rating": "2",
+            "ext:intersection:well_maintained": "yes"
+          },
+          "readable": {
+            "ext:intersection:picture": {
+              "old": null,
+              "new": "Ok!"
+            },
+            "ext:intersection:visibility_rating": {
+              "old": null,
+              "new": "Poor"
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": null,
+              "new": "No, unsafe or inaccessible"
+            },
+            "ext:intersection:well_maintained": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605039,
+      "type": "node",
+      "kind": "quest",
+      "category": "Intersections",
+      "lat": 47.6254398,
+      "lon": -122.3397524,
+      "geom": null,
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:intersection": "yes",
+        "ext:intersection:picture": "yes",
+        "ext:intersection:visibility_rating": "3",
+        "ext:intersection:well_maintained": "yes",
+        "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577894_3a9ed_68a1169b1d136.jpeg"
+      },
+      "readable": {
+        "ext:intersection:picture": "Ok!",
+        "ext:intersection:visibility_rating": "Fair",
+        "ext:intersection:well_maintained": "Yes"
+      },
+      "photos": [
+        "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577894_3a9ed_68a1169b1d136.jpeg"
+      ],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T23:39:13Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:39:13Z",
+          "changeset": 134,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:visibility_rating": "3",
+            "ext:intersection:well_maintained": "yes",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577894_3a9ed_68a1169b1d136.jpeg"
+          },
+          "readable": {
+            "ext:intersection:picture": {
+              "old": null,
+              "new": "Ok!"
+            },
+            "ext:intersection:visibility_rating": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:intersection:well_maintained": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577894_3a9ed_68a1169b1d136.jpeg"
+          ]
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605043,
+      "type": "node",
+      "kind": "quest",
+      "category": "Intersections",
+      "lat": 47.6246247,
+      "lon": -122.3371507,
+      "geom": null,
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:intersection": "yes",
+        "ext:intersection:picture": "yes",
+        "ext:intersection:safe_and_accessible": "yes",
+        "ext:intersection:visibility_rating": "4",
+        "ext:intersection:well_maintained": "no",
+        "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577889_3a9ed_68a0fc0c7b8b8.jpeg, https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577891_3a9ed_68a0fc1d466fe.jpeg"
+      },
+      "readable": {
+        "ext:intersection:picture": "Ok!",
+        "ext:intersection:safe_and_accessible": "Yes, safe and accessible",
+        "ext:intersection:visibility_rating": "Good",
+        "ext:intersection:well_maintained": "No"
+      },
+      "photos": [
+        "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577889_3a9ed_68a0fc0c7b8b8.jpeg, https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577891_3a9ed_68a0fc1d466fe.jpeg"
+      ],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T21:46:13Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:45:06Z",
+          "changeset": 107,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "no",
+            "ext:intersection:visibility_rating": "2",
+            "ext:intersection:well_maintained": "no"
+          },
+          "readable": {
+            "ext:intersection:picture": {
+              "old": null,
+              "new": "Ok!"
+            },
+            "ext:intersection:visibility_rating": {
+              "old": null,
+              "new": "Poor"
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": null,
+              "new": "No, unsafe or inaccessible"
+            },
+            "ext:intersection:well_maintained": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:45:27Z",
+          "changeset": 109,
+          "tags": {
+            "ext:intersection": "yes"
+          },
+          "readable": {
+            "ext:intersection:picture": {
+              "old": "Ok!",
+              "new": null
+            },
+            "ext:intersection:visibility_rating": {
+              "old": "Poor",
+              "new": null
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": "No, unsafe or inaccessible",
+              "new": null
+            },
+            "ext:intersection:well_maintained": {
+              "old": "No",
+              "new": null
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 5",
+          "timestamp": "2025-08-16T21:45:43Z",
+          "changeset": 110,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "yes",
+            "ext:intersection:visibility_rating": "4",
+            "ext:intersection:well_maintained": "no",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577888_3a9ed_68a0fc0122cc2.jpeg"
+          },
+          "readable": {
+            "ext:intersection:picture": {
+              "old": null,
+              "new": "Ok!"
+            },
+            "ext:intersection:visibility_rating": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": null,
+              "new": "Yes, safe and accessible"
+            },
+            "ext:intersection:well_maintained": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577888_3a9ed_68a0fc0122cc2.jpeg"
+          ]
+        },
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:45:48Z",
+          "changeset": 111,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "no",
+            "ext:intersection:visibility_rating": "2",
+            "ext:intersection:well_maintained": "no",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577888_3a9ed_68a0fc0122cc2.jpeg"
+          },
+          "readable": {
+            "ext:intersection:visibility_rating": {
+              "old": "Good",
+              "new": "Poor"
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": "Yes, safe and accessible",
+              "new": "No, unsafe or inaccessible"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577888_3a9ed_68a0fc0122cc2.jpeg"
+          ]
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:46:13Z",
+          "changeset": 113,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "yes",
+            "ext:intersection:visibility_rating": "4",
+            "ext:intersection:well_maintained": "no",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577889_3a9ed_68a0fc0c7b8b8.jpeg, https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577891_3a9ed_68a0fc1d466fe.jpeg"
+          },
+          "readable": {
+            "ext:intersection:visibility_rating": {
+              "old": "Poor",
+              "new": "Good"
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": "No, unsafe or inaccessible",
+              "new": "Yes, safe and accessible"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577889_3a9ed_68a0fc0c7b8b8.jpeg, https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577891_3a9ed_68a0fc1d466fe.jpeg"
+          ]
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605050,
+      "type": "node",
+      "kind": "quest",
+      "category": "Intersections",
+      "lat": 47.6252145,
+      "lon": -122.3371813,
+      "geom": null,
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:intersection": "yes",
+        "ext:intersection:picture": "yes",
+        "ext:intersection:safe_and_accessible": "no",
+        "ext:intersection:visibility_rating": "3",
+        "ext:intersection:well_maintained": "no",
+        "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577886_3a9ed_68a0fb155aaae.jpeg"
+      },
+      "readable": {
+        "ext:intersection:picture": "Ok!",
+        "ext:intersection:safe_and_accessible": "No, unsafe or inaccessible",
+        "ext:intersection:visibility_rating": "Fair",
+        "ext:intersection:well_maintained": "No"
+      },
+      "photos": [
+        "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577886_3a9ed_68a0fb155aaae.jpeg"
+      ],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T21:42:03Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 5",
+          "timestamp": "2025-08-16T21:41:15Z",
+          "changeset": 94,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "no",
+            "ext:intersection:visibility_rating": "3",
+            "ext:intersection:well_maintained": "no",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577883_3a9ed_68a0faf43e6e1.jpeg"
+          },
+          "readable": {
+            "ext:intersection:picture": {
+              "old": null,
+              "new": "Ok!"
+            },
+            "ext:intersection:visibility_rating": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:intersection:safe_and_accessible": {
+              "old": null,
+              "new": "No, unsafe or inaccessible"
+            },
+            "ext:intersection:well_maintained": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577883_3a9ed_68a0faf43e6e1.jpeg"
+          ]
+        },
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:41:22Z",
+          "changeset": 95,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "no",
+            "ext:intersection:visibility_rating": "2",
+            "ext:intersection:well_maintained": "no",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577882_3a9ed_68a0fae94ad04.jpeg"
+          },
+          "readable": {
+            "ext:intersection:visibility_rating": {
+              "old": "Fair",
+              "new": "Poor"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577882_3a9ed_68a0fae94ad04.jpeg"
+          ]
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:42:03Z",
+          "changeset": 97,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:intersection": "yes",
+            "ext:intersection:picture": "yes",
+            "ext:intersection:safe_and_accessible": "no",
+            "ext:intersection:visibility_rating": "3",
+            "ext:intersection:well_maintained": "no",
+            "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577886_3a9ed_68a0fb155aaae.jpeg"
+          },
+          "readable": {
+            "ext:intersection:visibility_rating": {
+              "old": "Poor",
+              "new": "Fair"
+            }
+          },
+          "photos": [
+            "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577886_3a9ed_68a0fb155aaae.jpeg"
+          ]
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605054,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6269093,
+      "lon": -122.3395565,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "misaligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Misaligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 4",
+      "timestamp": "2025-08-16T23:36:10Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 4",
+          "timestamp": "2025-08-16T23:36:10Z",
+          "changeset": 130,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Misaligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605076,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6244666,
+      "lon": -122.3383208,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "ext:ramp:alignment_with_crossing": "misaligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Misaligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-17T18:08:11Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-17T18:08:11Z",
+          "changeset": 137,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Misaligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605077,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6245001,
+      "lon": -122.3382473,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "ext:ramp:alignment_with_crossing": "aligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Aligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-17T18:05:23Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-17T18:05:23Z",
+          "changeset": 135,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "ext:ramp:alignment_with_crossing": "aligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Aligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605086,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6258363,
+      "lon": -122.3373009,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "aligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Aligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:25:06Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:25:06Z",
+          "changeset": 60,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "aligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Aligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605088,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6258838,
+      "lon": -122.3370985,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "kerb": "Flush",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:25:21Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:25:21Z",
+          "changeset": 61,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "kerb": "flush",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Flush"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605089,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6258041,
+      "lon": -122.3369203,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "kerb": "Flush",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:29:27Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:29:27Z",
+          "changeset": 71,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "kerb": "flush",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Flush"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605090,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6257112,
+      "lon": -122.3369223,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "aligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Aligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:30:32Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:30:32Z",
+          "changeset": 73,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "aligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Aligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605091,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6256692,
+      "lon": -122.3372477,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "misaligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Misaligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:31:59Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:31:59Z",
+          "changeset": 79,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Misaligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605092,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6256722,
+      "lon": -122.3370895,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "misaligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Misaligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T21:36:16Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:31:37Z",
+          "changeset": 78,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Misaligned"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:36:16Z",
+          "changeset": 89,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {},
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605093,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6247938,
+      "lon": -122.3372559,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "misaligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Misaligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:47:36Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:47:36Z",
+          "changeset": 116,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Misaligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605094,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6247902,
+      "lon": -122.3371039,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "misaligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Misaligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:45:59Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:45:59Z",
+          "changeset": 112,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "misaligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Misaligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605101,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6244973,
+      "lon": -122.336981,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "aligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Aligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:44:50Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:44:50Z",
+          "changeset": 106,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "aligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Aligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605102,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6245992,
+      "lon": -122.3369815,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "kerb": "Flush",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:44:14Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:44:14Z",
+          "changeset": 104,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "kerb": "flush",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Flush"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605103,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6246575,
+      "lon": -122.3369817,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "kerb": "Flush",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:44:10Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:44:10Z",
+          "changeset": 103,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "kerb": "flush",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Flush"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 6605104,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6247584,
+      "lon": -122.3369822,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:ramp:alignment_with_crossing": "aligned",
+        "kerb": "lowered",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "ext:ramp:alignment_with_crossing": "Aligned",
+        "kerb": "Ramp",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:43:03Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:43:03Z",
+          "changeset": 99,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:ramp:alignment_with_crossing": "aligned",
+            "kerb": "lowered",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Ramp"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:ramp:alignment_with_crossing": {
+              "old": null,
+              "new": "Aligned"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 11400931,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6258472,
+      "lon": -122.3369194,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "kerb": "Flush",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:30:40Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:30:40Z",
+          "changeset": 74,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "kerb": "flush",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Flush"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 11400932,
+      "type": "node",
+      "kind": "quest",
+      "category": "Curbs",
+      "lat": 47.6258685,
+      "lon": -122.3369281,
+      "geom": null,
+      "tags": {
+        "barrier": "kerb",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "kerb": "flush",
+        "tactile_paving": "yes"
+      },
+      "readable": {
+        "kerb": "Flush",
+        "tactile_paving": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:30:46Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:30:46Z",
+          "changeset": 75,
+          "tags": {
+            "barrier": "kerb",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "kerb": "flush",
+            "tactile_paving": "yes"
+          },
+          "readable": {
+            "kerb": {
+              "old": null,
+              "new": "Flush"
+            },
+            "tactile_paving": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6259498,
+      "lon": -122.337567,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-16T23:21:43Z",
+      "versions": [],
+      "text": "Bench here"
+    },
+    {
+      "id": 2,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6259498,
+      "lon": -122.337567,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-16T23:21:53Z",
+      "versions": [],
+      "text": "Bench here"
+    },
+    {
+      "id": 3,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6244606,
+      "lon": -122.3383016,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-17T18:04:47Z",
+      "versions": [],
+      "text": "Bollard in the middle of sidewalk"
+    },
+    {
+      "id": 4,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6245001,
+      "lon": -122.3382473,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-17T18:05:19Z",
+      "versions": [],
+      "text": "Seems grade too high"
+    },
+    {
+      "id": 5,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.624473,
+      "lon": -122.3382702,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-17T18:05:51Z",
+      "versions": [],
+      "text": "Bollard in middle of sidewalk "
+    },
+    {
+      "id": 6,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6244782,
+      "lon": -122.3382429,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-17T18:06:33Z",
+      "versions": [],
+      "text": "Bollard on link to sidewalk. Barrier"
+    },
+    {
+      "id": 7,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6244606,
+      "lon": -122.3383016,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-17T18:09:07Z",
+      "versions": [],
+      "text": "Potentially too steep"
+    },
+    {
+      "id": 8,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.6264694,
+      "lon": -122.3371309,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2025-08-17T18:38:31Z",
+      "versions": [],
+      "text": "Bollards provide barrier"
+    },
+    {
+      "id": 20,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62605741666667,
+      "lon": -122.33811043333333,
+      "geom": [
+        [
+          47.6260729,
+          -122.3379024
+        ],
+        [
+          47.6260487,
+          -122.3380935
+        ],
+        [
+          47.6260474,
+          -122.3381314
+        ],
+        [
+          47.6260484,
+          -122.3381626
+        ],
+        [
+          47.6260566,
+          -122.3381814
+        ],
+        [
+          47.6260705,
+          -122.3381913
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-17T22:17:10Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T21:51:56Z",
+          "changeset": 118,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T21:52:15Z",
+          "changeset": 119,
+          "tags": {
+            "highway": "footway"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": "Fair",
+              "new": null
+            },
+            "surface": {
+              "old": "Concrete",
+              "new": null
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-17T22:17:10Z",
+          "changeset": 141,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 31,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.625893950000005,
+      "lon": -122.3372042,
+      "geom": [
+        [
+          47.6258837,
+          -122.3372042
+        ],
+        [
+          47.6259042,
+          -122.3372042
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:27:18Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:27:18Z",
+          "changeset": 65,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 123,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.624815,
+      "lon": -122.33705355000001,
+      "geom": [
+        [
+          47.6248398,
+          -122.3370032
+        ],
+        [
+          47.6247902,
+          -122.3371039
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "1",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:46:15Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:46:15Z",
+          "changeset": 114,
+          "tags": {
+            "ext:footway:disruptions:count": "1",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 329,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.625657125000004,
+      "lon": -122.336961375,
+      "geom": [
+        [
+          47.6256491,
+          -122.3369962
+        ],
+        [
+          47.6256563,
+          -122.3369754
+        ],
+        [
+          47.6256604,
+          -122.3369506
+        ],
+        [
+          47.6256627,
+          -122.3369233
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "4",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:31:26Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:31:26Z",
+          "changeset": 77,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "4",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 330,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62566065,
+      "lon": -122.33704285,
+      "geom": [
+        [
+          47.6256491,
+          -122.3369962
+        ],
+        [
+          47.6256722,
+          -122.3370895
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T21:37:23Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:32:13Z",
+          "changeset": 82,
+          "tags": {
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:37:23Z",
+          "changeset": 93,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": "Good",
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 331,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.625316070000004,
+      "lon": -122.33701553,
+      "geom": [
+        [
+          47.6248398,
+          -122.3370032
+        ],
+        [
+          47.6248499,
+          -122.3370066
+        ],
+        [
+          47.6248592,
+          -122.3370084
+        ],
+        [
+          47.625184,
+          -122.3370123
+        ],
+        [
+          47.6253797,
+          -122.3370317
+        ],
+        [
+          47.6255542,
+          -122.3370358
+        ],
+        [
+          47.6255858,
+          -122.3370311
+        ],
+        [
+          47.6256197,
+          -122.3370207
+        ],
+        [
+          47.6256393,
+          -122.3370093
+        ],
+        [
+          47.6256491,
+          -122.3369962
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "15",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "4",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:34:25Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:34:25Z",
+          "changeset": 85,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "15",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "4",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 332,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.624829025,
+      "lon": -122.336994225,
+      "geom": [
+        [
+          47.6248204,
+          -122.3369825
+        ],
+        [
+          47.624825,
+          -122.336993
+        ],
+        [
+          47.6248309,
+          -122.3369982
+        ],
+        [
+          47.6248398,
+          -122.3370032
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "3",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "3",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:42:55Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:42:55Z",
+          "changeset": 98,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "3",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "3",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 333,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.6247894,
+      "lon": -122.33698235,
+      "geom": [
+        [
+          47.6248204,
+          -122.3369825
+        ],
+        [
+          47.6247584,
+          -122.3369822
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 5",
+      "timestamp": "2025-08-16T21:43:30Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:43:17Z",
+          "changeset": 100,
+          "tags": {
+            "ext:footway:disruptions:count": "1",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 5",
+          "timestamp": "2025-08-16T21:43:30Z",
+          "changeset": 101,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {},
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 339,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.6256602,
+      "lon": -122.33644495,
+      "geom": [
+        [
+          47.6256627,
+          -122.3369233
+        ],
+        [
+          47.6256577,
+          -122.3359666
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "10",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "3",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 5",
+      "timestamp": "2025-08-16T21:34:31Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:32:41Z",
+          "changeset": 83,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "2",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "2",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Poor"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:34:29Z",
+          "changeset": 86,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "10",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "3",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:surface:condition": {
+              "old": "Poor",
+              "new": "Fair"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 5",
+          "timestamp": "2025-08-16T21:34:31Z",
+          "changeset": 87,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "10",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "3",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {},
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 397,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.6244606,
+      "lon": -122.33830155000001,
+      "geom": [
+        [
+          47.6244546,
+          -122.3382823
+        ],
+        [
+          47.6244666,
+          -122.3383208
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-17T18:09:10Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-17T18:09:10Z",
+          "changeset": 138,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 398,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.624478249999996,
+      "lon": -122.33824285,
+      "geom": [
+        [
+          47.6244564,
+          -122.3382384
+        ],
+        [
+          47.6245001,
+          -122.3382473
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "1",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-17T18:06:35Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-17T18:06:35Z",
+          "changeset": 136,
+          "tags": {
+            "ext:footway:disruptions:count": "1",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 423,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.6259472,
+      "lon": -122.33644355000001,
+      "geom": [
+        [
+          47.6259468,
+          -122.3362893
+        ],
+        [
+          47.6259476,
+          -122.3365978
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "5",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:16:36Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:16:36Z",
+          "changeset": 56,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 434,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62586,
+      "lon": -122.33644385,
+      "geom": [
+        [
+          47.6258601,
+          -122.3365986
+        ],
+        [
+          47.6258599,
+          -122.3362891
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:15:25Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:15:25Z",
+          "changeset": 55,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 436,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.6263836,
+      "lon": -122.33575245,
+      "geom": [
+        [
+          47.6263429,
+          -122.3357596
+        ],
+        [
+          47.6264243,
+          -122.3357453
+        ]
+      ],
+      "tags": {
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T19:06:17Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T19:06:17Z",
+          "changeset": 48,
+          "tags": {
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 444,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.625950200000005,
+      "lon": -122.3378781,
+      "geom": [
+        [
+          47.6259499,
+          -122.3377213
+        ],
+        [
+          47.6259505,
+          -122.3380349
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "4",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "Good",
+        "surface": "Asphalt"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T23:24:09Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:24:09Z",
+          "changeset": 122,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "4",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 446,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.62594935,
+      "lon": -122.3373084,
+      "geom": [
+        [
+          47.6259491,
+          -122.3372042
+        ],
+        [
+          47.6259496,
+          -122.3374126
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "5",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:37:23Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:37:23Z",
+          "changeset": 92,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 447,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.625949,
+      "lon": -122.33716989999999,
+      "geom": [
+        [
+          47.6259489,
+          -122.3371356
+        ],
+        [
+          47.6259491,
+          -122.3372042
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "5",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "paving_stones"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Excellent",
+        "surface": "Brick"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T19:57:09Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T19:57:09Z",
+          "changeset": 50,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "paving_stones"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Brick"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 448,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62617315,
+      "lon": -122.33711105,
+      "geom": [
+        [
+          47.626176,
+          -122.3370885
+        ],
+        [
+          47.6261703,
+          -122.3371336
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "paving_stones"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Brick"
+      },
+      "photos": [],
+      "user": "Participant 10",
+      "timestamp": "2025-08-16T21:23:02Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:23:01Z",
+          "changeset": 58,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "paving_stones"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Brick"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 10",
+          "timestamp": "2025-08-16T21:23:02Z",
+          "changeset": 59,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "paving_stones"
+          },
+          "readable": {},
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 452,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62631985,
+      "lon": -122.33713225,
+      "geom": [
+        [
+          47.6261703,
+          -122.3371336
+        ],
+        [
+          47.6264694,
+          -122.3371309
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "1",
+        "ext:footway:surface:condition": "2",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Poor",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-17T18:38:33Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T20:54:11Z",
+          "changeset": 52,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:45:20Z",
+          "changeset": 108,
+          "tags": {
+            "highway": "footway"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": "Good",
+              "new": null
+            },
+            "surface": {
+              "old": "Concrete",
+              "new": null
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-17T18:38:33Z",
+          "changeset": 140,
+          "tags": {
+            "ext:footway:disruptions:count": "1",
+            "ext:footway:surface:condition": "2",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Poor"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 453,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62641385,
+      "lon": -122.33738935,
+      "geom": [
+        [
+          47.6263583,
+          -122.3376478
+        ],
+        [
+          47.6264694,
+          -122.3371309
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 9",
+      "timestamp": "2025-08-16T18:45:14Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 9",
+          "timestamp": "2025-08-16T18:45:14Z",
+          "changeset": 46,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 4981,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62632585,
+      "lon": -122.3377988,
+      "geom": [
+        [
+          47.6262934,
+          -122.3379498
+        ],
+        [
+          47.6263583,
+          -122.3376478
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "1",
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T21:01:27Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:01:27Z",
+          "changeset": 53,
+          "tags": {
+            "ext:footway:disruptions:count": "1",
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 4983,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62598885,
+      "lon": -122.33713524999999,
+      "geom": [
+        [
+          47.6259489,
+          -122.3371356
+        ],
+        [
+          47.6260288,
+          -122.3371349
+        ]
+      ],
+      "tags": {
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "paving_stones"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Brick"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:37:10Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:37:10Z",
+          "changeset": 91,
+          "tags": {
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "paving_stones"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Brick"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 4985,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62655511333333,
+      "lon": -122.33768652666666,
+      "geom": [
+        [
+          47.626754,
+          -122.3375277
+        ],
+        [
+          47.6267448,
+          -122.3375196
+        ],
+        [
+          47.6267335,
+          -122.3375161
+        ],
+        [
+          47.6267099,
+          -122.3375245
+        ],
+        [
+          47.6266837,
+          -122.337541
+        ],
+        [
+          47.6266363,
+          -122.3375783
+        ],
+        [
+          47.6265897,
+          -122.3376165
+        ],
+        [
+          47.6265441,
+          -122.3376582
+        ],
+        [
+          47.626502,
+          -122.3377054
+        ],
+        [
+          47.6264626,
+          -122.3377557
+        ],
+        [
+          47.6264377,
+          -122.3377916
+        ],
+        [
+          47.6264131,
+          -122.3378297
+        ],
+        [
+          47.6263889,
+          -122.3378712
+        ],
+        [
+          47.6263679,
+          -122.3379133
+        ],
+        [
+          47.6263585,
+          -122.3379491
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "surface": "Asphalt"
+      },
+      "photos": [],
+      "user": "Participant 6",
+      "timestamp": "2025-08-16T13:25:05Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 6",
+          "timestamp": "2025-08-16T13:19:25Z",
+          "changeset": 43,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 6",
+          "timestamp": "2025-08-16T13:20:39Z",
+          "changeset": 44,
+          "tags": {
+            "highway": "footway"
+          },
+          "readable": {
+            "surface": {
+              "old": "Concrete",
+              "new": null
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 6",
+          "timestamp": "2025-08-16T13:25:05Z",
+          "changeset": 45,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841786,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.626909850000004,
+      "lon": -122.3397038,
+      "geom": [
+        [
+          47.6269104,
+          -122.3398511
+        ],
+        [
+          47.6269093,
+          -122.3395565
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "0",
+        "ext:crossing:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:surface:condition": "Good",
+        "surface": "Asphalt"
+      },
+      "photos": [],
+      "user": "Participant 4",
+      "timestamp": "2025-08-16T23:37:12Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 4",
+          "timestamp": "2025-08-16T23:37:12Z",
+          "changeset": 132,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "0",
+            "ext:crossing:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841787,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.626630250000005,
+      "lon": -122.3397268,
+      "geom": [
+        [
+          47.6266298,
+          -122.3398557
+        ],
+        [
+          47.6266307,
+          -122.3395979
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "0",
+        "ext:crossing:markings:condition": "2",
+        "ext:crossing:signals": "yes",
+        "ext:crossing:signals:arrow": "yes",
+        "ext:crossing:signals:arrow:alignment": "misaligned",
+        "ext:crossing:signals:button": "yes",
+        "ext:crossing:signals:button:reachable": "yes",
+        "ext:crossing:signals:sound": "yes",
+        "ext:crossing:signals:vibration": "no",
+        "ext:crossing:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Poor",
+        "ext:crossing:signals": "Yes",
+        "ext:crossing:signals:arrow": "Yes",
+        "ext:crossing:signals:arrow:alignment": "Misaligned",
+        "ext:crossing:signals:button": "Yes",
+        "ext:crossing:signals:button:reachable": "Yes",
+        "ext:crossing:signals:sound": "Yes",
+        "ext:crossing:signals:vibration": "No",
+        "ext:crossing:surface:condition": "Good",
+        "surface": "Asphalt"
+      },
+      "photos": [],
+      "user": "Participant 4",
+      "timestamp": "2025-08-16T23:38:35Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:36:59Z",
+          "changeset": 131,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "0",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "aligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "yes",
+            "ext:crossing:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": null,
+              "new": "Aligned"
+            },
+            "ext:crossing:signals:arrow": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:sound": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button:reachable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 4",
+          "timestamp": "2025-08-16T23:38:35Z",
+          "changeset": 133,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "0",
+            "ext:crossing:markings:condition": "2",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "misaligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "no",
+            "ext:crossing:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "ext:crossing:signals:arrow:alignment": {
+              "old": "Aligned",
+              "new": "Misaligned"
+            },
+            "ext:crossing:markings:condition": {
+              "old": "Fair",
+              "new": "Poor"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": "Yes",
+              "new": "No"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841799,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.62469685,
+      "lon": -122.3382481,
+      "geom": [
+        [
+          47.6246304,
+          -122.3382478
+        ],
+        [
+          47.6247633,
+          -122.3382484
+        ]
+      ],
+      "tags": {
+        "ext:crossing:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:crossing:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 6",
+      "timestamp": "2025-08-17T18:09:44Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 6",
+          "timestamp": "2025-08-17T18:09:44Z",
+          "changeset": 139,
+          "tags": {
+            "ext:crossing:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841803,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.6258838,
+      "lon": -122.3371382,
+      "geom": [
+        [
+          47.6258838,
+          -122.3371779
+        ],
+        [
+          47.6258838,
+          -122.3370985
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "0",
+        "ext:crossing:markings:condition": "4",
+        "ext:crossing:signals": "yes",
+        "ext:crossing:signals:arrow": "yes",
+        "ext:crossing:signals:arrow:alignment": "aligned",
+        "ext:crossing:signals:button": "yes",
+        "ext:crossing:signals:button:reachable": "yes",
+        "ext:crossing:signals:sound": "yes",
+        "ext:crossing:signals:vibration": "yes",
+        "ext:crossing:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Good",
+        "ext:crossing:signals": "Yes",
+        "ext:crossing:signals:arrow": "Yes",
+        "ext:crossing:signals:arrow:alignment": "Aligned",
+        "ext:crossing:signals:button": "Yes",
+        "ext:crossing:signals:button:reachable": "Yes",
+        "ext:crossing:signals:sound": "Yes",
+        "ext:crossing:signals:vibration": "Yes",
+        "ext:crossing:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:26:22Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:26:22Z",
+          "changeset": 62,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "0",
+            "ext:crossing:markings:condition": "4",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "aligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "yes",
+            "ext:crossing:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": null,
+              "new": "Aligned"
+            },
+            "ext:crossing:signals:arrow": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:sound": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button:reachable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841804,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.62575765,
+      "lon": -122.3369213,
+      "geom": [
+        [
+          47.6258041,
+          -122.3369203
+        ],
+        [
+          47.6257112,
+          -122.3369223
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "0",
+        "ext:crossing:markings:condition": "3",
+        "ext:crossing:signals": "yes",
+        "ext:crossing:signals:arrow": "yes",
+        "ext:crossing:signals:arrow:alignment": "aligned",
+        "ext:crossing:signals:button": "yes",
+        "ext:crossing:signals:button:reachable": "yes",
+        "ext:crossing:signals:sound": "yes",
+        "ext:crossing:signals:vibration": "no",
+        "ext:crossing:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Fair",
+        "ext:crossing:signals": "Yes",
+        "ext:crossing:signals:arrow": "Yes",
+        "ext:crossing:signals:arrow:alignment": "Aligned",
+        "ext:crossing:signals:button": "Yes",
+        "ext:crossing:signals:button:reachable": "Yes",
+        "ext:crossing:signals:sound": "Yes",
+        "ext:crossing:signals:vibration": "No",
+        "ext:crossing:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T21:32:07Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:30:06Z",
+          "changeset": 72,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "0",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "aligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "yes",
+            "ext:crossing:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": null,
+              "new": "Aligned"
+            },
+            "ext:crossing:signals:arrow": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:sound": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button:reachable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T21:32:07Z",
+          "changeset": 81,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "0",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "aligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "no",
+            "ext:crossing:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:surface:condition": {
+              "old": "Good",
+              "new": "Excellent"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": "Yes",
+              "new": "No"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841806,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.624792,
+      "lon": -122.3371799,
+      "geom": [
+        [
+          47.6247938,
+          -122.3372559
+        ],
+        [
+          47.6247902,
+          -122.3371039
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "4",
+        "ext:crossing:markings:condition": "3",
+        "ext:crossing:signals": "yes",
+        "ext:crossing:signals:arrow": "yes",
+        "ext:crossing:signals:arrow:alignment": "misaligned",
+        "ext:crossing:signals:button": "yes",
+        "ext:crossing:signals:button:reachable": "yes",
+        "ext:crossing:signals:sound": "yes",
+        "ext:crossing:signals:vibration": "no",
+        "ext:crossing:surface:condition": "2",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Fair",
+        "ext:crossing:signals": "Yes",
+        "ext:crossing:signals:arrow": "Yes",
+        "ext:crossing:signals:arrow:alignment": "Misaligned",
+        "ext:crossing:signals:button": "Yes",
+        "ext:crossing:signals:button:reachable": "Yes",
+        "ext:crossing:signals:sound": "Yes",
+        "ext:crossing:signals:vibration": "No",
+        "ext:crossing:surface:condition": "Poor",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:47:07Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:47:07Z",
+          "changeset": 115,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "4",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "misaligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "no",
+            "ext:crossing:surface:condition": "2",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": null,
+              "new": "Misaligned"
+            },
+            "ext:crossing:signals:arrow": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:sound": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button:reachable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Poor"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841810,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.624548250000004,
+      "lon": -122.33698125,
+      "geom": [
+        [
+          47.6244973,
+          -122.336981
+        ],
+        [
+          47.6245992,
+          -122.3369815
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "1",
+        "ext:crossing:markings:condition": "3",
+        "ext:crossing:signals": "yes",
+        "ext:crossing:signals:arrow": "yes",
+        "ext:crossing:signals:arrow:alignment": "aligned",
+        "ext:crossing:signals:button": "yes",
+        "ext:crossing:signals:sound": "yes",
+        "ext:crossing:signals:vibration": "yes",
+        "ext:crossing:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Fair",
+        "ext:crossing:signals": "Yes",
+        "ext:crossing:signals:arrow": "Yes",
+        "ext:crossing:signals:arrow:alignment": "Aligned",
+        "ext:crossing:signals:button": "Yes",
+        "ext:crossing:signals:sound": "Yes",
+        "ext:crossing:signals:vibration": "Yes",
+        "ext:crossing:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:44:35Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:44:35Z",
+          "changeset": 105,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "1",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "aligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "yes",
+            "ext:crossing:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": null,
+              "new": "Aligned"
+            },
+            "ext:crossing:signals:arrow": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:sound": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1841811,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.62470795,
+      "lon": -122.33698195,
+      "geom": [
+        [
+          47.6246575,
+          -122.3369817
+        ],
+        [
+          47.6247584,
+          -122.3369822
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:disruptions:count": "2",
+        "ext:crossing:markings:condition": "3",
+        "ext:crossing:signals": "yes",
+        "ext:crossing:signals:arrow": "yes",
+        "ext:crossing:signals:arrow:alignment": "aligned",
+        "ext:crossing:signals:button": "yes",
+        "ext:crossing:signals:button:reachable": "yes",
+        "ext:crossing:signals:sound": "yes",
+        "ext:crossing:signals:vibration": "yes",
+        "ext:crossing:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Fair",
+        "ext:crossing:signals": "Yes",
+        "ext:crossing:signals:arrow": "Yes",
+        "ext:crossing:signals:arrow:alignment": "Aligned",
+        "ext:crossing:signals:button": "Yes",
+        "ext:crossing:signals:button:reachable": "Yes",
+        "ext:crossing:signals:sound": "Yes",
+        "ext:crossing:signals:vibration": "Yes",
+        "ext:crossing:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:44:04Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:44:04Z",
+          "changeset": 102,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:disruptions:count": "2",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:signals": "yes",
+            "ext:crossing:signals:arrow": "yes",
+            "ext:crossing:signals:arrow:alignment": "aligned",
+            "ext:crossing:signals:button": "yes",
+            "ext:crossing:signals:button:reachable": "yes",
+            "ext:crossing:signals:sound": "yes",
+            "ext:crossing:signals:vibration": "yes",
+            "ext:crossing:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": null,
+              "new": "Aligned"
+            },
+            "ext:crossing:signals:arrow": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:sound": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button:reachable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883146,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62634115,
+      "lon": -122.3376397,
+      "geom": [
+        [
+          47.6263583,
+          -122.3376478
+        ],
+        [
+          47.626324,
+          -122.3376316
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T20:50:31Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T20:50:31Z",
+          "changeset": 51,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883152,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.626095899999996,
+      "lon": -122.33772085000001,
+      "geom": [
+        [
+          47.6261189,
+          -122.3375393
+        ],
+        [
+          47.6260729,
+          -122.3379024
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T22:04:19Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T22:04:19Z",
+          "changeset": 120,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883153,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.6260117,
+      "lon": -122.33796865,
+      "geom": [
+        [
+          47.6260729,
+          -122.3379024
+        ],
+        [
+          47.6259505,
+          -122.3380349
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T23:25:38Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:25:38Z",
+          "changeset": 124,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883154,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62619845,
+      "lon": -122.337767,
+      "geom": [
+        [
+          47.626324,
+          -122.3376316
+        ],
+        [
+          47.6260729,
+          -122.3379024
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T21:27:11Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T21:27:11Z",
+          "changeset": 64,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883160,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.6260344,
+      "lon": -122.3376303,
+      "geom": [
+        [
+          47.6259499,
+          -122.3377213
+        ],
+        [
+          47.6261189,
+          -122.3375393
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 7",
+      "timestamp": "2025-08-16T23:22:03Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 7",
+          "timestamp": "2025-08-16T23:22:03Z",
+          "changeset": 121,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883161,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.626444166666666,
+      "lon": -122.33693446666666,
+      "geom": [
+        [
+          47.6263767,
+          -122.3367985
+        ],
+        [
+          47.6264605,
+          -122.3369942
+        ],
+        [
+          47.6264953,
+          -122.3370107
+        ]
+      ],
+      "tags": {
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T19:06:16Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T19:06:16Z",
+          "changeset": 47,
+          "tags": {
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1883162,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62627635,
+      "lon": -122.33694349999999,
+      "geom": [
+        [
+          47.6263767,
+          -122.3367985
+        ],
+        [
+          47.626176,
+          -122.3370885
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:15:00Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:15:00Z",
+          "changeset": 54,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114915,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.625876149999996,
+      "lon": -122.33693464999999,
+      "geom": [
+        [
+          47.6258838,
+          -122.3369412
+        ],
+        [
+          47.6258685,
+          -122.3369281
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:29:04Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:29:04Z",
+          "changeset": 69,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114916,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62582533333333,
+      "lon": -122.33691986666668,
+      "geom": [
+        [
+          47.6258472,
+          -122.3369194
+        ],
+        [
+          47.6258247,
+          -122.3369199
+        ],
+        [
+          47.6258041,
+          -122.3369203
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:29:05Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:29:05Z",
+          "changeset": 70,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114917,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.62585785,
+      "lon": -122.33692375,
+      "geom": [
+        [
+          47.6258685,
+          -122.3369281
+        ],
+        [
+          47.6258472,
+          -122.3369194
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:crossing:markings:condition": "3",
+        "ext:crossing:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "footway": "crossing",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "crossing:markings": "Yes",
+        "ext:crossing:markings:condition": "Fair",
+        "ext:crossing:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:31:01Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:31:01Z",
+          "changeset": 76,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:crossing:markings:condition": "3",
+            "ext:crossing:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "footway": "crossing",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114918,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.6258838,
+      "lon": -122.33701984999999,
+      "geom": [
+        [
+          47.6258838,
+          -122.3370985
+        ],
+        [
+          47.6258838,
+          -122.3369412
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "5",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:27:52Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:27:52Z",
+          "changeset": 67,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114919,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62568695,
+      "lon": -122.3369228,
+      "geom": [
+        [
+          47.6256627,
+          -122.3369233
+        ],
+        [
+          47.6257112,
+          -122.3369223
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:29:03Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:29:03Z",
+          "changeset": 68,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114920,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.625664799999996,
+      "lon": -122.3372641,
+      "geom": [
+        [
+          47.6256604,
+          -122.3372805
+        ],
+        [
+          47.6256692,
+          -122.3372477
+        ]
+      ],
+      "tags": {
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:32:05Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:32:05Z",
+          "changeset": 80,
+          "tags": {
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114921,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62568685,
+      "lon": -122.3373036,
+      "geom": [
+        [
+          47.6256665,
+          -122.337304
+        ],
+        [
+          47.6257072,
+          -122.3373032
+        ]
+      ],
+      "tags": {
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:33:23Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:33:23Z",
+          "changeset": 84,
+          "tags": {
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114922,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.625646275,
+      "lon": -122.337271025,
+      "geom": [
+        [
+          47.6256604,
+          -122.3372805
+        ],
+        [
+          47.6256522,
+          -122.3372723
+        ],
+        [
+          47.6256415,
+          -122.3372669
+        ],
+        [
+          47.625631,
+          -122.3372644
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "4",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:35:09Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:35:09Z",
+          "changeset": 88,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "4",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114923,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.6256637,
+      "lon": -122.3372918,
+      "geom": [
+        [
+          47.6256665,
+          -122.337304
+        ],
+        [
+          47.6256642,
+          -122.3372909
+        ],
+        [
+          47.6256604,
+          -122.3372805
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "4",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:36:26Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:36:26Z",
+          "changeset": 90,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "4",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114925,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.6259435,
+      "lon": -122.3372042,
+      "geom": [
+        [
+          47.6259491,
+          -122.3372042
+        ],
+        [
+          47.6259379,
+          -122.3372042
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "paving_stones"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Brick"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:23:01Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:23:01Z",
+          "changeset": 57,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "paving_stones"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Brick"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114927,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.62588363333333,
+      "lon": -122.33722736666668,
+      "geom": [
+        [
+          47.6258834,
+          -122.3373
+        ],
+        [
+          47.6258837,
+          -122.3372042
+        ],
+        [
+          47.6258838,
+          -122.3371779
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "5",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:27:50Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:27:50Z",
+          "changeset": 66,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114928,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62585985,
+      "lon": -122.33730045,
+      "geom": [
+        [
+          47.6258834,
+          -122.3373
+        ],
+        [
+          47.6258363,
+          -122.3373009
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:26:56Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:26:56Z",
+          "changeset": 63,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3114929,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.62587573333334,
+      "lon": -122.33818065000001,
+      "geom": [
+        [
+          47.6258834,
+          -122.3373
+        ],
+        [
+          47.6258859,
+          -122.3382588
+        ],
+        [
+          47.6258832,
+          -122.3383179
+        ],
+        [
+          47.6258764,
+          -122.3383755
+        ],
+        [
+          47.625868,
+          -122.338404
+        ],
+        [
+          47.6258575,
+          -122.3384277
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "4",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "No",
+        "ext:sidewalk:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T23:25:28Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T23:25:28Z",
+          "changeset": 123,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "No",
+            "ext:sidewalk:surface:condition": "4",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Good"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115025,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.62522065,
+      "lon": -122.337283775,
+      "geom": [
+        [
+          47.625631,
+          -122.3372644
+        ],
+        [
+          47.6253359,
+          -122.3372728
+        ],
+        [
+          47.6251142,
+          -122.3373006
+        ],
+        [
+          47.6248015,
+          -122.3372973
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "7",
+        "ext:sidewalk:surface:condition": "3",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "ext:sidewalk:surface:condition": "Fair",
+        "surface": "Asphalt"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:41:51Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:41:51Z",
+          "changeset": 96,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "7",
+            "ext:sidewalk:surface:condition": "3",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115027,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62479765,
+      "lon": -122.3372766,
+      "geom": [
+        [
+          47.6248015,
+          -122.3372973
+        ],
+        [
+          47.6247938,
+          -122.3372559
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "1",
+        "ext:footway:surface:condition": "3",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Fair",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2025-08-16T21:48:02Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2025-08-16T21:48:02Z",
+          "changeset": 117,
+          "tags": {
+            "ext:footway:disruptions:count": "1",
+            "ext:footway:surface:condition": "3",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115041,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.626848933333335,
+      "lon": -122.33916376,
+      "geom": [
+        [
+          47.6265803,
+          -122.3388875
+        ],
+        [
+          47.6266203,
+          -122.338915
+        ],
+        [
+          47.6266571,
+          -122.3389499
+        ],
+        [
+          47.6266996,
+          -122.3390018
+        ],
+        [
+          47.6267341,
+          -122.3390521
+        ],
+        [
+          47.6267872,
+          -122.3391433
+        ],
+        [
+          47.6268205,
+          -122.3391993
+        ],
+        [
+          47.6268544,
+          -122.3392432
+        ],
+        [
+          47.626893,
+          -122.3392771
+        ],
+        [
+          47.6269292,
+          -122.3392965
+        ],
+        [
+          47.6269653,
+          -122.3393066
+        ],
+        [
+          47.6269999,
+          -122.3393076
+        ],
+        [
+          47.6270295,
+          -122.3393049
+        ],
+        [
+          47.6270641,
+          -122.3392938
+        ],
+        [
+          47.6270995,
+          -122.3392778
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 4",
+      "timestamp": "2025-08-16T23:32:20Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 4",
+          "timestamp": "2025-08-16T23:32:20Z",
+          "changeset": 128,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115043,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62636854,
+      "lon": -122.33879663,
+      "geom": [
+        [
+          47.6261805,
+          -122.3386488
+        ],
+        [
+          47.626218,
+          -122.3387034
+        ],
+        [
+          47.6262495,
+          -122.3387376
+        ],
+        [
+          47.6262949,
+          -122.3387785
+        ],
+        [
+          47.6263346,
+          -122.3388064
+        ],
+        [
+          47.6263823,
+          -122.3388315
+        ],
+        [
+          47.6264316,
+          -122.3388489
+        ],
+        [
+          47.6264831,
+          -122.3388563
+        ],
+        [
+          47.6265306,
+          -122.3388674
+        ],
+        [
+          47.6265803,
+          -122.3388875
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "5",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T23:29:49Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:29:49Z",
+          "changeset": 125,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "5",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115063,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.62632595,
+      "lon": -122.33794945,
+      "geom": [
+        [
+          47.6263585,
+          -122.3379491
+        ],
+        [
+          47.6262934,
+          -122.3379498
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "3",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-17",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 8",
+      "timestamp": "2025-08-17T22:24:02Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 8",
+          "timestamp": "2025-08-17T22:24:02Z",
+          "changeset": 142,
+          "tags": {
+            "ext:footway:disruptions:count": "3",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-17",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115064,
+      "type": "way",
+      "kind": "quest",
+      "category": "Footways",
+      "lat": 47.626774399999995,
+      "lon": -122.33794413333334,
+      "geom": [
+        [
+          47.6270953,
+          -122.3379418
+        ],
+        [
+          47.6268694,
+          -122.3379415
+        ],
+        [
+          47.6263585,
+          -122.3379491
+        ]
+      ],
+      "tags": {
+        "ext:footway:disruptions:count": "0",
+        "ext:footway:surface:condition": "4",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:footway:surface:condition": "Good",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 3",
+      "timestamp": "2025-08-16T19:39:12Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 3",
+          "timestamp": "2025-08-16T19:39:12Z",
+          "changeset": 49,
+          "tags": {
+            "ext:footway:disruptions:count": "0",
+            "ext:footway:surface:condition": "4",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:footway:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 3115065,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.62638295,
+      "lon": -122.33875789999999,
+      "geom": [
+        [
+          47.6265854,
+          -122.338867
+        ],
+        [
+          47.6261805,
+          -122.3386488
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2025-08-16",
+        "ext:sidewalk:disruptions:count": "0",
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "5",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete"
+      },
+      "readable": {
+        "ext:sidewalk:obstruction": "Yes",
+        "ext:sidewalk:surface:condition": "Excellent",
+        "surface": "Concrete"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2025-08-16T23:30:11Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 4",
+          "timestamp": "2025-08-16T23:29:59Z",
+          "changeset": 126,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            }
+          },
+          "photos": []
+        },
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2025-08-16T23:30:11Z",
+          "changeset": 127,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2025-08-16",
+            "ext:sidewalk:disruptions:count": "0",
+            "ext:sidewalk:obstruction": "Yes",
+            "ext:sidewalk:surface:condition": "5",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "surface": "concrete"
+          },
+          "readable": {},
+          "photos": []
+        }
+      ],
+      "text": ""
+    }
+  ],
+  "showcase_photos": [],
+  "pictures": [],
+  "quotes": [],
+  "slideshow_url": null,
+  "slideshow_images": [],
+  "video_url": "",
+  "video_embed_url": "",
+  "video_kind": ""
+}

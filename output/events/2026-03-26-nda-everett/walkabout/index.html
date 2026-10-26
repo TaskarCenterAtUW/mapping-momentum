@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NDA Everett Walk/Roll — Contribution Report</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" crossorigin="anonymous">
+  <style>
+    /* --- Base --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { font-family: system-ui, -apple-system, sans-serif; color: #212529; background: #f8f9fa; line-height: 1.5; padding: 1.5rem; }
+    img { max-width: 100%; display: block; }
+    a { color: #0d6efd; }
+
+    /* --- Skip link (K4) --- */
+    .skip-link {
+      position: absolute; top: -40px; left: 0; padding: 8px 16px;
+      background: #212529; color: #fff; text-decoration: none; z-index: 9999;
+      border-radius: 0 0 4px 0;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* --- Screen-reader only --- */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+    }
+
+    /* --- Layout --- */
+    .page-header { max-width: 1200px; margin: 0 auto 2rem; background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem 1.5rem 1rem; }
+    .page-header h1 { font-size: clamp(1.25rem, 3vw, 1.875rem); font-weight: 700; }
+    .report-subtitle { color: #6c757d; font-size: 0.9375rem; margin-top: 0.25rem; }
+    main { max-width: 1200px; margin: 0 auto; padding: 0; }
+
+    /* --- Showcase (C3) --- */
+    .showcase { margin-bottom: 1.5rem; }
+    .showcase-list { list-style: none; display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 4px; }
+    .showcase-list li { flex: 0 0 auto; }
+    .showcase-btn {
+      border: none; background: none; padding: 0; cursor: pointer;
+      border-radius: 6px; overflow: hidden; display: block;
+    }
+    .showcase-btn:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+    .showcase-img { width: 180px; height: 120px; object-fit: cover; }
+
+    /* --- Event content --- */
+    .media-section {
+      background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+      padding: 1rem; margin-bottom: 1.5rem;
+    }
+    .media-section h2 {
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #6c757d; margin-bottom: 0.75rem;
+    }
+    .picture-list, .slideshow-list {
+      list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .picture-list figure, .slideshow-list figure { max-width: 240px; }
+    .picture-list img, .slideshow-list img {
+      width: 240px; height: 160px; object-fit: cover; border-radius: 6px;
+    }
+    .picture-list figcaption, .slideshow-list figcaption {
+      color: #6c757d; font-size: 0.8125rem; margin-top: 0.25rem;
+    }
+    .quote-list { display: grid; gap: 1rem; list-style: none; }
+    .quote-list blockquote { border-left: 3px solid #0d6efd; padding-left: 0.75rem; }
+    .quote-list blockquote p { font-size: 1rem; font-style: italic; }
+    .quote-attribution { color: #6c757d; font-size: 0.8125rem; margin-top: 0.25rem; }
+    .slideshow-frame, .video-frame {
+      width: 100%; min-height: 360px; border: 0; border-radius: 6px;
+      background: #f8f9fa;
+    }
+    .video-player { width: 100%; max-height: 560px; border-radius: 6px; }
+
+    /* --- Activity header (C2) --- */
+    .activity-header { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+    .activity-header h2 { font-size: 1.25rem; font-weight: 700; }
+    .badge {
+      display: inline-block; padding: 0.2em 0.65em; border-radius: 999px;
+      font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
+      background: #e9ecef; color: #495057;
+    }
+
+    /* --- Map (C4-C8) --- */
+    .map-wrapper {
+      position: relative; margin-bottom: 1.5rem;
+      border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;
+    }
+    #map { height: 460px; width: 100%; }
+    .map-wrapper.map-expanded { position: fixed; inset: 0; z-index: 1000; border-radius: 0; }
+    .map-wrapper.map-expanded #map { height: 100%; }
+    #btn-expand {
+      position: absolute; top: 8px; right: 8px; z-index: 10;
+      background: rgba(255,255,255,0.9); border: 1px solid #ccc; border-radius: 4px;
+      width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    #btn-expand:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+    #btn-expand svg { fill: #212529; }
+
+    /* MapLibre popup customization */
+    .maplibregl-popup-content {
+      padding: 0; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-height: 420px; overflow-y: auto;
+      min-width: 260px; max-width: 340px;
+    }
+    .mm-popup { font-size: 0.8125rem; }
+    .mm-popup-header {
+      padding: 0.5rem 0.75rem 0.375rem; background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .mm-popup-kind {
+      font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; color: #fff;
+    }
+    .mm-popup-kind--quest { background: #0d6efd; }
+    .mm-popup-kind--create { background: #198754; }
+    .mm-popup-kind--note { background: #6c757d; }
+    .mm-popup-category { font-weight: 600; color: #212529; }
+    .mm-popup-pager {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem;
+      background: #fff; border-bottom: 1px solid #dee2e6; font-size: 0.8125rem;
+    }
+    .mm-popup-pager-pos { flex: 1; text-align: center; color: #6c757d; font-size: 0.75rem; }
+    .mm-popup-nav {
+      border: 1px solid #dee2e6; background: #fff; border-radius: 4px;
+      width: 24px; height: 24px; cursor: pointer; font-size: 0.875rem; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mm-popup-nav:disabled { opacity: 0.4; cursor: default; }
+    .mm-popup-nav:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-meta { padding: 0.375rem 0.75rem; color: #6c757d; font-size: 0.75rem; }
+    .mm-popup-toggle-row { display: flex; gap: 4px; padding: 0.375rem 0.75rem; }
+    .mm-popup-view-btn {
+      border: 1px solid #dee2e6; background: #fff; border-radius: 4px;
+      padding: 2px 10px; cursor: pointer; font-size: 0.75rem;
+    }
+    .mm-popup-view-btn[aria-pressed="true"] {
+      background: #0d6efd; color: #fff; border-color: #0d6efd;
+    }
+    .mm-popup-view-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-tags { padding: 0 0.75rem 0.5rem; }
+    .mm-popup-tags dl { display: grid; grid-template-columns: minmax(100px,1fr) 1.5fr; gap: 2px 6px; }
+    .mm-popup-tags dt { font-weight: 500; color: #495057; word-break: break-all; font-size: 0.75rem; }
+    .mm-popup-tags dd { color: #212529; word-break: break-all; }
+    .mm-popup-diff-old { text-decoration: line-through; color: #dc3545; }
+    .mm-popup-diff-new { color: #198754; }
+    .mm-popup-note-text { padding: 0.375rem 0.75rem 0.5rem; font-style: italic; color: #495057; }
+    .mm-popup-photos { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 0.75rem 0.5rem; }
+    .mm-popup-photo-btn {
+      border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
+    }
+    .mm-popup-photo-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-photo-thumb { width: 64px; height: 64px; object-fit: cover; }
+    .mm-no-data-popup { padding: 0.5rem 0.75rem; color: #6c757d; }
+
+    /* Marker elements */
+    .mm-marker {
+      width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.7);
+      cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+    }
+    .mm-marker--note {
+      border-radius: 3px; /* square for notes — shape provides non-color distinction (V2) */
+    }
+    .mm-marker:focus-visible { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px rgba(0,0,0,0.4); }
+
+    /* --- Cards (C10-C12) --- */
+    .cards-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
+    .cards-column { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+    .card {
+      background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem;
+    }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .card-header h3 {
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #6c757d;
+    }
+    .card-count {
+      font-size: 0.8125rem; font-weight: 700; background: #e9ecef;
+      color: #495057; padding: 1px 8px; border-radius: 999px;
+    }
+    .chart-wrapper { position: relative; }
+    .breakdown-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .breakdown-table th { text-align: left; color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding-bottom: 0.5rem; border-bottom: 1px solid #dee2e6; }
+    .breakdown-table td { padding: 0.35rem 0; vertical-align: middle; }
+    .breakdown-table td:first-child { width: 38%; padding-right: 0.5rem; overflow-wrap: anywhere; }
+    .bar-cell { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.5rem; }
+    .bar-track { height: 0.875rem; min-width: 2px; border-radius: 3px; }
+    .bar-value { min-width: 2rem; text-align: right; font-variant-numeric: tabular-nums; }
+    .photo-cell { width: 3.5rem; text-align: right; white-space: nowrap; }
+    .no-data { color: #6c757d; font-size: 0.875rem; padding: 0.5rem 0; font-style: italic; }
+
+    /* --- Questions Answered (C13) --- */
+    .questions-section { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .questions-section .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .questions-section .section-header h3 {
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #6c757d;
+    }
+    .cat-details { border-bottom: 1px solid #f0f0f0; }
+    .cat-details:last-child { border-bottom: none; }
+    .cat-summary {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.625rem 0.25rem; cursor: pointer; list-style: none; font-weight: 600;
+    }
+    .cat-summary::-webkit-details-marker { display: none; }
+    .cat-summary::before { content: "▶"; font-size: 0.625rem; color: #6c757d; margin-right: 0.5rem; transition: transform 0.15s; }
+    .cat-details[open] > .cat-summary::before { transform: rotate(90deg); }
+    .cat-summary:focus-visible { outline: 2px solid #0d6efd; border-radius: 3px; }
+    .cat-name { flex: 1; }
+    .cat-total { font-size: 0.8125rem; color: #6c757d; font-weight: 400; }
+    .cat-questions { padding: 0 0 0.25rem 1rem; }
+    .q-details { border-top: 1px solid #f4f4f4; }
+    .q-summary {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.25rem;
+      cursor: pointer; font-size: 0.9rem; list-style: none;
+    }
+    .q-summary::-webkit-details-marker { display: none; }
+    .q-summary::before { content: "▶"; font-size: 0.5625rem; color: #aaa; transition: transform 0.15s; }
+    .q-details[open] > .q-summary::before { transform: rotate(90deg); }
+    .q-summary:focus-visible { outline: 2px solid #0d6efd; border-radius: 3px; }
+    .q-label { flex: 1; }
+    .q-count { font-size: 0.8125rem; color: #6c757d; white-space: nowrap; }
+    .q-body { padding: 0 0 0.5rem 1rem; }
+    .choices-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-bottom: 0.5rem; }
+    .choices-table th { text-align: left; color: #6c757d; font-weight: 600; font-size: 0.75rem; padding: 4px 8px 4px 0; border-bottom: 1px solid #dee2e6; }
+    .choices-table td { padding: 4px 8px 4px 0; vertical-align: top; }
+    .q-gallery { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.375rem; }
+    .q-gallery-btn {
+      border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
+    }
+    .q-gallery-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .q-gallery-thumb { width: 56px; height: 56px; object-fit: cover; }
+
+    .questions-section { grid-column: 1 / -1; }
+    .question-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .question-table th { text-align: left; color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding: 0.35rem 0.5rem 0.5rem 0; border-bottom: 1px solid #dee2e6; }
+    .question-table td { padding: 0.35rem 0.5rem 0.35rem 0; vertical-align: middle; }
+    .question-table .question-tag { color: #6c757d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
+    .question-table .question-count { width: 28%; }
+    .question-table .choice-row td { background: #f8f9fa; font-size: 0.8125rem; }
+    .question-table .choice-label { padding-left: 1.25rem; }
+    .question-table .choice-value { color: #6c757d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
+
+    /* --- Photo modal (C14) --- */
+    #photo-modal {
+      border: none; border-radius: 10px; padding: 0; background: #000;
+      max-width: min(92vw, 900px); max-height: 90vh; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+    #photo-modal::backdrop { background: rgba(0,0,0,0.75); }
+    .modal-inner {
+      display: grid; grid-template-columns: 40px 1fr 40px; grid-template-rows: 1fr auto 40px;
+      width: 100%; height: 100%;
+    }
+    .modal-img-wrap { grid-column: 1/-1; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    #modal-img { max-width: 100%; max-height: calc(90vh - 80px); object-fit: contain; border-radius: 6px; }
+    #modal-caption {
+      grid-column: 1/-1; text-align: center; color: #ccc; font-size: 0.875rem;
+      padding: 0.375rem 1rem;
+    }
+    .modal-prev-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    .modal-next-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    .modal-close-wrap {
+      grid-column: 1/-1; display: flex; align-items: center; justify-content: flex-end;
+      padding: 0.5rem;
+    }
+    .modal-btn {
+      border: none; background: rgba(255,255,255,0.15); color: #fff;
+      border-radius: 6px; cursor: pointer; width: 32px; height: 32px;
+      font-size: 1.25rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-btn:hover { background: rgba(255,255,255,0.25); }
+    .modal-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .modal-btn:disabled { opacity: 0.3; cursor: default; }
+
+    @media (max-width: 700px) {
+      body { padding: 0.75rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .questions-section { grid-column: auto; }
+      .question-table .question-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="page-header" role="banner">
+    <h1>NDA Everett Walk/Roll — Contribution Report</h1>
+    <p class="report-subtitle">March 26, 2026 · NDA Everett Walk/Roll</p>
+  </header>
+
+  <main id="main-content">
+
+
+
+
+
+
+    <section aria-labelledby="activity-heading">
+
+      <div class="activity-header">
+        <h2 id="activity-heading">NDA Everett Walk/Roll</h2>
+        <span class="badge">13 changesets</span>
+        <span class="badge">24 notes</span>
+      </div>
+
+      <div class="map-wrapper" id="map-wrapper">
+        <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <button type="button" id="btn-expand" aria-label="Expand map to full screen" aria-expanded="false">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M1.5 1h4v1.5H3v2.5H1.5V1zm9 0H15v4h-1.5V2.5H11V1zm-9 9H3v2.5h2.5V14h-4v-4zm11.5 2.5H11V14h4v-4h-1.5v2.5z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="cards-grid">
+
+        <div class="cards-column">
+
+        <section class="card" aria-labelledby="qt-heading">
+          <div class="card-header">
+            <h3 id="qt-heading">Quest Types</h3>
+            <span class="card-count">19</span>
+          </div>
+          <table class="breakdown-table" aria-label="Quest types breakdown">
+            <thead><tr><th>Category</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
+            <tbody>
+            <tr><td>Crossings</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:100.0%"></span><strong class="bar-value">11</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Sidewalks</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:63.63636363636363%"></span><strong class="bar-value">7</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>(unknown)</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:9.090909090909092%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            </tbody>
+          </table>
+          <table class="sr-only">
+            <caption>Quest types breakdown</caption>
+            <thead><tr><th>Category</th><th>Count</th><th>Photos</th></tr></thead>
+            <tbody>
+              <tr><td>Crossings</td><td>11</td><td>—</td></tr>
+              <tr><td>Sidewalks</td><td>7</td><td>—</td></tr>
+              <tr><td>(unknown)</td><td>1</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="card" aria-labelledby="fc-heading">
+          <div class="card-header">
+            <h3 id="fc-heading">Features Created</h3>
+            <span class="card-count">1</span>
+          </div>
+          <table class="breakdown-table" aria-label="Features created breakdown">
+            <thead><tr><th>Type</th><th>Count</th></tr></thead>
+            <tbody>
+            <tr><td>node</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:100.0%"></span><strong class="bar-value">1</strong></div></td></tr>
+            </tbody>
+          </table>
+          <table class="sr-only">
+            <caption>Features created by type</caption>
+            <thead><tr><th>Type</th><th>Count</th></tr></thead>
+            <tbody>
+              <tr><td>node</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </section>
+        </div>
+        <div class="cards-column">
+
+        <section class="card" aria-labelledby="cb-heading">
+          <div class="card-header">
+            <h3 id="cb-heading">Contributors</h3>
+            <span class="card-count">8</span>
+          </div>
+          <table class="breakdown-table" aria-label="Contributors breakdown">
+            <thead><tr><th>Contributor</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
+            <tbody>
+            <tr><td>Participant 1</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:100.0%"></span><strong class="bar-value">8</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 2</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:37.5%"></span><strong class="bar-value">3</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 3</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:25.0%"></span><strong class="bar-value">2</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 4</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:25.0%"></span><strong class="bar-value">2</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 5</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:12.5%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 6</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:12.5%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 7</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:12.5%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Participant 8</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:12.5%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            </tbody>
+          </table>
+          <table class="sr-only">
+            <caption>Contributors breakdown</caption>
+            <thead><tr><th>User</th><th>Count</th><th>Photos</th></tr></thead>
+            <tbody>
+              <tr><td>Participant 1</td><td>8</td><td>—</td></tr>
+              <tr><td>Participant 2</td><td>3</td><td>—</td></tr>
+              <tr><td>Participant 3</td><td>2</td><td>—</td></tr>
+              <tr><td>Participant 4</td><td>2</td><td>—</td></tr>
+              <tr><td>Participant 5</td><td>1</td><td>—</td></tr>
+              <tr><td>Participant 6</td><td>1</td><td>—</td></tr>
+              <tr><td>Participant 7</td><td>1</td><td>—</td></tr>
+              <tr><td>Participant 8</td><td>1</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </section>
+        </div>
+      </div>
+      <section class="questions-section" aria-labelledby="qa-heading">
+        <div class="section-header">
+          <h3 id="qa-heading">Questions Answered</h3>
+          <span class="card-count">122 total</span>
+        </div>
+        <details class="cat-details">
+          <summary class="cat-summary">
+            <span class="cat-name">Crossings</span>
+            <span class="cat-total">66 answers</span>
+          </summary>
+          <div class="cat-questions">
+          <table class="question-table">
+            <thead><tr><th>Question</th><th>Tag</th><th class="question-count">Times answered</th></tr></thead>
+            <tbody>
+            <tr class="question-row"><td>Is an audible signal present?</td><td class="question-tag">ext:crossing_audible_signal_present</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">11</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:72.72727272727273%"></span><strong class="bar-value">8</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:27.27272727272727%"></span><strong class="bar-value">3</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:crossing_audible_signal_present"></div></td></tr>
+            <tr class="question-row"><td>Is the audible signal understandable?</td><td class="question-tag">ext:crossing_audible_signal_understandable</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">11</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:81.81818181818183%"></span><strong class="bar-value">9</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Unclear</td><td class="choice-value">unclear</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:9.090909090909092%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:9.090909090909092%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:crossing_audible_signal_understandable"></div></td></tr>
+            <tr class="question-row"><td>Is a pedestrian signal present?</td><td class="question-tag">ext:crossing_ped_signal_present</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">11</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:27.27272727272727%"></span><strong class="bar-value">3</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:72.72727272727273%"></span><strong class="bar-value">8</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:crossing_ped_signal_present"></div></td></tr>
+            <tr class="question-row"><td>Is the timing sufficient to cross?</td><td class="question-tag">ext:crossing_timing_sufficient</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">11</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:36.36363636363637%"></span><strong class="bar-value">4</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Unclear</td><td class="choice-value">unclear</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:18.181818181818183%"></span><strong class="bar-value">2</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:45.45454545454545%"></span><strong class="bar-value">5</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:crossing_timing_sufficient"></div></td></tr>
+            <tr class="question-row"><td>What is the perceived traffic speed?</td><td class="question-tag">ext:crossing_traffic_speed_perception</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">11</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">High</td><td class="choice-value">high</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:45.45454545454545%"></span><strong class="bar-value">5</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Medium</td><td class="choice-value">medium</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:54.54545454545454%"></span><strong class="bar-value">6</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:crossing_traffic_speed_perception"></div></td></tr>
+            <tr class="question-row"><td>Does vehicle traffic yield to pedestrians?</td><td class="question-tag">ext:crossing_vehicle_yielding</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">11</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:18.181818181818183%"></span><strong class="bar-value">2</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Unclear</td><td class="choice-value">unclear</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:9.090909090909092%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:72.72727272727273%"></span><strong class="bar-value">8</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:crossing_vehicle_yielding"></div></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </details>
+        <details class="cat-details">
+          <summary class="cat-summary">
+            <span class="cat-name">Sidewalks</span>
+            <span class="cat-total">56 answers</span>
+          </summary>
+          <div class="cat-questions">
+          <table class="question-table">
+            <thead><tr><th>Question</th><th>Tag</th><th class="question-count">Times answered</th></tr></thead>
+            <tbody>
+            <tr class="question-row"><td>Is the clear width sufficient?</td><td class="question-tag">ext:sidewalk_clear_width_sufficient</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:42.857142857142854%"></span><strong class="bar-value">3</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:57.14285714285714%"></span><strong class="bar-value">4</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_clear_width_sufficient"></div></td></tr>
+            <tr class="question-row"><td>Is continuity maintained along the sidewalk?</td><td class="question-tag">ext:sidewalk_continuity_maintained</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:14.285714285714285%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:85.71428571428571%"></span><strong class="bar-value">6</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_continuity_maintained"></div></td></tr>
+            <tr class="question-row"><td>Is the sidewalk continuous?</td><td class="question-tag">ext:sidewalk_continuous</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:14.285714285714285%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:85.71428571428571%"></span><strong class="bar-value">6</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_continuous"></div></td></tr>
+            <tr class="question-row"><td>In your opinion, is the cross-slope acceptable?</td><td class="question-tag">ext:sidewalk_cross_slope_acceptability</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:42.857142857142854%"></span><strong class="bar-value">3</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Unsure</td><td class="choice-value">unsure</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:14.285714285714285%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:42.857142857142854%"></span><strong class="bar-value">3</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_cross_slope_acceptability"></div></td></tr>
+            <tr class="question-row"><td>Are there hazards users encounter that affect navigation?</td><td class="question-tag">ext:sidewalk_navigation_hazards</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:85.71428571428571%"></span><strong class="bar-value">6</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:14.285714285714285%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_navigation_hazards"></div></td></tr>
+            <tr class="question-row"><td>What type of obstructions are present?</td><td class="question-tag">ext:sidewalk_obstruction_type</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">None</td><td class="choice-value">none</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:85.71428571428571%"></span><strong class="bar-value">6</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Temporary</td><td class="choice-value">temporary</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:14.285714285714285%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_obstruction_type"></div></td></tr>
+            <tr class="question-row"><td>Is there a vertical lip or slope change?</td><td class="question-tag">ext:sidewalk_vertical_lip</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:71.42857142857143%"></span><strong class="bar-value">5</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:28.57142857142857%"></span><strong class="bar-value">2</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_vertical_lip"></div></td></tr>
+            <tr class="question-row"><td>Is there room for wheelchairs to navigate the sidewalk?</td><td class="question-tag">ext:sidewalk_wheelchair_navigable</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">7</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">No</td><td class="choice-value">no</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:14.285714285714285%"></span><strong class="bar-value">1</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Unclear</td><td class="choice-value">unclear</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:28.57142857142857%"></span><strong class="bar-value">2</strong></div></td></tr>
+            <tr class="choice-row"><td class="choice-label">Yes</td><td class="choice-value">yes</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:57.14285714285714%"></span><strong class="bar-value">4</strong></div></td></tr>
+            <tr class="sr-only"><td colspan="3"><div class="q-gallery" data-tag="ext:sidewalk_wheelchair_navigable"></div></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </details>
+      </section>
+
+    </section>  </main>
+
+  <dialog id="photo-modal" aria-label="Photo gallery">
+    <div class="modal-inner">
+      <div class="modal-close-wrap">
+        <button type="button" id="modal-close" class="modal-btn" aria-label="Close photo gallery">&times;</button>
+      </div>
+      <div class="modal-img-wrap">
+        <img id="modal-img" src="" alt="" class="">
+      </div>
+      <figcaption id="modal-caption" class="" role="status"></figcaption>
+      <div class="modal-prev-wrap">
+        <button type="button" id="modal-prev" class="modal-btn" aria-label="Previous photo">&#8249;</button>
+      </div>
+      <div style="grid-column:2;grid-row:3;display:flex;align-items:center;justify-content:center;">
+        <span id="modal-pos" aria-live="polite" class="sr-only"></span>
+      </div>
+      <div class="modal-next-wrap">
+        <button type="button" id="modal-next" class="modal-btn" aria-label="Next photo">&#8250;</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>const STATS = {"activity_id":"walkabout","source_type":"workspace","window_start":"2026-03-25T13:00:00+00:00","window_end":"2026-03-28T00:00:00+00:00","changeset_count":13,"contributor_count":8,"contributors_breakdown":[{"user":"Participant 1","count":8,"photo_count":0},{"user":"Participant 2","count":3,"photo_count":0},{"user":"Participant 3","count":2,"photo_count":0},{"user":"Participant 4","count":2,"photo_count":0},{"user":"Participant 5","count":1,"photo_count":0},{"user":"Participant 6","count":1,"photo_count":0},{"user":"Participant 7","count":1,"photo_count":0},{"user":"Participant 8","count":1,"photo_count":0}],"elements_edited":19,"features_created":[{"feature_type":"node","count":1}],"node_count":1,"note_count":24,"quest_type_breakdown":[{"category":"Crossings","count":11,"photo_count":0},{"category":"Sidewalks","count":7,"photo_count":0},{"category":"","count":1,"photo_count":0}],"questions_answered":[{"category":"Crossings","total":66,"questions":[{"tag":"ext:crossing_audible_signal_present","label":"Is an audible signal present?","times_answered":11,"choices":[{"value":"no","label":"No","count":8},{"value":"yes","label":"Yes","count":3}]},{"tag":"ext:crossing_audible_signal_understandable","label":"Is the audible signal understandable?","times_answered":11,"choices":[{"value":"no","label":"No","count":9},{"value":"unclear","label":"Unclear","count":1},{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:crossing_ped_signal_present","label":"Is a pedestrian signal present?","times_answered":11,"choices":[{"value":"no","label":"No","count":3},{"value":"yes","label":"Yes","count":8}]},{"tag":"ext:crossing_timing_sufficient","label":"Is the timing sufficient to cross?","times_answered":11,"choices":[{"value":"no","label":"No","count":4},{"value":"unclear","label":"Unclear","count":2},{"value":"yes","label":"Yes","count":5}]},{"tag":"ext:crossing_traffic_speed_perception","label":"What is the perceived traffic speed?","times_answered":11,"choices":[{"value":"high","label":"High","count":5},{"value":"medium","label":"Medium","count":6}]},{"tag":"ext:crossing_vehicle_yielding","label":"Does vehicle traffic yield to pedestrians?","times_answered":11,"choices":[{"value":"no","label":"No","count":2},{"value":"unclear","label":"Unclear","count":1},{"value":"yes","label":"Yes","count":8}]}]},{"category":"Sidewalks","total":56,"questions":[{"tag":"ext:sidewalk_clear_width_sufficient","label":"Is the clear width sufficient?","times_answered":7,"choices":[{"value":"no","label":"No","count":3},{"value":"yes","label":"Yes","count":4}]},{"tag":"ext:sidewalk_continuity_maintained","label":"Is continuity maintained along the sidewalk?","times_answered":7,"choices":[{"value":"no","label":"No","count":1},{"value":"yes","label":"Yes","count":6}]},{"tag":"ext:sidewalk_continuous","label":"Is the sidewalk continuous?","times_answered":7,"choices":[{"value":"no","label":"No","count":1},{"value":"yes","label":"Yes","count":6}]},{"tag":"ext:sidewalk_cross_slope_acceptability","label":"In your opinion, is the cross-slope acceptable?","times_answered":7,"choices":[{"value":"no","label":"No","count":3},{"value":"unsure","label":"Unsure","count":1},{"value":"yes","label":"Yes","count":3}]},{"tag":"ext:sidewalk_navigation_hazards","label":"Are there hazards users encounter that affect navigation?","times_answered":7,"choices":[{"value":"no","label":"No","count":6},{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_obstruction_type","label":"What type of obstructions are present?","times_answered":7,"choices":[{"value":"none","label":"None","count":6},{"value":"temporary","label":"Temporary","count":1}]},{"tag":"ext:sidewalk_vertical_lip","label":"Is there a vertical lip or slope change?","times_answered":7,"choices":[{"value":"no","label":"No","count":5},{"value":"yes","label":"Yes","count":2}]},{"tag":"ext:sidewalk_wheelchair_navigable","label":"Is there room for wheelchairs to navigate the sidewalk?","times_answered":7,"choices":[{"value":"no","label":"No","count":1},{"value":"unclear","label":"Unclear","count":2},{"value":"yes","label":"Yes","count":4}]}]}],"relation_count":0,"way_count":18,"markers":[{"id":62172,"type":"node","kind":"create","category":"","lat":47.9217732,"lon":-122.2305087,"geom":null,"tags":{"man_made":"manhole"},"readable":{},"photos":[],"user":"Participant 2","timestamp":"2026-03-26T17:44:45Z","versions":[{"action":"create","user":"Participant 2","timestamp":"2026-03-26T17:44:45Z","changeset":15,"tags":{"man_made":"manhole"},"readable":{},"photos":[]}],"text":""},{"id":1,"type":"note","kind":"note","category":"","lat":47.921754,"lon":-122.2356198,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:47:01Z","versions":[],"text":"Big crack on driveway "},{"id":2,"type":"note","kind":"note","category":"","lat":47.9218103,"lon":-122.2305104,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:48:34Z","versions":[],"text":"No benches or seating features at this bus stop. Questionably sloped. Landing pad ok. "},{"id":3,"type":"note","kind":"note","category":"","lat":47.9220242,"lon":-122.2358954,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:53:01Z","versions":[],"text":"Bus stop #5105 has a hole in the glass shelter, no bench, and many cracks in pavement "},{"id":4,"type":"note","kind":"note","category":"","lat":47.9220059,"lon":-122.2360874,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:54:38Z","versions":[],"text":"En la estación 5105 no hay banquetas está quebrado el techo la ruta Everett transit 8 y 12"},{"id":5,"type":"note","kind":"note","category":"","lat":47.9219962,"lon":-122.2361328,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:54:38Z","versions":[],"text":"5105 no hay banca, silla el techo esta roto"},{"id":6,"type":"note","kind":"note","category":"","lat":47.9219346,"lon":-122.2361403,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:54:40Z","versions":[],"text":"En la estación #5105 casino Rd, no hay silla, está quebrado el techo, la ruta everett tránsit , pasa el autobús #12 y #8"},{"id":7,"type":"note","kind":"note","category":"","lat":47.9220284,"lon":-122.236149,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:54:41Z","versions":[],"text":"Bus stop 5105 roof is broken, no bench."},{"id":8,"type":"note","kind":"note","category":"","lat":47.9223728,"lon":-122.2357913,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:54:52Z","versions":[],"text":"Pues no hay una banca para sentarse y el techo esta roto en la parada 5105 donde pasa el Bus 8 y 12"},{"id":9,"type":"note","kind":"note","category":"","lat":47.922071,"lon":-122.2361262,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:55:19Z","versions":[],"text":"aqui en esta parada de la rita 5105 k pasa el vas 8-!!! 12  no tiene techo bueno esta root  y no ay banca para esperar sentada"},{"id":10,"type":"note","kind":"note","category":"","lat":47.9220159,"lon":-122.23612,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:55:27Z","versions":[],"text":"La para da Del Camino  con ruta 5105.  \nNo tien banca ni techo. Su carilla"},{"id":11,"type":"note","kind":"note","category":"","lat":47.9219856,"lon":-122.2353784,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:56:12Z","versions":[],"text":"Steep driveway drop "},{"id":12,"type":"note","kind":"note","category":"","lat":47.9220845,"lon":-122.233909,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:58:15Z","versions":[],"text":"Steep slope on driveway "},{"id":13,"type":"note","kind":"note","category":"","lat":47.9220183,"lon":-122.2332233,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T17:59:48Z","versions":[],"text":"Missing shelter , no bus schedule posted"},{"id":14,"type":"note","kind":"note","category":"","lat":47.9221087,"lon":-122.2331479,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:00:21Z","versions":[],"text":"5110 no tiene techo no hay calendario para los horarios ruta 8,y 12"},{"id":15,"type":"note","kind":"note","category":"","lat":47.9220983,"lon":-122.2363185,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:00:59Z","versions":[],"text":"la rita de 8-!! 12 no tienen la tabla del tiempo para saver akioras pasa el vas  eso es bueno "},{"id":16,"type":"note","kind":"note","category":"","lat":47.922183,"lon":-122.2331791,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:01:07Z","versions":[],"text":"Stop #5110 \nRoute 8-12\n\nNo calendar \nNo roof in the stop "},{"id":17,"type":"note","kind":"note","category":"","lat":47.9220594,"lon":-122.2332747,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:01:24Z","versions":[],"text":"Bus stop 5110 has broken roof\nShould be another bus stop across the street too. Saw people dangerously crossing"},{"id":18,"type":"note","kind":"note","category":"","lat":47.922652,"lon":-122.233013,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:01:36Z","versions":[],"text":"En la parada 5110 no tiene techo , la tabla de las rutas de los horarios ruta 8 y 12"},{"id":19,"type":"note","kind":"note","category":"","lat":47.9237128,"lon":-122.2346673,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:01:44Z","versions":[],"text":"No hay tabla de informacion de hora y ruta. Ruta 5110"},{"id":20,"type":"note","kind":"note","category":"","lat":47.9223108,"lon":-122.2331536,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:01:47Z","versions":[],"text":"En la 5110 no tiene techo no tiene una tabla para ver el orario del Bus"},{"id":21,"type":"note","kind":"note","category":"","lat":47.9220262,"lon":-122.2332717,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:02:11Z","versions":[],"text":"La estación #5110, de casino Rd , no tiene la tabla de los  horarios , el techo está quebrado."},{"id":22,"type":"note","kind":"note","category":"","lat":47.9232089,"lon":-122.2284814,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:09:45Z","versions":[],"text":"I don’t like it up here. No note on this pedestrian bridge. It’s expensive"},{"id":23,"type":"note","kind":"note","category":"","lat":47.9222394,"lon":-122.2280391,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:17:38Z","versions":[],"text":"Surface disruption, 4-5 ft unusable surface. Tripped wire cane and wheelchair."},{"id":24,"type":"note","kind":"note","category":"","lat":47.9215114,"lon":-122.2281597,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-03-26T18:20:44Z","versions":[],"text":"5130 no hay bancas"},{"id":1351,"type":"way","kind":"quest","category":"Crossings","lat":47.9226044,"lon":-122.2275512,"geom":[[47.9225929,-122.2276853],[47.9226159,-122.2274171]],"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"unclear","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.007","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"No","ext:crossing_timing_sufficient":"No","ext:crossing_traffic_speed_perception":"High","ext:crossing_vehicle_yielding":"Unclear"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T18:14:17Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T18:14:17Z","changeset":30,"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"unclear","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.007","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Unclear"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"No"},"ext:crossing_timing_sufficient":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":1580,"type":"way","kind":"quest","category":"Crossings","lat":47.9241344,"lon":-122.236638,"geom":[[47.924115,-122.2365912],[47.9241538,-122.2366848]],"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.032","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"Yes","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 3","timestamp":"2026-03-26T17:50:23Z","versions":[{"action":"modify","user":"Participant 3","timestamp":"2026-03-26T17:50:23Z","changeset":25,"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.032","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"Medium"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"Yes"}},"photos":[]}],"text":""},{"id":1836,"type":"way","kind":"quest","category":"Crossings","lat":47.92114535,"lon":-122.22879515,"geom":[[47.9211952,-122.2289444],[47.9210955,-122.2286459]],"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.018","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"No","ext:crossing_timing_sufficient":"No","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"No"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T17:58:48Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T17:58:48Z","changeset":30,"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.018","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"Medium"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"No"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"No"},"ext:crossing_timing_sufficient":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":1844,"type":"way","kind":"quest","category":"Crossings","lat":47.91936285,"lon":-122.2284237,"geom":[[47.9193311,-122.2283732],[47.9193946,-122.2284742]],"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.013","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"Yes","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 6","timestamp":"2026-03-26T17:50:06Z","versions":[{"action":"modify","user":"Participant 6","timestamp":"2026-03-26T17:50:06Z","changeset":21,"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.013","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"Medium"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"Yes"}},"photos":[]}],"text":""},{"id":11338,"type":"way","kind":"quest","category":"Crossings","lat":47.9218887,"lon":-122.23709869999999,"geom":[[47.9219891,-122.237088],[47.9217883,-122.2371094]],"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.021","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"Yes","ext:crossing_traffic_speed_perception":"High","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 2","timestamp":"2026-03-26T18:33:47Z","versions":[{"action":"modify","user":"Participant 2","timestamp":"2026-03-26T18:33:47Z","changeset":32,"tags":{"crossing:markings":"no","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.021","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"Yes"}},"photos":[]}],"text":""},{"id":11340,"type":"way","kind":"quest","category":"Crossings","lat":47.9218826,"lon":-122.23623545000001,"geom":[[47.9219723,-122.2362308],[47.9217929,-122.2362401]],"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"Yes","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 7","timestamp":"2026-03-26T17:52:24Z","versions":[{"action":"modify","user":"Participant 9","timestamp":"2026-03-26T17:48:38Z","changeset":16,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"Yes"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"Yes"}},"photos":[]},{"action":"modify","user":"Participant 10","timestamp":"2026-03-26T17:49:24Z","changeset":17,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"unclear","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_understandable":{"old":"No","new":"Unclear"},"ext:crossing_audible_signal_present":{"old":"Yes","new":"No"},"ext:crossing_timing_sufficient":{"old":"Yes","new":"No"}},"photos":[]},{"action":"modify","user":"Participant 11","timestamp":"2026-03-26T17:49:59Z","changeset":19,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":"High","new":"Medium"},"ext:crossing_audible_signal_understandable":{"old":"Unclear","new":"No"},"ext:crossing_timing_sufficient":{"old":"No","new":"Yes"}},"photos":[]},{"action":"modify","user":"Participant 12","timestamp":"2026-03-26T17:50:05Z","changeset":20,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{},"photos":[]},{"action":"modify","user":"Participant 13","timestamp":"2026-03-26T17:50:11Z","changeset":22,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{},"photos":[]},{"action":"modify","user":"Participant 14","timestamp":"2026-03-26T17:50:15Z","changeset":23,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{},"photos":[]},{"action":"modify","user":"Participant 8","timestamp":"2026-03-26T17:50:23Z","changeset":24,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{},"photos":[]},{"action":"modify","user":"Participant 7","timestamp":"2026-03-26T17:52:24Z","changeset":28,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.012","surface":"asphalt"},"readable":{},"photos":[]}],"text":""},{"id":11752,"type":"way","kind":"quest","category":"Crossings","lat":47.9219445,"lon":-122.2300372,"geom":[[47.9220338,-122.2300401],[47.9218552,-122.2300343]],"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"Yes","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"No","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"No"},"photos":[],"user":"Participant 2","timestamp":"2026-03-26T17:52:32Z","versions":[{"action":"modify","user":"Participant 2","timestamp":"2026-03-26T17:52:32Z","changeset":29,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"Medium"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"No"},"ext:crossing_audible_signal_present":{"old":null,"new":"Yes"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":11754,"type":"way","kind":"quest","category":"Crossings","lat":47.9218356,"lon":-122.22987655,"geom":[[47.9218283,-122.2299719],[47.9218429,-122.2297812]],"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"yes","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"unclear","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.041","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"Yes","ext:crossing_audible_signal_understandable":"Yes","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"Unclear","ext:crossing_traffic_speed_perception":"High","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 4","timestamp":"2026-03-26T17:51:32Z","versions":[{"action":"modify","user":"Participant 4","timestamp":"2026-03-26T17:51:32Z","changeset":27,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"yes","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"unclear","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.041","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"Yes"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"Yes"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"Unclear"}},"photos":[]}],"text":""},{"id":11762,"type":"way","kind":"quest","category":"Crossings","lat":47.92182845,"lon":-122.2284444,"geom":[[47.9218146,-122.2284794],[47.9218423,-122.2284094]],"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"unclear","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.009","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"No","ext:crossing_timing_sufficient":"Unclear","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T17:55:20Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T17:55:20Z","changeset":30,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"unclear","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0.009","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"Medium"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"No"},"ext:crossing_timing_sufficient":{"old":null,"new":"Unclear"}},"photos":[]}],"text":""},{"id":11763,"type":"way","kind":"quest","category":"Crossings","lat":47.9219491,"lon":-122.22832650000001,"geom":[[47.9220313,-122.2282812],[47.9218669,-122.2283718]],"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.009","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_audible_signal_understandable":"No","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"No","ext:crossing_traffic_speed_perception":"High","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T18:06:46Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T18:06:46Z","changeset":30,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"no","ext:crossing_audible_signal_understandable":"no","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"-0.009","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":11764,"type":"way","kind":"quest","category":"Crossings","lat":47.921840200000005,"lon":-122.22814855,"geom":[[47.9218417,-122.2283475],[47.9218387,-122.2279496]],"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"unclear","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"Yes","ext:crossing_audible_signal_understandable":"Unclear","ext:crossing_ped_signal_present":"Yes","ext:crossing_timing_sufficient":"Yes","ext:crossing_traffic_speed_perception":"High","ext:crossing_vehicle_yielding":"Yes"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T18:03:52Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T18:03:52Z","changeset":30,"tags":{"crossing:markings":"yes","ext:crossing_audible_signal_present":"yes","ext:crossing_audible_signal_understandable":"unclear","ext:crossing_ped_signal_present":"yes","ext:crossing_timing_sufficient":"yes","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"1","footway":"crossing","highway":"footway","incline":"0","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_understandable":{"old":null,"new":"Unclear"},"ext:crossing_vehicle_yielding":{"old":null,"new":"Yes"},"ext:crossing_audible_signal_present":{"old":null,"new":"Yes"},"ext:crossing_ped_signal_present":{"old":null,"new":"Yes"},"ext:crossing_timing_sufficient":{"old":null,"new":"Yes"}},"photos":[]}],"text":""},{"id":19637,"type":"way","kind":"quest","category":"Sidewalks","lat":47.92200726666667,"lon":-122.23375716428572,"geom":[[47.9219799,-122.2362312],[47.9219919,-122.2361764],[47.9219998,-122.2361238],[47.9220052,-122.2360725],[47.9220084,-122.2360129],[47.9220095,-122.2359612],[47.92201,-122.2359104],[47.922008,-122.2358688],[47.9220038,-122.2358318],[47.9219992,-122.2357879],[47.9219838,-122.235649],[47.9219811,-122.2356176],[47.9219799,-122.2355981],[47.9219823,-122.2353743],[47.9219856,-122.2351212],[47.921989,-122.2347985],[47.921992,-122.2344285],[47.9219954,-122.2340204],[47.9219966,-122.2336608],[47.9219989,-122.2334869],[47.9220009,-122.233453],[47.9220063,-122.2334162],[47.9220193,-122.2333252],[47.9220251,-122.233282],[47.9220279,-122.2332464],[47.9220279,-122.2331816],[47.9220286,-122.2330619],[47.9220279,-122.2330415],[47.9220181,-122.2329224],[47.9220078,-122.2328115],[47.9220055,-122.2327858],[47.9220035,-122.2327566],[47.9220023,-122.2327216],[47.9220059,-122.232414],[47.922009,-122.2320112],[47.9220117,-122.2317193],[47.9220133,-122.2314111],[47.9220188,-122.2310993],[47.9220219,-122.2309557],[47.9220363,-122.2303413],[47.9220417,-122.2300706],[47.9220452,-122.2300405]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.994","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.1"},"readable":{"ext:sidewalk_clear_width_sufficient":"Yes","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"No","ext:sidewalk_navigation_hazards":"No","ext:sidewalk_obstruction_type":"None","ext:sidewalk_vertical_lip":"No","ext:sidewalk_wheelchair_navigable":"Yes"},"photos":[],"user":"Participant 3","timestamp":"2026-03-26T17:44:10Z","versions":[{"action":"modify","user":"Participant 10","timestamp":"2026-03-26T17:42:06Z","changeset":3,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"unsure","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"no","ext:width_confidence":"0.994","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.1"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"Unsure"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"No"},"ext:sidewalk_vertical_lip":{"old":null,"new":"No"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"No"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"No"},"ext:sidewalk_obstruction_type":{"old":null,"new":"None"}},"photos":[]},{"action":"modify","user":"Participant 11","timestamp":"2026-03-26T17:42:51Z","changeset":5,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.994","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.1"},"readable":{"ext:sidewalk_wheelchair_navigable":{"old":"No","new":"Yes"},"ext:sidewalk_cross_slope_acceptability":{"old":"Unsure","new":"No"},"ext:sidewalk_clear_width_sufficient":{"old":"No","new":"Yes"}},"photos":[]},{"action":"modify","user":"Participant 7","timestamp":"2026-03-26T17:43:07Z","changeset":6,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.994","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.1"},"readable":{},"photos":[]},{"action":"modify","user":"Participant 3","timestamp":"2026-03-26T17:44:10Z","changeset":13,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.994","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.1"},"readable":{},"photos":[]}],"text":""},{"id":19642,"type":"way","kind":"quest","category":"Sidewalks","lat":47.9217695,"lon":-122.23663028333334,"geom":[[47.9217805,-122.2371087],[47.9217824,-122.2369306],[47.9217813,-122.2369006],[47.9217741,-122.2368282],[47.9217617,-122.2367034],[47.9217571,-122.2366487],[47.921756,-122.2366055],[47.921756,-122.2365],[47.9217576,-122.2364376],[47.9217633,-122.2363806],[47.9217793,-122.236279],[47.9217847,-122.2362405]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.978","footway":"sidewalk","highway":"footway","incline":"-0.017","surface":"concrete","width":"1.9"},"readable":{"ext:sidewalk_clear_width_sufficient":"Yes","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"No","ext:sidewalk_navigation_hazards":"No","ext:sidewalk_obstruction_type":"None","ext:sidewalk_vertical_lip":"No","ext:sidewalk_wheelchair_navigable":"Yes"},"photos":[],"user":"Participant 8","timestamp":"2026-03-26T17:43:09Z","versions":[{"action":"modify","user":"Participant 8","timestamp":"2026-03-26T17:43:09Z","changeset":7,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.978","footway":"sidewalk","highway":"footway","incline":"-0.017","surface":"concrete","width":"1.9"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"No"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"Yes"},"ext:sidewalk_vertical_lip":{"old":null,"new":"No"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"Yes"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"No"},"ext:sidewalk_obstruction_type":{"old":null,"new":"None"}},"photos":[]}],"text":""},{"id":19643,"type":"way","kind":"quest","category":"Sidewalks","lat":47.921818037037035,"lon":-122.23189295185185,"geom":[[47.9217847,-122.2362405],[47.9217875,-122.2362113],[47.9217885,-122.2361842],[47.9217875,-122.2355826],[47.9217986,-122.2346385],[47.9217998,-122.234067],[47.9218051,-122.2332238],[47.9218109,-122.2326796],[47.9218145,-122.2320912],[47.9218186,-122.2315594],[47.9218246,-122.2311073],[47.9218284,-122.2309745],[47.9218284,-122.2309497],[47.9218224,-122.2308966],[47.9218108,-122.2307565],[47.9218077,-122.2306941],[47.9218072,-122.2306225],[47.9218092,-122.2305262],[47.9218149,-122.2304854],[47.9218299,-122.2304176],[47.9218376,-122.2303737],[47.9218423,-122.2303329],[47.9218433,-122.2302728],[47.9218474,-122.2300779],[47.9218472,-122.2300621],[47.9218459,-122.2300479],[47.9218441,-122.2300339]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"4","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.949","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.0"},"readable":{"ext:sidewalk_clear_width_sufficient":"Yes","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"Yes","ext:sidewalk_navigation_hazards":"No","ext:sidewalk_obstruction_type":"None","ext:sidewalk_vertical_lip":"No","ext:sidewalk_wheelchair_navigable":"Yes"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T17:49:53Z","versions":[{"action":"modify","user":"Participant 12","timestamp":"2026-03-26T17:42:47Z","changeset":4,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"4","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.949","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.0"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"Yes"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"Yes"},"ext:sidewalk_vertical_lip":{"old":null,"new":"No"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"Yes"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"No"},"ext:sidewalk_obstruction_type":{"old":null,"new":"None"}},"photos":[]},{"action":"modify","user":"Participant 2","timestamp":"2026-03-26T17:43:28Z","changeset":10,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"4","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"no","ext:width_confidence":"0.949","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.0"},"readable":{"ext:sidewalk_wheelchair_navigable":{"old":"Yes","new":"No"},"ext:sidewalk_vertical_lip":{"old":"No","new":"Yes"}},"photos":[]},{"action":"modify","user":"Participant 6","timestamp":"2026-03-26T17:43:44Z","changeset":12,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"4","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.949","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.0"},"readable":{"ext:sidewalk_wheelchair_navigable":{"old":"No","new":"Yes"},"ext:sidewalk_vertical_lip":{"old":"Yes","new":"No"}},"photos":[]},{"action":"modify","user":"Participant 5","timestamp":"2026-03-26T17:43:44Z","changeset":11,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"4","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"no","ext:width_confidence":"0.949","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.0"},"readable":{"ext:sidewalk_wheelchair_navigable":{"old":"Yes","new":"No"},"ext:sidewalk_vertical_lip":{"old":"No","new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":"Yes","new":"No"}},"photos":[]},{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T17:49:53Z","changeset":18,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"4","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.949","footway":"sidewalk","highway":"footway","incline":"-0.012","surface":"concrete","width":"2.0"},"readable":{"ext:sidewalk_wheelchair_navigable":{"old":"No","new":"Yes"},"ext:sidewalk_vertical_lip":{"old":"Yes","new":"No"},"ext:sidewalk_clear_width_sufficient":{"old":"No","new":"Yes"}},"photos":[]}],"text":""},{"id":19746,"type":"way","kind":"quest","category":"Sidewalks","lat":47.92205376363636,"lon":-122.22897121363636,"geom":[[47.9220704,-122.2297806],[47.9220673,-122.2297735],[47.9220602,-122.2297573],[47.9220564,-122.229741],[47.922053,-122.2297181],[47.9220517,-122.2296922],[47.9220534,-122.2294178],[47.9220527,-122.2290321],[47.9220564,-122.2289696],[47.9220588,-122.228933],[47.9220609,-122.2288939],[47.9220622,-122.2288222],[47.9220634,-122.2287587],[47.9220646,-122.2287083],[47.9220628,-122.228657],[47.9220575,-122.2286021],[47.9220436,-122.2284756],[47.9220364,-122.2283785],[47.9220343,-122.2283451],[47.922035,-122.2283207],[47.9220383,-122.2283025],[47.9220435,-122.2282869]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"yes","ext:sidewalk_obstruction_type":"temporary","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"no","ext:width_confidence":"0.62","footway":"sidewalk","highway":"footway","incline":"0.022","surface":"concrete","width":"2.1"},"readable":{"ext:sidewalk_clear_width_sufficient":"No","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"No","ext:sidewalk_navigation_hazards":"Yes","ext:sidewalk_obstruction_type":"Temporary","ext:sidewalk_vertical_lip":"Yes","ext:sidewalk_wheelchair_navigable":"No"},"photos":[],"user":"Participant 5","timestamp":"2026-03-26T18:18:09Z","versions":[{"action":"modify","user":"Participant 5","timestamp":"2026-03-26T18:18:09Z","changeset":31,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"no","ext:sidewalk_navigation_hazards":"yes","ext:sidewalk_obstruction_type":"temporary","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"no","ext:width_confidence":"0.62","footway":"sidewalk","highway":"footway","incline":"0.022","surface":"concrete","width":"2.1"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"No"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"No"},"ext:sidewalk_vertical_lip":{"old":null,"new":"Yes"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"No"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"Yes"},"ext:sidewalk_obstruction_type":{"old":null,"new":"Temporary"}},"photos":[]}],"text":""},{"id":19750,"type":"way","kind":"quest","category":"Sidewalks","lat":47.92181416666667,"lon":-122.22978260000001,"geom":[[47.9217992,-122.2298027],[47.9218136,-122.2297846],[47.9218297,-122.2297605]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.0","footway":"sidewalk","highway":"footway","incline":"0.01","surface":"concrete","width":"4.0"},"readable":{"ext:sidewalk_clear_width_sufficient":"No","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"Yes","ext:sidewalk_navigation_hazards":"No","ext:sidewalk_obstruction_type":"None","ext:sidewalk_vertical_lip":"Yes","ext:sidewalk_wheelchair_navigable":"Yes"},"photos":[],"user":"Participant 4","timestamp":"2026-03-26T17:51:11Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T17:50:31Z","changeset":18,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.0","footway":"sidewalk","highway":"footway","incline":"0.01","surface":"concrete","width":"4.0"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"Yes"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"Yes"},"ext:sidewalk_vertical_lip":{"old":null,"new":"No"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"Yes"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"No"},"ext:sidewalk_obstruction_type":{"old":null,"new":"None"}},"photos":[]},{"action":"modify","user":"Participant 4","timestamp":"2026-03-26T17:51:11Z","changeset":26,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"0.0","footway":"sidewalk","highway":"footway","incline":"0.01","surface":"concrete","width":"4.0"},"readable":{"ext:sidewalk_vertical_lip":{"old":"No","new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":"Yes","new":"No"}},"photos":[]}],"text":""},{"id":19751,"type":"way","kind":"quest","category":"Sidewalks","lat":47.92184542941177,"lon":-122.22917418235295,"geom":[[47.9218297,-122.2297605],[47.9218424,-122.2297379],[47.9218473,-122.2297273],[47.9218504,-122.2297189],[47.9218536,-122.2297081],[47.9218549,-122.2296981],[47.9218572,-122.2296726],[47.9218585,-122.2296357],[47.9218603,-122.2294077],[47.9218581,-122.229055],[47.9218565,-122.2286225],[47.9218545,-122.2285893],[47.9218491,-122.2285672],[47.9218406,-122.2285437],[47.9218293,-122.2285203],[47.9218203,-122.2285042],[47.9218096,-122.2284921]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"unsure","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"unclear","ext:width_confidence":"0.623","footway":"sidewalk","highway":"footway","incline":"0.021","surface":"concrete","width":"1.7"},"readable":{"ext:sidewalk_clear_width_sufficient":"Yes","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"Unsure","ext:sidewalk_navigation_hazards":"No","ext:sidewalk_obstruction_type":"None","ext:sidewalk_vertical_lip":"No","ext:sidewalk_wheelchair_navigable":"Unclear"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T17:54:28Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T17:54:28Z","changeset":18,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"unsure","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"unclear","ext:width_confidence":"0.623","footway":"sidewalk","highway":"footway","incline":"0.021","surface":"concrete","width":"1.7"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"Unsure"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"Unclear"},"ext:sidewalk_vertical_lip":{"old":null,"new":"No"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"Yes"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"No"},"ext:sidewalk_obstruction_type":{"old":null,"new":"None"}},"photos":[]}],"text":""},{"id":19752,"type":"way","kind":"quest","category":"Sidewalks","lat":47.92155673571428,"lon":-122.22864480714286,"geom":[[47.9218096,-122.2284921],[47.9217965,-122.228482],[47.921784,-122.2284747],[47.9217709,-122.2284706],[47.9217525,-122.2284679],[47.9217368,-122.2284713],[47.9217179,-122.2284807],[47.9216972,-122.2284948],[47.9214959,-122.228675],[47.9213959,-122.2287667],[47.9212168,-122.2289261],[47.92121,-122.2289343],[47.9212059,-122.2289422],[47.9212044,-122.2289489]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"no","ext:sidewalk_continuous":"no","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"unclear","ext:width_confidence":"0.945","footway":"sidewalk","highway":"footway","incline":"-0.02","surface":"concrete","width":"2.3"},"readable":{"ext:sidewalk_clear_width_sufficient":"No","ext:sidewalk_continuity_maintained":"No","ext:sidewalk_continuous":"No","ext:sidewalk_cross_slope_acceptability":"Yes","ext:sidewalk_navigation_hazards":"No","ext:sidewalk_obstruction_type":"None","ext:sidewalk_vertical_lip":"No","ext:sidewalk_wheelchair_navigable":"Unclear"},"photos":[],"user":"Participant 1","timestamp":"2026-03-26T18:01:30Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-03-26T18:01:30Z","changeset":18,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-03-26Z","ext:osm_version":"3","ext:sidewalk_clear_width_sufficient":"no","ext:sidewalk_continuity_maintained":"no","ext:sidewalk_continuous":"no","ext:sidewalk_corrected":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"no","ext:sidewalk_obstruction_type":"none","ext:sidewalk_vertical_lip":"no","ext:sidewalk_wheelchair_navigable":"unclear","ext:width_confidence":"0.945","footway":"sidewalk","highway":"footway","incline":"-0.02","surface":"concrete","width":"2.3"},"readable":{"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"Yes"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"Unclear"},"ext:sidewalk_vertical_lip":{"old":null,"new":"No"},"ext:sidewalk_continuous":{"old":null,"new":"No"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"No"},"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"No"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"No"},"ext:sidewalk_obstruction_type":{"old":null,"new":"None"}},"photos":[]}],"text":""}],"showcase_photos":[],"pictures":[],"quotes":[],"slideshow_url":null,"slideshow_images":[],"video_url":"","video_embed_url":"","video_kind":""};</script>
+
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // -------------------------------------------------------------------------
+    // Category colour palette (C5/C10) — must match plan.md §3
+    // -------------------------------------------------------------------------
+    const PALETTE = {
+      'Sidewalks':     '#0d6efd',
+      'Crossings':     '#fd7e14',
+      'Bus Stops':     '#198754',
+      'Curbs':         '#dc3545',
+      'Intersections': '#6f42c1',
+      'Street Lamps':  '#ffc107',
+    };
+
+    function categoryColor(cat) {
+      if (PALETTE[cat]) return PALETTE[cat];
+      // Deterministic fallback — stable across runs for the same string (V2, C10)
+      if (!cat) return '#6c757d';
+      let h = 0;
+      for (let i = 0; i < cat.length; i++) h = ((h * 31) + cat.charCodeAt(i)) | 0;
+      return 'hsl(' + (Math.abs(h) % 360) + ',55%,42%)';
+    }
+
+    // -------------------------------------------------------------------------
+    // HTML escaping helper (used in JS-generated popup HTML)
+    // -------------------------------------------------------------------------
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // -------------------------------------------------------------------------
+    // MAP (C4-C8) — only initialise if MapLibre loaded successfully
+    // -------------------------------------------------------------------------
+    var map, activeGeomLayerId = null;
+
+    if (typeof maplibregl !== 'undefined') {
+      // Compute map centre from markers bounding box
+      var markers = STATS.markers || [];
+      var mapCenter = [-98.35, 39.50], mapZoom = 3;
+      if (markers.length > 0) {
+        var lons = markers.map(function(m){ return m.lon; });
+        var lats = markers.map(function(m){ return m.lat; });
+        mapCenter = [
+          (Math.min.apply(null,lons) + Math.max.apply(null,lons)) / 2,
+          (Math.min.apply(null,lats) + Math.max.apply(null,lats)) / 2
+        ];
+        mapZoom = 14;
+      }
+
+      map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://tiles.openfreemap.org/styles/liberty',
+        center: mapCenter,
+        zoom: mapZoom,
+        attributionControl: true,
+      });
+
+      map.addControl(new maplibregl.NavigationControl(), 'top-left');
+
+      map.on('load', function () {
+        markers.forEach(function (m) {
+          var el = document.createElement('div');
+          el.className = 'mm-marker mm-marker--' + m.kind;
+          el.style.background = m.kind === 'note' ? '#6c757d' : categoryColor(m.category);
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'button');
+          el.setAttribute('aria-label',
+            (m.kind === 'note' ? 'Note' : (m.category || m.kind)) +
+            ' by ' + (m.versions.length > 0 ? m.versions[m.versions.length-1].user : (m.user || 'unknown'))
+          );
+
+          var popup = new maplibregl.Popup({ closeButton: true, maxWidth: '360px', offset: 8 });
+
+          function openMarkerPopup() {
+            removeGeomLayer();
+            popup.setLngLat([m.lon, m.lat]).setHTML(buildPopupHTML(m, 0)).addTo(map);
+            attachPopupListeners(popup, m);
+            if (m.geom && m.geom.length > 1) addGeomLayer(m.geom);
+          }
+
+          el.addEventListener('click', openMarkerPopup);
+          el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMarkerPopup(); }
+          });
+          popup.on('close', removeGeomLayer);
+
+          new maplibregl.Marker({ element: el })
+            .setLngLat([m.lon, m.lat])
+            .addTo(map);
+        });
+      });
+    }
+
+    // Build popup HTML for a marker at a given version index.
+    // Elements without changeset version history (notes are never
+    // changeset-versioned — see mm.sources.workspace.parse_notes) fall back
+    // to a synthetic single "version" built from the marker's own
+    // user/timestamp/tags/readable/photos so their author, timestamp, and
+    // note text are still rendered rather than silently dropped.
+    function buildPopupHTML(m, vIdx) {
+      var versions = m.versions || [];
+      var v = versions.length > 0 ? versions[vIdx] : (m.user ? {
+        action: 'note',
+        user: m.user,
+        timestamp: m.timestamp || '',
+        tags: m.tags || {},
+        readable: {},
+        photos: m.photos || []
+      } : null);
+      var html = '<div class="mm-popup">';
+
+      // Header — kind badge + category
+      html += '<div class="mm-popup-header">';
+      html += '<span class="mm-popup-kind mm-popup-kind--' + m.kind + '">' + esc(m.kind) + '</span>';
+      if (m.category) html += ' <span class="mm-popup-category">' + esc(m.category) + '</span>';
+      html += '</div>';
+
+      // Version pager (C6)
+      if (versions.length > 1) {
+        html += '<div class="mm-popup-pager" role="group" aria-label="Version history">';
+        html += '<button type="button" class="mm-popup-nav" data-dir="prev" aria-label="Older version"' + (vIdx === 0 ? ' disabled' : '') + '>&#8249;</button>';
+        html += '<span class="mm-popup-pager-pos">' + (vIdx + 1) + '\u202f/\u202f' + versions.length + '</span>';
+        html += '<button type="button" class="mm-popup-nav" data-dir="next" aria-label="Newer version"' + (vIdx === versions.length - 1 ? ' disabled' : '') + '>&#8250;</button>';
+        html += '</div>';
+      }
+
+      if (v) {
+        // User / timestamp / action
+        html += '<div class="mm-popup-meta">' +
+          esc(v.user) + ' &middot; ' +
+          esc((v.timestamp || '').replace('T',' ').replace('Z',' UTC')) + ' &middot; ' +
+          '<em>' + esc(v.action) + '</em>' +
+          '</div>';
+
+        var readableKeys = Object.keys(m.readable || {});
+        if (readableKeys.length > 0) {
+          // Quest ⇆ Tags toggle (C7)
+          html += '<div class="mm-popup-toggle-row" role="group" aria-label="View toggle">';
+          html += '<button type="button" class="mm-popup-view-btn" data-view="quest" aria-pressed="true">Quest</button>';
+          html += '<button type="button" class="mm-popup-view-btn" data-view="tags" aria-pressed="false">Tags</button>';
+          html += '</div>';
+
+          // Quest view — readable diff for this version (C7)
+          html += '<div class="mm-popup-tags mm-popup-tags--quest">';
+          var diff = v.readable || {};
+          var diffKeys = Object.keys(diff);
+          if (diffKeys.length > 0) {
+            html += '<dl>';
+            diffKeys.forEach(function (k) {
+              var entry = diff[k];
+              html += '<dt>' + esc(k) + '</dt>';
+              if (entry.old !== null && entry.old !== undefined)
+                html += '<dd class="mm-popup-diff-old">' + esc(String(entry.old)) + '</dd>';
+              if (entry.new !== null && entry.new !== undefined)
+                html += '<dd class="mm-popup-diff-new">' + esc(String(entry.new)) + '</dd>';
+            });
+            html += '</dl>';
+          } else {
+            // No diff for this version — show current readable state
+            html += '<dl>';
+            readableKeys.forEach(function (k) {
+              html += '<dt>' + esc(k) + '</dt><dd>' + esc(String(m.readable[k])) + '</dd>';
+            });
+            html += '</dl>';
+          }
+          html += '</div>';
+
+          // Tags view — raw key/values (C7)
+          var rawTags = v.tags || {};
+          var rawKeys = Object.keys(rawTags);
+          html += '<div class="mm-popup-tags mm-popup-tags--raw" hidden>';
+          if (rawKeys.length > 0) {
+            html += '<dl>';
+            rawKeys.forEach(function (k) {
+              html += '<dt>' + esc(k) + '</dt><dd>' + esc(rawTags[k]) + '</dd>';
+            });
+            html += '</dl>';
+          } else {
+            html += '<p class="mm-no-data-popup">No tags</p>';
+          }
+          html += '</div>';
+
+        } else {
+          // No quest tags — show raw tags only
+          var rawTags2 = v.tags || {};
+          var rawKeys2 = Object.keys(rawTags2);
+          if (rawKeys2.length > 0) {
+            html += '<div class="mm-popup-tags"><dl>';
+            rawKeys2.forEach(function (k) {
+              html += '<dt>' + esc(k) + '</dt><dd>' + esc(rawTags2[k]) + '</dd>';
+            });
+            html += '</dl></div>';
+          }
+        }
+
+        // Note body
+        if (m.kind === 'note' && m.text) {
+          html += '<p class="mm-popup-note-text">' + esc(m.text) + '</p>';
+        }
+
+        // Per-version KartaView photos (C9)
+        var vPhotos = v.photos || [];
+        if (vPhotos.length > 0) {
+          html += '<div class="mm-popup-photos">';
+          vPhotos.forEach(function (url, idx) {
+            html += '<button type="button" class="mm-popup-photo-btn"' +
+              ' data-photo-url="' + esc(url) + '"' +
+              ' aria-label="View photo ' + (idx + 1) + '">' +
+              '<img src="' + esc(url) + '" alt="" class="mm-popup-photo-thumb" loading="lazy">' +
+              '</button>';
+          });
+          html += '</div>';
+        }
+      } else {
+        html += '<p class="mm-no-data-popup">No version data</p>';
+      }
+
+      html += '</div>'; // .mm-popup
+      return html;
+    }
+
+    // Attach click listeners to popup content after it renders
+    function attachPopupListeners(popup, m) {
+      // Use a short delay to ensure the DOM has rendered
+      setTimeout(function () {
+        var el = popup.getElement();
+        if (!el) return;
+        el.addEventListener('click', function (e) {
+          // Version navigation
+          var navBtn = e.target.closest('.mm-popup-nav');
+          if (navBtn) {
+            var posEl = el.querySelector('.mm-popup-pager-pos');
+            if (!posEl) return;
+            var parts = posEl.textContent.split('/');
+            var cur = parseInt(parts[0].trim(), 10) - 1;
+            var dir = navBtn.dataset.dir;
+            var newIdx = dir === 'prev' ? cur - 1 : cur + 1;
+            if (newIdx < 0 || newIdx >= (m.versions || []).length) return;
+            popup.setHTML(buildPopupHTML(m, newIdx));
+            attachPopupListeners(popup, m);
+            return;
+          }
+          // Quest ⇆ Tags toggle
+          var viewBtn = e.target.closest('.mm-popup-view-btn');
+          if (viewBtn) {
+            var view = viewBtn.dataset.view;
+            el.querySelectorAll('.mm-popup-view-btn').forEach(function (b) {
+              b.setAttribute('aria-pressed', b.dataset.view === view ? 'true' : 'false');
+            });
+            var questDiv = el.querySelector('.mm-popup-tags--quest');
+            var rawDiv   = el.querySelector('.mm-popup-tags--raw');
+            if (questDiv) questDiv.hidden = (view === 'tags');
+            if (rawDiv)   rawDiv.hidden   = (view === 'quest');
+            return;
+          }
+          // Photo button
+          var photoBtn = e.target.closest('.mm-popup-photo-btn');
+          if (photoBtn) {
+            var url = photoBtn.dataset.photoUrl;
+            openModal([{ src: url, caption: '' }], 0, photoBtn);
+          }
+        });
+      }, 0);
+    }
+
+    // Way geometry highlight (C8)
+    function addGeomLayer(geom) {
+      if (!map) return;
+      var coords = geom.map(function (p) { return [p[1], p[0]]; }); // [lon, lat]
+      var id = 'mm-active-way';
+      activeGeomLayerId = id;
+      if (map.getLayer(id)) map.removeLayer(id);
+      if (map.getSource(id)) map.removeSource(id);
+      map.addSource(id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
+      map.addLayer({ id: id, type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#e040fb', 'line-width': 4, 'line-opacity': 0.85 } });
+    }
+
+    function removeGeomLayer() {
+      if (!map || !activeGeomLayerId) return;
+      if (map.getLayer(activeGeomLayerId)) map.removeLayer(activeGeomLayerId);
+      if (map.getSource(activeGeomLayerId)) map.removeSource(activeGeomLayerId);
+      activeGeomLayerId = null;
+    }
+
+    // Map expand/collapse (accessible button)
+    var btnExpand = document.getElementById('btn-expand');
+    btnExpand.addEventListener('click', function () {
+      var wrapper = document.getElementById('map-wrapper');
+      var expanded = wrapper.classList.toggle('map-expanded');
+      btnExpand.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btnExpand.setAttribute('aria-label', expanded ? 'Collapse map' : 'Expand map to full screen');
+      if (map) map.resize();
+    });
+
+    // -------------------------------------------------------------------------
+    // QUESTIONS ANSWERED — per-question photo galleries (C9)
+    // -------------------------------------------------------------------------
+    // Build an index: tag → [photo URLs] from all markers that have that tag
+    var questionPhotoIndex = {};
+    (STATS.markers || []).forEach(function (m) {
+      if (m.kind === 'note') return;
+      var readable = m.readable || {};
+      Object.keys(readable).forEach(function (tag) {
+        if (m.photos && m.photos.length > 0) {
+          if (!questionPhotoIndex[tag]) questionPhotoIndex[tag] = [];
+          m.photos.forEach(function (url) {
+            if (questionPhotoIndex[tag].indexOf(url) === -1) questionPhotoIndex[tag].push(url);
+          });
+        }
+      });
+    });
+
+    document.querySelectorAll('.q-gallery[data-tag]').forEach(function (galleryEl) {
+      var tag = galleryEl.dataset.tag;
+      var photos = questionPhotoIndex[tag] || [];
+      photos.forEach(function (url, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'q-gallery-btn';
+        btn.setAttribute('aria-label', 'View photo ' + (idx + 1));
+        btn.dataset.photoUrl = url;
+        btn.addEventListener('click', function () {
+          openModal(photos.map(function (u) { return { src: u, caption: '' }; }), idx, btn);
+        });
+        var img = document.createElement('img');
+        img.src = url;
+        img.alt = '';
+        img.className = 'q-gallery-thumb';
+        img.loading = 'lazy';
+        btn.appendChild(img);
+        galleryEl.appendChild(btn);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // SHOWCASE (C3) — open modal on click
+    // -------------------------------------------------------------------------
+    var showcasePhotos = (STATS.showcase_photos || []).map(function (p) {
+      return { src: p.src, caption: p.caption || '' };
+    });
+    document.querySelectorAll('.showcase-btn[data-gallery-index]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.dataset.galleryIndex, 10);
+        openModal(showcasePhotos, idx, btn);
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // PHOTO MODAL (C14) — native <dialog> for focus trap + Escape key (K3/K7)
+    // -------------------------------------------------------------------------
+    var photoModal   = document.getElementById('photo-modal');
+    var modalImg     = document.getElementById('modal-img');
+    var modalCaption = document.getElementById('modal-caption');
+    var modalPos     = document.getElementById('modal-pos');
+    var modalPrev    = document.getElementById('modal-prev');
+    var modalNext    = document.getElementById('modal-next');
+    var modalClose   = document.getElementById('modal-close');
+
+    var modalPhotos  = [];
+    var modalIdx     = 0;
+    var modalTrigger = null;
+
+    function openModal(photos, idx, trigger) {
+      if (!photos || photos.length === 0) return;
+      modalPhotos  = photos;
+      modalIdx     = idx;
+      modalTrigger = trigger || null;
+      updateModalPhoto();
+      photoModal.showModal();
+      modalClose.focus(); // focus the close button (K7)
+    }
+
+    function updateModalPhoto() {
+      var p = modalPhotos[modalIdx];
+      modalImg.src = p.src;
+      modalImg.alt = p.caption || ('Photo ' + (modalIdx + 1) + ' of ' + modalPhotos.length);
+      modalCaption.textContent = p.caption || '';
+      modalPos.textContent = (modalIdx + 1) + ' of ' + modalPhotos.length;
+      modalPrev.disabled = (modalIdx === 0);
+      modalNext.disabled = (modalIdx === modalPhotos.length - 1);
+    }
+
+    // Return focus to the triggering element when the dialog closes (K7)
+    photoModal.addEventListener('close', function () {
+      if (modalTrigger && typeof modalTrigger.focus === 'function') modalTrigger.focus();
+    });
+
+    modalClose.addEventListener('click', function () { photoModal.close(); });
+    modalPrev.addEventListener('click', function () { if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } });
+    modalNext.addEventListener('click', function () { if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } });
+
+    // Keyboard navigation within the modal
+    photoModal.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp')  { e.preventDefault(); if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } }
+    });
+
+  }());
+  </script>
+</body>
+</html>
