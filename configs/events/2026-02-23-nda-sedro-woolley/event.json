@@ -1,9 +1,12 @@
 {
     "schema_version": "1.1",
     "type": "event",
-    "id": "nda-sedro-woolley",
+    "id": "2026-02-23-nda-sedro-woolley",
     "name": "NDA Sedro-Woolley Walk/Roll",
     "date": "2026-02-23",
+    "report": {
+        "title": "NDA Sedro-Woolley Walk/Roll — Contribution Report"
+    },
     "activities": [
         {
             "id": "walkabout",

@@ -1,9 +1,12 @@
 {
     "schema_version": "1.1",
     "type": "event",
-    "id": "nda-spanaway",
+    "id": "2026-01-29-nda-spanaway",
     "name": "NDA Spanaway Walk/Roll",
     "date": "2026-01-29",
+    "report": {
+        "title": "NDA Spanaway Walk/Roll — Contribution Report"
+    },
     "activities": [
         {
             "id": "walkabout",

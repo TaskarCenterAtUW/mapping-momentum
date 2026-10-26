@@ -49,13 +49,13 @@ Run these commands from the repository root after completing Setup. The packaged
 1. Ensure the event's quest definitions are cached. Run this when the cache is missing or you want to refresh it; it fetches each definition and updates the event config's retrieval timestamp. Skip this step if the committed cache is already present and current.
 
     ```powershell
-    mapping-momentum capture-quests --config configs/events/nda-vancouver
+    mapping-momentum capture-quests --config configs/events/2026-01-20-nda-vancouver
     ```
 
 2. Generate the report for every activity in the event. The command reads the local quest cache, fetches live Workspace map, changeset, and note data, then prompts for your TDEI username and hidden password. The credentials aren't saved. Reports are written under `local-output/events/<event-id>/<activity-id>/` as `stats.json` and `index.html`.
 
     ```powershell
-    mapping-momentum event --config configs/events/nda-vancouver/event.json `
+    mapping-momentum event --config configs/events/2026-01-20-nda-vancouver/event.json `
         --output-dir local-output
     ```
 
@@ -68,8 +68,8 @@ Add `--anonymize` (or `-a`) to replace contributor names, map edit-history autho
 This is for creating an offline test fixture, not a step in report generation. The fixture name must contain only lowercase letters, digits, and hyphens. This command also prompts for TDEI credentials.
 
 ```powershell
-mapping-momentum capture --config configs/events/nda-vancouver `
-    --activity-id walkabout --fixture-name nda-vancouver-walkabout
+mapping-momentum capture --config configs/events/2026-01-20-nda-vancouver `
+    --activity-id walkabout --fixture-name 2026-01-20-nda-vancouver-walkabout
 ```
 
 ## Report content

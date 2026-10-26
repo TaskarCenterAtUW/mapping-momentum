@@ -51,7 +51,7 @@ def _base_config() -> dict[str, Any]:
     return {
         "schema_version": "1.1",
         "type": "event",
-        "id": "nda-vancouver",
+        "id": "2026-01-20-nda-vancouver",
         "name": "NDA Vancouver Walk/Roll",
         "date": "2026-01-20",
         "activities": [
@@ -101,7 +101,7 @@ def test_valid_config_loads_without_tdei_credentials(
     config = _base_config()
     p = _write_config(tmp_path, config)
     loaded = load_event_config(p)
-    assert loaded["id"] == "nda-vancouver"
+    assert loaded["id"] == "2026-01-20-nda-vancouver"
     assert len(loaded["activities"]) == 1
     assert loaded["activities"][0]["workspace_id"] == 931
 
@@ -347,7 +347,7 @@ def test_invalid_json_raises_decode_error(tmp_path: Path) -> None:
 def test_load_from_directory(tmp_path: Path) -> None:
     event_dir = _write_dir_config(tmp_path, _base_config())
     loaded = load_event_config(event_dir)
-    assert loaded["id"] == "nda-vancouver"
+    assert loaded["id"] == "2026-01-20-nda-vancouver"
     assert loaded["activities"][0]["workspace_id"] == 931
 
 
