@@ -105,4 +105,4 @@ Optional event content can be configured at the event level or inside the `repor
 
 Large or dense Workspace areas may return large or truncated map XML. The map fetcher accepts map tiles up to 100 MiB, automatically subdivides oversized or truncated responses, and enforces bounded tile-depth and request limits. Workspace data requests use a 120-second timeout to accommodate large workspaces. If a tile still exceeds the size limit or returns truncated XML at the maximum depth, the command exits with a diagnostic error.
 
-Reports are self-contained with respect to event data, but the interactive map still loads MapLibre from `unpkg.com` and map styles/tiles from `tiles.openfreemap.org` when viewed online. The report can still display its cards when those network resources are unavailable.
+Reports are self-contained with respect to event data, but the interactive map still loads MapLibre from `unpkg.com` and its selectable Positron (the default), Bright, Liberty, Dark, and Fiord basemaps and tiles from `tiles.openfreemap.org` when viewed online. The report can still display its cards when those network resources are unavailable.

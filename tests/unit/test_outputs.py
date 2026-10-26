@@ -616,6 +616,21 @@ def test_render_report_map_container_present() -> None:
     assert 'id="map"' in html
 
 
+def test_render_report_exposes_openfreemap_basemap_styles() -> None:
+    """Expose the reference's five OpenFreeMap styles to report viewers."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+    styles = ["positron", "bright", "liberty", "dark", "fiord"]
+
+    assert '<select id="map-style" aria-label="Basemap style">' in html
+    assert '<option value="positron" selected>Positron</option>' in html
+    assert html.count("<option value=") == len(styles)
+    for style in styles:
+        assert f"https://tiles.openfreemap.org/styles/{style}" in html
+    assert "map.setStyle(styleUrl, { diff: false });" in html
+    assert "if (activeGeom) addGeomLayer(activeGeom);" in html
+
+
 def test_render_report_skip_link_present() -> None:
     """Skip link must be the first focusable element (K4)."""
     html = render_report(

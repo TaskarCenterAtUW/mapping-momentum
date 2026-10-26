@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - Added `--anonymize` (`-a`) parameter to replace structured participant names with stable `Participant N` labels in report data, map histories, and quote attributions.
 - Added anonymized minimal and maximal offline sample reports.
 - Added optional environment-variable credentials for programmatic TDEI authentication while retaining secure interactive prompts.
+- Added a viewer basemap selector for OpenFreeMap's Positron (default), Bright, Liberty, Dark, and Fiord styles.
 
 ### Changed
 
