@@ -6,21 +6,31 @@ Registered for ``workspace`` source type.
 Metric key produced
 -------------------
 changeset_count : int
-    Number of distinct OSM changeset IDs (``changeset`` field) across
-    all elements in the filtered set.  A changeset that straddles the
-    event boundary is counted if any of its elements appear in the
-    filtered set — so this is a proxy for "changesets active during the
-    event", not a strict count of changesets opened and closed within
-    the window.
+    Number of distinct OSM changeset IDs across all elements in the
+    filtered set. Enriched elements use their event-window version
+    histories; elements without histories use their top-level
+    ``changeset`` field.
 """
 
 from __future__ import annotations
 
+from typing import Any, TypeGuard
+
 from mm.metrics.base import register
 
 
+def _is_json_array(value: Any) -> TypeGuard[list[Any]]:
+    """Return whether *value* is a JSON array."""
+    return isinstance(value, list)
+
+
+def _is_json_object(value: Any) -> TypeGuard[dict[str, Any]]:
+    """Return whether *value* is a JSON object."""
+    return isinstance(value, dict)
+
+
 @register("workspace")
-def compute(elements: list[dict]) -> dict[str, int | float]:
+def compute(elements: list[dict[str, Any]]) -> dict[str, int | float]:
     """Compute ``changeset_count``.
 
     Parameters
@@ -34,11 +44,25 @@ def compute(elements: list[dict]) -> dict[str, int | float]:
     dict[str, int | float]
         ``{"changeset_count": <int>}``
     """
-    changeset_count = len(
-        {
-            e["changeset"]
-            for e in elements
-            if e.get("kind") != "note" and e.get("changeset") is not None
-        }
-    )
-    return {"changeset_count": changeset_count}
+    changesets: set[int | str] = set()
+    for element in elements:
+        if element.get("kind") == "note":
+            continue
+
+        versions = element.get("versions")
+        if _is_json_array(versions) and versions:
+            for version in versions:
+                if not _is_json_object(version):
+                    continue
+                changeset = version.get("changeset")
+                if isinstance(changeset, (int, str)) and not isinstance(
+                    changeset, bool
+                ):
+                    changesets.add(changeset)
+            continue
+
+        changeset = element.get("changeset")
+        if isinstance(changeset, (int, str)) and not isinstance(changeset, bool):
+            changesets.add(changeset)
+
+    return {"changeset_count": len(changesets)}

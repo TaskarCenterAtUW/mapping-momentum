@@ -6,6 +6,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.3.0] - 2026-10-26
+
+### Added
+
+- Added `--anonymize` (`-a`) parameter to replace structured participant names with stable `Participant N` labels in report data, map histories, and quote attributions.
+- Added anonymized minimal and maximal offline sample reports.
+- Added optional environment-variable credentials for programmatic TDEI authentication while retaining secure interactive prompts.
+- Added a viewer basemap selector for OpenFreeMap's Positron (default), Bright, Liberty, Dark, and Fiord styles.
+- Added a persistent, accessible light/dark theme toggle to HTML reports, with TCAT Wiki purple/gold accents and automatic Fiord basemaps in dark mode.
+- Added an `aggregate` command to merge non-anonymized per-event reports, deduplicate contributors by username, and produce a cross-event HTML summary.
+- Added anonymized outputs and aggregates for all existing event configs.
+
+### Changed
+
+- Applied standardized formatting and updated event configs.
+
 ## [1.2.0] - 2026-10-19
 
 ### Changed

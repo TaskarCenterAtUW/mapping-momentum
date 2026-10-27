@@ -1,0 +1,902 @@
+{
+  "activity_id": "walkabout",
+  "source_type": "workspace",
+  "window_start": "2026-05-18T14:00:00+00:00",
+  "window_end": "2026-05-20T18:00:00+00:00",
+  "changeset_count": 5,
+  "contributor_count": 2,
+  "contributors_breakdown": [
+    {
+      "user": "Participant 1",
+      "count": 4,
+      "photo_count": 0
+    },
+    {
+      "user": "Participant 2",
+      "count": 1,
+      "photo_count": 0
+    }
+  ],
+  "elements_edited": 5,
+  "features_created": [],
+  "node_count": 1,
+  "note_count": 5,
+  "quest_type_breakdown": [
+    {
+      "category": "Crossings",
+      "count": 3,
+      "photo_count": 0
+    },
+    {
+      "category": "Bus Stops",
+      "count": 1,
+      "photo_count": 0
+    },
+    {
+      "category": "Sidewalks",
+      "count": 1,
+      "photo_count": 0
+    }
+  ],
+  "questions_answered": [
+    {
+      "category": "Bus Stops",
+      "total": 8,
+      "questions": [
+        {
+          "tag": "ext:bus_stop_audible_cues",
+          "label": "Are audible cues present at the crossing near the stop?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_braille_signage",
+          "label": "Is Braille or tactile signage present?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_cyclist_yielding_cues",
+          "label": "In your opinion, are there clear yielding cues for cyclists?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_marked_ped_path",
+          "label": "Is there a marked pedestrian path to the stop?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_signage_readable",
+          "label": "Is signage clear and readable from the sidewalk?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_surface_condition",
+          "label": "What is the surface condition of the boarding area?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "good",
+              "label": "Good",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_tactile_guidance",
+          "label": "Is tactile guidance present?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:bus_stop_wheelchair_turning_space",
+          "label": "Is the boarding area size sufficient for wheelchair turning?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Crossings",
+      "total": 11,
+      "questions": [
+        {
+          "tag": "ext:crossing_audible_signal_present",
+          "label": "Is an audible signal present?",
+          "times_answered": 2,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing_ped_signal_present",
+          "label": "Is a pedestrian signal present?",
+          "times_answered": 2,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing_timing_sufficient",
+          "label": "Is the timing sufficient to cross?",
+          "times_answered": 2,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 1
+            },
+            {
+              "value": "unclear",
+              "label": "Unclear",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing_traffic_speed_perception",
+          "label": "What is the perceived traffic speed?",
+          "times_answered": 2,
+          "choices": [
+            {
+              "value": "high",
+              "label": "High",
+              "count": 1
+            },
+            {
+              "value": "medium",
+              "label": "Medium",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:crossing_vehicle_yielding",
+          "label": "Does vehicle traffic yield to pedestrians?",
+          "times_answered": 3,
+          "choices": [
+            {
+              "value": "no",
+              "label": "No",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Sidewalks",
+      "total": 8,
+      "questions": [
+        {
+          "tag": "ext:sidewalk_clear_width_sufficient",
+          "label": "Is the clear width sufficient?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_continuity_maintained",
+          "label": "Is continuity maintained along the sidewalk?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_continuous",
+          "label": "Is the sidewalk continuous?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_cross_slope_acceptability",
+          "label": "In your opinion, is the cross-slope acceptable?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_navigation_hazards",
+          "label": "Are there hazards users encounter that affect navigation?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_obstruction_type",
+          "label": "What type of obstructions are present?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "permanent",
+              "label": "Permanent",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_vertical_lip",
+          "label": "Is there a vertical lip or slope change?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "tag": "ext:sidewalk_wheelchair_navigable",
+          "label": "Is there room for wheelchairs to navigate the sidewalk?",
+          "times_answered": 1,
+          "choices": [
+            {
+              "value": "yes",
+              "label": "Yes",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relation_count": 0,
+  "way_count": 4,
+  "markers": [
+    {
+      "id": 3339,
+      "type": "node",
+      "kind": "quest",
+      "category": "Bus Stops",
+      "lat": 47.5910427,
+      "lon": -120.6704246,
+      "geom": null,
+      "tags": {
+        "ext:bus_stop_audible_cues": "no",
+        "ext:bus_stop_braille_signage": "no",
+        "ext:bus_stop_cyclist_yielding_cues": "no",
+        "ext:bus_stop_marked_ped_path": "no",
+        "ext:bus_stop_signage_readable": "yes",
+        "ext:bus_stop_surface_condition": "good",
+        "ext:bus_stop_tactile_guidance": "no",
+        "ext:bus_stop_wheelchair_turning_space": "yes",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2026-05-19Z",
+        "ext:highway": "bus_stop"
+      },
+      "readable": {
+        "ext:bus_stop_audible_cues": "No",
+        "ext:bus_stop_braille_signage": "No",
+        "ext:bus_stop_cyclist_yielding_cues": "No",
+        "ext:bus_stop_marked_ped_path": "No",
+        "ext:bus_stop_signage_readable": "Yes",
+        "ext:bus_stop_surface_condition": "Good",
+        "ext:bus_stop_tactile_guidance": "No",
+        "ext:bus_stop_wheelchair_turning_space": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2026-05-19T23:50:55Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2026-05-19T23:50:55Z",
+          "changeset": 8,
+          "tags": {
+            "ext:bus_stop_audible_cues": "no",
+            "ext:bus_stop_braille_signage": "no",
+            "ext:bus_stop_cyclist_yielding_cues": "no",
+            "ext:bus_stop_marked_ped_path": "no",
+            "ext:bus_stop_signage_readable": "yes",
+            "ext:bus_stop_surface_condition": "good",
+            "ext:bus_stop_tactile_guidance": "no",
+            "ext:bus_stop_wheelchair_turning_space": "yes",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2026-05-19Z",
+            "ext:highway": "bus_stop"
+          },
+          "readable": {
+            "ext:bus_stop_braille_signage": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_surface_condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:bus_stop_tactile_guidance": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_wheelchair_turning_space": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_signage_readable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_cyclist_yielding_cues": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_audible_cues": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 1,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.5887669,
+      "lon": -120.6722108,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2026-05-19T23:40:22Z",
+      "versions": [],
+      "text": "Raised edge is not a safe environment. "
+    },
+    {
+      "id": 2,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.5890643,
+      "lon": -120.6721152,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2026-05-19T23:41:52Z",
+      "versions": [],
+      "text": "Slight elevation creates difficulty for wheelchair use."
+    },
+    {
+      "id": 3,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.5899832,
+      "lon": -120.6718059,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2026-05-19T23:44:30Z",
+      "versions": [],
+      "text": "Not fun. High sped exposure"
+    },
+    {
+      "id": 4,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.5904215,
+      "lon": -120.6714203,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2026-05-19T23:46:31Z",
+      "versions": [],
+      "text": "Bad surface condition. Assess cross slope and vertical displacement"
+    },
+    {
+      "id": 5,
+      "type": "note",
+      "kind": "note",
+      "category": "",
+      "lat": 47.5907072,
+      "lon": -120.6709951,
+      "geom": null,
+      "tags": {},
+      "readable": {},
+      "photos": [],
+      "user": "",
+      "timestamp": "2026-05-19T23:48:29Z",
+      "versions": [],
+      "text": "Crack in sidewalk from tree roots creating uneven surface."
+    },
+    {
+      "id": 118,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.59015135,
+      "lon": -120.67167025,
+      "geom": [
+        [
+          47.5901012,
+          -120.6716137
+        ],
+        [
+          47.5902015,
+          -120.6717268
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "no",
+        "ext:at_intersection": "675056.3802,5273381.6424",
+        "ext:crossing_audible_signal_present": "no",
+        "ext:crossing_ped_signal_present": "no",
+        "ext:crossing_timing_sufficient": "unclear",
+        "ext:crossing_traffic_speed_perception": "high",
+        "ext:crossing_vehicle_yielding": "no",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2026-05-19Z",
+        "ext:osm_version": "2",
+        "footway": "crossing",
+        "highway": "footway",
+        "incline": "0.031",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "ext:crossing_audible_signal_present": "No",
+        "ext:crossing_ped_signal_present": "No",
+        "ext:crossing_timing_sufficient": "Unclear",
+        "ext:crossing_traffic_speed_perception": "High",
+        "ext:crossing_vehicle_yielding": "No"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2026-05-19T23:45:30Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2026-05-19T23:45:30Z",
+          "changeset": 5,
+          "tags": {
+            "crossing:markings": "no",
+            "ext:at_intersection": "675056.3802,5273381.6424",
+            "ext:crossing_audible_signal_present": "no",
+            "ext:crossing_ped_signal_present": "no",
+            "ext:crossing_timing_sufficient": "unclear",
+            "ext:crossing_traffic_speed_perception": "high",
+            "ext:crossing_vehicle_yielding": "no",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2026-05-19Z",
+            "ext:osm_version": "2",
+            "footway": "crossing",
+            "highway": "footway",
+            "incline": "0.031",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_audible_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_ped_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_timing_sufficient": {
+              "old": null,
+              "new": "Unclear"
+            },
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 119,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.5902705,
+      "lon": -120.67164335000001,
+      "geom": [
+        [
+          47.5902015,
+          -120.6717268
+        ],
+        [
+          47.5903395,
+          -120.6715599
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "no",
+        "ext:at_intersection": "675056.3802,5273381.6424",
+        "ext:crossing_audible_signal_present": "no",
+        "ext:crossing_ped_signal_present": "no",
+        "ext:crossing_timing_sufficient": "no",
+        "ext:crossing_traffic_speed_perception": "medium",
+        "ext:crossing_vehicle_yielding": "no",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2026-05-19Z",
+        "ext:osm_version": "2",
+        "footway": "crossing",
+        "highway": "footway",
+        "incline": "-0.02",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "ext:crossing_audible_signal_present": "No",
+        "ext:crossing_ped_signal_present": "No",
+        "ext:crossing_timing_sufficient": "No",
+        "ext:crossing_traffic_speed_perception": "Medium",
+        "ext:crossing_vehicle_yielding": "No"
+      },
+      "photos": [],
+      "user": "Participant 2",
+      "timestamp": "2026-05-19T23:46:28Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 2",
+          "timestamp": "2026-05-19T23:46:28Z",
+          "changeset": 6,
+          "tags": {
+            "crossing:markings": "no",
+            "ext:at_intersection": "675056.3802,5273381.6424",
+            "ext:crossing_audible_signal_present": "no",
+            "ext:crossing_ped_signal_present": "no",
+            "ext:crossing_timing_sufficient": "no",
+            "ext:crossing_traffic_speed_perception": "medium",
+            "ext:crossing_vehicle_yielding": "no",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2026-05-19Z",
+            "ext:osm_version": "2",
+            "footway": "crossing",
+            "highway": "footway",
+            "incline": "-0.02",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_ped_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_timing_sufficient": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 120,
+      "type": "way",
+      "kind": "quest",
+      "category": "Crossings",
+      "lat": 47.5902785,
+      "lon": -120.67148665,
+      "geom": [
+        [
+          47.5903395,
+          -120.6715599
+        ],
+        [
+          47.5902175,
+          -120.6714134
+        ]
+      ],
+      "tags": {
+        "crossing:markings": "yes",
+        "ext:at_intersection": "675056.3802,5273381.6424",
+        "ext:crossing_vehicle_yielding": "no",
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2026-05-19Z",
+        "ext:osm_version": "2",
+        "footway": "crossing",
+        "highway": "footway",
+        "incline": "-0.033",
+        "surface": "asphalt"
+      },
+      "readable": {
+        "ext:crossing_vehicle_yielding": "No"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2026-05-19T23:47:03Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2026-05-19T23:47:03Z",
+          "changeset": 7,
+          "tags": {
+            "crossing:markings": "yes",
+            "ext:at_intersection": "675056.3802,5273381.6424",
+            "ext:crossing_vehicle_yielding": "no",
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2026-05-19Z",
+            "ext:osm_version": "2",
+            "footway": "crossing",
+            "highway": "footway",
+            "incline": "-0.033",
+            "surface": "asphalt"
+          },
+          "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "No"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    },
+    {
+      "id": 467,
+      "type": "way",
+      "kind": "quest",
+      "category": "Sidewalks",
+      "lat": 47.58961043,
+      "lon": -120.6725909,
+      "geom": [
+        [
+          47.5900933,
+          -120.6716039
+        ],
+        [
+          47.5900899,
+          -120.6716147
+        ],
+        [
+          47.5900768,
+          -120.6716409
+        ],
+        [
+          47.5898618,
+          -120.6720184
+        ],
+        [
+          47.5896438,
+          -120.6724431
+        ],
+        [
+          47.5895496,
+          -120.672647
+        ],
+        [
+          47.5894014,
+          -120.6729849
+        ],
+        [
+          47.5892671,
+          -120.6733094
+        ],
+        [
+          47.5890779,
+          -120.6737825
+        ],
+        [
+          47.5890427,
+          -120.6738642
+        ]
+      ],
+      "tags": {
+        "ext:gig_complete": "yes",
+        "ext:gig_last_updated": "2026-05-19Z",
+        "ext:osm_version": "10",
+        "ext:sidewalk_clear_width_sufficient": "yes",
+        "ext:sidewalk_continuity_maintained": "yes",
+        "ext:sidewalk_continuous": "yes",
+        "ext:sidewalk_cross_slope_acceptability": "yes",
+        "ext:sidewalk_navigation_hazards": "yes",
+        "ext:sidewalk_navigation_hazards_text": "Steep sideways downgrade",
+        "ext:sidewalk_obstruction_type": "permanent",
+        "ext:sidewalk_vertical_lip": "yes",
+        "ext:sidewalk_wheelchair_navigable": "yes",
+        "ext:width_confidence": "1.0",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "incline": "0.013",
+        "surface": "concrete",
+        "width": "3.6"
+      },
+      "readable": {
+        "ext:sidewalk_clear_width_sufficient": "Yes",
+        "ext:sidewalk_continuity_maintained": "Yes",
+        "ext:sidewalk_continuous": "Yes",
+        "ext:sidewalk_cross_slope_acceptability": "Yes",
+        "ext:sidewalk_navigation_hazards": "Yes",
+        "ext:sidewalk_obstruction_type": "Permanent",
+        "ext:sidewalk_vertical_lip": "Yes",
+        "ext:sidewalk_wheelchair_navigable": "Yes"
+      },
+      "photos": [],
+      "user": "Participant 1",
+      "timestamp": "2026-05-19T23:43:38Z",
+      "versions": [
+        {
+          "action": "modify",
+          "user": "Participant 1",
+          "timestamp": "2026-05-19T23:43:38Z",
+          "changeset": 4,
+          "tags": {
+            "ext:gig_complete": "yes",
+            "ext:gig_last_updated": "2026-05-19Z",
+            "ext:osm_version": "10",
+            "ext:sidewalk_clear_width_sufficient": "yes",
+            "ext:sidewalk_continuity_maintained": "yes",
+            "ext:sidewalk_continuous": "yes",
+            "ext:sidewalk_cross_slope_acceptability": "yes",
+            "ext:sidewalk_navigation_hazards": "yes",
+            "ext:sidewalk_navigation_hazards_text": "Steep sideways downgrade",
+            "ext:sidewalk_obstruction_type": "permanent",
+            "ext:sidewalk_vertical_lip": "yes",
+            "ext:sidewalk_wheelchair_navigable": "yes",
+            "ext:width_confidence": "1.0",
+            "footway": "sidewalk",
+            "highway": "footway",
+            "incline": "0.013",
+            "surface": "concrete",
+            "width": "3.6"
+          },
+          "readable": {
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
+            "ext:sidewalk_wheelchair_navigable": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            }
+          },
+          "photos": []
+        }
+      ],
+      "text": ""
+    }
+  ],
+  "showcase_photos": [],
+  "pictures": [],
+  "quotes": [],
+  "slideshow_url": null,
+  "slideshow_images": [],
+  "video_url": "",
+  "video_embed_url": "",
+  "video_kind": ""
+}

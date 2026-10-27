@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 
 from mm.common.io import read_json  # noqa: E402
 from mm.config.loader import load_event_config  # noqa: E402
+from mm.outputs.anonymize import anonymize_stats  # noqa: E402
 from mm.outputs.html_report import render_report, write_report  # noqa: E402
 from mm.outputs.json_stats import build_stats, write_stats  # noqa: E402
 from mm.pipeline import get_report_feature, parse_window  # noqa: E402
@@ -34,8 +35,13 @@ from mm.sources.workspace import (  # noqa: E402
 )
 
 
-def run_offline(event_dir: Path, output_dir: Path) -> tuple[Path, Path]:
-    """Run one example event and return its stats and HTML report paths."""
+def run_offline(
+    event_dir: Path,
+    output_dir: Path,
+    *,
+    anonymize: bool = False,
+) -> tuple[Path, Path]:
+    """Run one example, optionally anonymize names, and return output paths."""
     event_dir = event_dir.resolve()
     config_path = event_dir / "event.json"
 
@@ -85,6 +91,11 @@ def run_offline(event_dir: Path, output_dir: Path) -> tuple[Path, Path]:
         video_url=get_report_feature(config, "video_url", None),
         event_dir=event_dir,
     )
+    stats["event_id"] = config["id"]
+    stats["event_name"] = config.get("name") or config["id"]
+    stats["activity_label"] = activity.get("label") or activity["id"]
+    if anonymize:
+        stats = anonymize_stats(stats)
 
     stats_path = write_stats(stats, output_dir, config["id"], activity["id"])
     report_path = write_report(
@@ -113,9 +124,19 @@ def main(argv: list[str] | None = None) -> int:
         default=Path("local-output"),
         help="Output directory (default: local-output/).",
     )
+    parser.add_argument(
+        "-a",
+        "--anonymize",
+        action="store_true",
+        help="Replace participant names with anonymous labels in report output.",
+    )
     args = parser.parse_args(argv)
 
-    stats_path, report_path = run_offline(args.config, args.output_dir)
+    stats_path, report_path = run_offline(
+        args.config,
+        args.output_dir,
+        anonymize=args.anonymize,
+    )
     print(f"Stats written to {stats_path}")
     print(f"Report written to {report_path}")
     return 0

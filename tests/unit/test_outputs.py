@@ -56,6 +56,7 @@ from typing import Any
 
 import pytest
 
+from mm.outputs.anonymize import anonymize_stats
 from mm.outputs.html_report import _safe_json, render_report, write_report
 from mm.outputs.json_stats import build_stats, write_stats
 from mm.sources.base import SourceResult
@@ -342,6 +343,53 @@ def test_build_stats_marker_has_version_history() -> None:
 
 
 # ---------------------------------------------------------------------------
+# anonymize_stats
+# ---------------------------------------------------------------------------
+
+
+def test_anonymize_stats_redacts_names_consistently_without_mutating_input() -> None:
+    stats = {
+        "contributors_breakdown": [
+            {"user": "alice", "count": 2},
+            {"user": "bob", "count": 1},
+        ],
+        "markers": [
+            {
+                "user": "alice",
+                "text": "Alice added a note.",
+                "versions": [{"user": "bob"}, {"user": "carol"}],
+            }
+        ],
+        "quotes": [
+            {
+                "text": "Dana Reader volunteered.",
+                "first_name": "Dana",
+                "last_name": "Reader",
+            }
+        ],
+    }
+
+    anonymized = anonymize_stats(stats)
+
+    assert anonymized["contributors_breakdown"] == [
+        {"user": "Participant 1", "count": 2},
+        {"user": "Participant 2", "count": 1},
+    ]
+    assert anonymized["markers"][0]["user"] == "Participant 1"
+    assert anonymized["markers"][0]["versions"] == [
+        {"user": "Participant 2"},
+        {"user": "Participant 3"},
+    ]
+    assert anonymized["markers"][0]["text"] == "Participant 1 added a note."
+    assert anonymized["quotes"][0]["first_name"] == "Participant 4"
+    assert anonymized["quotes"][0]["last_name"] == ""
+    assert anonymized["quotes"][0]["text"] == "Participant 4 volunteered."
+    assert stats["contributors_breakdown"][0]["user"] == "alice"
+    assert stats["markers"][0]["user"] == "alice"
+    assert anonymize_stats(anonymized) == anonymized
+
+
+# ---------------------------------------------------------------------------
 # write_stats
 # ---------------------------------------------------------------------------
 
@@ -566,6 +614,42 @@ def test_render_report_map_container_present() -> None:
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
     )
     assert 'id="map"' in html
+
+
+def test_render_report_theme_toggle_uses_tcat_palette() -> None:
+    """Expose an accessible theme toggle with the TCAT Wiki brand colors."""
+    html = render_report(
+        _sample_stats(),
+        _minimal_config(),
+        _minimal_config()["activities"][0],
+        template_dir=Path(__file__).resolve().parents[2] / "templates",
+    )
+
+    assert 'id="theme-toggle"' in html
+    assert 'aria-pressed="false"' in html
+    assert "--mm-accent: #4b2e83;" in html
+    assert "--mm-brand-gold: #b7a57a;" in html
+    assert "--mm-accent: #c9b882;" in html
+    assert "prefers-color-scheme: dark" in html
+    assert "mapping-momentum-theme" in html
+    assert "theme === 'dark' ? 'fiord' : 'positron'" in html
+    assert "syncMapStyle(root.dataset.theme);" in html
+    assert "syncMapStyle(nextTheme);" in html
+
+
+def test_render_report_exposes_openfreemap_basemap_styles() -> None:
+    """Expose the reference's five OpenFreeMap styles to report viewers."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+    styles = ["positron", "bright", "liberty", "dark", "fiord"]
+
+    assert '<select id="map-style" aria-label="Basemap style">' in html
+    assert '<option value="positron" selected>Positron</option>' in html
+    assert html.count("<option value=") == len(styles)
+    for style in styles:
+        assert f"https://tiles.openfreemap.org/styles/{style}" in html
+    assert "map.setStyle(styleUrl, { diff: false });" in html
+    assert "if (activeGeom) addGeomLayer(activeGeom);" in html
 
 
 def test_render_report_skip_link_present() -> None:

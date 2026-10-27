@@ -1,58 +1,58 @@
 {
-  "schema_version": "1.1",
-  "type": "event",
-  "id": "example-maximal",
-  "name": "Synthetic Maximal Mapping Event",
-  "date": "2026-10-02",
-  "report": {
-    "title": "Synthetic Maximal Contribution Report",
-    "subtitle": "A fully offline synthetic demonstration",
-    "pictures": "pictures",
-    "quotes": [
-      {
-        "quote": "Synthetic maps help us practice careful observation.",
-        "first_name": "Nova",
-        "last_name": "Example",
-        "organization": "Example Cooperative",
-        "title": "Volunteer Mapper"
-      },
-      {
-        "text": "Every small edit makes the sample map clearer.",
-        "first_name": "Pixel",
-        "last_name": "Sample",
-        "organization": "Synthetic Access Lab",
-        "title": "Workshop Lead"
-      }
-    ],
-    "slideshow_url": [
-      "https://assets.example.invalid/slideshow/01.svg",
-      "https://assets.example.invalid/slideshow/02.svg"
-    ],
-    "video_url": "https://video.example.invalid/synthetic-mapping.mp4"
-  },
-  "showcase_photos": [
-    {
-      "src": "showcase/synthetic-a.svg",
-      "caption": "Synthetic field team illustration A"
+    "schema_version": "1.1",
+    "type": "event",
+    "id": "example-maximal",
+    "name": "Synthetic Maximal Mapping Event",
+    "date": "2026-10-02",
+    "report": {
+        "title": "Synthetic Maximal Contribution Report",
+        "subtitle": "A fully offline synthetic demonstration",
+        "pictures": "pictures",
+        "quotes": [
+            {
+                "quote": "Synthetic maps help us practice careful observation.",
+                "first_name": "Nova",
+                "last_name": "Example",
+                "organization": "Example Cooperative",
+                "title": "Volunteer Mapper"
+            },
+            {
+                "text": "Every small edit makes the sample map clearer.",
+                "first_name": "Pixel",
+                "last_name": "Sample",
+                "organization": "Synthetic Access Lab",
+                "title": "Workshop Lead"
+            }
+        ],
+        "slideshow_url": [
+            "https://assets.example.invalid/slideshow/01.svg",
+            "https://assets.example.invalid/slideshow/02.svg"
+        ],
+        "video_url": "https://video.example.invalid/synthetic-mapping.mp4"
     },
-    {
-      "src": "showcase/synthetic-b.svg",
-      "caption": "Synthetic field team illustration B"
-    }
-  ],
-  "activities": [
-    {
-      "id": "walkabout",
-      "type": "workspace",
-      "label": "Synthetic Maximal Walk",
-      "project_group_id": "00000000-0000-4000-8000-000000000002",
-      "workspace_id": 2,
-      "environment": "dev",
-      "quest_definition_url": "https://example.invalid/quests/maximal.json",
-      "time_window": {
-        "start": "2026-10-02T10:00:00Z",
-        "end": "2026-10-02T12:00:00Z"
-      }
-    }
-  ]
+    "showcase_photos": [
+        {
+            "src": "showcase/synthetic-a.svg",
+            "caption": "Synthetic field team illustration A"
+        },
+        {
+            "src": "showcase/synthetic-b.svg",
+            "caption": "Synthetic field team illustration B"
+        }
+    ],
+    "activities": [
+        {
+            "id": "walkabout",
+            "type": "workspace",
+            "label": "Synthetic Maximal Walk",
+            "project_group_id": "00000000-0000-4000-8000-000000000002",
+            "workspace_id": 2,
+            "environment": "dev",
+            "quest_definition_url": "https://example.invalid/quests/maximal.json",
+            "time_window": {
+                "start": "2026-10-02T10:00:00Z",
+                "end": "2026-10-02T12:00:00Z"
+            }
+        }
+    ]
 }

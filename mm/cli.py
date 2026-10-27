@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import getpass
 import json
+import os
 import shutil
 import sys
 import tempfile
@@ -65,6 +66,48 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print stats to stdout without writing any files.",
     )
+    event_parser.add_argument(
+        "-a",
+        "--anonymize",
+        action="store_true",
+        help="Replace participant names with anonymous labels in report output.",
+    )
+
+    aggregate_parser = subparsers.add_parser(
+        "aggregate",
+        help="Create an aggregate report from existing non-anonymized reports.",
+    )
+    aggregate_parser.add_argument(
+        "--reports",
+        required=True,
+        nargs="+",
+        metavar="PATH",
+        help="Stats.json files or report directories to aggregate.",
+    )
+    aggregate_parser.add_argument(
+        "--report-id",
+        required=True,
+        metavar="ID",
+        help="Lowercase slug used for the aggregate output directory.",
+    )
+    aggregate_parser.add_argument(
+        "--title",
+        default="Aggregate Contribution Report",
+        metavar="TEXT",
+        help="Title for the aggregate HTML report.",
+    )
+    aggregate_parser.add_argument(
+        "--output-dir",
+        default="local-output",
+        metavar="PATH",
+        help="Root output directory (default: local-output/).",
+    )
+    aggregate_parser.add_argument(
+        "-a",
+        "--anonymize",
+        action="store_true",
+        help="Anonymize merged contributor identities in the aggregate output.",
+    )
 
     # --- capture-quests subcommand ---
     cq_parser = subparsers.add_parser(
@@ -95,6 +138,8 @@ def run_cli(argv: list[str] | None = None) -> int:
 
     if args.command == "event":
         return _cmd_event(args)
+    if args.command == "aggregate":
+        return _cmd_aggregate(args)
     if args.command == "capture-quests":
         return _cmd_capture_quests(args)
     if args.command == "capture":
@@ -105,37 +150,50 @@ def run_cli(argv: list[str] | None = None) -> int:
     return 1
 
 
-def _authenticate_interactively(environment: str) -> str:
-    """Prompt for TDEI credentials and return a short-lived access token."""
-    if not (
-        sys.stdin.isatty()
-        and sys.stdout.isatty()
-        and sys.stderr.isatty()
-    ):
-        raise ValueError(
-            "TDEI credentials must be entered from an interactive terminal."
-        )
+def _get_access_token(environment: str) -> str:
+    """Authenticate from a complete environment pair or secure prompts."""
+    username_var = f"MM_TDEI_USERNAME_{environment.upper()}"
+    password_var = f"MM_TDEI_PASSWORD_{environment.upper()}"
+    has_username = username_var in os.environ
+    has_password = password_var in os.environ
 
-    try:
-        username = input(f"TDEI {environment} username: ").strip()
-    except EOFError as exc:
-        raise ValueError("No TDEI username was entered.") from exc
-    if not username:
-        raise ValueError("TDEI username cannot be empty.")
+    if has_username != has_password:
+        raise ValueError(f"{username_var} and {password_var} must be set together.")
 
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("error", getpass.GetPassWarning)
-            password = getpass.getpass(f"TDEI {environment} password: ")
-    except getpass.GetPassWarning as exc:
-        raise ValueError(
-            "Cannot read the TDEI password without echo; use an interactive "
-            "terminal."
-        ) from exc
-    except EOFError as exc:
-        raise ValueError("No TDEI password was entered.") from exc
-    if not password:
-        raise ValueError("TDEI password cannot be empty.")
+    if has_username:
+        username = os.environ[username_var].strip()
+        password = os.environ[password_var]
+        if not username:
+            raise ValueError(f"Environment variable {username_var} cannot be empty.")
+        if not password:
+            raise ValueError(f"Environment variable {password_var} cannot be empty.")
+    else:
+        if not (sys.stdin.isatty() and sys.stdout.isatty() and sys.stderr.isatty()):
+            raise ValueError(
+                "TDEI credentials require an interactive terminal or both "
+                f"{username_var} and {password_var} environment variables."
+            )
+
+        try:
+            username = input(f"TDEI {environment} username: ").strip()
+        except EOFError as exc:
+            raise ValueError("No TDEI username was entered.") from exc
+        if not username:
+            raise ValueError("TDEI username cannot be empty.")
+
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("error", getpass.GetPassWarning)
+                password = getpass.getpass(f"TDEI {environment} password: ")
+        except getpass.GetPassWarning as exc:
+            raise ValueError(
+                "Cannot read the TDEI password without echo; "
+                "use an interactive terminal."
+            ) from exc
+        except EOFError as exc:
+            raise ValueError("No TDEI password was entered.") from exc
+        if not password:
+            raise ValueError("TDEI password cannot be empty.")
 
     return authenticate(environment, username, password)
 
@@ -166,8 +224,15 @@ def _cmd_event(args: argparse.Namespace) -> int:
 
     # --render-from-stats: re-render HTML from an existing stats.json
     render_from = getattr(args, "render_from_stats", None)
+    anonymize = bool(getattr(args, "anonymize", False))
     if render_from:
-        return _render_from_stats(config, Path(render_from), output_dir, event_id)
+        return _render_from_stats(
+            config,
+            Path(render_from),
+            output_dir,
+            event_id,
+            anonymize=anonymize,
+        )
 
     from mm.pipeline import run_activity
 
@@ -176,15 +241,14 @@ def _cmd_event(args: argparse.Namespace) -> int:
         for activity in config["activities"]:
             environment = activity["environment"]
             if environment not in access_tokens:
-                access_tokens[environment] = _authenticate_interactively(
-                    environment
-                )
+                access_tokens[environment] = _get_access_token(environment)
             stats = run_activity(
                 config,
                 activity,
                 output_dir=output_dir,
                 access_token=access_tokens[environment],
                 dry_run=bool(getattr(args, "dry_run", False)),
+                anonymize=anonymize,
             )
             if getattr(args, "dry_run", False):
                 print(json.dumps(stats, indent=2, ensure_ascii=False))
@@ -196,6 +260,31 @@ def _cmd_event(args: argparse.Namespace) -> int:
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
+    return 0
+
+
+def _cmd_aggregate(args: argparse.Namespace) -> int:
+    """Create an aggregate report from existing non-anonymized stats files."""
+    from mm.outputs.aggregate import aggregate_reports, write_aggregate_report
+    from mm.outputs.anonymize import anonymize_stats
+    from mm.outputs.html_report import render_aggregate_report
+
+    try:
+        stats = aggregate_reports(args.reports, title=args.title)
+        if args.anonymize:
+            stats = anonymize_stats(stats)
+        html = render_aggregate_report(stats)
+        destination = write_aggregate_report(
+            stats,
+            html,
+            Path(args.output_dir),
+            args.report_id,
+        )
+    except (OSError, ValueError, KeyError) as exc:
+        print(f"error: aggregate report failed: {exc}", file=sys.stderr)
+        return 1
+
+    print(f"Aggregate report written to {destination.parent}")
     return 0
 
 
@@ -246,7 +335,7 @@ def _cmd_capture(args: argparse.Namespace) -> int:
         return 1
 
     try:
-        access_token = _authenticate_interactively(env)
+        access_token = _get_access_token(env)
         with tempfile.TemporaryDirectory(dir=fixture_root.parent) as temp_name:
             staging_dir = Path(temp_name) / args.fixture_name
             staging_dir.mkdir()
@@ -257,9 +346,7 @@ def _cmd_capture(args: argparse.Namespace) -> int:
                 access_token,
             )
             (staging_dir / "map.osm").write_bytes(map_bytes)
-            changesets = fetch_changesets(
-                env, workspace_id, start, end, access_token
-            )
+            changesets = fetch_changesets(env, workspace_id, start, end, access_token)
             write_json(staging_dir / "changesets.json", changesets)
             for item in changesets:
                 if "id" in item:
@@ -289,6 +376,8 @@ def _render_from_stats(
     stats_path: Path,
     output_dir: Path,
     event_id: str,
+    *,
+    anonymize: bool = False,
 ) -> int:
     """Render index.html from an existing stats.json file.
 
@@ -297,6 +386,7 @@ def _render_from_stats(
     """
     from mm.common.io import read_json
     from mm.outputs.html_report import render_report, write_report
+    from mm.outputs.json_stats import write_stats
 
     if not stats_path.exists():
         print(f"error: stats.json not found: {stats_path}", file=sys.stderr)
@@ -307,6 +397,10 @@ def _render_from_stats(
     except Exception as exc:
         print(f"error: could not read {stats_path}: {exc}", file=sys.stderr)
         return 1
+    if anonymize:
+        from mm.outputs.anonymize import anonymize_stats
+
+        stats = anonymize_stats(stats)
 
     activity_id: str = stats.get("activity_id", "")
     # Find matching activity config
@@ -320,6 +414,8 @@ def _render_from_stats(
         activity = activities[0] if activities else {}
 
     html = render_report(stats, config, activity)
+    if anonymize:
+        write_stats(stats, output_dir, event_id, activity_id or "activity")
     dest = write_report(html, output_dir, event_id, activity_id or "activity")
     print(f"Report written to {dest}")
     return 0

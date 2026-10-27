@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" crossorigin="anonymous">
+  <script>
+    (function () {
+      var savedTheme;
+      try {
+        savedTheme = window.localStorage.getItem('mapping-momentum-theme');
+      } catch (error) {
+        console.warn('Theme preference could not be loaded; using system preference.', error);
+      }
+
+      var prefersDark = window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme
+        : (prefersDark ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    }());
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      color-scheme: light;
+      --mm-bg: #f8f9fa;
+      --mm-surface: #fff;
+      --mm-surface-muted: #f5f2f8;
+      --mm-text: #212529;
+      --mm-muted: #6c757d;
+      --mm-border: #dee2e6;
+      --mm-accent: #4b2e83;
+      --mm-accent-contrast: #fff;
+      --mm-accent-soft: rgba(75, 46, 131, 0.1);
+      --mm-brand-gold: #b7a57a;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --mm-bg: #19171f;
+      --mm-surface: #25212d;
+      --mm-surface-muted: #302b38;
+      --mm-text: #f4eff7;
+      --mm-muted: #c2b9ce;
+      --mm-border: #4c4456;
+      --mm-accent: #c9b882;
+      --mm-accent-contrast: #282316;
+      --mm-accent-soft: rgba(183, 165, 122, 0.16);
+      --mm-brand-gold: #c9b882;
+    }
+    html { font-size: 16px; }
+    body {
+      padding: 1.5rem;
+      background: var(--mm-bg);
+      color: var(--mm-text);
+      font: 1rem/1.5 system-ui, -apple-system, sans-serif;
+    }
+    a { color: var(--mm-accent); }
+    main { max-width: 1200px; margin: 0 auto; }
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      z-index: 9999;
+      padding: 8px 16px;
+      border-radius: 0 0 4px 0;
+      background: var(--mm-accent);
+      color: var(--mm-accent-contrast);
+    }
+    .skip-link:focus { top: 0; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto 1.5rem;
+      padding: 1.25rem 1.5rem 1rem;
+      border: 1px solid var(--mm-border);
+      border-top: 3px solid var(--mm-accent);
+      border-radius: 8px;
+      background: var(--mm-surface);
+    }
+    .page-header h1 {
+      font-size: clamp(1.25rem, 3vw, 1.875rem);
+      font-weight: 700;
+    }
+    .report-subtitle { margin-top: 0.25rem; color: var(--mm-muted); }
+    .theme-toggle {
+      flex: 0 0 auto;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--mm-brand-gold);
+      border-radius: 6px;
+      background: var(--mm-surface);
+      color: var(--mm-accent);
+      font: 600 0.875rem system-ui, -apple-system, sans-serif;
+      cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--mm-accent-soft); }
+    .theme-toggle:focus-visible,
+    #map-style:focus-visible {
+      outline: 3px solid var(--mm-accent);
+      outline-offset: 2px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .metric-card, .section-card {
+      border: 1px solid var(--mm-border);
+      border-radius: 8px;
+      background: var(--mm-surface);
+    }
+    .metric-card {
+      padding: 1rem;
+      border-top: 3px solid var(--mm-accent);
+    }
+    .metric-value {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .metric-label { color: var(--mm-muted); font-size: 0.875rem; }
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: start;
+    }
+    .section-card { min-width: 0; padding: 1rem; margin-bottom: 1rem; }
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .section-heading h2 {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mm-muted);
+    }
+    .card-count {
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: var(--mm-accent-soft);
+      color: var(--mm-accent);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .event-list, .mix-list { list-style: none; }
+    .event-item { padding: 0.75rem 0; border-bottom: 1px solid var(--mm-border); }
+    .event-item:last-child { border-bottom: 0; }
+    .event-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .event-heading h3 { font-size: 0.9375rem; font-weight: 700; }
+    .event-meta { color: var(--mm-muted); font-size: 0.8125rem; }
+    .event-total {
+      min-width: 2.5rem;
+      color: var(--mm-accent);
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .bar-track {
+      height: 0.75rem;
+      margin-top: 0.5rem;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--mm-surface-muted);
+    }
+    .bar-fill {
+      height: 100%;
+      min-width: 2px;
+      border-radius: inherit;
+      background: var(--mm-accent);
+    }
+    .event-breakdown {
+      margin-top: 0.25rem;
+      color: var(--mm-muted);
+      font-size: 0.8125rem;
+    }
+    .mix-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.25rem 0.75rem;
+      align-items: center;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--mm-border);
+    }
+    .mix-item:last-child { border-bottom: 0; }
+    .mix-label { overflow-wrap: anywhere; }
+    .mix-count {
+      min-width: 2rem;
+      font-weight: 700;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .mix-item .bar-track { grid-column: 1 / -1; margin-top: 0; }
+    .contributor-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .contributor-table th {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--mm-border);
+      color: var(--mm-muted);
+      font-size: 0.75rem;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    .contributor-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--mm-border);
+      overflow-wrap: anywhere;
+    }
+    .contributor-table tr:last-child td { border-bottom: 0; }
+    .contributor-table .numeric {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .table-scroll { overflow-x: auto; }
+    .no-data {
+      padding: 0.5rem 0;
+      color: var(--mm-muted);
+      font-size: 0.875rem;
+      font-style: italic;
+    }
+    .map-wrapper {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--mm-border);
+      border-radius: 6px;
+    }
+    #map { width: 100%; height: 420px; }
+    #map-style {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      max-width: calc(100% - 16px);
+      height: 32px;
+      padding: 0 0.5rem;
+      border: 1px solid var(--mm-border);
+      border-radius: 4px;
+      background: var(--mm-surface);
+      color: var(--mm-text);
+      font: 600 0.8125rem system-ui, -apple-system, sans-serif;
+    }
+    .mm-marker {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+    }
+    .mm-marker--note { border-radius: 3px; }
+    .mm-marker:focus-visible { outline: 3px solid var(--mm-accent); }
+    .report-note {
+      padding: 0 0.25rem 1rem;
+      color: var(--mm-muted);
+      font-size: 0.8125rem;
+    }
+    @media (max-width: 760px) {
+      body { padding: 0.75rem; }
+      .page-header { padding: 1rem; }
+      .content-grid { grid-template-columns: 1fr; }
+      .contributor-table { min-width: 480px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="page-header" role="banner">
+    <div>
+      <h1>{{ title }}</h1>
+      <p class="report-subtitle">
+        {{ stats.period_label }} · {{ stats.event_count }}
+        event{% if stats.event_count != 1 %}s{% endif %}
+        {% if stats.report_count != stats.event_count %}
+        · {{ stats.report_count }} source reports
+        {% endif %}
+      </p>
+    </div>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">
+      <span>Dark mode</span>
+    </button>
+  </header>
+
+  <main id="main-content">
+    <section class="summary-grid" aria-label="Aggregate summary">
+      <article class="metric-card">
+        <span class="metric-value">{{ stats.contributor_count }}</span>
+        <span class="metric-label">Contributors</span>
+      </article>
+      <article class="metric-card">
+        <span class="metric-value">{{ stats.quest_answer_count }}</span>
+        <span class="metric-label">Quest answers</span>
+      </article>
+      <article class="metric-card">
+        <span class="metric-value">{{ stats.note_count }}</span>
+        <span class="metric-label">Notes</span>
+      </article>
+      <article class="metric-card">
+        <span class="metric-value">{{ stats.new_feature_count }}</span>
+        <span class="metric-label">New map features</span>
+      </article>
+      <article class="metric-card">
+        <span class="metric-value">{{ stats.event_count }}</span>
+        <span class="metric-label">Events</span>
+      </article>
+    </section>
+
+    <div class="content-grid">
+      <section class="section-card" aria-labelledby="events-heading">
+        <div class="section-heading">
+          <h2 id="events-heading">Contributions by event</h2>
+          <span class="card-count">{{ stats.report_count }} reports</span>
+        </div>
+        {% if stats.events %}
+        <ol class="event-list">
+          {% for event in stats.events %}
+          <li class="event-item">
+            <div class="event-heading">
+              <div>
+                <h3>{{ event.event_name }}</h3>
+                <p class="event-meta">
+                  {{ event.activity_label }} · {{ event.period_label }}
+                </p>
+              </div>
+              <span class="event-total" aria-label="{{ event.contribution_count }} total contributions">
+                {{ event.contribution_count }}
+              </span>
+            </div>
+            <div class="bar-track" aria-hidden="true">
+              <div class="bar-fill" style="width:{{ (event.contribution_count / stats.max_event_contribution_count * 100) if stats.max_event_contribution_count else 0 }}%"></div>
+            </div>
+            <p class="event-breakdown">
+              {{ event.quest_answer_count }} quest answers
+              {% if event.quest_answer_count != event.reported_changeset_count %}
+              (legacy stat: {{ event.reported_changeset_count }} changesets)
+              {% endif %}
+              · {{ event.note_count }} notes
+              {% if event.unattributed_note_count %}
+              ({{ event.unattributed_note_count }} unattributed)
+              {% endif %}
+            </p>
+          </li>
+          {% endfor %}
+        </ol>
+        {% else %}
+        <p class="no-data">No event reports were selected.</p>
+        {% endif %}
+      </section>
+
+      <section class="section-card" aria-labelledby="mix-heading">
+        <div class="section-heading">
+          <h2 id="mix-heading">Contribution mix by element type</h2>
+        </div>
+        {% if stats.quest_type_breakdown %}
+        {% set max_category_count = stats.quest_type_breakdown | map(attribute='count') | max %}
+        <ul class="mix-list">
+          {% for category in stats.quest_type_breakdown %}
+          <li class="mix-item">
+            <span class="mix-label">{{ category.category }}</span>
+            <span class="mix-count">{{ category.count }}</span>
+            <div class="bar-track" aria-hidden="true">
+              <div class="bar-fill" style="width:{{ (category.count / max_category_count * 100) if max_category_count else 0 }}%"></div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-data">No element-type contributions were reported.</p>
+        {% endif %}
+      </section>
+    </div>
+
+    <section class="section-card" aria-labelledby="map-heading">
+      <div class="section-heading">
+        <h2 id="map-heading">Where it happened</h2>
+      </div>
+      <div class="map-wrapper">
+        <div id="map" role="region" aria-label="Map of aggregated report contributions"></div>
+        <label class="sr-only" for="map-style">Basemap style</label>
+        <select id="map-style" aria-label="Basemap style">
+          <option value="positron" selected>Positron</option>
+          <option value="bright">Bright</option>
+          <option value="liberty">Liberty</option>
+          <option value="dark">Dark</option>
+          <option value="fiord">Fiord</option>
+        </select>
+      </div>
+      <p id="map-fallback" class="no-data" hidden>
+        The map could not be loaded. The report totals remain available above.
+      </p>
+    </section>
+
+    <section class="section-card" aria-labelledby="contributors-heading">
+      <div class="section-heading">
+        <h2 id="contributors-heading">Contributors</h2>
+        <span class="card-count">{{ stats.contributor_count }}</span>
+      </div>
+      {% if stats.contributions_by_user %}
+      <div class="table-scroll">
+        <table class="contributor-table">
+          <caption class="sr-only">Combined quest answers and notes by contributor</caption>
+          <thead>
+            <tr>
+              <th scope="col">Contributor</th>
+              <th scope="col" class="numeric">Quest answers</th>
+              <th scope="col" class="numeric">Notes</th>
+              <th scope="col" class="numeric">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for contributor in stats.contributions_by_user %}
+            <tr>
+              <td>{{ contributor.user }}</td>
+              <td class="numeric">{{ contributor.quest_answer_count }}</td>
+              <td class="numeric">{{ contributor.note_count }}</td>
+              <td class="numeric">{{ contributor.contribution_count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="no-data">No contributor activity was reported.</p>
+      {% endif %}
+    </section>
+
+    {% if stats.legacy_quest_count_mismatch_event_count %}
+    <p class="report-note" role="note">
+      Some legacy source stats contain changeset totals that differ from their
+      per-user marker histories. This report uses the marker-history totals
+      ({{ stats.quest_answer_count }} quest answers) so contributor totals
+      reconcile; the source stats report {{ stats.reported_changeset_count }}
+      changesets.
+    </p>
+    {% endif %}
+    {% if stats.unattributed_note_count %}
+    <p class="report-note" role="note">
+      {{ stats.unattributed_note_count }} notes are included in the total but
+      could not be attributed to individual contributors because the source
+      stats do not contain note authors.
+    </p>
+    {% endif %}
+    <p class="report-note">
+      Contributors are matched across reports by their exact username.
+      Quest answers are summed per report; notes are counted separately.
+    </p>
+  </main>
+
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+  <script>
+    (function () {
+      'use strict';
+      const STATS = {{ stats_json | safe }};
+      const themeToggle = document.getElementById('theme-toggle');
+      const mapStyle = document.getElementById('map-style');
+      const mapFallback = document.getElementById('map-fallback');
+
+      function updateThemeButton() {
+        const isDark = document.documentElement.dataset.theme === 'dark';
+        themeToggle.setAttribute('aria-pressed', String(isDark));
+        themeToggle.querySelector('span').textContent =
+          isDark ? 'Light mode' : 'Dark mode';
+      }
+
+      function syncMapStyle(theme) {
+        const preferredStyle = theme === 'dark' ? 'fiord' : 'positron';
+        if (mapStyle.value === preferredStyle) return;
+        mapStyle.value = preferredStyle;
+        mapStyle.dispatchEvent(new Event('change'));
+      }
+
+      themeToggle.addEventListener('click', function () {
+        const nextTheme =
+          document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = nextTheme;
+        try {
+          window.localStorage.setItem('mapping-momentum-theme', nextTheme);
+        } catch (error) {
+          console.warn('Theme preference could not be saved.', error);
+        }
+        updateThemeButton();
+        syncMapStyle(nextTheme);
+      });
+      updateThemeButton();
+      syncMapStyle(document.documentElement.dataset.theme);
+
+      const styles = {
+        positron: 'https://tiles.openfreemap.org/styles/positron',
+        bright: 'https://tiles.openfreemap.org/styles/bright',
+        liberty: 'https://tiles.openfreemap.org/styles/liberty',
+        dark: 'https://tiles.openfreemap.org/styles/dark',
+        fiord: 'https://tiles.openfreemap.org/styles/fiord'
+      };
+      const categoryColors = {
+        Sidewalks: '#0d6efd',
+        Crossings: '#fd7e14',
+        'Bus Stops': '#198754',
+        Curbs: '#dc3545',
+        Intersections: '#6f42c1',
+        'Street Lamps': '#ffc107'
+      };
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function markerColor(marker) {
+        if (marker.kind === 'note') return '#6c757d';
+        if (categoryColors[marker.category]) return categoryColors[marker.category];
+        let hash = 0;
+        const category = marker.category || '';
+        for (let index = 0; index < category.length; index += 1) {
+          hash = ((hash * 31) + category.charCodeAt(index)) | 0;
+        }
+        return category
+          ? 'hsl(' + (Math.abs(hash) % 360) + ',55%,42%)'
+          : '#4b2e83';
+      }
+
+      if (typeof maplibregl === 'undefined') {
+        mapStyle.disabled = true;
+        mapFallback.hidden = false;
+        return;
+      }
+
+      const markers = (STATS.markers || []).filter(function (marker) {
+        return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
+      });
+      const map = new maplibregl.Map({
+        container: 'map',
+        style: styles[mapStyle.value],
+        center: [-98.35, 39.5],
+        zoom: 3,
+        attributionControl: true
+      });
+      map.addControl(new maplibregl.NavigationControl(), 'top-left');
+      mapStyle.addEventListener('change', function () {
+        const styleUrl = styles[mapStyle.value];
+        if (styleUrl) map.setStyle(styleUrl, { diff: false });
+      });
+      map.on('load', function () {
+        const bounds = new maplibregl.LngLatBounds();
+        markers.forEach(function (marker) {
+          const element = document.createElement('div');
+          element.className = 'mm-marker mm-marker--' + (marker.kind || 'quest');
+          element.style.background = markerColor(marker);
+          element.setAttribute('tabindex', '0');
+          element.setAttribute('role', 'button');
+          element.setAttribute(
+            'aria-label',
+            (marker.event_name || 'Event') + ': ' +
+              (marker.category || marker.kind || 'contribution')
+          );
+          const popupText = '<strong>' +
+            escapeHtml(marker.event_name || 'Event') + '</strong><br>' +
+            escapeHtml(marker.activity_label || '') +
+            (marker.category ? '<br>' + escapeHtml(marker.category) : '');
+          const popup = new maplibregl.Popup({ closeButton: true, offset: 8 })
+            .setHTML(popupText);
+          function openPopup() {
+            popup.setLngLat([marker.lon, marker.lat]).addTo(map);
+          }
+          element.addEventListener('click', openPopup);
+          element.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              openPopup();
+            }
+          });
+          new maplibregl.Marker({ element: element })
+            .setLngLat([marker.lon, marker.lat])
+            .addTo(map);
+          bounds.extend([marker.lon, marker.lat]);
+        });
+        if (markers.length === 1) {
+          map.setCenter([markers[0].lon, markers[0].lat]);
+          map.setZoom(14);
+        } else if (markers.length > 1) {
+          map.fitBounds(bounds, { padding: 48, maxZoom: 14 });
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
