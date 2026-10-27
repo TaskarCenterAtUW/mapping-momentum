@@ -6,7 +6,7 @@ Statistics engine and report generator for tracking mapping participation metric
 
 ## Overview
 
-Mapping Momentum generates deterministic per-activity statistics and a self-contained HTML report from a v1.1 event config. The current release is scoped to `workspace` activities.
+Mapping Momentum generates deterministic per-activity statistics and self-contained HTML reports from event configs. It can also combine existing reports into an aggregate contribution summary.
 
 ## Requirements
 
@@ -70,6 +70,27 @@ Run these commands from the repository root after completing Setup. The packaged
 Use `--dry-run` with the `event` command to print stats without writing report files.
 
 Add `--anonymize` (or `-a`) to replace contributor names, map edit-history authors, and quote attributions with labels such as `Participant 1`. The anonymized values are used in both `stats.json` and `index.html`, including `--dry-run` output. Known names are also replaced at whole-word boundaries in note and quote text. When used with `--render-from-stats`, a sanitized copy of `stats.json` and the anonymized HTML are written to the output directory; the input stats file is left unchanged unless it is itself the output file. Review other identifying details in free-form content and images before publication; the option cannot infer names that are not present in structured contributor or quote attribution data.
+
+### Aggregate reports
+
+Generate each source report first without `--anonymize`, then pass its `stats.json` path (or report directory) to the `aggregate` command. Reports must retain their original usernames so the same person is counted once across events; usernames are matched exactly, including case, and quest-answer counts are summed for each matched username. An anonymized source report is rejected. To anonymize the combined output after the identities have been matched, add `--anonymize` to the aggregate command. The aggregate command checks that quest-answer totals reconcile with contributor histories. For legacy reports without per-user totals, complete marker histories can supply the contributor counts; if those counts exceed a legacy report's stored changeset total, the aggregate uses the history total and discloses the difference. It rejects legacy histories that fall short and current reports with inconsistent totals. Legacy reports without note authors retain their overall note totals, with those notes marked as unattributed rather than assigned to a contributor.
+
+```powershell
+mapping-momentum event --config configs/events/2026-01-20-nda-vancouver `
+    --output-dir local-output
+
+mapping-momentum event --config configs/events/2026-01-29-nda-spanaway `
+    --output-dir local-output
+
+mapping-momentum aggregate `
+    --reports local-output/events/2026-01-20-nda-vancouver/walkabout/stats.json `
+              local-output/events/2026-01-29-nda-spanaway/walkabout/stats.json `
+    --report-id winter-walk-roll-summary `
+    --title "Winter Walk/Roll Contribution Summary" `
+    --output-dir local-output
+```
+
+The aggregate report is written to `local-output/aggregates/<report-id>/` as `stats.json` and `index.html`. Use `--reports` with any number of generated report paths. For older `stats.json` files without event labels, the output uses the event id from the standard `events/<event-id>/<activity-id>/` path.
 
 ### Optional: Capture a Workspace fixture
 

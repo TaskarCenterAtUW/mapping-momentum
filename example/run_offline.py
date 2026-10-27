@@ -91,6 +91,9 @@ def run_offline(
         video_url=get_report_feature(config, "video_url", None),
         event_dir=event_dir,
     )
+    stats["event_id"] = config["id"]
+    stats["event_name"] = config.get("name") or config["id"]
+    stats["activity_label"] = activity.get("label") or activity["id"]
     if anonymize:
         stats = anonymize_stats(stats)
 

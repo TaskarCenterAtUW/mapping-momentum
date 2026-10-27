@@ -73,6 +73,42 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Replace participant names with anonymous labels in report output.",
     )
 
+    aggregate_parser = subparsers.add_parser(
+        "aggregate",
+        help="Create an aggregate report from existing non-anonymized reports.",
+    )
+    aggregate_parser.add_argument(
+        "--reports",
+        required=True,
+        nargs="+",
+        metavar="PATH",
+        help="Stats.json files or report directories to aggregate.",
+    )
+    aggregate_parser.add_argument(
+        "--report-id",
+        required=True,
+        metavar="ID",
+        help="Lowercase slug used for the aggregate output directory.",
+    )
+    aggregate_parser.add_argument(
+        "--title",
+        default="Aggregate Contribution Report",
+        metavar="TEXT",
+        help="Title for the aggregate HTML report.",
+    )
+    aggregate_parser.add_argument(
+        "--output-dir",
+        default="local-output",
+        metavar="PATH",
+        help="Root output directory (default: local-output/).",
+    )
+    aggregate_parser.add_argument(
+        "-a",
+        "--anonymize",
+        action="store_true",
+        help="Anonymize merged contributor identities in the aggregate output.",
+    )
+
     # --- capture-quests subcommand ---
     cq_parser = subparsers.add_parser(
         "capture-quests",
@@ -102,6 +138,8 @@ def run_cli(argv: list[str] | None = None) -> int:
 
     if args.command == "event":
         return _cmd_event(args)
+    if args.command == "aggregate":
+        return _cmd_aggregate(args)
     if args.command == "capture-quests":
         return _cmd_capture_quests(args)
     if args.command == "capture":
@@ -120,9 +158,7 @@ def _get_access_token(environment: str) -> str:
     has_password = password_var in os.environ
 
     if has_username != has_password:
-        raise ValueError(
-            f"{username_var} and {password_var} must be set together."
-        )
+        raise ValueError(f"{username_var} and {password_var} must be set together.")
 
     if has_username:
         username = os.environ[username_var].strip()
@@ -224,6 +260,31 @@ def _cmd_event(args: argparse.Namespace) -> int:
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
+    return 0
+
+
+def _cmd_aggregate(args: argparse.Namespace) -> int:
+    """Create an aggregate report from existing non-anonymized stats files."""
+    from mm.outputs.aggregate import aggregate_reports, write_aggregate_report
+    from mm.outputs.anonymize import anonymize_stats
+    from mm.outputs.html_report import render_aggregate_report
+
+    try:
+        stats = aggregate_reports(args.reports, title=args.title)
+        if args.anonymize:
+            stats = anonymize_stats(stats)
+        html = render_aggregate_report(stats)
+        destination = write_aggregate_report(
+            stats,
+            html,
+            Path(args.output_dir),
+            args.report_id,
+        )
+    except (OSError, ValueError, KeyError) as exc:
+        print(f"error: aggregate report failed: {exc}", file=sys.stderr)
+        return 1
+
+    print(f"Aggregate report written to {destination.parent}")
     return 0
 
 

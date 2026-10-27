@@ -3,7 +3,17 @@
 from __future__ import annotations
 
 import re
-from typing import Any
+from typing import Any, TypeGuard
+
+
+def _is_report_object(value: Any) -> TypeGuard[dict[str, Any]]:
+    """Return whether *value* is a report mapping."""
+    return isinstance(value, dict)
+
+
+def _is_report_list(value: Any) -> TypeGuard[list[Any]]:
+    """Return whether *value* is a report list."""
+    return isinstance(value, list)
 
 
 def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
@@ -54,28 +64,34 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
         return " ".join(parts)
 
     contributors = stats.get("contributors_breakdown")
+    contributions_by_user = stats.get("contributions_by_user")
     markers = stats.get("markers")
     quotes = stats.get("quotes")
 
-    if isinstance(contributors, list):
+    if _is_report_list(contributors):
         for contributor in contributors:
-            if isinstance(contributor, dict):
+            if _is_report_object(contributor):
                 label_for(contributor.get("user"))
 
-    if isinstance(markers, list):
+    if _is_report_list(contributions_by_user):
+        for contribution in contributions_by_user:
+            if _is_report_object(contribution):
+                label_for(contribution.get("user"))
+
+    if _is_report_list(markers):
         for marker in markers:
-            if not isinstance(marker, dict):
+            if not _is_report_object(marker):
                 continue
             label_for(marker.get("user"))
             versions = marker.get("versions")
-            if isinstance(versions, list):
+            if _is_report_list(versions):
                 for version in versions:
-                    if isinstance(version, dict):
+                    if _is_report_object(version):
                         label_for(version.get("user"))
 
-    if isinstance(quotes, list):
+    if _is_report_list(quotes):
         for quote in quotes:
-            if isinstance(quote, dict):
+            if _is_report_object(quote):
                 label_for(quote_name(quote))
 
     text_names = sorted(
@@ -106,22 +122,36 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
         )
 
     anonymized = dict(stats)
-    if isinstance(contributors, list):
-        anonymized["contributors_breakdown"] = []
+    if _is_report_list(contributors):
+        anonymized_contributors: list[Any] = []
+        anonymized["contributors_breakdown"] = anonymized_contributors
         for contributor in contributors:
-            if not isinstance(contributor, dict):
-                anonymized["contributors_breakdown"].append(contributor)
+            if not _is_report_object(contributor):
+                anonymized_contributors.append(contributor)
                 continue
             item = dict(contributor)
             if "user" in item:
                 item["user"] = label_for(item["user"])
-            anonymized["contributors_breakdown"].append(item)
+            anonymized_contributors.append(item)
 
-    if isinstance(markers, list):
-        anonymized["markers"] = []
+    if _is_report_list(contributions_by_user):
+        anonymized_contributions: list[Any] = []
+        anonymized["contributions_by_user"] = anonymized_contributions
+        for contribution in contributions_by_user:
+            if not _is_report_object(contribution):
+                anonymized_contributions.append(contribution)
+                continue
+            item = dict(contribution)
+            if "user" in item:
+                item["user"] = label_for(item["user"])
+            anonymized_contributions.append(item)
+
+    if _is_report_list(markers):
+        anonymized_markers: list[Any] = []
+        anonymized["markers"] = anonymized_markers
         for marker in markers:
-            if not isinstance(marker, dict):
-                anonymized["markers"].append(marker)
+            if not _is_report_object(marker):
+                anonymized_markers.append(marker)
                 continue
             item = dict(marker)
             if "user" in item:
@@ -130,23 +160,25 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
                 item["text"] = replace_known_names(item["text"])
 
             versions = marker.get("versions")
-            if isinstance(versions, list):
-                item["versions"] = []
+            if _is_report_list(versions):
+                anonymized_versions: list[Any] = []
+                item["versions"] = anonymized_versions
                 for version in versions:
-                    if not isinstance(version, dict):
-                        item["versions"].append(version)
+                    if not _is_report_object(version):
+                        anonymized_versions.append(version)
                         continue
                     version_item = dict(version)
                     if "user" in version_item:
                         version_item["user"] = label_for(version_item["user"])
-                    item["versions"].append(version_item)
-            anonymized["markers"].append(item)
+                    anonymized_versions.append(version_item)
+            anonymized_markers.append(item)
 
-    if isinstance(quotes, list):
-        anonymized["quotes"] = []
+    if _is_report_list(quotes):
+        anonymized_quotes: list[Any] = []
+        anonymized["quotes"] = anonymized_quotes
         for quote in quotes:
-            if not isinstance(quote, dict):
-                anonymized["quotes"].append(quote)
+            if not _is_report_object(quote):
+                anonymized_quotes.append(quote)
                 continue
             item = dict(quote)
             name = quote_name(quote)
@@ -156,6 +188,7 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
             for field in ("text", "organization", "title"):
                 if field in item:
                     item[field] = replace_known_names(item[field])
-            anonymized["quotes"].append(item)
+            anonymized_quotes.append(item)
 
+    anonymized["anonymized"] = True
     return anonymized

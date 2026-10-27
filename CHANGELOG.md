@@ -14,6 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - Added anonymized minimal and maximal offline sample reports.
 - Added optional environment-variable credentials for programmatic TDEI authentication while retaining secure interactive prompts.
 - Added a viewer basemap selector for OpenFreeMap's Positron (default), Bright, Liberty, Dark, and Fiord styles.
+- Added a persistent, accessible light/dark theme toggle to HTML reports, with TCAT Wiki purple/gold accents and automatic Fiord basemaps in dark mode.
+- Added an `aggregate` command to merge non-anonymized per-event reports, deduplicate contributors by username, and produce a cross-event HTML summary.
+- Added anonymized outputs and aggregates for all existing event configs.
 
 ### Changed
 

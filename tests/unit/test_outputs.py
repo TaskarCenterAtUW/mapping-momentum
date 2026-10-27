@@ -616,6 +616,27 @@ def test_render_report_map_container_present() -> None:
     assert 'id="map"' in html
 
 
+def test_render_report_theme_toggle_uses_tcat_palette() -> None:
+    """Expose an accessible theme toggle with the TCAT Wiki brand colors."""
+    html = render_report(
+        _sample_stats(),
+        _minimal_config(),
+        _minimal_config()["activities"][0],
+        template_dir=Path(__file__).resolve().parents[2] / "templates",
+    )
+
+    assert 'id="theme-toggle"' in html
+    assert 'aria-pressed="false"' in html
+    assert "--mm-accent: #4b2e83;" in html
+    assert "--mm-brand-gold: #b7a57a;" in html
+    assert "--mm-accent: #c9b882;" in html
+    assert "prefers-color-scheme: dark" in html
+    assert "mapping-momentum-theme" in html
+    assert "theme === 'dark' ? 'fiord' : 'positron'" in html
+    assert "syncMapStyle(root.dataset.theme);" in html
+    assert "syncMapStyle(nextTheme);" in html
+
+
 def test_render_report_exposes_openfreemap_basemap_styles() -> None:
     """Expose the reference's five OpenFreeMap styles to report viewers."""
     config = _minimal_config()

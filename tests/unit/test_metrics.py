@@ -182,6 +182,21 @@ def test_changeset_count_same_user_multiple_changesets() -> None:
     assert result["changeset_count"] == 3
 
 
+def test_changeset_count_uses_event_version_history() -> None:
+    elements = [
+        _node(
+            id_=1,
+            changeset=900,
+            versions=[{"changeset": 100}, {"changeset": 101}],
+        ),
+        _node(id_=2, changeset=901, versions=[{"changeset": 101}]),
+    ]
+
+    result = changeset_count_mod.compute(elements)
+
+    assert result["changeset_count"] == 2
+
+
 # ---------------------------------------------------------------------------
 # contributors.compute
 # ---------------------------------------------------------------------------

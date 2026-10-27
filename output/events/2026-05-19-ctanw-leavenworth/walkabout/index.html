@@ -5,18 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTANW Leavenworth Walk/Roll — Contribution Report</title>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" crossorigin="anonymous">
+  <script>
+    (function () {
+      var savedTheme;
+      try {
+        savedTheme = window.localStorage.getItem('mapping-momentum-theme');
+      } catch (error) {
+        console.warn('Theme preference could not be loaded; using system preference.', error);
+      }
+
+      var prefersDark = window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme
+        : (prefersDark ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    }());
+  </script>
   <style>
     /* --- Base --- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      color-scheme: light;
+      --mm-bg: #f8f9fa;
+      --mm-surface: #fff;
+      --mm-surface-muted: #f5f2f8;
+      --mm-text: #212529;
+      --mm-muted: #6c757d;
+      --mm-border: #dee2e6;
+      --mm-accent: #4b2e83;
+      --mm-accent-contrast: #fff;
+      --mm-accent-soft: rgba(75, 46, 131, 0.1);
+      --mm-brand-gold: #b7a57a;
+      --mm-danger: #dc3545;
+      --mm-success: #198754;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --mm-bg: #19171f;
+      --mm-surface: #25212d;
+      --mm-surface-muted: #302b38;
+      --mm-text: #f4eff7;
+      --mm-muted: #c2b9ce;
+      --mm-border: #4c4456;
+      --mm-accent: #c9b882;
+      --mm-accent-contrast: #282316;
+      --mm-accent-soft: rgba(183, 165, 122, 0.16);
+      --mm-brand-gold: #c9b882;
+      --mm-danger: #f08a93;
+      --mm-success: #8bc49a;
+    }
     html { font-size: 16px; }
-    body { font-family: system-ui, -apple-system, sans-serif; color: #212529; background: #f8f9fa; line-height: 1.5; padding: 1.5rem; }
+    body { font-family: system-ui, -apple-system, sans-serif; color: var(--mm-text); background: var(--mm-bg); line-height: 1.5; padding: 1.5rem; }
     img { max-width: 100%; display: block; }
-    a { color: #0d6efd; }
+    a { color: var(--mm-accent); }
 
     /* --- Skip link (K4) --- */
     .skip-link {
       position: absolute; top: -40px; left: 0; padding: 8px 16px;
-      background: #212529; color: #fff; text-decoration: none; z-index: 9999;
+      background: var(--mm-accent); color: var(--mm-accent-contrast); text-decoration: none; z-index: 9999;
       border-radius: 0 0 4px 0;
     }
     .skip-link:focus { top: 0; }
@@ -28,9 +75,23 @@
     }
 
     /* --- Layout --- */
-    .page-header { max-width: 1200px; margin: 0 auto 2rem; background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem 1.5rem 1rem; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; max-width: 1200px; margin: 0 auto 2rem; background: var(--mm-surface); border: 1px solid var(--mm-border); border-top: 3px solid var(--mm-accent); border-radius: 8px; padding: 1.25rem 1.5rem 1rem; }
+    .page-header-content { flex: 1; min-width: 0; }
     .page-header h1 { font-size: clamp(1.25rem, 3vw, 1.875rem); font-weight: 700; }
-    .report-subtitle { color: #6c757d; font-size: 0.9375rem; margin-top: 0.25rem; }
+    .report-subtitle { color: var(--mm-muted); font-size: 0.9375rem; margin-top: 0.25rem; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 0.5rem; flex: 0 0 auto;
+      border: 1px solid var(--mm-brand-gold); border-radius: 6px;
+      background: var(--mm-surface); color: var(--mm-accent);
+      padding: 0.5rem 0.75rem; font: 600 0.875rem system-ui, -apple-system, sans-serif;
+      cursor: pointer; white-space: nowrap;
+    }
+    .theme-toggle:hover { background: var(--mm-accent-soft); }
+    .theme-toggle:focus-visible { outline: 3px solid var(--mm-accent); outline-offset: 2px; }
+    .theme-icon { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .theme-icon--sun { display: none; }
+    :root[data-theme="dark"] .theme-icon--sun { display: block; }
+    :root[data-theme="dark"] .theme-icon--moon { display: none; }
     main { max-width: 1200px; margin: 0 auto; padding: 0; }
 
     /* --- Showcase (C3) --- */
@@ -41,17 +102,17 @@
       border: none; background: none; padding: 0; cursor: pointer;
       border-radius: 6px; overflow: hidden; display: block;
     }
-    .showcase-btn:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+    .showcase-btn:focus-visible { outline: 3px solid var(--mm-accent); outline-offset: 2px; }
     .showcase-img { width: 180px; height: 120px; object-fit: cover; }
 
     /* --- Event content --- */
     .media-section {
-      background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+      background: var(--mm-surface); border: 1px solid var(--mm-border); border-radius: 8px;
       padding: 1rem; margin-bottom: 1.5rem;
     }
     .media-section h2 {
       font-size: 0.6875rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.08em; color: #6c757d; margin-bottom: 0.75rem;
+      letter-spacing: 0.08em; color: var(--mm-muted); margin-bottom: 0.75rem;
     }
     .picture-list, .slideshow-list {
       list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem;
@@ -61,15 +122,15 @@
       width: 240px; height: 160px; object-fit: cover; border-radius: 6px;
     }
     .picture-list figcaption, .slideshow-list figcaption {
-      color: #6c757d; font-size: 0.8125rem; margin-top: 0.25rem;
+      color: var(--mm-muted); font-size: 0.8125rem; margin-top: 0.25rem;
     }
     .quote-list { display: grid; gap: 1rem; list-style: none; }
-    .quote-list blockquote { border-left: 3px solid #0d6efd; padding-left: 0.75rem; }
+    .quote-list blockquote { border-left: 3px solid var(--mm-accent); padding-left: 0.75rem; }
     .quote-list blockquote p { font-size: 1rem; font-style: italic; }
-    .quote-attribution { color: #6c757d; font-size: 0.8125rem; margin-top: 0.25rem; }
+    .quote-attribution { color: var(--mm-muted); font-size: 0.8125rem; margin-top: 0.25rem; }
     .slideshow-frame, .video-frame {
       width: 100%; min-height: 360px; border: 0; border-radius: 6px;
-      background: #f8f9fa;
+      background: var(--mm-surface-muted);
     }
     .video-player { width: 100%; max-height: 560px; border-radius: 6px; }
 
@@ -79,80 +140,96 @@
     .badge {
       display: inline-block; padding: 0.2em 0.65em; border-radius: 999px;
       font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
-      background: #e9ecef; color: #495057;
+      background: var(--mm-accent-soft); border: 1px solid var(--mm-brand-gold);
+      color: var(--mm-accent);
     }
 
     /* --- Map (C4-C8) --- */
     .map-wrapper {
       position: relative; margin-bottom: 1.5rem;
-      border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--mm-border); border-radius: 8px; overflow: hidden;
     }
     #map { height: 460px; width: 100%; }
     .map-wrapper.map-expanded { position: fixed; inset: 0; z-index: 1000; border-radius: 0; }
     .map-wrapper.map-expanded #map { height: 100%; }
     #btn-expand {
       position: absolute; top: 8px; right: 8px; z-index: 10;
-      background: rgba(255,255,255,0.9); border: 1px solid #ccc; border-radius: 4px;
+      background: var(--mm-surface); color: var(--mm-text);
+      border: 1px solid var(--mm-border); border-radius: 4px;
       width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
-    #btn-expand:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
-    #btn-expand svg { fill: #212529; }
+    #map-style {
+      position: absolute; top: 8px; right: 48px; z-index: 10;
+      width: 150px; max-width: calc(100% - 96px); height: 32px;
+      padding: 0 0.5rem; border: 1px solid var(--mm-border); border-radius: 4px;
+      background: var(--mm-surface); color: var(--mm-text);
+      font: 600 0.8125rem system-ui, -apple-system, sans-serif;
+      cursor: pointer;
+    }
+    #map-style:focus-visible { outline: 3px solid var(--mm-accent); outline-offset: 2px; }
+    #btn-expand:focus-visible { outline: 3px solid var(--mm-accent); outline-offset: 2px; }
+    #btn-expand svg { fill: var(--mm-text); }
 
     /* MapLibre popup customization */
     .maplibregl-popup-content {
       padding: 0; border-radius: 8px; overflow: hidden;
       box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-height: 420px; overflow-y: auto;
       min-width: 260px; max-width: 340px;
+      background: var(--mm-surface); color: var(--mm-text);
     }
+    .maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: var(--mm-surface); }
+    .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--mm-surface); }
+    .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--mm-surface); }
+    .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--mm-surface); }
     .mm-popup { font-size: 0.8125rem; }
     .mm-popup-header {
-      padding: 0.5rem 0.75rem 0.375rem; background: #f8f9fa;
-      border-bottom: 1px solid #dee2e6; display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.75rem 0.375rem; background: var(--mm-surface-muted);
+      border-bottom: 1px solid var(--mm-border); display: flex; align-items: center; gap: 0.5rem;
     }
     .mm-popup-kind {
       font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; color: #fff;
     }
-    .mm-popup-kind--quest { background: #0d6efd; }
+    .mm-popup-kind--quest { background: var(--mm-accent); color: var(--mm-accent-contrast); }
     .mm-popup-kind--create { background: #198754; }
     .mm-popup-kind--note { background: #6c757d; }
-    .mm-popup-category { font-weight: 600; color: #212529; }
+    .mm-popup-category { font-weight: 600; color: var(--mm-text); }
     .mm-popup-pager {
       display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem;
-      background: #fff; border-bottom: 1px solid #dee2e6; font-size: 0.8125rem;
+      background: var(--mm-surface); border-bottom: 1px solid var(--mm-border); font-size: 0.8125rem;
     }
-    .mm-popup-pager-pos { flex: 1; text-align: center; color: #6c757d; font-size: 0.75rem; }
+    .mm-popup-pager-pos { flex: 1; text-align: center; color: var(--mm-muted); font-size: 0.75rem; }
     .mm-popup-nav {
-      border: 1px solid #dee2e6; background: #fff; border-radius: 4px;
+      border: 1px solid var(--mm-border); background: var(--mm-surface); color: var(--mm-text); border-radius: 4px;
       width: 24px; height: 24px; cursor: pointer; font-size: 0.875rem; line-height: 1;
       display: flex; align-items: center; justify-content: center;
     }
     .mm-popup-nav:disabled { opacity: 0.4; cursor: default; }
-    .mm-popup-nav:focus-visible { outline: 2px solid #0d6efd; }
-    .mm-popup-meta { padding: 0.375rem 0.75rem; color: #6c757d; font-size: 0.75rem; }
+    .mm-popup-nav:focus-visible { outline: 2px solid var(--mm-accent); }
+    .mm-popup-meta { padding: 0.375rem 0.75rem; color: var(--mm-muted); font-size: 0.75rem; }
     .mm-popup-toggle-row { display: flex; gap: 4px; padding: 0.375rem 0.75rem; }
     .mm-popup-view-btn {
-      border: 1px solid #dee2e6; background: #fff; border-radius: 4px;
+      border: 1px solid var(--mm-border); background: var(--mm-surface); color: var(--mm-text); border-radius: 4px;
       padding: 2px 10px; cursor: pointer; font-size: 0.75rem;
     }
     .mm-popup-view-btn[aria-pressed="true"] {
-      background: #0d6efd; color: #fff; border-color: #0d6efd;
+      background: var(--mm-accent); color: var(--mm-accent-contrast); border-color: var(--mm-accent);
     }
-    .mm-popup-view-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-view-btn:focus-visible { outline: 2px solid var(--mm-accent); }
     .mm-popup-tags { padding: 0 0.75rem 0.5rem; }
     .mm-popup-tags dl { display: grid; grid-template-columns: minmax(100px,1fr) 1.5fr; gap: 2px 6px; }
-    .mm-popup-tags dt { font-weight: 500; color: #495057; word-break: break-all; font-size: 0.75rem; }
-    .mm-popup-tags dd { color: #212529; word-break: break-all; }
-    .mm-popup-diff-old { text-decoration: line-through; color: #dc3545; }
-    .mm-popup-diff-new { color: #198754; }
-    .mm-popup-note-text { padding: 0.375rem 0.75rem 0.5rem; font-style: italic; color: #495057; }
+    .mm-popup-tags dt { font-weight: 500; color: var(--mm-muted); word-break: break-all; font-size: 0.75rem; }
+    .mm-popup-tags dd { color: var(--mm-text); word-break: break-all; }
+    .mm-popup-diff-old { text-decoration: line-through; color: var(--mm-danger); }
+    .mm-popup-diff-new { color: var(--mm-success); }
+    .mm-popup-note-text { padding: 0.375rem 0.75rem 0.5rem; font-style: italic; color: var(--mm-muted); }
     .mm-popup-photos { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 0.75rem 0.5rem; }
     .mm-popup-photo-btn {
       border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
     }
-    .mm-popup-photo-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .mm-popup-photo-btn:focus-visible { outline: 2px solid var(--mm-accent); }
     .mm-popup-photo-thumb { width: 64px; height: 64px; object-fit: cover; }
-    .mm-no-data-popup { padding: 0.5rem 0.75rem; color: #6c757d; }
+    .mm-no-data-popup { padding: 0.5rem 0.75rem; color: var(--mm-muted); }
 
     /* Marker elements */
     .mm-marker {
@@ -162,84 +239,84 @@
     .mm-marker--note {
       border-radius: 3px; /* square for notes — shape provides non-color distinction (V2) */
     }
-    .mm-marker:focus-visible { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px rgba(0,0,0,0.4); }
+    .mm-marker:focus-visible { outline: 3px solid var(--mm-surface); outline-offset: 2px; box-shadow: 0 0 0 5px rgba(0,0,0,0.4); }
 
     /* --- Cards (C10-C12) --- */
     .cards-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
     .cards-column { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
     .card {
-      background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem;
+      background: var(--mm-surface); border: 1px solid var(--mm-border); border-radius: 8px; padding: 1rem;
     }
     .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
     .card-header h3 {
       font-size: 0.6875rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.08em; color: #6c757d;
+      letter-spacing: 0.08em; color: var(--mm-muted);
     }
     .card-count {
-      font-size: 0.8125rem; font-weight: 700; background: #e9ecef;
-      color: #495057; padding: 1px 8px; border-radius: 999px;
+      font-size: 0.8125rem; font-weight: 700; background: var(--mm-accent-soft);
+      color: var(--mm-accent); padding: 1px 8px; border-radius: 999px;
     }
     .chart-wrapper { position: relative; }
     .breakdown-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    .breakdown-table th { text-align: left; color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding-bottom: 0.5rem; border-bottom: 1px solid #dee2e6; }
+    .breakdown-table th { text-align: left; color: var(--mm-muted); font-size: 0.75rem; text-transform: uppercase; padding-bottom: 0.5rem; border-bottom: 1px solid var(--mm-border); }
     .breakdown-table td { padding: 0.35rem 0; vertical-align: middle; }
     .breakdown-table td:first-child { width: 38%; padding-right: 0.5rem; overflow-wrap: anywhere; }
     .bar-cell { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.5rem; }
     .bar-track { height: 0.875rem; min-width: 2px; border-radius: 3px; }
     .bar-value { min-width: 2rem; text-align: right; font-variant-numeric: tabular-nums; }
     .photo-cell { width: 3.5rem; text-align: right; white-space: nowrap; }
-    .no-data { color: #6c757d; font-size: 0.875rem; padding: 0.5rem 0; font-style: italic; }
+    .no-data { color: var(--mm-muted); font-size: 0.875rem; padding: 0.5rem 0; font-style: italic; }
 
     /* --- Questions Answered (C13) --- */
-    .questions-section { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .questions-section { background: var(--mm-surface); border: 1px solid var(--mm-border); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
     .questions-section .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
     .questions-section .section-header h3 {
-      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #6c757d;
+      font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mm-muted);
     }
-    .cat-details { border-bottom: 1px solid #f0f0f0; }
+    .cat-details { border-bottom: 1px solid var(--mm-border); }
     .cat-details:last-child { border-bottom: none; }
     .cat-summary {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.625rem 0.25rem; cursor: pointer; list-style: none; font-weight: 600;
     }
     .cat-summary::-webkit-details-marker { display: none; }
-    .cat-summary::before { content: "▶"; font-size: 0.625rem; color: #6c757d; margin-right: 0.5rem; transition: transform 0.15s; }
+    .cat-summary::before { content: "▶"; font-size: 0.625rem; color: var(--mm-muted); margin-right: 0.5rem; transition: transform 0.15s; }
     .cat-details[open] > .cat-summary::before { transform: rotate(90deg); }
-    .cat-summary:focus-visible { outline: 2px solid #0d6efd; border-radius: 3px; }
+    .cat-summary:focus-visible { outline: 2px solid var(--mm-accent); border-radius: 3px; }
     .cat-name { flex: 1; }
-    .cat-total { font-size: 0.8125rem; color: #6c757d; font-weight: 400; }
+    .cat-total { font-size: 0.8125rem; color: var(--mm-muted); font-weight: 400; }
     .cat-questions { padding: 0 0 0.25rem 1rem; }
-    .q-details { border-top: 1px solid #f4f4f4; }
+    .q-details { border-top: 1px solid var(--mm-border); }
     .q-summary {
       display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.25rem;
       cursor: pointer; font-size: 0.9rem; list-style: none;
     }
     .q-summary::-webkit-details-marker { display: none; }
-    .q-summary::before { content: "▶"; font-size: 0.5625rem; color: #aaa; transition: transform 0.15s; }
+    .q-summary::before { content: "▶"; font-size: 0.5625rem; color: var(--mm-muted); transition: transform 0.15s; }
     .q-details[open] > .q-summary::before { transform: rotate(90deg); }
-    .q-summary:focus-visible { outline: 2px solid #0d6efd; border-radius: 3px; }
+    .q-summary:focus-visible { outline: 2px solid var(--mm-accent); border-radius: 3px; }
     .q-label { flex: 1; }
-    .q-count { font-size: 0.8125rem; color: #6c757d; white-space: nowrap; }
+    .q-count { font-size: 0.8125rem; color: var(--mm-muted); white-space: nowrap; }
     .q-body { padding: 0 0 0.5rem 1rem; }
     .choices-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-bottom: 0.5rem; }
-    .choices-table th { text-align: left; color: #6c757d; font-weight: 600; font-size: 0.75rem; padding: 4px 8px 4px 0; border-bottom: 1px solid #dee2e6; }
+    .choices-table th { text-align: left; color: var(--mm-muted); font-weight: 600; font-size: 0.75rem; padding: 4px 8px 4px 0; border-bottom: 1px solid var(--mm-border); }
     .choices-table td { padding: 4px 8px 4px 0; vertical-align: top; }
     .q-gallery { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.375rem; }
     .q-gallery-btn {
       border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
     }
-    .q-gallery-btn:focus-visible { outline: 2px solid #0d6efd; }
+    .q-gallery-btn:focus-visible { outline: 2px solid var(--mm-accent); }
     .q-gallery-thumb { width: 56px; height: 56px; object-fit: cover; }
 
     .questions-section { grid-column: 1 / -1; }
     .question-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    .question-table th { text-align: left; color: #6c757d; font-size: 0.75rem; text-transform: uppercase; padding: 0.35rem 0.5rem 0.5rem 0; border-bottom: 1px solid #dee2e6; }
+    .question-table th { text-align: left; color: var(--mm-muted); font-size: 0.75rem; text-transform: uppercase; padding: 0.35rem 0.5rem 0.5rem 0; border-bottom: 1px solid var(--mm-border); }
     .question-table td { padding: 0.35rem 0.5rem 0.35rem 0; vertical-align: middle; }
-    .question-table .question-tag { color: #6c757d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
+    .question-table .question-tag { color: var(--mm-muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
     .question-table .question-count { width: 28%; }
-    .question-table .choice-row td { background: #f8f9fa; font-size: 0.8125rem; }
+    .question-table .choice-row td { background: var(--mm-surface-muted); font-size: 0.8125rem; }
     .question-table .choice-label { padding-left: 1.25rem; }
-    .question-table .choice-value { color: #6c757d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
+    .question-table .choice-value { color: var(--mm-muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
 
     /* --- Photo modal (C14) --- */
     #photo-modal {
@@ -278,6 +355,7 @@
       .cards-grid { grid-template-columns: 1fr; }
       .questions-section { grid-column: auto; }
       .question-table .question-tag { display: none; }
+      .page-header { padding: 1rem; }
     }
   </style>
 </head>
@@ -285,8 +363,20 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="page-header" role="banner">
-    <h1>CTANW Leavenworth Walk/Roll — Contribution Report</h1>
-    <p class="report-subtitle">May 19, 2026 · CTANW Leavenworth Walk/Roll</p>
+    <div class="page-header-content">
+      <h1>CTANW Leavenworth Walk/Roll — Contribution Report</h1>
+      <p class="report-subtitle">May 19, 2026 · CTANW Leavenworth Walk/Roll</p>
+    </div>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">
+      <svg class="theme-icon theme-icon--moon" aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M20.2 15.3A8.5 8.5 0 0 1 8.7 3.8 8.5 8.5 0 1 0 20.2 15.3Z"></path>
+      </svg>
+      <svg class="theme-icon theme-icon--sun" aria-hidden="true" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+      </svg>
+      <span>Dark mode</span>
+    </button>
   </header>
 
   <main id="main-content">
@@ -306,6 +396,13 @@
 
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <select id="map-style" aria-label="Basemap style">
+          <option value="positron" selected>Positron</option>
+          <option value="bright">Bright</option>
+          <option value="liberty">Liberty</option>
+          <option value="dark">Dark</option>
+          <option value="fiord">Fiord</option>
+        </select>
         <button type="button" id="btn-expand" aria-label="Expand map to full screen" aria-expanded="false">
           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M1.5 1h4v1.5H3v2.5H1.5V1zm9 0H15v4h-1.5V2.5H11V1zm-9 9H3v2.5h2.5V14h-4v-4zm11.5 2.5H11V14h4v-4h-1.5v2.5z"/>
@@ -325,9 +422,9 @@
           <table class="breakdown-table" aria-label="Quest types breakdown">
             <thead><tr><th>Category</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
             <tbody>
-            <tr><td>Crossings</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:100.0%"></span><strong class="bar-value">3</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
-            <tr><td>Bus Stops</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:33.33333333333333%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
-            <tr><td>Sidewalks</td><td><div class="bar-cell"><span class="bar-track" style="background:#0d6efd;width:33.33333333333333%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Crossings</td><td><div class="bar-cell"><span class="bar-track" style="background:var(--mm-accent);width:100.0%"></span><strong class="bar-value">3</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Bus Stops</td><td><div class="bar-cell"><span class="bar-track" style="background:var(--mm-accent);width:33.33333333333333%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr><td>Sidewalks</td><td><div class="bar-cell"><span class="bar-track" style="background:var(--mm-accent);width:33.33333333333333%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
             </tbody>
           </table>
           <table class="sr-only">
@@ -508,6 +605,36 @@
     </div>
   </dialog>
 
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var toggle = document.getElementById('theme-toggle');
+      var stylePicker = document.getElementById('map-style');
+      var isDark = root.dataset.theme === 'dark';
+
+      function syncMapStyle(theme) {
+        var preferredStyle = theme === 'dark' ? 'fiord' : 'positron';
+        if (stylePicker.value === preferredStyle) return;
+        stylePicker.value = preferredStyle;
+        stylePicker.dispatchEvent(new Event('change'));
+      }
+
+      toggle.setAttribute('aria-pressed', String(isDark));
+      syncMapStyle(root.dataset.theme);
+
+      toggle.addEventListener('click', function () {
+        var nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = nextTheme;
+        toggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
+        syncMapStyle(nextTheme);
+        try {
+          window.localStorage.setItem('mapping-momentum-theme', nextTheme);
+        } catch (error) {
+          console.warn('Theme preference could not be saved; the change will reset when this report is reloaded.', error);
+        }
+      });
+    }());
+  </script>
   <script>const STATS = {"activity_id":"walkabout","source_type":"workspace","window_start":"2026-05-18T14:00:00+00:00","window_end":"2026-05-20T18:00:00+00:00","changeset_count":5,"contributor_count":2,"contributors_breakdown":[{"user":"Participant 1","count":4,"photo_count":0},{"user":"Participant 2","count":1,"photo_count":0}],"elements_edited":5,"features_created":[],"node_count":1,"note_count":5,"quest_type_breakdown":[{"category":"Crossings","count":3,"photo_count":0},{"category":"Bus Stops","count":1,"photo_count":0},{"category":"Sidewalks","count":1,"photo_count":0}],"questions_answered":[{"category":"Bus Stops","total":8,"questions":[{"tag":"ext:bus_stop_audible_cues","label":"Are audible cues present at the crossing near the stop?","times_answered":1,"choices":[{"value":"no","label":"No","count":1}]},{"tag":"ext:bus_stop_braille_signage","label":"Is Braille or tactile signage present?","times_answered":1,"choices":[{"value":"no","label":"No","count":1}]},{"tag":"ext:bus_stop_cyclist_yielding_cues","label":"In your opinion, are there clear yielding cues for cyclists?","times_answered":1,"choices":[{"value":"no","label":"No","count":1}]},{"tag":"ext:bus_stop_marked_ped_path","label":"Is there a marked pedestrian path to the stop?","times_answered":1,"choices":[{"value":"no","label":"No","count":1}]},{"tag":"ext:bus_stop_signage_readable","label":"Is signage clear and readable from the sidewalk?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:bus_stop_surface_condition","label":"What is the surface condition of the boarding area?","times_answered":1,"choices":[{"value":"good","label":"Good","count":1}]},{"tag":"ext:bus_stop_tactile_guidance","label":"Is tactile guidance present?","times_answered":1,"choices":[{"value":"no","label":"No","count":1}]},{"tag":"ext:bus_stop_wheelchair_turning_space","label":"Is the boarding area size sufficient for wheelchair turning?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]}]},{"category":"Crossings","total":11,"questions":[{"tag":"ext:crossing_audible_signal_present","label":"Is an audible signal present?","times_answered":2,"choices":[{"value":"no","label":"No","count":2}]},{"tag":"ext:crossing_ped_signal_present","label":"Is a pedestrian signal present?","times_answered":2,"choices":[{"value":"no","label":"No","count":2}]},{"tag":"ext:crossing_timing_sufficient","label":"Is the timing sufficient to cross?","times_answered":2,"choices":[{"value":"no","label":"No","count":1},{"value":"unclear","label":"Unclear","count":1}]},{"tag":"ext:crossing_traffic_speed_perception","label":"What is the perceived traffic speed?","times_answered":2,"choices":[{"value":"high","label":"High","count":1},{"value":"medium","label":"Medium","count":1}]},{"tag":"ext:crossing_vehicle_yielding","label":"Does vehicle traffic yield to pedestrians?","times_answered":3,"choices":[{"value":"no","label":"No","count":3}]}]},{"category":"Sidewalks","total":8,"questions":[{"tag":"ext:sidewalk_clear_width_sufficient","label":"Is the clear width sufficient?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_continuity_maintained","label":"Is continuity maintained along the sidewalk?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_continuous","label":"Is the sidewalk continuous?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_cross_slope_acceptability","label":"In your opinion, is the cross-slope acceptable?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_navigation_hazards","label":"Are there hazards users encounter that affect navigation?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_obstruction_type","label":"What type of obstructions are present?","times_answered":1,"choices":[{"value":"permanent","label":"Permanent","count":1}]},{"tag":"ext:sidewalk_vertical_lip","label":"Is there a vertical lip or slope change?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]},{"tag":"ext:sidewalk_wheelchair_navigable","label":"Is there room for wheelchairs to navigate the sidewalk?","times_answered":1,"choices":[{"value":"yes","label":"Yes","count":1}]}]}],"relation_count":0,"way_count":4,"markers":[{"id":3339,"type":"node","kind":"quest","category":"Bus Stops","lat":47.5910427,"lon":-120.6704246,"geom":null,"tags":{"ext:bus_stop_audible_cues":"no","ext:bus_stop_braille_signage":"no","ext:bus_stop_cyclist_yielding_cues":"no","ext:bus_stop_marked_ped_path":"no","ext:bus_stop_signage_readable":"yes","ext:bus_stop_surface_condition":"good","ext:bus_stop_tactile_guidance":"no","ext:bus_stop_wheelchair_turning_space":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:highway":"bus_stop"},"readable":{"ext:bus_stop_audible_cues":"No","ext:bus_stop_braille_signage":"No","ext:bus_stop_cyclist_yielding_cues":"No","ext:bus_stop_marked_ped_path":"No","ext:bus_stop_signage_readable":"Yes","ext:bus_stop_surface_condition":"Good","ext:bus_stop_tactile_guidance":"No","ext:bus_stop_wheelchair_turning_space":"Yes"},"photos":[],"user":"Participant 1","timestamp":"2026-05-19T23:50:55Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-05-19T23:50:55Z","changeset":8,"tags":{"ext:bus_stop_audible_cues":"no","ext:bus_stop_braille_signage":"no","ext:bus_stop_cyclist_yielding_cues":"no","ext:bus_stop_marked_ped_path":"no","ext:bus_stop_signage_readable":"yes","ext:bus_stop_surface_condition":"good","ext:bus_stop_tactile_guidance":"no","ext:bus_stop_wheelchair_turning_space":"yes","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:highway":"bus_stop"},"readable":{"ext:bus_stop_braille_signage":{"old":null,"new":"No"},"ext:bus_stop_surface_condition":{"old":null,"new":"Good"},"ext:bus_stop_tactile_guidance":{"old":null,"new":"No"},"ext:bus_stop_wheelchair_turning_space":{"old":null,"new":"Yes"},"ext:bus_stop_signage_readable":{"old":null,"new":"Yes"},"ext:bus_stop_marked_ped_path":{"old":null,"new":"No"},"ext:bus_stop_cyclist_yielding_cues":{"old":null,"new":"No"},"ext:bus_stop_audible_cues":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":1,"type":"note","kind":"note","category":"","lat":47.5887669,"lon":-120.6722108,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-05-19T23:40:22Z","versions":[],"text":"Raised edge is not a safe environment. "},{"id":2,"type":"note","kind":"note","category":"","lat":47.5890643,"lon":-120.6721152,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-05-19T23:41:52Z","versions":[],"text":"Slight elevation creates difficulty for wheelchair use."},{"id":3,"type":"note","kind":"note","category":"","lat":47.5899832,"lon":-120.6718059,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-05-19T23:44:30Z","versions":[],"text":"Not fun. High sped exposure"},{"id":4,"type":"note","kind":"note","category":"","lat":47.5904215,"lon":-120.6714203,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-05-19T23:46:31Z","versions":[],"text":"Bad surface condition. Assess cross slope and vertical displacement"},{"id":5,"type":"note","kind":"note","category":"","lat":47.5907072,"lon":-120.6709951,"geom":null,"tags":{},"readable":{},"photos":[],"user":"","timestamp":"2026-05-19T23:48:29Z","versions":[],"text":"Crack in sidewalk from tree roots creating uneven surface."},{"id":118,"type":"way","kind":"quest","category":"Crossings","lat":47.59015135,"lon":-120.67167025,"geom":[[47.5901012,-120.6716137],[47.5902015,-120.6717268]],"tags":{"crossing:markings":"no","ext:at_intersection":"675056.3802,5273381.6424","ext:crossing_audible_signal_present":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"unclear","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"2","footway":"crossing","highway":"footway","incline":"0.031","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_ped_signal_present":"No","ext:crossing_timing_sufficient":"Unclear","ext:crossing_traffic_speed_perception":"High","ext:crossing_vehicle_yielding":"No"},"photos":[],"user":"Participant 1","timestamp":"2026-05-19T23:45:30Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-05-19T23:45:30Z","changeset":5,"tags":{"crossing:markings":"no","ext:at_intersection":"675056.3802,5273381.6424","ext:crossing_audible_signal_present":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"unclear","ext:crossing_traffic_speed_perception":"high","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"2","footway":"crossing","highway":"footway","incline":"0.031","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"High"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"No"},"ext:crossing_timing_sufficient":{"old":null,"new":"Unclear"},"ext:crossing_vehicle_yielding":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":119,"type":"way","kind":"quest","category":"Crossings","lat":47.5902705,"lon":-120.67164335000001,"geom":[[47.5902015,-120.6717268],[47.5903395,-120.6715599]],"tags":{"crossing:markings":"no","ext:at_intersection":"675056.3802,5273381.6424","ext:crossing_audible_signal_present":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"2","footway":"crossing","highway":"footway","incline":"-0.02","surface":"asphalt"},"readable":{"ext:crossing_audible_signal_present":"No","ext:crossing_ped_signal_present":"No","ext:crossing_timing_sufficient":"No","ext:crossing_traffic_speed_perception":"Medium","ext:crossing_vehicle_yielding":"No"},"photos":[],"user":"Participant 2","timestamp":"2026-05-19T23:46:28Z","versions":[{"action":"modify","user":"Participant 2","timestamp":"2026-05-19T23:46:28Z","changeset":6,"tags":{"crossing:markings":"no","ext:at_intersection":"675056.3802,5273381.6424","ext:crossing_audible_signal_present":"no","ext:crossing_ped_signal_present":"no","ext:crossing_timing_sufficient":"no","ext:crossing_traffic_speed_perception":"medium","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"2","footway":"crossing","highway":"footway","incline":"-0.02","surface":"asphalt"},"readable":{"ext:crossing_traffic_speed_perception":{"old":null,"new":"Medium"},"ext:crossing_audible_signal_present":{"old":null,"new":"No"},"ext:crossing_ped_signal_present":{"old":null,"new":"No"},"ext:crossing_timing_sufficient":{"old":null,"new":"No"},"ext:crossing_vehicle_yielding":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":120,"type":"way","kind":"quest","category":"Crossings","lat":47.5902785,"lon":-120.67148665,"geom":[[47.5903395,-120.6715599],[47.5902175,-120.6714134]],"tags":{"crossing:markings":"yes","ext:at_intersection":"675056.3802,5273381.6424","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"2","footway":"crossing","highway":"footway","incline":"-0.033","surface":"asphalt"},"readable":{"ext:crossing_vehicle_yielding":"No"},"photos":[],"user":"Participant 1","timestamp":"2026-05-19T23:47:03Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-05-19T23:47:03Z","changeset":7,"tags":{"crossing:markings":"yes","ext:at_intersection":"675056.3802,5273381.6424","ext:crossing_vehicle_yielding":"no","ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"2","footway":"crossing","highway":"footway","incline":"-0.033","surface":"asphalt"},"readable":{"ext:crossing_vehicle_yielding":{"old":null,"new":"No"}},"photos":[]}],"text":""},{"id":467,"type":"way","kind":"quest","category":"Sidewalks","lat":47.58961043,"lon":-120.6725909,"geom":[[47.5900933,-120.6716039],[47.5900899,-120.6716147],[47.5900768,-120.6716409],[47.5898618,-120.6720184],[47.5896438,-120.6724431],[47.5895496,-120.672647],[47.5894014,-120.6729849],[47.5892671,-120.6733094],[47.5890779,-120.6737825],[47.5890427,-120.6738642]],"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"10","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"yes","ext:sidewalk_navigation_hazards_text":"Steep sideways downgrade","ext:sidewalk_obstruction_type":"permanent","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"1.0","footway":"sidewalk","highway":"footway","incline":"0.013","surface":"concrete","width":"3.6"},"readable":{"ext:sidewalk_clear_width_sufficient":"Yes","ext:sidewalk_continuity_maintained":"Yes","ext:sidewalk_continuous":"Yes","ext:sidewalk_cross_slope_acceptability":"Yes","ext:sidewalk_navigation_hazards":"Yes","ext:sidewalk_obstruction_type":"Permanent","ext:sidewalk_vertical_lip":"Yes","ext:sidewalk_wheelchair_navigable":"Yes"},"photos":[],"user":"Participant 1","timestamp":"2026-05-19T23:43:38Z","versions":[{"action":"modify","user":"Participant 1","timestamp":"2026-05-19T23:43:38Z","changeset":4,"tags":{"ext:gig_complete":"yes","ext:gig_last_updated":"2026-05-19Z","ext:osm_version":"10","ext:sidewalk_clear_width_sufficient":"yes","ext:sidewalk_continuity_maintained":"yes","ext:sidewalk_continuous":"yes","ext:sidewalk_cross_slope_acceptability":"yes","ext:sidewalk_navigation_hazards":"yes","ext:sidewalk_navigation_hazards_text":"Steep sideways downgrade","ext:sidewalk_obstruction_type":"permanent","ext:sidewalk_vertical_lip":"yes","ext:sidewalk_wheelchair_navigable":"yes","ext:width_confidence":"1.0","footway":"sidewalk","highway":"footway","incline":"0.013","surface":"concrete","width":"3.6"},"readable":{"ext:sidewalk_clear_width_sufficient":{"old":null,"new":"Yes"},"ext:sidewalk_obstruction_type":{"old":null,"new":"Permanent"},"ext:sidewalk_wheelchair_navigable":{"old":null,"new":"Yes"},"ext:sidewalk_continuity_maintained":{"old":null,"new":"Yes"},"ext:sidewalk_continuous":{"old":null,"new":"Yes"},"ext:sidewalk_cross_slope_acceptability":{"old":null,"new":"Yes"},"ext:sidewalk_navigation_hazards":{"old":null,"new":"Yes"},"ext:sidewalk_vertical_lip":{"old":null,"new":"Yes"}},"photos":[]}],"text":""}],"showcase_photos":[],"pictures":[],"quotes":[],"slideshow_url":null,"slideshow_images":[],"video_url":"","video_embed_url":"","video_kind":""};</script>
 
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
@@ -552,7 +679,15 @@
     // -------------------------------------------------------------------------
     // MAP (C4-C8) — only initialise if MapLibre loaded successfully
     // -------------------------------------------------------------------------
-    var map, activeGeomLayerId = null;
+    var map, activeGeomLayerId = null, activeGeom = null;
+    var stylePicker = document.getElementById('map-style');
+    var OPENFREEMAP_STYLES = {
+      positron: 'https://tiles.openfreemap.org/styles/positron',
+      bright: 'https://tiles.openfreemap.org/styles/bright',
+      liberty: 'https://tiles.openfreemap.org/styles/liberty',
+      dark: 'https://tiles.openfreemap.org/styles/dark',
+      fiord: 'https://tiles.openfreemap.org/styles/fiord'
+    };
 
     if (typeof maplibregl !== 'undefined') {
       // Compute map centre from markers bounding box
@@ -570,13 +705,26 @@
 
       map = new maplibregl.Map({
         container: 'map',
-        style: 'https://tiles.openfreemap.org/styles/liberty',
+        style: OPENFREEMAP_STYLES[stylePicker.value],
         center: mapCenter,
         zoom: mapZoom,
         attributionControl: true,
       });
 
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
+
+      stylePicker.addEventListener('change', function () {
+        var styleUrl = OPENFREEMAP_STYLES[stylePicker.value];
+        if (!styleUrl) {
+          console.error('Unknown OpenFreeMap style:', stylePicker.value);
+          return;
+        }
+        map.setStyle(styleUrl, { diff: false });
+      });
+
+      map.on('style.load', function () {
+        if (activeGeom) addGeomLayer(activeGeom);
+      });
 
       map.on('load', function () {
         markers.forEach(function (m) {
@@ -610,6 +758,8 @@
             .addTo(map);
         });
       });
+    } else {
+      stylePicker.disabled = true;
     }
 
     // Build popup HTML for a marker at a given version index.
@@ -790,6 +940,7 @@
       var coords = geom.map(function (p) { return [p[1], p[0]]; }); // [lon, lat]
       var id = 'mm-active-way';
       activeGeomLayerId = id;
+      activeGeom = geom;
       if (map.getLayer(id)) map.removeLayer(id);
       if (map.getSource(id)) map.removeSource(id);
       map.addSource(id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
@@ -801,6 +952,7 @@
       if (map.getLayer(activeGeomLayerId)) map.removeLayer(activeGeomLayerId);
       if (map.getSource(activeGeomLayerId)) map.removeSource(activeGeomLayerId);
       activeGeomLayerId = null;
+      activeGeom = null;
     }
 
     // Map expand/collapse (accessible button)

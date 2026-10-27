@@ -25,14 +25,14 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from mm.common.io import require_safe_path_component, write_text
 
-# Hatch installs shared data under the interpreter prefix. The repository
-# fallback keeps source-checkout execution convenient.
+# Prefer repository templates in a source checkout; installed distributions
+# use the shared data installed under the interpreter prefix.
 _INSTALLED_TEMPLATE_DIR = Path(sys.prefix) / "templates"
 _SOURCE_TEMPLATE_DIR = Path(__file__).parent.parent.parent / "templates"
 _DEFAULT_TEMPLATE_DIR = (
-    _INSTALLED_TEMPLATE_DIR
-    if (_INSTALLED_TEMPLATE_DIR / "activity_report.html").is_file()
-    else _SOURCE_TEMPLATE_DIR
+    _SOURCE_TEMPLATE_DIR
+    if (_SOURCE_TEMPLATE_DIR / "activity_report.html").is_file()
+    else _INSTALLED_TEMPLATE_DIR
 )
 
 
@@ -49,6 +49,18 @@ def _safe_json(data: Any) -> str:
         .replace("<", "\\u003c")
         .replace(">", "\\u003e")
         .replace("&", "\\u0026")
+    )
+
+
+def _template_environment(template_dir: Path | None) -> Environment:
+    """Create the shared Jinja environment for report templates."""
+    if template_dir is None:
+        template_dir = _DEFAULT_TEMPLATE_DIR
+    return Environment(
+        loader=FileSystemLoader(str(template_dir)),
+        autoescape=select_autoescape(["html"]),
+        trim_blocks=True,
+        lstrip_blocks=True,
     )
 
 
@@ -78,17 +90,7 @@ def render_report(
     str
         Complete HTML document as a UTF-8 string, ready to write to disk.
     """
-    if template_dir is None:
-        template_dir = _DEFAULT_TEMPLATE_DIR
-
-    env = Environment(
-        loader=FileSystemLoader(str(template_dir)),
-        autoescape=select_autoescape(["html"]),
-        trim_blocks=True,
-        lstrip_blocks=True,
-    )
-
-    template = env.get_template("activity_report.html")
+    template = _template_environment(template_dir).get_template("activity_report.html")
 
     # Title / subtitle — prefer event.report overrides, fall back to name/date.
     report_cfg: dict = config.get("report") or {}
@@ -118,6 +120,22 @@ def render_report(
         activity_label=activity_label,
         stats=stats,
         # Inline the full stats as safe JSON for JavaScript consumption.
+        stats_json=_safe_json(stats),
+    )
+
+
+def render_aggregate_report(
+    stats: dict[str, Any],
+    *,
+    template_dir: Path | None = None,
+) -> str:
+    """Render the aggregate contribution summary as a complete HTML document."""
+    template = _template_environment(template_dir).get_template("aggregate_report.html")
+    title = stats.get("title") or "Aggregate Contribution Report"
+    return template.render(
+        page_title=title,
+        title=title,
+        stats=stats,
         stats_json=_safe_json(stats),
     )
 

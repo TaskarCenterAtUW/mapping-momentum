@@ -95,6 +95,15 @@
       background: rgba(255,255,255,0.9); border: 1px solid #ccc; border-radius: 4px;
       width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
+    #map-style {
+      position: absolute; top: 8px; right: 48px; z-index: 10;
+      width: 150px; max-width: calc(100% - 96px); height: 32px;
+      padding: 0 0.5rem; border: 1px solid #ccc; border-radius: 4px;
+      background: rgba(255,255,255,0.95); color: #212529;
+      font: 600 0.8125rem system-ui, -apple-system, sans-serif;
+      cursor: pointer;
+    }
+    #map-style:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
     #btn-expand:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
     #btn-expand svg { fill: #212529; }
 
@@ -380,6 +389,13 @@
 
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <select id="map-style" aria-label="Basemap style">
+          <option value="positron" selected>Positron</option>
+          <option value="bright">Bright</option>
+          <option value="liberty">Liberty</option>
+          <option value="dark">Dark</option>
+          <option value="fiord">Fiord</option>
+        </select>
         <button type="button" id="btn-expand" aria-label="Expand map to full screen" aria-expanded="false">
           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M1.5 1h4v1.5H3v2.5H1.5V1zm9 0H15v4h-1.5V2.5H11V1zm-9 9H3v2.5h2.5V14h-4v-4zm11.5 2.5H11V14h4v-4h-1.5v2.5z"/>
@@ -569,7 +585,15 @@
     // -------------------------------------------------------------------------
     // MAP (C4-C8) — only initialise if MapLibre loaded successfully
     // -------------------------------------------------------------------------
-    var map, activeGeomLayerId = null;
+    var map, activeGeomLayerId = null, activeGeom = null;
+    var stylePicker = document.getElementById('map-style');
+    var OPENFREEMAP_STYLES = {
+      positron: 'https://tiles.openfreemap.org/styles/positron',
+      bright: 'https://tiles.openfreemap.org/styles/bright',
+      liberty: 'https://tiles.openfreemap.org/styles/liberty',
+      dark: 'https://tiles.openfreemap.org/styles/dark',
+      fiord: 'https://tiles.openfreemap.org/styles/fiord'
+    };
 
     if (typeof maplibregl !== 'undefined') {
       // Compute map centre from markers bounding box
@@ -587,13 +611,26 @@
 
       map = new maplibregl.Map({
         container: 'map',
-        style: 'https://tiles.openfreemap.org/styles/liberty',
+        style: OPENFREEMAP_STYLES[stylePicker.value],
         center: mapCenter,
         zoom: mapZoom,
         attributionControl: true,
       });
 
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
+
+      stylePicker.addEventListener('change', function () {
+        var styleUrl = OPENFREEMAP_STYLES[stylePicker.value];
+        if (!styleUrl) {
+          console.error('Unknown OpenFreeMap style:', stylePicker.value);
+          return;
+        }
+        map.setStyle(styleUrl, { diff: false });
+      });
+
+      map.on('style.load', function () {
+        if (activeGeom) addGeomLayer(activeGeom);
+      });
 
       map.on('load', function () {
         markers.forEach(function (m) {
@@ -627,6 +664,8 @@
             .addTo(map);
         });
       });
+    } else {
+      stylePicker.disabled = true;
     }
 
     // Build popup HTML for a marker at a given version index.
@@ -807,6 +846,7 @@
       var coords = geom.map(function (p) { return [p[1], p[0]]; }); // [lon, lat]
       var id = 'mm-active-way';
       activeGeomLayerId = id;
+      activeGeom = geom;
       if (map.getLayer(id)) map.removeLayer(id);
       if (map.getSource(id)) map.removeSource(id);
       map.addSource(id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
@@ -818,6 +858,7 @@
       if (map.getLayer(activeGeomLayerId)) map.removeLayer(activeGeomLayerId);
       if (map.getSource(activeGeomLayerId)) map.removeSource(activeGeomLayerId);
       activeGeomLayerId = null;
+      activeGeom = null;
     }
 
     // Map expand/collapse (accessible button)

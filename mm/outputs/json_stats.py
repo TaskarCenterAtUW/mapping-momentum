@@ -11,10 +11,21 @@ Schema (v1)
 All scalar metric keys from the registered compute functions, plus::
 
     {
+      "event_id": str,              # added by the pipeline
+      "event_name": str,            # added by the pipeline
       "activity_id":  str,
+      "activity_label": str,        # added by the pipeline
       "source_type":  str,
       "window_start": str,            # ISO 8601 UTC
       "window_end":   str,
+      "contributions_by_user": [
+        {
+          "user": str,
+          "quest_answer_count": int,
+          "note_count": int
+        },
+        …
+      ],
       "markers": [                    # one per mappable element
         {
           "id":       int,
@@ -47,8 +58,9 @@ from __future__ import annotations
 import base64
 import importlib
 import inspect
+from collections import Counter
 from pathlib import Path
-from typing import Any
+from typing import Any, TypeGuard
 from urllib.parse import parse_qs, urlparse
 
 from mm.common.io import require_safe_path_component, write_json
@@ -75,6 +87,67 @@ for _metric_module in (
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+
+def _is_element_mapping(value: Any) -> TypeGuard[dict[str, Any]]:
+    """Return whether *value* is an element-like mapping."""
+    return isinstance(value, dict)
+
+
+def _is_element_list(value: Any) -> TypeGuard[list[Any]]:
+    """Return whether *value* is a list of element-like records."""
+    return isinstance(value, list)
+
+
+def _build_contributions_by_user(elements: list[Element]) -> list[dict[str, Any]]:
+    """Count quest-answer changesets and notes for each event contributor."""
+    changesets_by_user: dict[str, set[int | str]] = {}
+    notes_by_user: Counter[str] = Counter()
+
+    for element in elements:
+        if element.get("kind") == "note":
+            user = element.get("user")
+            if isinstance(user, str) and user:
+                notes_by_user[user] += 1
+            continue
+
+        raw_versions = element.get("versions")
+        versions = (
+            raw_versions
+            if _is_element_list(raw_versions) and raw_versions
+            else [element]
+        )
+        for version in versions:
+            if not _is_element_mapping(version):
+                continue
+            user = version.get("user")
+            changeset = version.get("changeset")
+            if (
+                isinstance(user, str)
+                and user
+                and isinstance(changeset, (int, str))
+                and not isinstance(changeset, bool)
+            ):
+                changesets_by_user.setdefault(user, set()).add(changeset)
+
+    users = set(changesets_by_user) | set(notes_by_user)
+    ordered_users = sorted(
+        users,
+        key=lambda user: (
+            -len(changesets_by_user.get(user, set())),
+            -notes_by_user[user],
+            user.casefold(),
+            user,
+        ),
+    )
+    return [
+        {
+            "user": user,
+            "quest_answer_count": len(changesets_by_user.get(user, set())),
+            "note_count": notes_by_user[user],
+        }
+        for user in ordered_users
+    ]
 
 
 def _marker_latlon(elem: Element) -> tuple[float, float] | None:
@@ -353,6 +426,8 @@ def build_stats(
             stats.update(compute_fn(elements, quest_def=quest_def))
         else:
             stats.update(compute_fn(elements))
+
+    stats["contributions_by_user"] = _build_contributions_by_user(elements)
 
     # Map markers — one per element that has a position.
     stats["markers"] = [
