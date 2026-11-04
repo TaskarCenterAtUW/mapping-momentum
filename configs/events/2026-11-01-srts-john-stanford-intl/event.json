@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1",
+  "type": "event",
+  "id": "2026-11-01-srts-john-stanford-intl",
+  "name": "SRTS: John Stanford Int'l (2)",
+  "date": "2026-11-01",
+  "report": {
+    "title": "SRTS: John Stanford Int'l (2) — Contribution Report"
+  },
+  "activities": [
+    {
+      "id": "walkabout",
+      "type": "workspace",
+      "label": "SRTS: John Stanford Int'l (2)",
+      "project_group_id": "fb667b77-9aca-4b92-ac46-1a110fbecf4e",
+      "workspace_id": 2166,
+      "environment": "prod",
+      "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/OpenThePaths%202026/2026-10-29_OpenThePaths_2026.json",
+      "time_window": {
+        "start": "2026-11-01T18:00:00Z",
+        "end": "2026-11-02T02:00:00Z"
+      },
+      "quest_definition_retrieval_date": "2026-11-04T04:28:37Z"
+    }
+  ]
+}
