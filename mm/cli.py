@@ -17,6 +17,7 @@ import warnings
 from pathlib import Path
 
 from mm.config.schema import SLUG_PATTERN
+from mm.outputs.quest_answer_log import QUEST_ANSWER_LOG_FILENAME
 from mm.sources.workspace import authenticate
 
 
@@ -71,6 +72,14 @@ def _build_parser() -> argparse.ArgumentParser:
         "--anonymize",
         action="store_true",
         help="Replace participant names with anonymous labels in report output.",
+    )
+    event_parser.add_argument(
+        "--quest-answer-log",
+        action="store_true",
+        help=(
+            "Write a CSV log of quest-answer changes for each activity. "
+            "No CSV is written with --dry-run."
+        ),
     )
 
     aggregate_parser = subparsers.add_parser(
@@ -225,7 +234,15 @@ def _cmd_event(args: argparse.Namespace) -> int:
     # --render-from-stats: re-render HTML from an existing stats.json
     render_from = getattr(args, "render_from_stats", None)
     anonymize = bool(getattr(args, "anonymize", False))
+    include_quest_answer_log = bool(getattr(args, "quest_answer_log", False))
     if render_from:
+        if include_quest_answer_log:
+            print(
+                "error: --quest-answer-log requires a normal event run and "
+                "cannot be used with --render-from-stats",
+                file=sys.stderr,
+            )
+            return 1
         return _render_from_stats(
             config,
             Path(render_from),
@@ -249,6 +266,7 @@ def _cmd_event(args: argparse.Namespace) -> int:
                 access_token=access_tokens[environment],
                 dry_run=bool(getattr(args, "dry_run", False)),
                 anonymize=anonymize,
+                include_quest_answer_log=include_quest_answer_log,
             )
             if getattr(args, "dry_run", False):
                 print(json.dumps(stats, indent=2, ensure_ascii=False))
@@ -257,6 +275,15 @@ def _cmd_event(args: argparse.Namespace) -> int:
                     "Report written to "
                     f"{output_dir / 'events' / event_id / activity['id']}"
                 )
+                if include_quest_answer_log:
+                    answer_log_path = (
+                        output_dir
+                        / "events"
+                        / event_id
+                        / activity["id"]
+                        / QUEST_ANSWER_LOG_FILENAME
+                    )
+                    print(f"Quest answer log written to {answer_log_path}")
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

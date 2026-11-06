@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.4.0] - 2026-11-04
+
+### Added
+
+- Added opt-in `event --quest-answer-log` CSV export with per-answer question, answer, submitter, timestamp, changeset, and feature metadata.
+
 ## [1.3.0] - 2026-10-26
 
 ### Added
