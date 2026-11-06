@@ -380,9 +380,7 @@ def aggregate_reports(
                 )
         attributed_notes = sum(item["note_count"] for item in user_contributions)
         if attributed_notes > notes:
-            raise ValueError(
-                f"{stats_path}: contributor note totals exceed note_count"
-            )
+            raise ValueError(f"{stats_path}: contributor note totals exceed note_count")
         unattributed_notes = notes - attributed_notes
         events.append(
             {

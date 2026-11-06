@@ -314,9 +314,7 @@ def test_aggregate_reports_uses_legacy_histories_when_stored_total_is_lower(
     )
     stats.pop("contributions_by_user")
     stats["contributor_count"] = 1
-    stats["contributors_breakdown"] = [
-        {"user": "alice", "count": 1, "photo_count": 0}
-    ]
+    stats["contributors_breakdown"] = [{"user": "alice", "count": 1, "photo_count": 0}]
     stats["markers"] = [
         {
             "kind": "quest",
@@ -353,9 +351,7 @@ def test_aggregate_reports_preserves_notes_without_legacy_authors(
     )
     stats.pop("contributions_by_user")
     stats["contributor_count"] = 1
-    stats["contributors_breakdown"] = [
-        {"user": "alice", "count": 1, "photo_count": 0}
-    ]
+    stats["contributors_breakdown"] = [{"user": "alice", "count": 1, "photo_count": 0}]
     stats["markers"] = [
         {
             "kind": "quest",
@@ -390,9 +386,7 @@ def test_aggregate_report_places_map_before_contributors_and_syncs_theme(
         start="2026-01-20T00:00:00+00:00",
         quest_answers=1,
         notes=0,
-        contributions=[
-            {"user": "alice", "quest_answer_count": 1, "note_count": 0}
-        ],
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
     )
     stats_path = _write_report(tmp_path / "layout", stats)
     html = render_aggregate_report(aggregate_reports([stats_path]))
