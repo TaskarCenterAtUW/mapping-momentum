@@ -19,9 +19,10 @@ def _is_report_list(value: Any) -> TypeGuard[list[Any]]:
 def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
     """Return report stats with participant names replaced by stable labels.
 
-    Contributor usernames, marker authors and edit histories, and quote
-    attributions share labels in the order they first appear. Known names are
-    also replaced at whole-word boundaries in note and quote text.
+    Contributor usernames, marker authors and edit histories, quote
+    attributions, and quest-answer-log submitters share labels in the order
+    they first appear. Known names are also replaced at whole-word boundaries
+    in note, quote, and quest-answer text.
     """
     labels: dict[str, str] = {}
     used_numbers: set[int] = set()
@@ -67,6 +68,7 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
     contributions_by_user = stats.get("contributions_by_user")
     markers = stats.get("markers")
     quotes = stats.get("quotes")
+    quest_answer_log = stats.get("quest_answer_log")
 
     if _is_report_list(contributors):
         for contributor in contributors:
@@ -93,6 +95,11 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
         for quote in quotes:
             if _is_report_object(quote):
                 label_for(quote_name(quote))
+
+    if _is_report_list(quest_answer_log):
+        for row in quest_answer_log:
+            if _is_report_object(row):
+                label_for(row.get("submitted_by"))
 
     text_names = sorted(
         ((name, label) for name, label in labels.items() if name != label),
@@ -189,6 +196,26 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
                 if field in item:
                     item[field] = replace_known_names(item[field])
             anonymized_quotes.append(item)
+
+    if _is_report_list(quest_answer_log):
+        anonymized_log: list[Any] = []
+        anonymized["quest_answer_log"] = anonymized_log
+        for row in quest_answer_log:
+            if not _is_report_object(row):
+                anonymized_log.append(row)
+                continue
+            item = dict(row)
+            if "submitted_by" in item:
+                item["submitted_by"] = label_for(item["submitted_by"])
+            for field in (
+                "previous_answer",
+                "previous_answer_value_json",
+                "answer",
+                "answer_value_json",
+            ):
+                if field in item:
+                    item[field] = replace_known_names(item[field])
+            anonymized_log.append(item)
 
     anonymized["anonymized"] = True
     return anonymized

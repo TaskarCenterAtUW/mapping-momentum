@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from mm import pipeline
+from mm.quests.loader import QuestDefinition
 
 
 def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) -> None:
@@ -28,7 +29,11 @@ def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) ->
             "end": "2026-01-21T04:00:00Z",
         },
     }
-    monkeypatch.setattr(pipeline, "load_quest_definition", lambda _path: object())
+    monkeypatch.setattr(
+        pipeline,
+        "load_quest_definition",
+        lambda _path: QuestDefinition({}, {}, {}),
+    )
     request_calls = []
 
     def fake_bbox(env: str, workspace_id: int, token: str) -> tuple[float, ...]:
@@ -86,6 +91,7 @@ def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) ->
         output_dir=tmp_path / "output",
         access_token="stage-access-token",
         anonymize=True,
+        include_quest_answer_log=True,
     )
 
     assert stats["contributors_breakdown"][0]["user"] == "Participant 1"
@@ -96,6 +102,9 @@ def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) ->
     output_dir = tmp_path / "output" / "events" / "sample-event" / "walkabout"
     saved_stats = output_dir / "stats.json"
     saved_html = output_dir / "index.html"
+    saved_answer_log = output_dir / "quest-answer-log.csv"
+    assert saved_answer_log.is_file()
+    assert "question" in saved_answer_log.read_text(encoding="utf-8").splitlines()[0]
     assert "alice" not in saved_stats.read_text(encoding="utf-8")
     assert "Participant 1" in saved_html.read_text(encoding="utf-8")
     assert request_calls == [

@@ -360,6 +360,13 @@ def test_anonymize_stats_redacts_names_consistently_without_mutating_input() -> 
                 "versions": [{"user": "bob"}, {"user": "carol"}],
             }
         ],
+        "quest_answer_log": [
+            {
+                "submitted_by": "alice",
+                "answer": "Alice reported a crack.",
+                "answer_value_json": json.dumps("Alice reported a crack."),
+            }
+        ],
         "quotes": [
             {
                 "text": "Dana Reader volunteered.",
@@ -381,11 +388,20 @@ def test_anonymize_stats_redacts_names_consistently_without_mutating_input() -> 
         {"user": "Participant 3"},
     ]
     assert anonymized["markers"][0]["text"] == "Participant 1 added a note."
+    assert anonymized["quest_answer_log"][0]["submitted_by"] == "Participant 1"
+    assert anonymized["quest_answer_log"][0]["answer"] == (
+        "Participant 1 reported a crack."
+    )
+    assert (
+        json.loads(anonymized["quest_answer_log"][0]["answer_value_json"])
+        == "Participant 1 reported a crack."
+    )
     assert anonymized["quotes"][0]["first_name"] == "Participant 4"
     assert anonymized["quotes"][0]["last_name"] == ""
     assert anonymized["quotes"][0]["text"] == "Participant 4 volunteered."
     assert stats["contributors_breakdown"][0]["user"] == "alice"
     assert stats["markers"][0]["user"] == "alice"
+    assert stats["quest_answer_log"][0]["submitted_by"] == "alice"
     assert anonymize_stats(anonymized) == anonymized
 
 

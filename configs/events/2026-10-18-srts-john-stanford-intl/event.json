@@ -5,13 +5,13 @@
     "name": "SRTS: John Stanford Int'l",
     "date": "2026-10-18",
     "report": {
-        "title": "SRTS: John Stanford Int'l — Contribution Report"
+        "title": "SRTS: John Stanford Int'l (1) — Contribution Report"
     },
     "activities": [
         {
             "id": "walkabout",
             "type": "workspace",
-            "label": "SRTS: John Stanford Int'l",
+            "label": "SRTS: John Stanford Int'l (1)",
             "project_group_id": "fb667b77-9aca-4b92-ac46-1a110fbecf4e",
             "workspace_id": 2166,
             "environment": "prod",

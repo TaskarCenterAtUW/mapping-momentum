@@ -69,6 +69,16 @@ Run these commands from the repository root after completing Setup. The packaged
 
 Use `--dry-run` with the `event` command to print stats without writing report files.
 
+Add `--quest-answer-log` to write a `quest-answer-log.csv` beside each activity's
+`stats.json` and `index.html`:
+
+```powershell
+mapping-momentum event --config configs/events/2026-01-20-nda-vancouver `
+    --output-dir local-output --quest-answer-log
+```
+
+The CSV records each changed quest tag as a row, including its human-readable question and answer, raw tag values, previous answer, submitter, submission time, changeset, OSM element, event, activity, and workspace. It includes choice-based and free-text questions, and records cleared answers with the previous value. Raw tag values are retained in JSON-encoded columns, and formula-like text cells are escaped for safe spreadsheet opening. `--dry-run` suppresses CSV output. When used with `--anonymize`, submitter names and known names in answer text are replaced with participant labels. The flag cannot be combined with `--render-from-stats`, which does not fetch the complete Workspace version history.
+
 Add `--anonymize` (or `-a`) to replace contributor names, map edit-history authors, and quote attributions with labels such as `Participant 1`. The anonymized values are used in both `stats.json` and `index.html`, including `--dry-run` output. Known names are also replaced at whole-word boundaries in note and quote text. When used with `--render-from-stats`, a sanitized copy of `stats.json` and the anonymized HTML are written to the output directory; the input stats file is left unchanged unless it is itself the output file. Review other identifying details in free-form content and images before publication; the option cannot infer names that are not present in structured contributor or quote attribution data.
 
 ### Aggregate reports

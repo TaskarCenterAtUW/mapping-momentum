@@ -9,6 +9,10 @@ from typing import Any
 from mm.outputs.anonymize import anonymize_stats
 from mm.outputs.html_report import render_report, write_report
 from mm.outputs.json_stats import build_stats, write_stats
+from mm.outputs.quest_answer_log import (
+    build_quest_answer_log_rows,
+    write_quest_answer_log,
+)
 from mm.quests.loader import load_quest_definition
 from mm.sources.base import SourceResult
 from mm.sources.workspace import (
@@ -56,6 +60,7 @@ def run_activity(
     access_token: str,
     dry_run: bool = False,
     anonymize: bool = False,
+    include_quest_answer_log: bool = False,
 ) -> dict[str, Any]:
     """Fetch, enrich, measure, and optionally write one activity report.
 
@@ -135,10 +140,28 @@ def run_activity(
     stats["event_id"] = config["id"]
     stats["event_name"] = config.get("name") or config["id"]
     stats["activity_label"] = activity.get("label") or activity_id
+    if include_quest_answer_log and not dry_run:
+        stats["quest_answer_log"] = build_quest_answer_log_rows(
+            histories,
+            quest_def,
+            event_id=config["id"],
+            event_name=stats["event_name"],
+            activity_id=activity_id,
+            activity_label=stats["activity_label"],
+            workspace_id=workspace_id,
+        )
     if anonymize:
         stats = anonymize_stats(stats)
+    answer_log_rows = stats.pop("quest_answer_log", [])
     if not dry_run:
         event_id = config["id"]
+        if include_quest_answer_log:
+            write_quest_answer_log(
+                answer_log_rows,
+                output_dir,
+                event_id,
+                activity_id,
+            )
         write_stats(stats, output_dir, event_id, activity["id"])
         write_report(
             render_report(stats, config, activity),

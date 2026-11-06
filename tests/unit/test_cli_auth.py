@@ -212,6 +212,7 @@ def test_event_command_authenticates_once_per_environment(
                     activity["id"],
                     kwargs["access_token"],
                     kwargs["anonymize"],
+                    kwargs["include_quest_answer_log"],
                 )
             )
             or {"activity_id": activity["id"]}
@@ -225,6 +226,7 @@ def test_event_command_authenticates_once_per_environment(
             render_from_stats=None,
             dry_run=True,
             anonymize=True,
+            quest_answer_log=True,
         )
     )
 
@@ -232,9 +234,47 @@ def test_event_command_authenticates_once_per_environment(
     assert result == 0
     assert prompts == ["prod"]
     assert runs == [
-        ("walkabout", "prod-token", True),
-        ("rollabout", "prod-token", True),
+        ("walkabout", "prod-token", True, True),
+        ("rollabout", "prod-token", True, True),
     ]
+
+
+def test_event_parser_accepts_quest_answer_log_flag() -> None:
+    """Keep the answer-log export opt-in on the event command."""
+    args = cli._build_parser().parse_args(
+        ["event", "--config", "event.json", "--quest-answer-log"]
+    )
+    assert args.quest_answer_log is True
+
+    default_args = cli._build_parser().parse_args(["event", "--config", "event.json"])
+    assert default_args.quest_answer_log is False
+
+
+def test_event_command_rejects_answer_log_with_render_from_stats(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Avoid silently omitting the log when only rendering saved stats."""
+    event_path = tmp_path / "event.json"
+    event_path.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        "mm.config.loader.load_event_config",
+        lambda _path: {"id": "sample-event", "activities": []},
+    )
+
+    result = cli._cmd_event(
+        argparse.Namespace(
+            config=event_path,
+            output_dir=tmp_path / "output",
+            render_from_stats=tmp_path / "stats.json",
+            anonymize=False,
+            quest_answer_log=True,
+        )
+    )
+
+    assert result == 1
+    assert "--quest-answer-log" in capsys.readouterr().err
 
 
 def test_event_parser_accepts_anonymize_flag() -> None:
