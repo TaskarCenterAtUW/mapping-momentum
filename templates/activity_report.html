@@ -206,7 +206,12 @@
     }
     .mm-popup-nav:disabled { opacity: 0.4; cursor: default; }
     .mm-popup-nav:focus-visible { outline: 2px solid var(--mm-accent); }
-    .mm-popup-meta { padding: 0.375rem 0.75rem; color: var(--mm-muted); font-size: 0.75rem; }
+    .mm-popup-element { margin-left: auto; color: var(--mm-muted); font-size: 0.7rem; }
+    .mm-popup-meta {
+      display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem;
+      padding: 0.375rem 0.75rem; color: var(--mm-muted); font-size: 0.75rem;
+    }
+    .mm-popup-meta strong { color: var(--mm-text); }
     .mm-popup-toggle-row { display: flex; gap: 4px; padding: 0.375rem 0.75rem; }
     .mm-popup-view-btn {
       border: 1px solid var(--mm-border); background: var(--mm-surface); color: var(--mm-text); border-radius: 4px;
@@ -230,16 +235,6 @@
     .mm-popup-photo-btn:focus-visible { outline: 2px solid var(--mm-accent); }
     .mm-popup-photo-thumb { width: 64px; height: 64px; object-fit: cover; }
     .mm-no-data-popup { padding: 0.5rem 0.75rem; color: var(--mm-muted); }
-
-    /* Marker elements */
-    .mm-marker {
-      width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.7);
-      cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.35);
-    }
-    .mm-marker--note {
-      border-radius: 3px; /* square for notes — shape provides non-color distinction (V2) */
-    }
-    .mm-marker:focus-visible { outline: 3px solid var(--mm-surface); outline-offset: 2px; box-shadow: 0 0 0 5px rgba(0,0,0,0.4); }
 
     /* --- Cards (C10-C12) --- */
     .cards-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
@@ -320,6 +315,8 @@
 
     /* --- Photo modal (C14) --- */
     #photo-modal {
+      position: fixed; inset: 50% auto auto 50%; margin: 0;
+      transform: translate(-50%, -50%);
       border: none; border-radius: 10px; padding: 0; background: #000;
       max-width: min(92vw, 900px); max-height: 90vh; overflow: hidden;
       box-shadow: 0 8px 40px rgba(0,0,0,0.6);
@@ -338,9 +335,15 @@
     .modal-prev-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
     .modal-next-wrap { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
     .modal-close-wrap {
-      grid-column: 1/-1; display: flex; align-items: center; justify-content: flex-end;
+      grid-column: 1/-1; display: flex; align-items: center; justify-content: space-between;
       padding: 0.5rem;
     }
+    .modal-image-link,
+    .modal-image-link:visited {
+      color: #b6d6ff; font-size: 0.8125rem; text-underline-offset: 2px;
+    }
+    .modal-image-link:hover { color: #fff; }
+    .modal-image-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
     .modal-btn {
       border: none; background: rgba(255,255,255,0.15); color: #fff;
       border-radius: 6px; cursor: pointer; width: 32px; height: 32px;
@@ -480,6 +483,7 @@
       {# C4-C8: MapLibre map #}
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <div id="map-marker-controls" class="sr-only" role="group" aria-label="Mapping activity locations"></div>
         <select id="map-style" aria-label="Basemap style">
           <option value="positron" selected>Positron</option>
           <option value="bright">Bright</option>
@@ -636,6 +640,7 @@
   <dialog id="photo-modal" aria-label="Photo gallery">
     <div class="modal-inner">
       <div class="modal-close-wrap">
+        <a id="modal-image-link" class="modal-image-link" href="" target="_blank" rel="noopener noreferrer">Open full-size image in new tab</a>
         <button type="button" id="modal-close" class="modal-btn" aria-label="Close photo gallery">&times;</button>
       </div>
       <div class="modal-img-wrap">
@@ -731,6 +736,14 @@
     // MAP (C4-C8) — only initialise if MapLibre loaded successfully
     // -------------------------------------------------------------------------
     var map, activeGeomLayerId = null, activeGeom = null;
+    var activeMarkerPopup = null;
+    var markerSourceId = 'mm-interactive-markers';
+    var questMarkerLayerId = 'mm-interactive-quest-markers';
+    var noteMarkerLayerId = 'mm-interactive-note-markers';
+    var noteHighlightLayerId = 'mm-interactive-note-highlight';
+    var hoveredMarkerFeatureId = null;
+    var focusedMarkerFeatureId = null;
+    var markerControlsCreated = false;
     var stylePicker = document.getElementById('map-style');
     var OPENFREEMAP_STYLES = {
       positron: 'https://tiles.openfreemap.org/styles/positron',
@@ -740,9 +753,216 @@
       fiord: 'https://tiles.openfreemap.org/styles/fiord'
     };
 
+    function createMarkerFeatureCollection(markers) {
+      return {
+        type: 'FeatureCollection',
+        features: markers.map(function (marker, index) {
+          return {
+            type: 'Feature',
+            id: index,
+            geometry: {
+              type: 'Point',
+              coordinates: [marker.lon, marker.lat]
+            },
+            properties: {
+              markerIndex: index,
+              kind: marker.kind === 'note' ? 'note' : 'quest',
+              color: marker.kind === 'note' ? '#6c757d' : categoryColor(marker.category)
+            }
+          };
+        })
+      };
+    }
+
+    function createNoteMarkerIcon() {
+      var canvas = document.createElement('canvas');
+      canvas.width = 28;
+      canvas.height = 28;
+      var context = canvas.getContext('2d');
+      if (!context) return null;
+
+      context.fillStyle = 'rgba(255,255,255,0.7)';
+      context.fillRect(0, 0, 28, 28);
+      context.fillStyle = '#6c757d';
+      context.fillRect(4, 4, 20, 20);
+      var image = context.getImageData(0, 0, canvas.width, canvas.height);
+      return { width: image.width, height: image.height, data: image.data };
+    }
+
+    function markerIsHighlighted() {
+      return [
+        'any',
+        ['boolean', ['feature-state', 'hover'], false],
+        ['boolean', ['feature-state', 'focused'], false]
+      ];
+    }
+
+    function addMarkerLayers(markerFeatures) {
+      if (!map.getSource(markerSourceId)) {
+        map.addSource(markerSourceId, {
+          type: 'geojson',
+          data: markerFeatures
+        });
+      }
+
+      var highlightColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--mm-accent').trim() || '#4b2e83';
+
+      if (!map.getLayer(questMarkerLayerId)) {
+        map.addLayer({
+          id: questMarkerLayerId,
+          type: 'circle',
+          source: markerSourceId,
+          filter: ['!=', ['get', 'kind'], 'note'],
+          paint: {
+            'circle-color': ['get', 'color'],
+            'circle-radius': ['case', markerIsHighlighted(), 8, 6],
+            'circle-stroke-color': [
+              'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.7)'
+            ],
+            'circle-stroke-width': ['case', markerIsHighlighted(), 3, 2]
+          }
+        });
+      }
+
+      if (!map.getLayer(noteHighlightLayerId)) {
+        map.addLayer({
+          id: noteHighlightLayerId,
+          type: 'circle',
+          source: markerSourceId,
+          filter: ['==', ['get', 'kind'], 'note'],
+          paint: {
+            'circle-color': 'rgba(0,0,0,0)',
+            'circle-radius': 8,
+            'circle-stroke-color': highlightColor,
+            'circle-stroke-width': ['case', markerIsHighlighted(), 2, 0]
+          }
+        });
+      }
+
+      if (!map.hasImage('mm-note-marker-icon')) {
+        var noteIcon = createNoteMarkerIcon();
+        if (noteIcon) map.addImage('mm-note-marker-icon', noteIcon, { pixelRatio: 2 });
+      }
+
+      if (!map.getLayer(noteMarkerLayerId)) {
+        map.addLayer({
+          id: noteMarkerLayerId,
+          type: 'symbol',
+          source: markerSourceId,
+          filter: ['==', ['get', 'kind'], 'note'],
+          layout: {
+            'icon-image': 'mm-note-marker-icon',
+            'icon-size': 1,
+            'icon-anchor': 'center',
+            'icon-allow-overlap': true,
+            'icon-ignore-placement': true
+          }
+        });
+      }
+
+      if (hoveredMarkerFeatureId !== null) {
+        map.setFeatureState(
+          { source: markerSourceId, id: hoveredMarkerFeatureId },
+          { hover: true }
+        );
+      }
+      if (focusedMarkerFeatureId !== null) {
+        map.setFeatureState(
+          { source: markerSourceId, id: focusedMarkerFeatureId },
+          { focused: true }
+        );
+      }
+    }
+
+    function markerFeatureAt(point) {
+      var layers = [];
+      if (map.getLayer(questMarkerLayerId)) layers.push(questMarkerLayerId);
+      if (map.getLayer(noteMarkerLayerId)) layers.push(noteMarkerLayerId);
+      if (layers.length === 0) return null;
+      var features = map.queryRenderedFeatures(point, { layers: layers });
+      return features.length > 0 ? features[0] : null;
+    }
+
+    function setMarkerFeatureState(featureId, stateName, enabled) {
+      if (featureId === null || featureId === undefined || !map.getSource(markerSourceId)) return;
+      var state = {};
+      state[stateName] = enabled;
+      map.setFeatureState({ source: markerSourceId, id: featureId }, state);
+    }
+
+    function updateHoveredMarker(featureId) {
+      if (hoveredMarkerFeatureId === featureId) return;
+      setMarkerFeatureState(hoveredMarkerFeatureId, 'hover', false);
+      hoveredMarkerFeatureId = featureId;
+      setMarkerFeatureState(hoveredMarkerFeatureId, 'hover', true);
+    }
+
+    function updateFocusedMarker(featureId) {
+      if (focusedMarkerFeatureId === featureId) return;
+      setMarkerFeatureState(focusedMarkerFeatureId, 'focused', false);
+      focusedMarkerFeatureId = featureId;
+      setMarkerFeatureState(focusedMarkerFeatureId, 'focused', true);
+    }
+
+    function markerAriaLabel(marker) {
+      var versions = marker.versions || [];
+      var latestUser = versions.length > 0
+        ? versions[versions.length - 1].user
+        : (marker.user || 'unknown');
+      return 'View changes for ' + (marker.type || 'element') + ' ' + marker.id + ': ' +
+        (marker.kind === 'note' ? 'Note' : (marker.category || marker.kind)) +
+        ' by ' + latestUser;
+    }
+
+    function createMarkerControls(markers) {
+      if (markerControlsCreated) return;
+      var controls = document.getElementById('map-marker-controls');
+      if (!controls) return;
+      markerControlsCreated = true;
+
+      markers.forEach(function (marker, index) {
+        var control = document.createElement('button');
+        control.type = 'button';
+        control.setAttribute('aria-label', markerAriaLabel(marker));
+        control.title = 'View changes for ' + (marker.type || 'element') + ' ' + marker.id;
+        control.addEventListener('focus', function () {
+          updateFocusedMarker(index);
+          map.easeTo({ center: [marker.lon, marker.lat], duration: 250 });
+        });
+        control.addEventListener('blur', function () {
+          if (focusedMarkerFeatureId === index) updateFocusedMarker(null);
+        });
+        control.addEventListener('click', function () {
+          openMarkerPopup(marker);
+        });
+        controls.appendChild(control);
+      });
+    }
+
+    function openMarkerPopup(marker) {
+      removeGeomLayer();
+      if (activeMarkerPopup) activeMarkerPopup.remove();
+
+      var popup = new maplibregl.Popup({ closeButton: true, maxWidth: '360px', offset: 8 });
+      activeMarkerPopup = popup;
+      popup.on('close', function () {
+        if (activeMarkerPopup === popup) activeMarkerPopup = null;
+        removeGeomLayer();
+      });
+      popup.setLngLat([marker.lon, marker.lat])
+        .setHTML(buildPopupHTML(marker, 0))
+        .addTo(map);
+      attachPopupListeners(popup, marker);
+      if (marker.geom && marker.geom.length > 1) addGeomLayer(marker.geom);
+    }
+
     if (typeof maplibregl !== 'undefined') {
       // Compute map centre from markers bounding box
-      var markers = STATS.markers || [];
+      var markers = (STATS.markers || []).filter(function (marker) {
+        return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
+      });
+      var markerFeatures = createMarkerFeatureCollection(markers);
       var mapCenter = [-98.35, 39.50], mapZoom = 3;
       if (markers.length > 0) {
         var lons = markers.map(function(m){ return m.lon; });
@@ -774,40 +994,27 @@
       });
 
       map.on('style.load', function () {
+        addMarkerLayers(markerFeatures);
+        createMarkerControls(markers);
         if (activeGeom) addGeomLayer(activeGeom);
       });
 
-      map.on('load', function () {
-        markers.forEach(function (m) {
-          var el = document.createElement('div');
-          el.className = 'mm-marker mm-marker--' + m.kind;
-          el.style.background = m.kind === 'note' ? '#6c757d' : categoryColor(m.category);
-          el.setAttribute('tabindex', '0');
-          el.setAttribute('role', 'button');
-          el.setAttribute('aria-label',
-            (m.kind === 'note' ? 'Note' : (m.category || m.kind)) +
-            ' by ' + (m.versions.length > 0 ? m.versions[m.versions.length-1].user : (m.user || 'unknown'))
-          );
+      map.on('mousemove', function (event) {
+        var feature = markerFeatureAt(event.point);
+        updateHoveredMarker(feature ? feature.id : null);
+        map.getCanvas().style.cursor = feature ? 'pointer' : '';
+      });
 
-          var popup = new maplibregl.Popup({ closeButton: true, maxWidth: '360px', offset: 8 });
+      map.on('mouseleave', function () {
+        updateHoveredMarker(null);
+        map.getCanvas().style.cursor = '';
+      });
 
-          function openMarkerPopup() {
-            removeGeomLayer();
-            popup.setLngLat([m.lon, m.lat]).setHTML(buildPopupHTML(m, 0)).addTo(map);
-            attachPopupListeners(popup, m);
-            if (m.geom && m.geom.length > 1) addGeomLayer(m.geom);
-          }
-
-          el.addEventListener('click', openMarkerPopup);
-          el.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMarkerPopup(); }
-          });
-          popup.on('close', removeGeomLayer);
-
-          new maplibregl.Marker({ element: el })
-            .setLngLat([m.lon, m.lat])
-            .addTo(map);
-        });
+      map.on('click', function (event) {
+        var feature = markerFeatureAt(event.point);
+        if (!feature) return;
+        var marker = markers[Number(feature.properties.markerIndex)];
+        if (marker) openMarkerPopup(marker);
       });
     } else {
       stylePicker.disabled = true;
@@ -835,6 +1042,8 @@
       html += '<div class="mm-popup-header">';
       html += '<span class="mm-popup-kind mm-popup-kind--' + m.kind + '">' + esc(m.kind) + '</span>';
       if (m.category) html += ' <span class="mm-popup-category">' + esc(m.category) + '</span>';
+      if (m.type && m.id !== undefined && m.id !== null)
+        html += '<span class="mm-popup-element">' + esc(m.type) + ' #' + esc(m.id) + '</span>';
       html += '</div>';
 
       // Version pager (C6)
@@ -847,18 +1056,30 @@
       }
 
       if (v) {
-        // User / timestamp / action
-        html += '<div class="mm-popup-meta">' +
-          esc(v.user) + ' &middot; ' +
-          esc((v.timestamp || '').replace('T',' ').replace('Z',' UTC')) + ' &middot; ' +
-          '<em>' + esc(v.action) + '</em>' +
-          '</div>';
+        html += '<div class="mm-popup-meta">';
+        html += '<span><strong>Submitted by:</strong> ' +
+          esc(v.user || 'Unknown contributor') + '</span>';
+        if (v.timestamp) {
+          html += '<span><strong>Edited:</strong> ' +
+            esc(v.timestamp.replace('T', ' ').replace('Z', ' UTC')) + '</span>';
+        }
+        if (v.action) {
+          html += '<span><strong>Action:</strong> ' + esc(v.action) + '</span>';
+        }
+        if (v.changeset) {
+          html += '<span><strong>Changeset:</strong> #' + esc(v.changeset) + '</span>';
+        }
+        html += '</div>';
 
         var readableKeys = Object.keys(m.readable || {});
-        if (readableKeys.length > 0) {
+        var hasReadableHistory = versions.some(function (version) {
+          return Object.keys(version.readable || {}).length > 0;
+        });
+        if (readableKeys.length > 0 || hasReadableHistory) {
           // Quest ⇆ Tags toggle (C7)
           html += '<div class="mm-popup-toggle-row" role="group" aria-label="View toggle">';
           html += '<button type="button" class="mm-popup-view-btn" data-view="quest" aria-pressed="true">Quest</button>';
+          html += '<button type="button" class="mm-popup-view-btn" data-view="diff" aria-pressed="false">Tag diff</button>';
           html += '<button type="button" class="mm-popup-view-btn" data-view="tags" aria-pressed="false">Tags</button>';
           html += '</div>';
 
@@ -902,16 +1123,37 @@
           }
           html += '</div>';
 
+          if (versions.length > 0) {
+            html += '<div class="mm-popup-tags mm-popup-tags--diff" hidden>' +
+              buildTagDiffHTML(versions, vIdx) + '</div>';
+          }
+
         } else {
-          // No quest tags — show raw tags only
+          // Non-quest elements show raw tags by default, with an optional diff.
           var rawTags2 = v.tags || {};
           var rawKeys2 = Object.keys(rawTags2);
-          if (rawKeys2.length > 0) {
-            html += '<div class="mm-popup-tags"><dl>';
-            rawKeys2.forEach(function (k) {
-              html += '<dt>' + esc(k) + '</dt><dd>' + esc(rawTags2[k]) + '</dd>';
-            });
-            html += '</dl></div>';
+
+          if (versions.length > 0) {
+            html += '<div class="mm-popup-toggle-row" role="group" aria-label="View toggle">';
+            html += '<button type="button" class="mm-popup-view-btn" data-view="diff" aria-pressed="false">Tag diff</button>';
+            html += '<button type="button" class="mm-popup-view-btn" data-view="tags" aria-pressed="true">Tags</button>';
+            html += '</div>';
+            html += '<div class="mm-popup-tags mm-popup-tags--diff" hidden>' +
+              buildTagDiffHTML(versions, vIdx) + '</div>';
+          }
+
+          if (versions.length > 0 || rawKeys2.length > 0) {
+            html += '<div class="mm-popup-tags mm-popup-tags--raw">';
+            if (rawKeys2.length > 0) {
+              html += '<dl>';
+              rawKeys2.forEach(function (k) {
+                html += '<dt>' + esc(k) + '</dt><dd>' + esc(rawTags2[k]) + '</dd>';
+              });
+              html += '</dl>';
+            } else {
+              html += '<p class="mm-no-data-popup">No tags</p>';
+            }
+            html += '</div>';
           }
         }
 
@@ -939,6 +1181,46 @@
 
       html += '</div>'; // .mm-popup
       return html;
+    }
+
+    function buildTagDiffHTML(versions, versionIndex) {
+      var version = versions[versionIndex];
+      if (!version) return '<p class="mm-no-data-popup">No tag history available.</p>';
+      if (versionIndex === 0 && version.action !== 'create') {
+        return '<p class="mm-no-data-popup">Previous tags are unavailable for this first change in the report window.</p>';
+      }
+
+      var oldTags = versionIndex > 0 ? (versions[versionIndex - 1].tags || {}) : {};
+      var newTags = version.tags || {};
+      var hasOwn = Object.prototype.hasOwnProperty;
+      var keys = Object.keys(oldTags);
+      Object.keys(newTags).forEach(function (key) {
+        if (!hasOwn.call(oldTags, key)) keys.push(key);
+      });
+      keys.sort();
+
+      var changedKeys = keys.filter(function (key) {
+        var hadValue = hasOwn.call(oldTags, key);
+        var hasValue = hasOwn.call(newTags, key);
+        return !hadValue || !hasValue || oldTags[key] !== newTags[key];
+      });
+      if (changedKeys.length === 0) {
+        return '<p class="mm-no-data-popup">No tag changes in this version.</p>';
+      }
+
+      var html = '<dl>';
+      changedKeys.forEach(function (key) {
+        html += '<dt>' + esc(key) + '</dt>';
+        if (hasOwn.call(oldTags, key)) {
+          html += '<dd class="mm-popup-diff-old">&minus; ' +
+            esc(oldTags[key]) + '</dd>';
+        }
+        if (hasOwn.call(newTags, key)) {
+          html += '<dd class="mm-popup-diff-new">+ ' +
+            esc(newTags[key]) + '</dd>';
+        }
+      });
+      return html + '</dl>';
     }
 
     // Attach click listeners to popup content after it renders
@@ -970,9 +1252,11 @@
               b.setAttribute('aria-pressed', b.dataset.view === view ? 'true' : 'false');
             });
             var questDiv = el.querySelector('.mm-popup-tags--quest');
+            var diffDiv  = el.querySelector('.mm-popup-tags--diff');
             var rawDiv   = el.querySelector('.mm-popup-tags--raw');
-            if (questDiv) questDiv.hidden = (view === 'tags');
-            if (rawDiv)   rawDiv.hidden   = (view === 'quest');
+            if (questDiv) questDiv.hidden = (view !== 'quest');
+            if (diffDiv)  diffDiv.hidden  = (view !== 'diff');
+            if (rawDiv)   rawDiv.hidden   = (view !== 'tags');
             return;
           }
           // Photo button
@@ -1075,6 +1359,7 @@
     var photoModal   = document.getElementById('photo-modal');
     var modalImg     = document.getElementById('modal-img');
     var modalCaption = document.getElementById('modal-caption');
+    var modalImageLink = document.getElementById('modal-image-link');
     var modalPos     = document.getElementById('modal-pos');
     var modalPrev    = document.getElementById('modal-prev');
     var modalNext    = document.getElementById('modal-next');
@@ -1098,6 +1383,7 @@
       var p = modalPhotos[modalIdx];
       modalImg.src = p.src;
       modalImg.alt = p.caption || ('Photo ' + (modalIdx + 1) + ' of ' + modalPhotos.length);
+      modalImageLink.href = p.src;
       modalCaption.textContent = p.caption || '';
       modalPos.textContent = (modalIdx + 1) + ' of ' + modalPhotos.length;
       modalPrev.disabled = (modalIdx === 0);
@@ -1113,8 +1399,13 @@
     modalPrev.addEventListener('click', function () { if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } });
     modalNext.addEventListener('click', function () { if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } });
 
-    // Keyboard navigation within the modal
+    // Keyboard navigation and Escape dismissal within the modal
     photoModal.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        e.preventDefault();
+        photoModal.close();
+        return;
+      }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp')  { e.preventDefault(); if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } }
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } }
     });

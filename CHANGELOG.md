@@ -6,13 +6,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
-## [1.4.0] - 2026-11-04
+## [v1.5.0] - 2026-11-15
+
+### Added
+
+- Added interactive map-element details with per-version tag diffs and contributor and changeset metadata.
+- Added a generic link from the photo gallery to open the full-size image in a new tab.
+
+### Fixed
+
+- Kept interactive map icons aligned with the basemap during pan and zoom by rendering them in MapLibre layers.
+- Centered the photo gallery popup in the viewport.
+- Made the photo gallery dismissible with Escape.
+- Fixed contributor and tag-diff map popups closing immediately after marker clicks.
+
+## [v1.4.0] - 2026-11-04
 
 ### Added
 
 - Added opt-in `event --quest-answer-log` CSV export with per-answer question, answer, submitter, timestamp, changeset, and feature metadata.
 
-## [1.3.0] - 2026-10-26
+## [v1.3.0] - 2026-10-26
 
 ### Added
 
@@ -28,7 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 - Applied standardized formatting and updated event configs.
 
-## [1.2.0] - 2026-10-19
+## [v1.2.0] - 2026-10-19
 
 ### Changed
 
@@ -36,7 +50,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - Increased the Workspace API data-request timeout to 120 seconds for large workspaces and added endpoint context to timeout errors.
 - Automatically subdivided oversized map responses into smaller Workspace requests instead of failing at the per-response byte limit.
 
-## [1.1.1] - 2026-10-19
+## [v1.1.1] - 2026-10-19
 
 ### Added
 
@@ -51,13 +65,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - Made nested `report` media settings override event-level settings and scoped offline example credentials to config validation.
 - Fixed changelog content and formatting.
 
-## [1.0.0] - 2026-08-07
+## [v1.0.0] - 2026-08-07
 
 ### Added
 
 - Initial release
 
-## [0.1.0] - 2026-04-22
+## [v0.1.0] - 2026-04-22
 
 ### Added
 

@@ -632,6 +632,43 @@ def test_render_report_map_container_present() -> None:
     assert 'id="map"' in html
 
 
+def test_render_report_markers_use_maplibre_layers_and_open_popups() -> None:
+    """Keep activity markers attached to map rendering and hit testing."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+
+    assert "new maplibregl.Marker(" not in html
+    assert "type: 'FeatureCollection'" in html
+    assert "type: 'geojson'" in html
+    assert "map.addSource(markerSourceId, {" in html
+    assert "data: markerFeatures" in html
+    assert "source: markerSourceId" in html
+    assert "map.addLayer({" in html
+    assert "coordinates: [marker.lon, marker.lat]" in html
+    assert "type: 'circle'" in html
+    assert "type: 'symbol'" in html
+    assert "map.on('style.load', function () {" in html
+    assert "addMarkerLayers(markerFeatures);" in html
+    assert "map.queryRenderedFeatures(point, { layers: layers })" in html
+    assert "map.on('click', function (event) {" in html
+    assert "var feature = markerFeatureAt(event.point);" in html
+    assert "if (marker) openMarkerPopup(marker);" in html
+
+
+def test_render_report_marker_controls_are_keyboard_accessible() -> None:
+    """Keep marker locations available as labelled, keyboard-focusable buttons."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+
+    assert 'id="map-marker-controls" class="sr-only" role="group"' in html
+    assert "var control = document.createElement('button');" in html
+    assert "control.setAttribute('aria-label', markerAriaLabel(marker));" in html
+    assert "control.addEventListener('focus', function () {" in html
+    assert "map.easeTo({ center: [marker.lon, marker.lat], duration: 250 });" in html
+    assert "control.addEventListener('click', function () {" in html
+    assert "openMarkerPopup(marker);" in html
+
+
 def test_render_report_theme_toggle_uses_tcat_palette() -> None:
     """Expose an accessible theme toggle with the TCAT Wiki brand colors."""
     html = render_report(
