@@ -274,16 +274,6 @@
       color: var(--mm-text);
       font: 600 0.8125rem system-ui, -apple-system, sans-serif;
     }
-    .mm-marker {
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-      cursor: pointer;
-    }
-    .mm-marker--note { border-radius: 3px; }
-    .mm-marker:focus-visible { outline: 3px solid var(--mm-accent); }
     .report-note {
       padding: 0 0.25rem 1rem;
       color: var(--mm-muted);
@@ -410,6 +400,7 @@
       </div>
       <div class="map-wrapper">
         <div id="map" role="region" aria-label="Map of aggregated report contributions"></div>
+        <div id="map-marker-controls" class="sr-only" role="group" aria-label="Aggregate map locations"></div>
         <label class="sr-only" for="map-style">Basemap style</label>
         <select id="map-style" aria-label="Basemap style">
           <option value="positron" selected>Positron</option>
@@ -565,6 +556,209 @@
       const markers = (STATS.markers || []).filter(function (marker) {
         return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
       });
+      const markerSourceId = 'mm-interactive-markers';
+      const questMarkerLayerId = 'mm-interactive-quest-markers';
+      const noteMarkerLayerId = 'mm-interactive-note-markers';
+      const noteHighlightLayerId = 'mm-interactive-note-highlight';
+      const markerFeatures = {
+        type: 'FeatureCollection',
+        features: markers.map(function (marker, index) {
+          return {
+            type: 'Feature',
+            id: index,
+            geometry: {
+              type: 'Point',
+              coordinates: [marker.lon, marker.lat]
+            },
+            properties: {
+              markerIndex: index,
+              kind: marker.kind === 'note' ? 'note' : 'quest',
+              color: markerColor(marker)
+            }
+          };
+        })
+      };
+      let activeMarkerPopup = null;
+      let hoveredMarkerFeatureId = null;
+      let focusedMarkerFeatureId = null;
+      let markerControlsCreated = false;
+
+      function markerIsHighlighted() {
+        return [
+          'any',
+          ['boolean', ['feature-state', 'hover'], false],
+          ['boolean', ['feature-state', 'focused'], false]
+        ];
+      }
+
+      function createNoteMarkerIcon() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 28;
+        canvas.height = 28;
+        const context = canvas.getContext('2d');
+        if (!context) return null;
+
+        context.fillStyle = 'rgba(255,255,255,0.7)';
+        context.fillRect(0, 0, 28, 28);
+        context.fillStyle = '#6c757d';
+        context.fillRect(4, 4, 20, 20);
+        const image = context.getImageData(0, 0, canvas.width, canvas.height);
+        return { width: image.width, height: image.height, data: image.data };
+      }
+
+      function addMarkerLayers() {
+        if (!map.getSource(markerSourceId)) {
+          map.addSource(markerSourceId, {
+            type: 'geojson',
+            data: markerFeatures
+          });
+        }
+
+        const highlightColor = getComputedStyle(document.documentElement)
+          .getPropertyValue('--mm-accent').trim() || '#4b2e83';
+
+        if (!map.getLayer(questMarkerLayerId)) {
+          map.addLayer({
+            id: questMarkerLayerId,
+            type: 'circle',
+            source: markerSourceId,
+            filter: ['!=', ['get', 'kind'], 'note'],
+            paint: {
+              'circle-color': ['get', 'color'],
+              'circle-radius': ['case', markerIsHighlighted(), 8, 6],
+              'circle-stroke-color': [
+                'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.7)'
+              ],
+              'circle-stroke-width': ['case', markerIsHighlighted(), 3, 2]
+            }
+          });
+        }
+
+        if (!map.getLayer(noteHighlightLayerId)) {
+          map.addLayer({
+            id: noteHighlightLayerId,
+            type: 'circle',
+            source: markerSourceId,
+            filter: ['==', ['get', 'kind'], 'note'],
+            paint: {
+              'circle-color': 'rgba(0,0,0,0)',
+              'circle-radius': 8,
+              'circle-stroke-color': highlightColor,
+              'circle-stroke-width': ['case', markerIsHighlighted(), 2, 0]
+            }
+          });
+        }
+
+        if (!map.hasImage('mm-note-marker-icon')) {
+          const noteIcon = createNoteMarkerIcon();
+          if (noteIcon) map.addImage('mm-note-marker-icon', noteIcon, { pixelRatio: 2 });
+        }
+
+        if (!map.getLayer(noteMarkerLayerId)) {
+          map.addLayer({
+            id: noteMarkerLayerId,
+            type: 'symbol',
+            source: markerSourceId,
+            filter: ['==', ['get', 'kind'], 'note'],
+            layout: {
+              'icon-image': 'mm-note-marker-icon',
+              'icon-size': 1,
+              'icon-anchor': 'center',
+              'icon-allow-overlap': true,
+              'icon-ignore-placement': true
+            }
+          });
+        }
+
+        if (hoveredMarkerFeatureId !== null) {
+          map.setFeatureState(
+            { source: markerSourceId, id: hoveredMarkerFeatureId },
+            { hover: true }
+          );
+        }
+        if (focusedMarkerFeatureId !== null) {
+          map.setFeatureState(
+            { source: markerSourceId, id: focusedMarkerFeatureId },
+            { focused: true }
+          );
+        }
+      }
+
+      function markerFeatureAt(point) {
+        const layers = [];
+        if (map.getLayer(questMarkerLayerId)) layers.push(questMarkerLayerId);
+        if (map.getLayer(noteMarkerLayerId)) layers.push(noteMarkerLayerId);
+        if (layers.length === 0) return null;
+        const features = map.queryRenderedFeatures(point, { layers: layers });
+        return features.length > 0 ? features[0] : null;
+      }
+
+      function setMarkerFeatureState(featureId, stateName, enabled) {
+        if (featureId === null || featureId === undefined || !map.getSource(markerSourceId)) return;
+        const state = {};
+        state[stateName] = enabled;
+        map.setFeatureState({ source: markerSourceId, id: featureId }, state);
+      }
+
+      function updateHoveredMarker(featureId) {
+        if (hoveredMarkerFeatureId === featureId) return;
+        setMarkerFeatureState(hoveredMarkerFeatureId, 'hover', false);
+        hoveredMarkerFeatureId = featureId;
+        setMarkerFeatureState(hoveredMarkerFeatureId, 'hover', true);
+      }
+
+      function updateFocusedMarker(featureId) {
+        if (focusedMarkerFeatureId === featureId) return;
+        setMarkerFeatureState(focusedMarkerFeatureId, 'focused', false);
+        focusedMarkerFeatureId = featureId;
+        setMarkerFeatureState(focusedMarkerFeatureId, 'focused', true);
+      }
+
+      function openPopup(marker) {
+        if (activeMarkerPopup) activeMarkerPopup.remove();
+
+        const popupText = '<strong>' +
+          escapeHtml(marker.event_name || 'Event') + '</strong><br>' +
+          escapeHtml(marker.activity_label || '') +
+          (marker.category ? '<br>' + escapeHtml(marker.category) : '');
+        const popup = new maplibregl.Popup({ closeButton: true, offset: 8 })
+          .setLngLat([marker.lon, marker.lat])
+          .setHTML(popupText);
+        activeMarkerPopup = popup;
+        popup.on('close', function () {
+          if (activeMarkerPopup === popup) activeMarkerPopup = null;
+        });
+        popup.addTo(map);
+      }
+
+      function createMarkerControls() {
+        if (markerControlsCreated) return;
+        const controls = document.getElementById('map-marker-controls');
+        if (!controls) return;
+        markerControlsCreated = true;
+
+        markers.forEach(function (marker, index) {
+          const control = document.createElement('button');
+          control.type = 'button';
+          control.setAttribute(
+            'aria-label',
+            (marker.event_name || 'Event') + ': ' +
+              (marker.category || marker.kind || 'contribution')
+          );
+          control.addEventListener('focus', function () {
+            updateFocusedMarker(index);
+            map.easeTo({ center: [marker.lon, marker.lat], duration: 250 });
+          });
+          control.addEventListener('blur', function () {
+            if (focusedMarkerFeatureId === index) updateFocusedMarker(null);
+          });
+          control.addEventListener('click', function () {
+            openPopup(marker);
+          });
+          controls.appendChild(control);
+        });
+      }
+
       const map = new maplibregl.Map({
         container: 'map',
         style: styles[mapStyle.value],
@@ -577,38 +771,28 @@
         const styleUrl = styles[mapStyle.value];
         if (styleUrl) map.setStyle(styleUrl, { diff: false });
       });
+      map.on('style.load', function () {
+        addMarkerLayers();
+        createMarkerControls();
+      });
+      map.on('mousemove', function (event) {
+        const feature = markerFeatureAt(event.point);
+        updateHoveredMarker(feature ? feature.id : null);
+        map.getCanvas().style.cursor = feature ? 'pointer' : '';
+      });
+      map.on('mouseleave', function () {
+        updateHoveredMarker(null);
+        map.getCanvas().style.cursor = '';
+      });
+      map.on('click', function (event) {
+        const feature = markerFeatureAt(event.point);
+        if (!feature) return;
+        const marker = markers[Number(feature.properties.markerIndex)];
+        if (marker) openPopup(marker);
+      });
       map.on('load', function () {
         const bounds = new maplibregl.LngLatBounds();
         markers.forEach(function (marker) {
-          const element = document.createElement('div');
-          element.className = 'mm-marker mm-marker--' + (marker.kind || 'quest');
-          element.style.background = markerColor(marker);
-          element.setAttribute('tabindex', '0');
-          element.setAttribute('role', 'button');
-          element.setAttribute(
-            'aria-label',
-            (marker.event_name || 'Event') + ': ' +
-              (marker.category || marker.kind || 'contribution')
-          );
-          const popupText = '<strong>' +
-            escapeHtml(marker.event_name || 'Event') + '</strong><br>' +
-            escapeHtml(marker.activity_label || '') +
-            (marker.category ? '<br>' + escapeHtml(marker.category) : '');
-          const popup = new maplibregl.Popup({ closeButton: true, offset: 8 })
-            .setHTML(popupText);
-          function openPopup() {
-            popup.setLngLat([marker.lon, marker.lat]).addTo(map);
-          }
-          element.addEventListener('click', openPopup);
-          element.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault();
-              openPopup();
-            }
-          });
-          new maplibregl.Marker({ element: element })
-            .setLngLat([marker.lon, marker.lat])
-            .addTo(map);
           bounds.extend([marker.lon, marker.lat]);
         });
         if (markers.length === 1) {

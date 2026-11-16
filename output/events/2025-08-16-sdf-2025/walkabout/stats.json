@@ -3,7 +3,7 @@
   "source_type": "workspace",
   "window_start": "2025-08-14T04:00:00+00:00",
   "window_end": "2025-08-18T18:00:00+00:00",
-  "changeset_count": 79,
+  "changeset_count": 100,
   "contributor_count": 10,
   "contributors_breakdown": [
     {
@@ -513,6 +513,58 @@
   ],
   "relation_count": 0,
   "way_count": 58,
+  "contributions_by_user": [
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 54,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 2",
+      "quest_answer_count": 16,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 3",
+      "quest_answer_count": 13,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 4",
+      "quest_answer_count": 5,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 5",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 6",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 7",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 8",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 9",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 10",
+      "quest_answer_count": 1,
+      "note_count": 0
+    }
+  ],
   "markers": [
     {
       "id": 6605038,
@@ -556,9 +608,9 @@
             "ext:intersection:well_maintained": "yes"
           },
           "readable": {
-            "ext:intersection:picture": {
+            "ext:intersection:well_maintained": {
               "old": null,
-              "new": "Ok!"
+              "new": "Yes"
             },
             "ext:intersection:visibility_rating": {
               "old": null,
@@ -568,9 +620,9 @@
               "old": null,
               "new": "No, unsafe or inaccessible"
             },
-            "ext:intersection:well_maintained": {
+            "ext:intersection:picture": {
               "old": null,
-              "new": "Yes"
+              "new": "Ok!"
             }
           },
           "photos": []
@@ -621,10 +673,6 @@
             "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577894_3a9ed_68a1169b1d136.jpeg"
           },
           "readable": {
-            "ext:intersection:picture": {
-              "old": null,
-              "new": "Ok!"
-            },
             "ext:intersection:visibility_rating": {
               "old": null,
               "new": "Fair"
@@ -632,6 +680,10 @@
             "ext:intersection:well_maintained": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:intersection:picture": {
+              "old": null,
+              "new": "Ok!"
             }
           },
           "photos": [
@@ -686,9 +738,9 @@
             "ext:intersection:well_maintained": "no"
           },
           "readable": {
-            "ext:intersection:picture": {
+            "ext:intersection:well_maintained": {
               "old": null,
-              "new": "Ok!"
+              "new": "No"
             },
             "ext:intersection:visibility_rating": {
               "old": null,
@@ -698,9 +750,9 @@
               "old": null,
               "new": "No, unsafe or inaccessible"
             },
-            "ext:intersection:well_maintained": {
+            "ext:intersection:picture": {
               "old": null,
-              "new": "No"
+              "new": "Ok!"
             }
           },
           "photos": []
@@ -714,20 +766,20 @@
             "ext:intersection": "yes"
           },
           "readable": {
-            "ext:intersection:picture": {
-              "old": "Ok!",
+            "ext:intersection:safe_and_accessible": {
+              "old": "No, unsafe or inaccessible",
               "new": null
             },
             "ext:intersection:visibility_rating": {
               "old": "Poor",
               "new": null
             },
-            "ext:intersection:safe_and_accessible": {
-              "old": "No, unsafe or inaccessible",
-              "new": null
-            },
             "ext:intersection:well_maintained": {
               "old": "No",
+              "new": null
+            },
+            "ext:intersection:picture": {
+              "old": "Ok!",
               "new": null
             }
           },
@@ -749,9 +801,9 @@
             "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577888_3a9ed_68a0fc0122cc2.jpeg"
           },
           "readable": {
-            "ext:intersection:picture": {
+            "ext:intersection:well_maintained": {
               "old": null,
-              "new": "Ok!"
+              "new": "No"
             },
             "ext:intersection:visibility_rating": {
               "old": null,
@@ -761,9 +813,9 @@
               "old": null,
               "new": "Yes, safe and accessible"
             },
-            "ext:intersection:well_maintained": {
+            "ext:intersection:picture": {
               "old": null,
-              "new": "No"
+              "new": "Ok!"
             }
           },
           "photos": [
@@ -877,9 +929,9 @@
             "ext:kartaview_url": "https://api.openstreetcam.org/storage13/files/photo/2025/8/16/th/11577883_3a9ed_68a0faf43e6e1.jpeg"
           },
           "readable": {
-            "ext:intersection:picture": {
+            "ext:intersection:well_maintained": {
               "old": null,
-              "new": "Ok!"
+              "new": "No"
             },
             "ext:intersection:visibility_rating": {
               "old": null,
@@ -889,9 +941,9 @@
               "old": null,
               "new": "No, unsafe or inaccessible"
             },
-            "ext:intersection:well_maintained": {
+            "ext:intersection:picture": {
               "old": null,
-              "new": "No"
+              "new": "Ok!"
             }
           },
           "photos": [
@@ -2324,10 +2376,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -2335,6 +2383,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2507,10 +2559,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -2518,6 +2566,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2585,10 +2637,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -2596,6 +2644,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Fair"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2732,10 +2784,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -2743,6 +2791,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Poor"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2965,10 +3017,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "Yes"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -2976,6 +3024,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Excellent"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -3155,10 +3207,6 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "Yes"
-            },
             "surface": {
               "old": null,
               "new": "Asphalt"
@@ -3166,6 +3214,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -3225,10 +3277,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -3236,6 +3284,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Excellent"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -3295,10 +3347,6 @@
             "surface": "paving_stones"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Brick"
@@ -3306,6 +3354,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Excellent"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -3859,6 +3911,10 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
             "crossing:markings": {
               "old": null,
               "new": "Yes"
@@ -3866,10 +3922,6 @@
             "surface": {
               "old": null,
               "new": "Asphalt"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Good"
             }
           },
           "photos": []
@@ -3953,7 +4005,23 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing:signals": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow": {
               "old": null,
               "new": "Yes"
             },
@@ -3961,19 +4029,15 @@
               "old": null,
               "new": "Aligned"
             },
-            "ext:crossing:signals:arrow": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing:signals:sound": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:markings:condition": {
+            "surface": {
               "old": null,
-              "new": "Fair"
+              "new": "Asphalt"
             },
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
               "new": "Yes"
             },
@@ -3981,21 +4045,9 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:signals:button": {
+            "crossing:markings": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Good"
-            },
-            "ext:crossing:signals:vibration": {
-              "old": null,
-              "new": "Yes"
-            },
-            "surface": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": []
@@ -4024,10 +4076,6 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing:signals:arrow:alignment": {
-              "old": "Aligned",
-              "new": "Misaligned"
-            },
             "ext:crossing:markings:condition": {
               "old": "Fair",
               "new": "Poor"
@@ -4035,6 +4083,10 @@
             "ext:crossing:signals:vibration": {
               "old": "Yes",
               "new": "No"
+            },
+            "ext:crossing:signals:arrow:alignment": {
+              "old": "Aligned",
+              "new": "Misaligned"
             }
           },
           "photos": []
@@ -4179,7 +4231,23 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing:signals": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Excellent"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow": {
               "old": null,
               "new": "Yes"
             },
@@ -4187,19 +4255,15 @@
               "old": null,
               "new": "Aligned"
             },
-            "ext:crossing:signals:arrow": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing:signals:sound": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:markings:condition": {
+            "surface": {
               "old": null,
-              "new": "Good"
+              "new": "Concrete"
             },
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
               "new": "Yes"
             },
@@ -4207,21 +4271,9 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:signals:button": {
+            "crossing:markings": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Excellent"
-            },
-            "ext:crossing:signals:vibration": {
-              "old": null,
-              "new": "Yes"
-            },
-            "surface": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -4305,7 +4357,23 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing:signals": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow": {
               "old": null,
               "new": "Yes"
             },
@@ -4313,19 +4381,15 @@
               "old": null,
               "new": "Aligned"
             },
-            "ext:crossing:signals:arrow": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing:signals:sound": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:markings:condition": {
+            "surface": {
               "old": null,
-              "new": "Fair"
+              "new": "Concrete"
             },
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
               "new": "Yes"
             },
@@ -4333,21 +4397,9 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:signals:button": {
+            "crossing:markings": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Good"
-            },
-            "ext:crossing:signals:vibration": {
-              "old": null,
-              "new": "Yes"
-            },
-            "surface": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -4466,7 +4518,23 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing:signals": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Poor"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing:signals:arrow": {
               "old": null,
               "new": "Yes"
             },
@@ -4474,19 +4542,15 @@
               "old": null,
               "new": "Misaligned"
             },
-            "ext:crossing:signals:arrow": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing:signals:sound": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:markings:condition": {
+            "surface": {
               "old": null,
-              "new": "Fair"
+              "new": "Concrete"
             },
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
               "new": "Yes"
             },
@@ -4494,21 +4558,9 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:signals:button": {
+            "crossing:markings": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Poor"
-            },
-            "ext:crossing:signals:vibration": {
-              "old": null,
-              "new": "No"
-            },
-            "surface": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -4589,7 +4641,23 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing:signals": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow": {
               "old": null,
               "new": "Yes"
             },
@@ -4597,37 +4665,21 @@
               "old": null,
               "new": "Aligned"
             },
-            "ext:crossing:signals:arrow": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing:signals:sound": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing:markings:condition": {
-              "old": null,
-              "new": "Fair"
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing:signals:button": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Good"
-            },
-            "ext:crossing:signals:vibration": {
               "old": null,
               "new": "Yes"
             },
             "surface": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes"
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -4711,7 +4763,23 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing:signals": {
+            "ext:crossing:markings:condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:crossing:surface:condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:crossing:signals:button": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:vibration": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing:signals:arrow": {
               "old": null,
               "new": "Yes"
             },
@@ -4719,19 +4787,15 @@
               "old": null,
               "new": "Aligned"
             },
-            "ext:crossing:signals:arrow": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing:signals:sound": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:markings:condition": {
+            "surface": {
               "old": null,
-              "new": "Fair"
+              "new": "Concrete"
             },
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
               "new": "Yes"
             },
@@ -4739,21 +4803,9 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing:signals:button": {
+            "crossing:markings": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing:surface:condition": {
-              "old": null,
-              "new": "Good"
-            },
-            "ext:crossing:signals:vibration": {
-              "old": null,
-              "new": "Yes"
-            },
-            "surface": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -5377,13 +5429,13 @@
               "old": null,
               "new": "Excellent"
             },
-            "surface": {
-              "old": null,
-              "new": "Concrete"
-            },
             "crossing:markings": {
               "old": null,
               "new": "Yes"
+            },
+            "surface": {
+              "old": null,
+              "new": "Concrete"
             }
           },
           "photos": []
@@ -5443,10 +5495,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "Yes"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -5454,6 +5502,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Excellent"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -5698,10 +5750,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -5709,6 +5757,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -5772,10 +5824,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "Yes"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -5783,6 +5831,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -5907,10 +5959,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "Yes"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -5918,6 +5966,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Excellent"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -6054,10 +6106,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "No"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -6065,6 +6113,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -6129,13 +6181,13 @@
             "surface": "asphalt"
           },
           "readable": {
-            "surface": {
-              "old": null,
-              "new": "Asphalt"
-            },
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Fair"
+            },
+            "surface": {
+              "old": null,
+              "new": "Asphalt"
             }
           },
           "photos": []
@@ -6588,10 +6640,6 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:sidewalk:obstruction": {
-              "old": null,
-              "new": "Yes"
-            },
             "surface": {
               "old": null,
               "new": "Concrete"
@@ -6599,6 +6647,10 @@
             "ext:sidewalk:surface:condition": {
               "old": null,
               "new": "Excellent"
+            },
+            "ext:sidewalk:obstruction": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -6632,5 +6684,9 @@
   "slideshow_images": [],
   "video_url": "",
   "video_embed_url": "",
-  "video_kind": ""
+  "video_kind": "",
+  "event_id": "2025-08-16-sdf-2025",
+  "event_name": "Seattle Design Festival 2025",
+  "activity_label": "Seattle Design Festival 2025",
+  "anonymized": true
 }

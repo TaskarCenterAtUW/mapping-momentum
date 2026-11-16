@@ -3,7 +3,7 @@
   "source_type": "workspace",
   "window_start": "2026-03-25T13:00:00+00:00",
   "window_end": "2026-03-28T00:00:00+00:00",
-  "changeset_count": 13,
+  "changeset_count": 27,
   "contributor_count": 8,
   "contributors_breakdown": [
     {
@@ -352,6 +352,78 @@
   ],
   "relation_count": 0,
   "way_count": 18,
+  "contributions_by_user": [
+    {
+      "user": "Participant 2",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 9",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 10",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 11",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 5",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 3",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 6",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 7",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 4",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 8",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 12",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 13",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 14",
+      "quest_answer_count": 1,
+      "note_count": 0
+    }
+  ],
   "markers": [
     {
       "id": 62172,
@@ -834,27 +906,27 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "Unclear"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "High"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
-              "old": null,
-              "new": "Unclear"
             },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "No"
             }
@@ -931,15 +1003,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "Medium"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -947,11 +1019,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
             }
@@ -1028,15 +1100,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "No"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "Medium"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -1044,11 +1116,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "No"
             }
@@ -1125,15 +1197,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "Medium"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -1141,11 +1213,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
             }
@@ -1222,15 +1294,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "High"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -1238,11 +1310,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
             }
@@ -1299,7 +1371,7 @@
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 9",
+          "user": "Participant 12",
           "timestamp": "2026-03-26T17:48:38Z",
           "changeset": 16,
           "tags": {
@@ -1319,15 +1391,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "High"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -1335,11 +1407,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
             }
@@ -1348,7 +1420,7 @@
         },
         {
           "action": "modify",
-          "user": "Participant 10",
+          "user": "Participant 9",
           "timestamp": "2026-03-26T17:49:24Z",
           "changeset": 17,
           "tags": {
@@ -1368,17 +1440,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_audible_signal_understandable": {
-              "old": "No",
-              "new": "Unclear"
+            "ext:crossing_timing_sufficient": {
+              "old": "Yes",
+              "new": "No"
             },
             "ext:crossing_audible_signal_present": {
               "old": "Yes",
               "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
-              "old": "Yes",
-              "new": "No"
+            "ext:crossing_audible_signal_understandable": {
+              "old": "No",
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -1409,20 +1481,20 @@
               "old": "High",
               "new": "Medium"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": "Unclear",
-              "new": "No"
-            },
             "ext:crossing_timing_sufficient": {
               "old": "No",
               "new": "Yes"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": "Unclear",
+              "new": "No"
             }
           },
           "photos": []
         },
         {
           "action": "modify",
-          "user": "Participant 12",
+          "user": "Participant 10",
           "timestamp": "2026-03-26T17:50:05Z",
           "changeset": 20,
           "tags": {
@@ -1446,7 +1518,7 @@
         },
         {
           "action": "modify",
-          "user": "Participant 13",
+          "user": "Participant 14",
           "timestamp": "2026-03-26T17:50:11Z",
           "changeset": 22,
           "tags": {
@@ -1470,7 +1542,7 @@
         },
         {
           "action": "modify",
-          "user": "Participant 14",
+          "user": "Participant 13",
           "timestamp": "2026-03-26T17:50:15Z",
           "changeset": 23,
           "tags": {
@@ -1610,15 +1682,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "No"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "Medium"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -1626,13 +1698,13 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
+            },
             "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_timing_sufficient": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -1707,29 +1779,29 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_timing_sufficient": {
+              "old": null,
+              "new": "Unclear"
+            },
             "ext:crossing_audible_signal_present": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "Yes"
             },
             "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_timing_sufficient": {
-              "old": null,
-              "new": "Unclear"
             }
           },
           "photos": []
@@ -1804,29 +1876,29 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_timing_sufficient": {
+              "old": null,
+              "new": "Unclear"
+            },
             "ext:crossing_audible_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_timing_sufficient": {
-              "old": null,
-              "new": "Unclear"
             }
           },
           "photos": []
@@ -1901,29 +1973,29 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_timing_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:crossing_audible_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_timing_sufficient": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -1998,15 +2070,15 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_vehicle_yielding": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_traffic_speed_perception": {
               "old": null,
               "new": "High"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Unclear"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -2014,11 +2086,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "Yes"
             }
@@ -2241,7 +2313,7 @@
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 10",
+          "user": "Participant 9",
           "timestamp": "2026-03-26T17:42:06Z",
           "changeset": 3,
           "tags": {
@@ -2265,11 +2337,15 @@
             "width": "2.1"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "Unsure"
+              "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
@@ -2281,17 +2357,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
-              "new": "No"
+              "new": "Unsure"
             },
             "ext:sidewalk_obstruction_type": {
               "old": null,
@@ -2330,13 +2402,13 @@
               "old": "No",
               "new": "Yes"
             },
-            "ext:sidewalk_cross_slope_acceptability": {
-              "old": "Unsure",
-              "new": "No"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": "No",
               "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
+              "old": "Unsure",
+              "new": "No"
             }
           },
           "photos": []
@@ -2517,13 +2589,17 @@
             "width": "1.9"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_vertical_lip": {
               "old": null,
@@ -2533,15 +2609,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "No"
             },
@@ -2708,7 +2780,7 @@
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 12",
+          "user": "Participant 10",
           "timestamp": "2026-03-26T17:42:47Z",
           "changeset": 4,
           "tags": {
@@ -2732,13 +2804,17 @@
             "width": "2.0"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_vertical_lip": {
               "old": null,
@@ -2748,17 +2824,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:sidewalk_obstruction_type": {
               "old": null,
@@ -3083,13 +3155,17 @@
             "width": "2.1"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_vertical_lip": {
               "old": null,
@@ -3099,17 +3175,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:sidewalk_obstruction_type": {
               "old": null,
@@ -3202,13 +3274,17 @@
             "width": "4.0"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_vertical_lip": {
               "old": null,
@@ -3218,17 +3294,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:sidewalk_obstruction_type": {
               "old": null,
@@ -3414,13 +3486,17 @@
             "width": "1.7"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "Unsure"
+              "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_vertical_lip": {
               "old": null,
@@ -3430,17 +3506,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
-              "new": "No"
+              "new": "Unsure"
             },
             "ext:sidewalk_obstruction_type": {
               "old": null,
@@ -3577,13 +3649,17 @@
             "width": "2.3"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_vertical_lip": {
               "old": null,
@@ -3593,17 +3669,13 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_navigation_hazards": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:sidewalk_obstruction_type": {
               "old": null,
@@ -3623,5 +3695,9 @@
   "slideshow_images": [],
   "video_url": "",
   "video_embed_url": "",
-  "video_kind": ""
+  "video_kind": "",
+  "event_id": "2026-03-26-nda-everett",
+  "event_name": "NDA Everett Walk/Roll",
+  "activity_label": "NDA Everett Walk/Roll",
+  "anonymized": true
 }

@@ -403,6 +403,63 @@ def test_aggregate_report_places_map_before_contributors_and_syncs_theme(
     )
 
 
+def test_aggregate_report_markers_use_maplibre_layers_and_open_popups(
+    tmp_path: Path,
+) -> None:
+    """Keep aggregate markers attached to map rendering and hit testing."""
+    stats = _report_stats(
+        "map-event",
+        "Map Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "map-event", stats)
+    html = render_aggregate_report(aggregate_reports([stats_path]))
+
+    assert "new maplibregl.Marker(" not in html
+    assert "type: 'FeatureCollection'" in html
+    assert "type: 'geojson'" in html
+    assert "map.addSource(markerSourceId, {" in html
+    assert "data: markerFeatures" in html
+    assert "source: markerSourceId" in html
+    assert "map.addLayer({" in html
+    assert "coordinates: [marker.lon, marker.lat]" in html
+    assert "type: 'circle'" in html
+    assert "type: 'symbol'" in html
+    assert "map.on('style.load', function () {" in html
+    assert "addMarkerLayers();" in html
+    assert "map.queryRenderedFeatures(point, { layers: layers })" in html
+    assert "map.on('click', function (event) {" in html
+    assert "const marker = markers[Number(feature.properties.markerIndex)];" in html
+    assert "if (marker) openPopup(marker);" in html
+
+
+def test_aggregate_report_marker_controls_are_keyboard_accessible(
+    tmp_path: Path,
+) -> None:
+    """Keep aggregate locations available as labelled keyboard controls."""
+    stats = _report_stats(
+        "map-event",
+        "Map Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "map-event", stats)
+    html = render_aggregate_report(aggregate_reports([stats_path]))
+
+    assert 'id="map-marker-controls" class="sr-only" role="group"' in html
+    assert "const control = document.createElement('button');" in html
+    assert "'aria-label'," in html
+    assert "control.addEventListener('focus', function () {" in html
+    assert "map.easeTo({ center: [marker.lon, marker.lat], duration: 250 });" in html
+    assert "control.addEventListener('click', function () {" in html
+    assert "openPopup(marker);" in html
+
+
 @pytest.mark.parametrize(
     ("anonymized", "user"),
     [(True, "alice"), (False, "Participant 1")],

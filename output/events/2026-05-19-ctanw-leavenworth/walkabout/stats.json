@@ -322,6 +322,18 @@
   ],
   "relation_count": 0,
   "way_count": 4,
+  "contributions_by_user": [
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 2",
+      "quest_answer_count": 1,
+      "note_count": 0
+    }
+  ],
   "markers": [
     {
       "id": 3339,
@@ -385,10 +397,6 @@
               "old": null,
               "new": "Good"
             },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "No"
-            },
             "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
               "new": "Yes"
@@ -397,15 +405,19 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:bus_stop_marked_ped_path": {
-              "old": null,
-              "new": "No"
-            },
             "ext:bus_stop_cyclist_yielding_cues": {
               "old": null,
               "new": "No"
             },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "No"
+            },
             "ext:bus_stop_audible_cues": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_tactile_guidance": {
               "old": null,
               "new": "No"
             }
@@ -565,11 +577,11 @@
               "old": null,
               "new": "High"
             },
-            "ext:crossing_audible_signal_present": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
             },
@@ -577,7 +589,7 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "No"
             }
@@ -657,11 +669,11 @@
               "old": null,
               "new": "Medium"
             },
-            "ext:crossing_audible_signal_present": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
             },
@@ -669,7 +681,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "No"
             }
@@ -852,27 +864,7 @@
             "width": "3.6"
           },
           "readable": {
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
             "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_continuous": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
@@ -880,7 +872,27 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_cross_slope_acceptability": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             }
@@ -898,5 +910,9 @@
   "slideshow_images": [],
   "video_url": "",
   "video_embed_url": "",
-  "video_kind": ""
+  "video_kind": "",
+  "event_id": "2026-05-19-ctanw-leavenworth",
+  "event_name": "CTANW Leavenworth Walk/Roll",
+  "activity_label": "CTANW Leavenworth Walk/Roll",
+  "anonymized": true
 }
