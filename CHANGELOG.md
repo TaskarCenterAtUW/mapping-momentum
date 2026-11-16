@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 - Added interactive map-element details with per-version tag diffs and contributor and changeset metadata.
 - Added a generic link from the photo gallery to open the full-size image in a new tab.
+- Regenerated anonymized output reports with new features implemented.
 
 ### Fixed
 
