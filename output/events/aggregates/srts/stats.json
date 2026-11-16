@@ -10,22 +10,22 @@
   "contributor_count": 17,
   "quest_answer_count": 91,
   "changeset_count": 91,
-  "reported_changeset_count": 86,
-  "legacy_quest_count_mismatch_event_count": 1,
+  "reported_changeset_count": 91,
+  "legacy_quest_count_mismatch_event_count": 0,
   "note_count": 42,
   "unattributed_note_count": 42,
   "new_feature_count": 1,
   "events": [
     {
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
+      "event_name": "SRTS: John Stanford Int'l",
       "activity_id": "walkabout",
-      "activity_label": "walkabout",
+      "activity_label": "SRTS: John Stanford Int'l (1)",
       "window_start": "2026-10-18T19:00:00+00:00",
       "window_end": "2026-10-19T01:00:00+00:00",
       "period_label": "October 18, 2026 – October 19, 2026",
       "quest_answer_count": 91,
-      "reported_changeset_count": 86,
+      "reported_changeset_count": 91,
       "note_count": 42,
       "unattributed_note_count": 42,
       "contribution_count": 133,
@@ -229,29 +229,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points away from the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points away from the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -261,8 +261,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84388,
@@ -308,10 +308,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -323,6 +319,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -332,8 +332,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84389,
@@ -379,10 +379,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -394,6 +390,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -403,8 +403,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84390,
@@ -450,10 +450,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -465,6 +461,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -474,8 +474,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84392,
@@ -521,10 +521,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Cannot tell"
@@ -536,6 +532,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Broken or uneven surface"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -545,8 +545,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84545,
@@ -602,29 +602,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -634,8 +634,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84546,
@@ -691,29 +691,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -723,8 +723,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84549,
@@ -770,10 +770,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -785,6 +781,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -794,8 +794,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84551,
@@ -841,10 +841,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -856,6 +852,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Broken or uneven surface"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -865,8 +865,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84594,
@@ -922,29 +922,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -954,8 +954,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84596,
@@ -1011,29 +1011,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1043,8 +1043,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84631,
@@ -1096,29 +1096,29 @@
             "ext:ramp_edge_protection": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "Blocked by an object"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "Blocked by an object"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1128,8 +1128,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 84633,
@@ -1175,10 +1175,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1190,6 +1186,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Blocked by an object"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1199,8 +1199,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88963,
@@ -1252,10 +1252,6 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Nearly flat / blended transition"
@@ -1267,6 +1263,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1276,8 +1276,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88965,
@@ -1326,25 +1326,25 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "Broken or uneven surface"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
-            "ext:curb_visible_issue": {
+            "ext:ramp_alignment_with_crossing": {
               "old": null,
-              "new": "Broken or uneven surface"
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -1352,8 +1352,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88966,
@@ -1405,29 +1405,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -1435,8 +1435,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88969,
@@ -1485,25 +1485,25 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
-            "ext:curb_visible_issue": {
+            "ext:ramp_alignment_with_crossing": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -1511,8 +1511,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88991,
@@ -1578,29 +1578,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points away from the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points away from the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1610,8 +1610,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88992,
@@ -1673,29 +1673,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -1703,8 +1703,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 88993,
@@ -1764,29 +1764,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "No"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "No"
             }
           },
           "photos": []
@@ -1794,8 +1794,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 93586,
@@ -1843,10 +1843,6 @@
             "kerb": "raised"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1858,6 +1854,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Blocked by an object"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1867,8 +1867,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113004,
@@ -1924,29 +1924,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1956,8 +1956,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113014,
@@ -2007,10 +2007,6 @@
             "tactile_paving": "no"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -2022,6 +2018,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -2031,8 +2031,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113016,
@@ -2084,29 +2084,29 @@
             "ext:ramp_edge_protection": "no"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "No"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "No"
             }
           },
           "photos": [
@@ -2116,8 +2116,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113018,
@@ -2177,29 +2177,29 @@
             "ext:ramp_width": "71"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Not sure"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points away from the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points away from the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Not sure"
             }
           },
           "photos": [
@@ -2209,8 +2209,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113019,
@@ -2266,29 +2266,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2298,8 +2298,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113020,
@@ -2355,29 +2355,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2387,8 +2387,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113024,
@@ -2436,10 +2436,6 @@
             "kerb": "raised"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -2451,6 +2447,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -2460,8 +2460,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113050,
@@ -2517,29 +2517,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2549,8 +2549,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 113051,
@@ -2600,10 +2600,6 @@
             "tactile_paving": "no"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -2615,6 +2611,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Broken or uneven surface"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -2624,8 +2624,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 117918,
@@ -2691,29 +2691,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2723,8 +2723,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 167943,
@@ -2780,29 +2780,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "No"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Not sure"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "No"
             }
           },
           "photos": [
@@ -2812,8 +2812,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 540107,
@@ -2870,25 +2870,25 @@
             "ext:tactile_paving_depth": "22"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_type": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
+              "new": "Curb ramp"
             },
             "ext:ramp_alignment_with_crossing": {
               "old": null,
               "new": "Points away from the crossing"
             },
-            "ext:curb_type": {
+            "ext:ramp_edge_protection": {
               "old": null,
-              "new": "Curb ramp"
+              "new": "Yes"
             },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2898,8 +2898,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 540108,
@@ -2935,8 +2935,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 15,
@@ -2954,8 +2954,8 @@
       "versions": [],
       "text": "Curb into street 45 degree into direct traffic ",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 16,
@@ -2973,8 +2973,8 @@
       "versions": [],
       "text": "Curb into street 45 degree into direct traffic both sides north and south.",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 17,
@@ -2992,8 +2992,8 @@
       "versions": [],
       "text": "Curb into street 45 degree into direct traffic both sides north and south.",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 18,
@@ -3011,8 +3011,8 @@
       "versions": [],
       "text": "Very cracked and uneven sidewalk. Tripping hazard. Not wheelchair accessible. ",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 19,
@@ -3030,8 +3030,8 @@
       "versions": [],
       "text": "No blind guidance, no markings. 45 degree angle that leads into oncoming traffic",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 20,
@@ -3049,8 +3049,8 @@
       "versions": [],
       "text": "The other side of the street is equally dangerous.",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 21,
@@ -3068,8 +3068,8 @@
       "versions": [],
       "text": "Cracked and uneven",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 22,
@@ -3087,8 +3087,8 @@
       "versions": [],
       "text": "Slightly uneven. ",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 23,
@@ -3106,8 +3106,8 @@
       "versions": [],
       "text": "Slightly uneven.",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 24,
@@ -3125,8 +3125,8 @@
       "versions": [],
       "text": "Curb slope is angled slightly into oncoming traffic rather than straight onto crosswalk that is marked ",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 25,
@@ -3144,8 +3144,8 @@
       "versions": [],
       "text": "Overgrowth \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA4ODNfM2E5ZWRfNmFkNTM5NjJjZDYzNC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 26,
@@ -3163,8 +3163,8 @@
       "versions": [],
       "text": "Curb slope is angled slightly into oncoming traffic rather than straight onto crosswalk that is marked ",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 27,
@@ -3182,8 +3182,8 @@
       "versions": [],
       "text": "Overgrowth\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA4ODdfM2E5ZWRfNmFkNTM5OGZjN2ZkZi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 28,
@@ -3201,8 +3201,8 @@
       "versions": [],
       "text": "Tile is lifted.\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA4ODZfM2E5ZWRfNmFkNTM5OTlkNDQ2OS5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 29,
@@ -3220,8 +3220,8 @@
       "versions": [],
       "text": "Overgrowth\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA4ODlfM2E5ZWRfNmFkNTM5OWRlMTJlNS5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 30,
@@ -3239,8 +3239,8 @@
       "versions": [],
       "text": "Driveway",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 31,
@@ -3258,8 +3258,8 @@
       "versions": [],
       "text": "Some missing tiles. Uneven. Tripping hazzard. \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MjlfM2E5ZWRfNmFkNTNiZjZiMzhlNC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 32,
@@ -3277,8 +3277,8 @@
       "versions": [],
       "text": "Cracked and uneven\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MzBfM2E5ZWRfNmFkNTNjMTRiNDAyYS5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 33,
@@ -3296,8 +3296,8 @@
       "versions": [],
       "text": "Cracked and uneven \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NDFfM2E5ZWRfNmFkNTNjNTQ2YTJhZi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 34,
@@ -3315,8 +3315,8 @@
       "versions": [],
       "text": "Cracked\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NDNfM2E5ZWRfNmFkNTNjNWYyYTM5OS5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 35,
@@ -3334,8 +3334,8 @@
       "versions": [],
       "text": "45 degree angle on 4ave going east and the opposite angle is equally unsafe due to bubble angle.",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 36,
@@ -3353,8 +3353,8 @@
       "versions": [],
       "text": "Small crack\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NDZfM2E5ZWRfNmFkNTNjODI4MjgwNi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 37,
@@ -3372,8 +3372,8 @@
       "versions": [],
       "text": "Cracked. Uneven. Tripping Hazzard. \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NDdfM2E5ZWRfNmFkNTNjODg1N2FkNi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 38,
@@ -3391,8 +3391,8 @@
       "versions": [],
       "text": "Cracked with a small missing piece \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NTVfM2E5ZWRfNmFkNTNkNDNlM2EzYi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 39,
@@ -3410,8 +3410,8 @@
       "versions": [],
       "text": "Cracked. Uneven. \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NTlfM2E5ZWRfNmFkNTNkNjdhNDNjYi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 40,
@@ -3429,8 +3429,8 @@
       "versions": [],
       "text": "Cracked and uneven\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NjdfM2E5ZWRfNmFkNTNlMTU1MWYyOS5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 41,
@@ -3448,8 +3448,8 @@
       "versions": [],
       "text": "Uneven and cracked",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 42,
@@ -3467,8 +3467,8 @@
       "versions": [],
       "text": "Cracked and Uneven\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NjlfM2E5ZWRfNmFkNTNlMTcyMjA1My5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 43,
@@ -3486,8 +3486,8 @@
       "versions": [],
       "text": "Cracked and uneven\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NzFfM2E5ZWRfNmFkNTNlNDdlNTQyZi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 44,
@@ -3505,8 +3505,8 @@
       "versions": [],
       "text": "Cracked and uneven and by the driveway \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NzRfM2E5ZWRfNmFkNTNlNjU5YzU4MC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 45,
@@ -3524,8 +3524,8 @@
       "versions": [],
       "text": "Cracked and uneven",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 46,
@@ -3543,8 +3543,8 @@
       "versions": [],
       "text": "Hazard for tall people entering to the front door to a house. \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NzVfM2E5ZWRfNmFkNTNlOTM5OWNjNC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 47,
@@ -3562,8 +3562,8 @@
       "versions": [],
       "text": "A bolt in the sidewalk\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5NzhfM2E5ZWRfNmFkNTNlZDRlYWY3Zi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 48,
@@ -3581,8 +3581,8 @@
       "versions": [],
       "text": "Cracked\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5ODJfM2E5ZWRfNmFkNTNmMTc4Mjg2My5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 49,
@@ -3600,8 +3600,8 @@
       "versions": [],
       "text": "the tiles are raised and cracked \n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5ODNfM2E5ZWRfNmFkNTNmMTllNTE1Yi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 50,
@@ -3619,8 +3619,8 @@
       "versions": [],
       "text": "Wasn&#x2019;t sure if fall foliage counts as blocked but it seems in the way",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 51,
@@ -3638,8 +3638,8 @@
       "versions": [],
       "text": "the sidewalk is waves from tree roots\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5ODdfM2E5ZWRfNmFkNTNmNWQwN2E4ZC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52,
@@ -3657,8 +3657,8 @@
       "versions": [],
       "text": "bumpy ground\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5ODlfM2E5ZWRfNmFkNTNmOGUxNGEwMi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 53,
@@ -3676,8 +3676,8 @@
       "versions": [],
       "text": "patched sidewalk\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5OTNfM2E5ZWRfNmFkNTNmYzRlY2NmOC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 54,
@@ -3695,8 +3695,8 @@
       "versions": [],
       "text": "cracked sidewalk\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5OTRfM2E5ZWRfNmFkNTNmZjY1MjIxOC5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 55,
@@ -3714,8 +3714,8 @@
       "versions": [],
       "text": "cracked sidewalk\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5OThfM2E5ZWRfNmFkNTQwMjBlMDQyNS5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56,
@@ -3733,8 +3733,8 @@
       "versions": [],
       "text": "raised slab\n\nhttps://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjEwMDJfM2E5ZWRfNmFkNTQwNjcwOGIxNi5qcGVn",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52198,
@@ -3844,6 +3844,10 @@
             "width": "1.9"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -3852,33 +3856,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -3888,8 +3888,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52201,
@@ -3973,6 +3973,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -3981,33 +3985,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -4017,8 +4017,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52219,
@@ -4116,6 +4116,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -4124,33 +4128,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": []
@@ -4158,8 +4158,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52267,
@@ -4212,13 +4212,13 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_picture": {
               "old": null,
               "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -4226,8 +4226,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52268,
@@ -4249,14 +4249,15 @@
       "tags": {
         "crossing:markings": "no",
         "ext:crossing_bike_lane_present": "no",
-        "ext:crossing_control_type": "stop_sign",
+        "ext:crossing_control_type": "none",
         "ext:crossing_curb_extension": "yes",
         "ext:crossing_marked_present": "no",
         "ext:crossing_median_present": "no",
         "ext:crossing_ped_signal_features": "none",
         "ext:crossing_picture": "no",
-        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right",
-        "ext:crossing_vehicle_lane_count": "1",
+        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right;straight_through",
+        "ext:crossing_student_concern": "other",
+        "ext:crossing_vehicle_lane_count": "2",
         "ext:crossing_warning_signs": "yes",
         "ext:osm_version": "1",
         "footway": "crossing",
@@ -4266,18 +4267,19 @@
       },
       "readable": {
         "ext:crossing_bike_lane_present": "No",
-        "ext:crossing_control_type": "Stop sign",
+        "ext:crossing_control_type": "No light, beacon or stop/yield sign",
         "ext:crossing_curb_extension": "Yes",
         "ext:crossing_marked_present": "No",
         "ext:crossing_median_present": "No",
         "ext:crossing_ped_signal_features": "No pedestrian signal",
         "ext:crossing_picture": "Skip photo",
-        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right",
+        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right;straight_through",
+        "ext:crossing_student_concern": "Another concern",
         "ext:crossing_warning_signs": "Yes"
       },
       "photos": [],
-      "user": "Participant 9",
-      "timestamp": "2026-10-18T21:36:51Z",
+      "user": "Participant 4",
+      "timestamp": "2026-11-01T22:02:13Z",
       "versions": [
         {
           "action": "modify",
@@ -4303,41 +4305,41 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "bike_conflict;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Skip photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -4345,8 +4347,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52350,
@@ -4449,9 +4451,17 @@
             "width": "1.1"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "Not sure"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -4461,25 +4471,17 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "debris;overgrown_vegetation"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "cracked;heaved;uneven"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Unable to determine"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "cracked;heaved;uneven"
             }
           },
           "photos": []
@@ -4487,8 +4489,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52543,
@@ -4565,13 +4567,9 @@
             "width": "0.0"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "none;other"
+              "new": "Not sure"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -4581,21 +4579,25 @@
               "old": null,
               "new": "Not sure"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "Not sure"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "none;other"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "overgrown_vegetation;debris"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "Loose gravel or loose material"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "Loose gravel or loose material"
             }
           },
           "photos": []
@@ -4603,8 +4605,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52792,
@@ -4687,11 +4689,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -4699,31 +4697,35 @@
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "bike_conflict;unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -4735,8 +4737,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52797,
@@ -4820,6 +4822,10 @@
             "width": "1.1"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -4828,33 +4834,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded;heaved;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -4864,8 +4866,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 52803,
@@ -4944,6 +4946,14 @@
             "width": "0.0"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_route_blocked": {
+              "old": null,
+              "new": "No, a path remains"
+            },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
               "new": "No, continuous sidewalk"
@@ -4952,29 +4962,21 @@
               "old": null,
               "new": "concrete_barrier;landscaping"
             },
-            "ext:sidewalk_route_blocked": {
+            "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
-              "new": "No, a path remains"
+              "new": "Other obstacle"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Asphalt"
             },
             "ext:sidewalk_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_stop_ap_obstructions": {
-              "old": null,
-              "new": "Other obstacle"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -4984,8 +4986,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 55976,
@@ -5072,9 +5074,17 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -5084,25 +5094,17 @@
               "old": null,
               "new": "landscaping;parking_lane"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "Large cracks"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Asphalt"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "Large cracks"
             }
           },
           "photos": []
@@ -5110,8 +5112,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 55978,
@@ -5206,9 +5208,17 @@
             "width": "0.0"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -5218,25 +5228,17 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "none;street_furniture"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "Other visible surface problem"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "Other visible surface problem"
             }
           },
           "photos": []
@@ -5244,8 +5246,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56188,
@@ -5328,11 +5330,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -5340,31 +5338,35 @@
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right;driveway;straight_through"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -5376,8 +5378,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56194,
@@ -5399,15 +5401,16 @@
       "tags": {
         "crossing:markings": "no",
         "ext:crossing_bike_lane_present": "yes",
-        "ext:crossing_control_type": "stop_sign",
-        "ext:crossing_curb_extension": "unsure",
+        "ext:crossing_control_type": "none",
+        "ext:crossing_curb_extension": "no",
         "ext:crossing_marked_present": "no",
         "ext:crossing_median_present": "no",
-        "ext:crossing_ped_signal_features": "unsure",
+        "ext:crossing_ped_signal_features": "none;unsure",
         "ext:crossing_picture": "yes",
-        "ext:crossing_possible_vehicle_conflicts": "unsignalized_right;unsignalized_left;driveway;straight_through",
-        "ext:crossing_student_concern": "long_distance",
-        "ext:crossing_warning_signs": "unsure",
+        "ext:crossing_possible_vehicle_conflicts": "driveway;straight_through;unsignalized_left;unsignalized_right",
+        "ext:crossing_student_concern": "drivers_not_yielding",
+        "ext:crossing_vehicle_lane_count": "2",
+        "ext:crossing_warning_signs": "no",
         "ext:kartaview_url": "https://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MzZfNTM5NjZfNmFkNTNjMWVlNGVhNy5qcGc",
         "ext:osm_version": "1",
         "footway": "crossing",
@@ -5417,21 +5420,21 @@
       },
       "readable": {
         "ext:crossing_bike_lane_present": "Yes",
-        "ext:crossing_control_type": "Stop sign",
-        "ext:crossing_curb_extension": "Not sure",
+        "ext:crossing_control_type": "No light, beacon or stop/yield sign",
+        "ext:crossing_curb_extension": "No",
         "ext:crossing_marked_present": "No",
         "ext:crossing_median_present": "No",
-        "ext:crossing_ped_signal_features": "Cannot tell",
+        "ext:crossing_ped_signal_features": "none;unsure",
         "ext:crossing_picture": "Take a photo",
-        "ext:crossing_possible_vehicle_conflicts": "unsignalized_right;unsignalized_left;driveway;straight_through",
-        "ext:crossing_student_concern": "Crossing seems long",
-        "ext:crossing_warning_signs": "Not sure"
+        "ext:crossing_possible_vehicle_conflicts": "driveway;straight_through;unsignalized_left;unsignalized_right",
+        "ext:crossing_student_concern": "Drivers do not appear to yield",
+        "ext:crossing_warning_signs": "No"
       },
       "photos": [
         "https://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MzZfNTM5NjZfNmFkNTNjMWVlNGVhNy5qcGc"
       ],
-      "user": "Participant 16",
-      "timestamp": "2026-10-18T21:37:40Z",
+      "user": "Participant 3",
+      "timestamp": "2026-11-01T22:53:58Z",
       "versions": [
         {
           "action": "modify",
@@ -5458,45 +5461,45 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "Crossing seems long"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "No"
+              "new": "Not sure"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "Cannot tell"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_right;unsignalized_left;driveway;straight_through"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "Cannot tell"
+              "new": "Crossing seems long"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Not sure"
             }
           },
           "photos": [
@@ -5506,8 +5509,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56259,
@@ -5590,43 +5593,43 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -5638,8 +5641,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56261,
@@ -5727,6 +5730,10 @@
             "width": "2.2"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -5735,33 +5742,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Nothing; sidewalk is next to traffic"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "Yes"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Nothing; sidewalk is next to traffic"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Bench, sign, or outdoor furniture"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;heaved;uneven;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -5771,8 +5774,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56262,
@@ -5845,7 +5848,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -5853,29 +5856,29 @@
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
+              "old": null,
+              "new": "No pedestrian signal"
+            },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "unsignalized_right;unsignalized_left;bike_conflict"
+            },
+            "ext:crossing_marked_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_curb_extension": {
+            "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "Not sure"
+            },
+            "ext:crossing_median_present": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_warning_signs": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "unsignalized_right;unsignalized_left;bike_conflict"
-            },
-            "ext:crossing_ped_signal_features": {
-              "old": null,
-              "new": "No pedestrian signal"
-            },
-            "ext:crossing_bike_lane_present": {
-              "old": null,
-              "new": "Not sure"
             }
           },
           "photos": []
@@ -5883,8 +5886,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56264,
@@ -5978,6 +5981,18 @@
             "width": "1.3"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_route_blocked": {
+              "old": null,
+              "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
               "new": "No, continuous sidewalk"
@@ -5986,33 +6001,21 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_route_blocked": {
+            "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
-              "new": "No, a path remains"
+              "new": "No obstacles"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
             },
             "ext:sidewalk_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_stop_ap_obstructions": {
-              "old": null,
-              "new": "No obstacles"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;heaved"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -6020,8 +6023,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56268,
@@ -6108,6 +6111,10 @@
             "width": "1.9"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -6115,6 +6122,14 @@
             "ext:sidewalk_coverage_gaps": {
               "old": null,
               "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
             },
             "ext:sidewalk_buffer_type_home": {
               "old": null,
@@ -6124,21 +6139,9 @@
               "old": null,
               "new": "Take a photo"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -6148,8 +6151,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56269,
@@ -6229,7 +6232,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -6237,31 +6240,31 @@
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsure;unsignalized_right;unsignalized_left"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -6273,8 +6276,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56270,
@@ -6348,6 +6351,22 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_curb_extension": {
+              "old": null,
+              "new": "Not sure"
+            },
+            "ext:crossing_control_type": {
+              "old": null,
+              "new": "Stop sign"
+            },
+            "ext:crossing_ped_signal_features": {
+              "old": null,
+              "new": "No pedestrian signal"
+            },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "unsignalized_right;unsignalized_left"
+            },
             "ext:crossing_student_concern": {
               "old": null,
               "new": "No additional concern"
@@ -6356,33 +6375,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_control_type": {
+            "ext:crossing_bike_lane_present": {
               "old": null,
-              "new": "Stop sign"
+              "new": "No"
             },
             "ext:crossing_median_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Not sure"
-            },
             "ext:crossing_warning_signs": {
               "old": null,
               "new": "Not sure"
-            },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "unsignalized_right;unsignalized_left"
-            },
-            "ext:crossing_ped_signal_features": {
-              "old": null,
-              "new": "No pedestrian signal"
-            },
-            "ext:crossing_bike_lane_present": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -6390,8 +6393,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56271,
@@ -6493,6 +6496,10 @@
             "width": "1.9"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -6501,33 +6508,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Large cracks"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -6537,8 +6540,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56274,
@@ -6619,13 +6622,9 @@
             "width": "3.0"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Nothing; sidewalk is next to traffic"
+              "new": "Not sure"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -6635,21 +6634,25 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "Not sure"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Nothing; sidewalk is next to traffic"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "No visible problems"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "No visible problems"
             }
           },
           "photos": []
@@ -6657,8 +6660,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56277,
@@ -6765,9 +6768,9 @@
             "width": "1.6"
           },
           "readable": {
-            "ext:sidewalk_gap_access_consequence": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "Cannot tell"
+              "new": "Yes"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -6777,33 +6780,33 @@
               "old": null,
               "new": "Yes, part is missing"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_gap_access_consequence": {
               "old": null,
-              "new": "Yes"
+              "new": "Cannot tell"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Other obstacle"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "eroded;heaved;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -6845,8 +6848,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56280,
@@ -6931,13 +6934,9 @@
             "width": "3.8"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Nothing; sidewalk is next to traffic"
+              "new": "Yes"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -6947,21 +6946,25 @@
               "old": null,
               "new": "Not sure"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "Yes"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Nothing; sidewalk is next to traffic"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "No visible problems"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "No visible problems"
             }
           },
           "photos": []
@@ -6969,8 +6972,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56293,
@@ -7055,53 +7058,53 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Hard to see approaching vehicles"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Cannot tell"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "bike_conflict;straight_through"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Hard to see approaching vehicles"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -7109,8 +7112,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56296,
@@ -7211,37 +7214,37 @@
             "width": "1.9"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No"
             },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "No"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -7251,8 +7254,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56299,
@@ -7342,6 +7345,10 @@
             "width": "0.0"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -7350,33 +7357,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Raised or lifted slabs"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -7386,8 +7389,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56304,
@@ -7476,53 +7479,53 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Cannot tell"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "None observed / identifiable"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -7532,8 +7535,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 56307,
@@ -7612,11 +7615,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -7624,33 +7623,37 @@
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
+              "old": null,
+              "new": "No pedestrian signal"
+            },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "Other visible movement"
+            },
+            "ext:crossing_student_concern": {
+              "old": null,
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
+            "ext:crossing_marked_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_curb_extension": {
+            "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_warning_signs": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "Other visible movement"
-            },
-            "ext:crossing_ped_signal_features": {
-              "old": null,
-              "new": "No pedestrian signal"
-            },
-            "ext:crossing_bike_lane_present": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -7658,8 +7661,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 60077,
@@ -7741,6 +7744,10 @@
             "width": "1.7"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -7749,33 +7756,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;other"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -7812,8 +7815,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 60085,
@@ -7894,9 +7897,17 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -7906,25 +7917,17 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Asphalt"
+            },
             "ext:sidewalk_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -7934,8 +7937,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 61066,
@@ -8013,9 +8016,17 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -8025,21 +8036,13 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Asphalt"
+            },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
             }
           },
           "photos": [
@@ -8049,8 +8052,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 62162,
@@ -8139,53 +8142,53 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Cannot tell"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "straight_through;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "Not sure"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -8195,8 +8198,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90470,
@@ -8280,6 +8283,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8288,33 +8295,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "concrete_barrier;landscaping"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "concrete_barrier;landscaping"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -8355,8 +8358,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90485,
@@ -8438,6 +8441,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8446,33 +8453,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "debris;utility_poles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -8517,8 +8520,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90487,
@@ -8604,49 +8607,49 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "Vehicles turning left without a separate protected green arrow"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -8656,8 +8659,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90491,
@@ -8743,6 +8746,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8751,33 +8758,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Uneven surface or abrupt height change"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -8819,8 +8822,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90492,
@@ -8914,6 +8917,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8922,33 +8929,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Not sure"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "Yes"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -8958,8 +8961,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90496,
@@ -9045,49 +9048,49 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -9097,8 +9100,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90501,
@@ -9179,9 +9182,17 @@
             "width": "1.1"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -9191,18 +9202,6 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Trash bin"
@@ -9210,6 +9209,10 @@
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Asphalt"
+            },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
             }
           },
           "photos": [
@@ -9219,8 +9222,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90504,
@@ -9308,6 +9311,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9316,33 +9323,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Broken or eroded surface"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -9352,8 +9355,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 90510,
@@ -9440,53 +9443,53 @@
             "incline": "0.007"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Not sure"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -9496,8 +9499,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 98617,
@@ -9581,6 +9584,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9589,33 +9596,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "Yes"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "eroded;heaved;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -9625,8 +9628,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 98627,
@@ -9703,43 +9706,43 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Flashing pedestrian beacon"
             },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "Vehicles turning left without a separate protected green arrow"
+            },
+            "ext:crossing_student_concern": {
+              "old": null,
+              "new": "No additional concern"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_median_present": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_marking_type": {
               "old": null,
               "new": "Two parallel lines"
             },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "Vehicles turning left without a separate protected green arrow"
-            },
-            "ext:crossing_bike_lane_present": {
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "Yes"
             }
@@ -9749,8 +9752,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 98634,
@@ -9835,53 +9838,53 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Flashing pedestrian beacon"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Other markings"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "Vehicle entering or leaving a driveway"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Other markings"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -9889,8 +9892,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 214906,
@@ -9988,6 +9991,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9996,33 +10003,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Uneven surface or abrupt height change"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10032,8 +10035,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 214910,
@@ -10127,6 +10130,10 @@
             "width": "1.4"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10135,33 +10142,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Uneven surface or abrupt height change"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10171,8 +10174,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 214911,
@@ -10258,6 +10261,10 @@
             "width": "1.4"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10266,33 +10273,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Large cracks"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10302,8 +10305,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 215463,
@@ -10389,6 +10392,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10397,33 +10404,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10433,8 +10436,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 215464,
@@ -10524,6 +10527,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10532,33 +10539,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10568,8 +10571,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     },
     {
       "id": 215465,
@@ -10655,6 +10658,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10663,33 +10670,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "concrete_barrier;landscaping"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "concrete_barrier;landscaping"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "debris;utility_poles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10699,8 +10702,8 @@
       ],
       "text": "",
       "event_id": "2026-10-18-srts-john-stanford-intl",
-      "event_name": "2026-10-18-srts-john-stanford-intl",
-      "activity_label": "walkabout"
+      "event_name": "SRTS: John Stanford Int'l",
+      "activity_label": "SRTS: John Stanford Int'l (1)"
     }
   ],
   "max_event_contribution_count": 133,

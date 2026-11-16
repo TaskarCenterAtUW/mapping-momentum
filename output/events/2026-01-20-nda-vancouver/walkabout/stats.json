@@ -3,7 +3,7 @@
   "source_type": "workspace",
   "window_start": "2026-01-19T18:00:00+00:00",
   "window_end": "2026-01-22T04:00:00+00:00",
-  "changeset_count": 78,
+  "changeset_count": 94,
   "contributor_count": 16,
   "contributors_breakdown": [
     {
@@ -702,6 +702,88 @@
   ],
   "relation_count": 0,
   "way_count": 71,
+  "contributions_by_user": [
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 29,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 4",
+      "quest_answer_count": 11,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 3",
+      "quest_answer_count": 10,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 6",
+      "quest_answer_count": 8,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 8",
+      "quest_answer_count": 6,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 7",
+      "quest_answer_count": 5,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 9",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 2",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 11",
+      "quest_answer_count": 3,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 12",
+      "quest_answer_count": 3,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 13",
+      "quest_answer_count": 3,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 10",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 5",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 14",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 15",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 16",
+      "quest_answer_count": 1,
+      "note_count": 0
+    }
+  ],
   "markers": [
     {
       "id": 24786,
@@ -742,7 +824,7 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
@@ -750,7 +832,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             }
@@ -799,17 +881,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -856,17 +938,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -913,7 +995,7 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
@@ -921,7 +1003,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             }
@@ -970,17 +1052,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -1027,7 +1109,7 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
@@ -1035,7 +1117,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             }
@@ -1092,7 +1174,7 @@
             "ext:note": "M25"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1100,15 +1182,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1165,15 +1247,11 @@
             "ext:note": "M24"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:intersection_ped_signal_present": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:intersection_traffic_calming_present": {
               "old": null,
               "new": "No"
             },
@@ -1181,9 +1259,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -1240,7 +1322,7 @@
             "ext:note": "M22"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "Yes"
             },
@@ -1248,15 +1330,15 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "Yes"
             }
@@ -1333,11 +1415,15 @@
             "ext:note": "M20"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:intersection_ped_signal_present": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
@@ -1345,13 +1431,9 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_curb_ramps_all_corners": {
+            "ext:intersection_refuge_space_present": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:intersection_marked_crosswalks": {
-              "old": null,
-              "new": "Yes"
+              "new": "No"
             }
           },
           "photos": []
@@ -1406,15 +1488,11 @@
             "ext:note": "M19"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:intersection_ped_signal_present": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:intersection_traffic_calming_present": {
               "old": null,
               "new": "No"
             },
@@ -1422,9 +1500,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -1479,7 +1561,7 @@
             "ext:note": "M18"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1487,15 +1569,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "No"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1552,7 +1634,7 @@
             "ext:note": "M17"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1560,15 +1642,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "No"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1646,7 +1728,7 @@
             "ext:note": "M15"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1654,15 +1736,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1719,7 +1801,7 @@
             "ext:note": "M14"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1727,15 +1809,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1792,7 +1874,7 @@
             "ext:note": "M13"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1800,15 +1882,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1865,7 +1947,7 @@
             "ext:note": "M12"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
               "new": "No"
             },
@@ -1873,15 +1955,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:intersection_refuge_space_present": {
               "old": null,
               "new": "No"
             }
@@ -1940,25 +2022,25 @@
             "ext:note": "M7"
           },
           "readable": {
-            "ext:intersection_refuge_space_present": {
+            "ext:intersection_marked_crosswalks": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:intersection_ped_signal_present": {
               "old": null,
               "new": "No"
             },
-            "ext:intersection_traffic_calming_present": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:intersection_curb_ramps_all_corners": {
               "old": null,
               "new": "Yes"
             },
-            "ext:intersection_marked_crosswalks": {
+            "ext:intersection_traffic_calming_present": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:intersection_refuge_space_present": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2020,27 +2102,7 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "No"
-            },
             "ext:bus_stop_signage_readable": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_cyclist_yielding_cues": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_marked_ped_path": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
               "new": "Yes"
             },
@@ -2048,9 +2110,29 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "No"
+            },
             "ext:bus_stop_surface_condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:bus_stop_braille_signage": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_wheelchair_turning_space": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_cyclist_yielding_cues": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_tactile_guidance": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2112,27 +2194,7 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:bus_stop_signage_readable": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_cyclist_yielding_cues": {
-              "old": null,
-              "new": "Unclear"
-            },
-            "ext:bus_stop_marked_ped_path": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
               "new": "Yes"
             },
@@ -2140,9 +2202,29 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:bus_stop_surface_condition": {
               "old": null,
               "new": "Fair"
+            },
+            "ext:bus_stop_braille_signage": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_wheelchair_turning_space": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_cyclist_yielding_cues": {
+              "old": null,
+              "new": "Unclear"
+            },
+            "ext:bus_stop_tactile_guidance": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2204,23 +2286,23 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:bus_stop_signage_readable": {
               "old": null,
               "new": "Yes"
             },
-            "ext:bus_stop_cyclist_yielding_cues": {
+            "ext:bus_stop_audible_cues": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_surface_condition": {
+              "old": null,
+              "new": "Fair"
+            },
+            "ext:bus_stop_braille_signage": {
               "old": null,
               "new": "No"
             },
@@ -2228,13 +2310,13 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:bus_stop_audible_cues": {
+            "ext:bus_stop_cyclist_yielding_cues": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
-            "ext:bus_stop_surface_condition": {
+            "ext:bus_stop_tactile_guidance": {
               "old": null,
-              "new": "Fair"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2296,27 +2378,7 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:bus_stop_signage_readable": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_cyclist_yielding_cues": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_marked_ped_path": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
               "new": "Yes"
             },
@@ -2324,9 +2386,29 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:bus_stop_surface_condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:bus_stop_braille_signage": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_wheelchair_turning_space": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_cyclist_yielding_cues": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:bus_stop_tactile_guidance": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2414,27 +2496,7 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "No"
-            },
             "ext:bus_stop_signage_readable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_cyclist_yielding_cues": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_marked_ped_path": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
               "new": "No"
             },
@@ -2442,9 +2504,29 @@
               "old": null,
               "new": "No"
             },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:bus_stop_surface_condition": {
               "old": null,
               "new": "Good"
+            },
+            "ext:bus_stop_braille_signage": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_wheelchair_turning_space": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_cyclist_yielding_cues": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_tactile_guidance": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -2468,11 +2550,11 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_wheelchair_turning_space": {
+            "ext:bus_stop_audible_cues": {
               "old": "No",
               "new": "Yes"
             },
-            "ext:bus_stop_audible_cues": {
+            "ext:bus_stop_wheelchair_turning_space": {
               "old": "No",
               "new": "Yes"
             }
@@ -2536,19 +2618,11 @@
             "ext:public_transport": "platform"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "No"
-            },
             "ext:bus_stop_signage_readable": {
               "old": null,
               "new": "Yes"
             },
-            "ext:bus_stop_cyclist_yielding_cues": {
+            "ext:bus_stop_audible_cues": {
               "old": null,
               "new": "No"
             },
@@ -2556,17 +2630,25 @@
               "old": null,
               "new": "No"
             },
+            "ext:bus_stop_surface_condition": {
+              "old": null,
+              "new": "Good"
+            },
+            "ext:bus_stop_braille_signage": {
+              "old": null,
+              "new": "No"
+            },
             "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
               "new": "No"
             },
-            "ext:bus_stop_audible_cues": {
+            "ext:bus_stop_cyclist_yielding_cues": {
               "old": null,
               "new": "No"
             },
-            "ext:bus_stop_surface_condition": {
+            "ext:bus_stop_tactile_guidance": {
               "old": null,
-              "new": "Good"
+              "new": "No"
             }
           },
           "photos": []
@@ -2613,17 +2695,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "No"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "No"
             }
           },
           "photos": []
@@ -2670,17 +2752,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "No"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "No"
             }
           },
           "photos": []
@@ -2727,17 +2809,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2784,17 +2866,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2841,17 +2923,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2898,17 +2980,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "No"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "No"
             }
           },
           "photos": []
@@ -2955,17 +3037,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -3033,7 +3115,7 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
@@ -3041,7 +3123,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             }
@@ -3131,17 +3213,17 @@
             "ext:gig_last_updated": "2026-01-20Z"
           },
           "readable": {
-            "ext:driveway_sidewalk_continuous": {
+            "ext:driveway_vehicle_yielding": {
               "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             },
             "ext:driveway_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:driveway_vehicle_yielding": {
+            "ext:driveway_sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -3397,19 +3479,27 @@
             "width": "2.7"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -3417,15 +3507,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -3545,11 +3627,23 @@
             "width": "3.0"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -3557,23 +3651,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -3656,23 +3738,23 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
+            "ext:crossing_audible_signal_present": {
               "old": null,
-              "new": "Low"
+              "new": "No"
             },
             "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_present": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
             },
             "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             }
@@ -3763,11 +3845,23 @@
             "width": "2.1"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -3775,23 +3869,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -3882,7 +3964,15 @@
             "width": "0.6"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -3890,29 +3980,21 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
-            },
-            "ext:sidewalk_cross_slope_acceptability": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "Yes"
             }
           },
           "photos": []
@@ -4005,11 +4087,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -4017,23 +4111,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -4066,15 +4148,15 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": "No",
+              "new": "Yes"
+            },
             "ext:sidewalk_navigation_hazards": {
               "old": "Yes",
               "new": "No"
             },
             "ext:sidewalk_wheelchair_navigable": {
-              "old": "No",
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
               "old": "No",
               "new": "Yes"
             }
@@ -4107,6 +4189,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": "None",
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": "Yes",
               "new": "No"
@@ -4114,10 +4200,6 @@
             "ext:sidewalk_navigation_hazards": {
               "old": "No",
               "new": "Yes"
-            },
-            "ext:sidewalk_obstruction_type": {
-              "old": "None",
-              "new": "Temporary"
             }
           },
           "photos": []
@@ -4200,7 +4282,15 @@
             "width": "1.2"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -4208,29 +4298,21 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
             },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_obstruction_type": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "No"
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -4383,11 +4465,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -4395,23 +4489,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -4528,19 +4610,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -4548,15 +4638,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -4751,11 +4833,23 @@
             "width": "2.4"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -4763,25 +4857,13 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -4876,19 +4958,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -4896,15 +4986,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -4995,11 +5077,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -5007,23 +5101,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -5116,19 +5198,27 @@
             "width": "2.1"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -5136,15 +5226,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -5233,19 +5315,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -5253,15 +5343,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -5364,11 +5446,23 @@
             "width": "0.6"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -5376,23 +5470,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -5485,19 +5567,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -5505,15 +5595,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -5606,19 +5688,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -5626,15 +5716,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -5725,11 +5807,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -5737,23 +5831,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -5848,35 +5930,35 @@
             "width": "0.3"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -6065,37 +6147,37 @@
             "width": "2.7"
           },
           "readable": {
-            "ext:sidewalk_vertical_lip": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_navigation_hazards": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_continuous": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Unclear"
-            },
-            "ext:sidewalk_cross_slope_acceptability": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_obstruction_type": {
               "old": null,
               "new": "None"
             },
-            "ext:sidewalk_continuity_maintained": {
+            "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
             "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_wheelchair_navigable": {
+              "old": null,
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -6125,11 +6207,11 @@
             "width": "2.7"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": "No",
               "new": "Yes"
             },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": "No",
               "new": "Yes"
             }
@@ -6255,11 +6337,23 @@
             "width": "2.1"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -6267,23 +6361,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -6368,19 +6450,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -6388,15 +6478,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -6619,11 +6701,23 @@
             "width": "2.1"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -6631,23 +6725,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -6734,11 +6816,23 @@
             "width": "1.5"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -6746,23 +6840,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -6847,23 +6929,23 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
+            "ext:crossing_audible_signal_present": {
               "old": null,
-              "new": "Medium"
+              "new": "Yes"
             },
             "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_present": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
             },
             "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             }
@@ -6966,11 +7048,23 @@
             "width": "1.5"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -6978,23 +7072,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -7087,19 +7169,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -7107,15 +7197,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -7218,11 +7300,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -7230,23 +7324,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -7335,35 +7417,35 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -7510,7 +7592,15 @@
             "width": "0.6"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -7518,27 +7608,19 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -7571,11 +7653,11 @@
             "width": "0.6"
           },
           "readable": {
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": "No",
               "new": "Yes"
             },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": "No",
               "new": "Yes"
             }
@@ -7656,10 +7738,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -7668,13 +7746,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Unclear"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -7763,19 +7845,27 @@
             "width": "1.5"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -7783,15 +7873,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -7888,19 +7970,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -7908,15 +7998,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -7997,10 +8079,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Low"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8009,13 +8087,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -8094,10 +8176,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8106,11 +8184,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             }
@@ -8188,21 +8270,21 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -8281,10 +8363,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8293,11 +8371,15 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             }
@@ -8407,10 +8489,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8419,13 +8497,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -8452,12 +8534,12 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_audible_signal_understandable": {
-              "old": "No",
-              "new": "Unclear"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": "Yes",
+              "new": "Unclear"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": "No",
               "new": "Unclear"
             }
           },
@@ -8537,10 +8619,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8549,11 +8627,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "No"
             }
@@ -8634,10 +8716,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Low"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8646,11 +8724,15 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "Unclear"
             }
@@ -8731,10 +8813,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8743,13 +8821,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -8828,10 +8910,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8840,13 +8918,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Unclear"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -8925,10 +9007,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -8937,13 +9015,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9022,10 +9104,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Low"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9034,13 +9112,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9119,10 +9201,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Low"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9131,13 +9209,17 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9216,10 +9298,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Low"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9228,13 +9306,17 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9313,10 +9395,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9325,13 +9403,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9358,13 +9440,13 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_audible_signal_understandable": {
-              "old": "No",
-              "new": "Unclear"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": "Unclear",
               "new": "Yes"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": "No",
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -9443,10 +9525,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9455,13 +9533,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9540,10 +9622,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Low"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9552,13 +9630,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Low"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -9670,10 +9752,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -9682,13 +9760,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Unclear"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -9767,10 +9849,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -9779,13 +9857,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -9890,10 +9972,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -9901,6 +9979,10 @@
             "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
             },
             "ext:crossing_audible_signal_understandable": {
               "old": null,
@@ -9983,10 +10065,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -9995,13 +10073,17 @@
               "old": null,
               "new": "Unclear"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -10080,10 +10162,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -10092,11 +10170,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "Yes"
             }
@@ -10177,10 +10259,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -10189,11 +10267,15 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "Yes"
             }
@@ -10222,10 +10304,6 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
-              "old": "Medium",
-              "new": "High"
-            },
             "ext:crossing_timing_sufficient": {
               "old": "Yes",
               "new": "No"
@@ -10233,6 +10311,10 @@
             "ext:crossing_vehicle_yielding": {
               "old": "Yes",
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": "Medium",
+              "new": "High"
             }
           },
           "photos": []
@@ -10339,11 +10421,15 @@
             "width": "7.2"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -10351,7 +10437,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -10359,15 +10449,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -10460,11 +10542,15 @@
             "width": "5.4"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -10472,25 +10558,21 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "Unclear"
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "Yes"
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -10526,12 +10608,12 @@
               "old": "Yes",
               "new": "No"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": "Unclear",
-              "new": "No"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": "Yes",
+              "new": "No"
+            },
+            "ext:sidewalk_wheelchair_navigable": {
+              "old": "Unclear",
               "new": "No"
             }
           },
@@ -10635,11 +10717,15 @@
             "width": "3.9"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -10647,7 +10733,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -10655,15 +10745,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -10756,11 +10838,15 @@
             "width": "1.2"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -10768,7 +10854,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "No"
             },
@@ -10776,15 +10866,7 @@
               "old": null,
               "new": "Unsure"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -10905,35 +10987,35 @@
             "width": "2.1"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -11037,7 +11119,15 @@
             "width": "5.7"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -11045,11 +11135,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -11057,17 +11147,9 @@
               "old": null,
               "new": "Unsure"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -11098,12 +11180,12 @@
             "width": "5.7"
           },
           "readable": {
-            "ext:sidewalk_cross_slope_acceptability": {
-              "old": "Unsure",
-              "new": "Yes"
-            },
             "ext:sidewalk_clear_width_sufficient": {
               "old": "No",
+              "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
+              "old": "Unsure",
               "new": "Yes"
             }
           },
@@ -11170,13 +11252,13 @@
             "width": "5.7"
           },
           "readable": {
-            "ext:sidewalk_navigation_hazards": {
-              "old": "Yes",
-              "new": "No"
-            },
             "ext:sidewalk_obstruction_type": {
               "old": "None",
               "new": "Permanent"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": "Yes",
+              "new": "No"
             }
           },
           "photos": []
@@ -11267,11 +11349,15 @@
             "width": "2.4"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -11279,7 +11365,11 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -11287,15 +11377,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -11382,7 +11464,15 @@
             "width": "2.4"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -11390,29 +11480,21 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_continuity_maintained": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_continuous": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
             "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
-            },
-            "ext:sidewalk_cross_slope_acceptability": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Permanent"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
-              "old": null,
-              "new": "Yes"
             }
           },
           "photos": []
@@ -11443,13 +11525,13 @@
             "width": "2.4"
           },
           "readable": {
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": "No",
-              "new": "Unclear"
-            },
             "ext:sidewalk_continuity_maintained": {
               "old": "Yes",
               "new": "No"
+            },
+            "ext:sidewalk_wheelchair_navigable": {
+              "old": "No",
+              "new": "Unclear"
             }
           },
           "photos": []
@@ -11520,10 +11602,6 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "High"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
@@ -11532,13 +11610,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_audible_signal_understandable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Unclear"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "High"
+            },
+            "ext:crossing_audible_signal_understandable": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -11561,10 +11643,6 @@
             "highway": "footway"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
-              "old": "High",
-              "new": "Medium"
-            },
             "ext:crossing_timing_sufficient": {
               "old": "No",
               "new": "Unclear"
@@ -11572,6 +11650,10 @@
             "ext:crossing_vehicle_yielding": {
               "old": "Unclear",
               "new": "Yes"
+            },
+            "ext:crossing_traffic_speed_perception": {
+              "old": "High",
+              "new": "Medium"
             }
           },
           "photos": []
@@ -11656,7 +11738,15 @@
             "width": "1.5"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
               "old": null,
               "new": "Yes"
             },
@@ -11664,11 +11754,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -11676,15 +11766,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -11717,11 +11799,15 @@
             "width": "1.5"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": "Temporary",
+              "new": "Permanent"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": "Yes",
               "new": "No"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_clear_width_sufficient": {
               "old": "Yes",
               "new": "No"
             },
@@ -11729,11 +11815,7 @@
               "old": "Yes",
               "new": "No"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": "Temporary",
-              "new": "Permanent"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": "Yes",
               "new": "No"
             }
@@ -11832,7 +11914,23 @@
             "width": "2.1"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -11840,27 +11938,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_navigation_hazards": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -11933,10 +12015,6 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "Yes"
@@ -11945,11 +12023,15 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_audible_signal_understandable": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "Yes"
             },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_audible_signal_understandable": {
               "old": null,
               "new": "Yes"
             }
@@ -12040,11 +12122,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -12052,23 +12146,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "No"
             }
@@ -12157,19 +12239,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -12177,15 +12267,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -12272,11 +12354,23 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "Temporary"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_navigation_hazards": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
@@ -12284,23 +12378,11 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "Temporary"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -12387,19 +12469,27 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_obstruction_type": {
+              "old": null,
+              "new": "None"
+            },
             "ext:sidewalk_vertical_lip": {
               "old": null,
               "new": "No"
+            },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:sidewalk_navigation_hazards": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_continuous": {
+            "ext:sidewalk_continuity_maintained": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_wheelchair_navigable": {
+            "ext:sidewalk_continuous": {
               "old": null,
               "new": "Yes"
             },
@@ -12407,15 +12497,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_obstruction_type": {
-              "old": null,
-              "new": "None"
-            },
-            "ext:sidewalk_continuity_maintained": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }
@@ -12433,5 +12515,9 @@
   "slideshow_images": [],
   "video_url": "",
   "video_embed_url": "",
-  "video_kind": ""
+  "video_kind": "",
+  "event_id": "2026-01-20-nda-vancouver",
+  "event_name": "NDA Vancouver Walk/Roll",
+  "activity_label": "NDA Vancouver Walk/Roll",
+  "anonymized": true
 }

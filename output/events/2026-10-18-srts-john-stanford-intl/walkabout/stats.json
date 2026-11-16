@@ -3,8 +3,8 @@
   "source_type": "workspace",
   "window_start": "2026-10-18T19:00:00+00:00",
   "window_end": "2026-10-19T01:00:00+00:00",
-  "changeset_count": 86,
-  "contributor_count": 17,
+  "changeset_count": 91,
+  "contributor_count": 16,
   "contributors_breakdown": [
     {
       "user": "Participant 1",
@@ -18,12 +18,12 @@
     },
     {
       "user": "Participant 3",
-      "count": 12,
-      "photo_count": 12
+      "count": 13,
+      "photo_count": 13
     },
     {
       "user": "Participant 4",
-      "count": 10,
+      "count": 11,
       "photo_count": 1
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       "user": "Participant 11",
-      "count": 2,
+      "count": 1,
       "photo_count": 0
     },
     {
@@ -83,11 +83,6 @@
     },
     {
       "user": "Participant 16",
-      "count": 1,
-      "photo_count": 1
-    },
-    {
-      "user": "Participant 17",
       "count": 1,
       "photo_count": 1
     }
@@ -126,7 +121,7 @@
   "questions_answered": [
     {
       "category": "Crossings",
-      "total": 179,
+      "total": 180,
       "questions": [
         {
           "tag": "ext:crossing_bike_lane_present",
@@ -158,7 +153,7 @@
             {
               "value": "none",
               "label": "No light, beacon or stop/yield sign",
-              "count": 5
+              "count": 7
             },
             {
               "value": "pedestrian_beacon",
@@ -168,7 +163,7 @@
             {
               "value": "stop_sign",
               "label": "Stop sign",
-              "count": 7
+              "count": 5
             },
             {
               "value": "unsure",
@@ -185,12 +180,12 @@
             {
               "value": "no",
               "label": "No",
-              "count": 13
+              "count": 14
             },
             {
               "value": "unsure",
               "label": "Not sure",
-              "count": 2
+              "count": 1
             },
             {
               "value": "yes",
@@ -283,8 +278,8 @@
               "count": 15
             },
             {
-              "value": "unsure",
-              "label": "Cannot tell",
+              "value": "none;unsure",
+              "label": "none;unsure",
               "count": 1
             }
           ]
@@ -322,13 +317,18 @@
               "count": 1
             },
             {
-              "value": "bike_conflict;unsignalized_right",
-              "label": "bike_conflict;unsignalized_right",
+              "value": "bike_conflict;unsignalized_right;straight_through",
+              "label": "bike_conflict;unsignalized_right;straight_through",
               "count": 1
             },
             {
               "value": "driveway",
               "label": "Vehicle entering or leaving a driveway",
+              "count": 1
+            },
+            {
+              "value": "driveway;straight_through;unsignalized_left;unsignalized_right",
+              "label": "driveway;straight_through;unsignalized_left;unsignalized_right",
               "count": 1
             },
             {
@@ -372,11 +372,6 @@
               "count": 1
             },
             {
-              "value": "unsignalized_right;unsignalized_left;driveway;straight_through",
-              "label": "unsignalized_right;unsignalized_left;driveway;straight_through",
-              "count": 1
-            },
-            {
               "value": "unsure;unsignalized_right;unsignalized_left",
               "label": "unsure;unsignalized_right;unsignalized_left",
               "count": 1
@@ -386,11 +381,11 @@
         {
           "tag": "ext:crossing_student_concern",
           "label": "Optional: is there something else that concerns you about crossing here?",
-          "times_answered": 12,
+          "times_answered": 13,
           "choices": [
             {
-              "value": "long_distance",
-              "label": "Crossing seems long",
+              "value": "drivers_not_yielding",
+              "label": "Drivers do not appear to yield",
               "count": 1
             },
             {
@@ -401,7 +396,7 @@
             {
               "value": "other",
               "label": "Another concern",
-              "count": 4
+              "count": 5
             },
             {
               "value": "visibility",
@@ -418,12 +413,12 @@
             {
               "value": "no",
               "label": "No",
-              "count": 6
+              "count": 7
             },
             {
               "value": "unsure",
               "label": "Not sure",
-              "count": 3
+              "count": 2
             },
             {
               "value": "yes",
@@ -871,6 +866,93 @@
   ],
   "relation_count": 0,
   "way_count": 52,
+  "contributions_by_user": [
+    {
+      "user": "Participant 2",
+      "quest_answer_count": 18,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 17,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 3",
+      "quest_answer_count": 13,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 4",
+      "quest_answer_count": 10,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 5",
+      "quest_answer_count": 6,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 6",
+      "quest_answer_count": 5,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 7",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 9",
+      "quest_answer_count": 4,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 13",
+      "quest_answer_count": 3,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 8",
+      "quest_answer_count": 3,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 10",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 12",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 11",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 14",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 15",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 17",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 16",
+      "quest_answer_count": 1,
+      "note_count": 0
+    }
+  ],
   "markers": [
     {
       "id": 84333,
@@ -936,29 +1018,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points away from the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points away from the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1012,10 +1094,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1027,6 +1105,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1080,10 +1162,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1095,6 +1173,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1148,10 +1230,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1163,6 +1241,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1216,10 +1298,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Cannot tell"
@@ -1231,6 +1309,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Broken or uneven surface"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1294,29 +1376,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1380,29 +1462,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1456,10 +1538,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1471,6 +1549,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1524,10 +1606,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1539,6 +1617,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Broken or uneven surface"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1602,29 +1684,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1688,29 +1770,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1770,29 +1852,29 @@
             "ext:ramp_edge_protection": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "Blocked by an object"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "Blocked by an object"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1846,10 +1928,6 @@
             "ext:osm_version": "2"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -1861,6 +1939,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Blocked by an object"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -1920,10 +2002,6 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Nearly flat / blended transition"
@@ -1935,6 +2013,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -1991,25 +2073,25 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "Broken or uneven surface"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
-            "ext:curb_visible_issue": {
+            "ext:ramp_alignment_with_crossing": {
               "old": null,
-              "new": "Broken or uneven surface"
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2067,29 +2149,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2144,25 +2226,25 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
-            "ext:curb_visible_issue": {
+            "ext:ramp_alignment_with_crossing": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2234,29 +2316,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points away from the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points away from the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2326,29 +2408,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -2414,29 +2496,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "No"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "No"
             }
           },
           "photos": []
@@ -2490,10 +2572,6 @@
             "kerb": "raised"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -2505,6 +2583,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Blocked by an object"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -2568,29 +2650,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2648,10 +2730,6 @@
             "tactile_paving": "no"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -2663,6 +2741,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -2722,29 +2804,29 @@
             "ext:ramp_edge_protection": "no"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "No"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "No"
             }
           },
           "photos": [
@@ -2812,29 +2894,29 @@
             "ext:ramp_width": "71"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Not sure"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points away from the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points away from the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Not sure"
             }
           },
           "photos": [
@@ -2898,29 +2980,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -2984,29 +3066,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "No marked crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "No marked crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -3062,10 +3144,6 @@
             "kerb": "raised"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -3077,6 +3155,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "No visible problem"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -3140,29 +3222,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "No"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -3220,10 +3302,6 @@
             "tactile_paving": "no"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
-              "old": null,
-              "new": "No"
-            },
             "ext:curb_type": {
               "old": null,
               "new": "Raised curb with no ramp"
@@ -3235,6 +3313,10 @@
             "ext:curb_visible_issue": {
               "old": null,
               "new": "Broken or uneven surface"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": [
@@ -3308,29 +3390,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "Yes"
             }
           },
           "photos": [
@@ -3394,29 +3476,29 @@
             "tactile_paving": "yes"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_visible_issue": {
               "old": null,
-              "new": "No"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:ramp_alignment_with_crossing": {
-              "old": null,
-              "new": "Points into the crossing"
+              "new": "No visible problem"
             },
             "ext:curb_type": {
               "old": null,
               "new": "Curb ramp"
             },
+            "ext:ramp_alignment_with_crossing": {
+              "old": null,
+              "new": "Points into the crossing"
+            },
+            "ext:ramp_edge_protection": {
+              "old": null,
+              "new": "Not sure"
+            },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:curb_visible_issue": {
+            "ext:curb_tactile_paving_presence": {
               "old": null,
-              "new": "No visible problem"
+              "new": "No"
             }
           },
           "photos": [
@@ -3481,25 +3563,25 @@
             "ext:tactile_paving_depth": "22"
           },
           "readable": {
-            "ext:curb_tactile_paving_presence": {
+            "ext:curb_type": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:ramp_edge_protection": {
-              "old": null,
-              "new": "Yes"
+              "new": "Curb ramp"
             },
             "ext:ramp_alignment_with_crossing": {
               "old": null,
               "new": "Points away from the crossing"
             },
-            "ext:curb_type": {
+            "ext:ramp_edge_protection": {
               "old": null,
-              "new": "Curb ramp"
+              "new": "Yes"
             },
             "ext:curb_picture": {
               "old": null,
               "new": "Take a photo"
+            },
+            "ext:curb_tactile_paving_presence": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -4323,6 +4405,10 @@
             "width": "1.9"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -4331,33 +4417,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -4449,6 +4531,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -4457,33 +4543,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -4589,6 +4671,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -4597,33 +4683,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": []
@@ -4663,12 +4745,12 @@
         "ext:crossing_picture": "Take a photo"
       },
       "photos": [],
-      "user": "Participant 13",
+      "user": "Participant 12",
       "timestamp": "2026-10-18T21:39:33Z",
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 13",
+          "user": "Participant 12",
           "timestamp": "2026-10-18T21:39:33Z",
           "changeset": 300,
           "tags": {
@@ -4682,13 +4764,13 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "No"
-            },
             "ext:crossing_picture": {
               "old": null,
               "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             }
           },
           "photos": []
@@ -4716,14 +4798,15 @@
       "tags": {
         "crossing:markings": "no",
         "ext:crossing_bike_lane_present": "no",
-        "ext:crossing_control_type": "stop_sign",
+        "ext:crossing_control_type": "none",
         "ext:crossing_curb_extension": "yes",
         "ext:crossing_marked_present": "no",
         "ext:crossing_median_present": "no",
         "ext:crossing_ped_signal_features": "none",
         "ext:crossing_picture": "no",
-        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right",
-        "ext:crossing_vehicle_lane_count": "1",
+        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right;straight_through",
+        "ext:crossing_student_concern": "other",
+        "ext:crossing_vehicle_lane_count": "2",
         "ext:crossing_warning_signs": "yes",
         "ext:osm_version": "1",
         "footway": "crossing",
@@ -4733,22 +4816,23 @@
       },
       "readable": {
         "ext:crossing_bike_lane_present": "No",
-        "ext:crossing_control_type": "Stop sign",
+        "ext:crossing_control_type": "No light, beacon or stop/yield sign",
         "ext:crossing_curb_extension": "Yes",
         "ext:crossing_marked_present": "No",
         "ext:crossing_median_present": "No",
         "ext:crossing_ped_signal_features": "No pedestrian signal",
         "ext:crossing_picture": "Skip photo",
-        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right",
+        "ext:crossing_possible_vehicle_conflicts": "bike_conflict;unsignalized_right;straight_through",
+        "ext:crossing_student_concern": "Another concern",
         "ext:crossing_warning_signs": "Yes"
       },
       "photos": [],
-      "user": "Participant 11",
-      "timestamp": "2026-10-18T21:36:51Z",
+      "user": "Participant 4",
+      "timestamp": "2026-11-01T22:02:13Z",
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 11",
+          "user": "Participant 13",
           "timestamp": "2026-10-18T21:36:51Z",
           "changeset": 287,
           "tags": {
@@ -4770,41 +4854,41 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "bike_conflict;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Skip photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -4913,9 +4997,17 @@
             "width": "1.1"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "Not sure"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -4925,25 +5017,17 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "debris;overgrown_vegetation"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "cracked;heaved;uneven"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Unable to determine"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "cracked;heaved;uneven"
             }
           },
           "photos": []
@@ -5026,13 +5110,9 @@
             "width": "0.0"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "none;other"
+              "new": "Not sure"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -5042,21 +5122,25 @@
               "old": null,
               "new": "Not sure"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "Not sure"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "none;other"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "overgrown_vegetation;debris"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "Loose gravel or loose material"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "Loose gravel or loose material"
             }
           },
           "photos": []
@@ -5145,11 +5229,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -5157,31 +5237,35 @@
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "bike_conflict;unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -5275,6 +5359,10 @@
             "width": "1.1"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -5283,33 +5371,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded;heaved;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -5396,6 +5480,14 @@
             "width": "0.0"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_route_blocked": {
+              "old": null,
+              "new": "No, a path remains"
+            },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
               "new": "No, continuous sidewalk"
@@ -5404,29 +5496,21 @@
               "old": null,
               "new": "concrete_barrier;landscaping"
             },
-            "ext:sidewalk_route_blocked": {
+            "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
-              "new": "No, a path remains"
+              "new": "Other obstacle"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Asphalt"
             },
             "ext:sidewalk_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_stop_ap_obstructions": {
-              "old": null,
-              "new": "Other obstacle"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -5521,9 +5605,17 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -5533,25 +5625,17 @@
               "old": null,
               "new": "landscaping;parking_lane"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "Large cracks"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Asphalt"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "Large cracks"
             }
           },
           "photos": []
@@ -5652,9 +5736,17 @@
             "width": "0.0"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -5664,25 +5756,17 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "none;street_furniture"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "Other visible surface problem"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "Other visible surface problem"
             }
           },
           "photos": []
@@ -5771,11 +5855,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -5783,31 +5863,35 @@
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right;driveway;straight_through"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -5839,15 +5923,16 @@
       "tags": {
         "crossing:markings": "no",
         "ext:crossing_bike_lane_present": "yes",
-        "ext:crossing_control_type": "stop_sign",
-        "ext:crossing_curb_extension": "unsure",
+        "ext:crossing_control_type": "none",
+        "ext:crossing_curb_extension": "no",
         "ext:crossing_marked_present": "no",
         "ext:crossing_median_present": "no",
-        "ext:crossing_ped_signal_features": "unsure",
+        "ext:crossing_ped_signal_features": "none;unsure",
         "ext:crossing_picture": "yes",
-        "ext:crossing_possible_vehicle_conflicts": "unsignalized_right;unsignalized_left;driveway;straight_through",
-        "ext:crossing_student_concern": "long_distance",
-        "ext:crossing_warning_signs": "unsure",
+        "ext:crossing_possible_vehicle_conflicts": "driveway;straight_through;unsignalized_left;unsignalized_right",
+        "ext:crossing_student_concern": "drivers_not_yielding",
+        "ext:crossing_vehicle_lane_count": "2",
+        "ext:crossing_warning_signs": "no",
         "ext:kartaview_url": "https://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MzZfNTM5NjZfNmFkNTNjMWVlNGVhNy5qcGc",
         "ext:osm_version": "1",
         "footway": "crossing",
@@ -5857,25 +5942,25 @@
       },
       "readable": {
         "ext:crossing_bike_lane_present": "Yes",
-        "ext:crossing_control_type": "Stop sign",
-        "ext:crossing_curb_extension": "Not sure",
+        "ext:crossing_control_type": "No light, beacon or stop/yield sign",
+        "ext:crossing_curb_extension": "No",
         "ext:crossing_marked_present": "No",
         "ext:crossing_median_present": "No",
-        "ext:crossing_ped_signal_features": "Cannot tell",
+        "ext:crossing_ped_signal_features": "none;unsure",
         "ext:crossing_picture": "Take a photo",
-        "ext:crossing_possible_vehicle_conflicts": "unsignalized_right;unsignalized_left;driveway;straight_through",
-        "ext:crossing_student_concern": "Crossing seems long",
-        "ext:crossing_warning_signs": "Not sure"
+        "ext:crossing_possible_vehicle_conflicts": "driveway;straight_through;unsignalized_left;unsignalized_right",
+        "ext:crossing_student_concern": "Drivers do not appear to yield",
+        "ext:crossing_warning_signs": "No"
       },
       "photos": [
         "https://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MzZfNTM5NjZfNmFkNTNjMWVlNGVhNy5qcGc"
       ],
-      "user": "Participant 16",
-      "timestamp": "2026-10-18T21:37:40Z",
+      "user": "Participant 3",
+      "timestamp": "2026-11-01T22:53:58Z",
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 16",
+          "user": "Participant 17",
           "timestamp": "2026-10-18T21:37:40Z",
           "changeset": 291,
           "tags": {
@@ -5898,45 +5983,45 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "Crossing seems long"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "No"
+              "new": "Not sure"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "Cannot tell"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_right;unsignalized_left;driveway;straight_through"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "Cannot tell"
+              "new": "Crossing seems long"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Not sure"
             }
           },
           "photos": [
@@ -6027,43 +6112,43 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -6161,6 +6246,10 @@
             "width": "2.2"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -6169,33 +6258,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Nothing; sidewalk is next to traffic"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "Yes"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Nothing; sidewalk is next to traffic"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Bench, sign, or outdoor furniture"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;heaved;uneven;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -6276,7 +6361,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -6284,29 +6369,29 @@
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
+              "old": null,
+              "new": "No pedestrian signal"
+            },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "unsignalized_right;unsignalized_left;bike_conflict"
+            },
+            "ext:crossing_marked_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_curb_extension": {
+            "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "Not sure"
+            },
+            "ext:crossing_median_present": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_warning_signs": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "unsignalized_right;unsignalized_left;bike_conflict"
-            },
-            "ext:crossing_ped_signal_features": {
-              "old": null,
-              "new": "No pedestrian signal"
-            },
-            "ext:crossing_bike_lane_present": {
-              "old": null,
-              "new": "Not sure"
             }
           },
           "photos": []
@@ -6406,6 +6491,18 @@
             "width": "1.3"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_route_blocked": {
+              "old": null,
+              "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
               "new": "No, continuous sidewalk"
@@ -6414,33 +6511,21 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_route_blocked": {
+            "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
-              "new": "No, a path remains"
+              "new": "No obstacles"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
             },
             "ext:sidewalk_picture": {
               "old": null,
               "new": "Skip photo"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_stop_ap_obstructions": {
-              "old": null,
-              "new": "No obstacles"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;heaved"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
@@ -6533,6 +6618,10 @@
             "width": "1.9"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -6540,6 +6629,14 @@
             "ext:sidewalk_coverage_gaps": {
               "old": null,
               "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
             },
             "ext:sidewalk_buffer_type_home": {
               "old": null,
@@ -6549,21 +6646,9 @@
               "old": null,
               "new": "Take a photo"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -6651,7 +6736,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -6659,31 +6744,31 @@
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsure;unsignalized_right;unsignalized_left"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Take a photo"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "No"
             }
@@ -6767,6 +6852,22 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:crossing_curb_extension": {
+              "old": null,
+              "new": "Not sure"
+            },
+            "ext:crossing_control_type": {
+              "old": null,
+              "new": "Stop sign"
+            },
+            "ext:crossing_ped_signal_features": {
+              "old": null,
+              "new": "No pedestrian signal"
+            },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "unsignalized_right;unsignalized_left"
+            },
             "ext:crossing_student_concern": {
               "old": null,
               "new": "No additional concern"
@@ -6775,33 +6876,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_control_type": {
+            "ext:crossing_bike_lane_present": {
               "old": null,
-              "new": "Stop sign"
+              "new": "No"
             },
             "ext:crossing_median_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "Not sure"
-            },
             "ext:crossing_warning_signs": {
               "old": null,
               "new": "Not sure"
-            },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "unsignalized_right;unsignalized_left"
-            },
-            "ext:crossing_ped_signal_features": {
-              "old": null,
-              "new": "No pedestrian signal"
-            },
-            "ext:crossing_bike_lane_present": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -6909,6 +6994,10 @@
             "width": "1.9"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -6917,33 +7006,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Large cracks"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -7032,13 +7117,9 @@
             "width": "3.0"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Nothing; sidewalk is next to traffic"
+              "new": "Not sure"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -7048,21 +7129,25 @@
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "Not sure"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Nothing; sidewalk is next to traffic"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "No visible problems"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "No visible problems"
             }
           },
           "photos": []
@@ -7175,9 +7260,9 @@
             "width": "1.6"
           },
           "readable": {
-            "ext:sidewalk_gap_access_consequence": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "Cannot tell"
+              "new": "Yes"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -7187,33 +7272,33 @@
               "old": null,
               "new": "Yes, part is missing"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_gap_access_consequence": {
               "old": null,
-              "new": "Yes"
+              "new": "Cannot tell"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Other obstacle"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "eroded;heaved;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -7338,13 +7423,9 @@
             "width": "3.8"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Nothing; sidewalk is next to traffic"
+              "new": "Yes"
             },
             "ext:sidewalk_route_blocked": {
               "old": null,
@@ -7354,21 +7435,25 @@
               "old": null,
               "new": "Not sure"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "Yes"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Nothing; sidewalk is next to traffic"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
-            "ext:sidewalk_condition_detail": {
-              "old": null,
-              "new": "No visible problems"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Concrete"
+            },
+            "ext:sidewalk_condition_detail": {
+              "old": null,
+              "new": "No visible problems"
             }
           },
           "photos": []
@@ -7459,53 +7544,53 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Hard to see approaching vehicles"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Cannot tell"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "bike_conflict;straight_through"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Hard to see approaching vehicles"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -7612,37 +7697,37 @@
             "width": "1.9"
           },
           "readable": {
-            "ext:sidewalk_coverage_gaps": {
+            "ext:sidewalk_visible_slope_issue": {
               "old": null,
-              "new": "No, continuous sidewalk"
-            },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
+              "new": "No"
             },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_coverage_gaps": {
               "old": null,
-              "new": "No"
+              "new": "No, continuous sidewalk"
+            },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -7740,6 +7825,10 @@
             "width": "0.0"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -7748,33 +7837,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Raised or lifted slabs"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -7871,53 +7956,53 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Cannot tell"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "None observed / identifiable"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -8004,11 +8089,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
             },
@@ -8016,33 +8097,37 @@
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
+              "old": null,
+              "new": "No pedestrian signal"
+            },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "Other visible movement"
+            },
+            "ext:crossing_student_concern": {
+              "old": null,
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
+            "ext:crossing_marked_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_curb_extension": {
+            "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_median_present": {
               "old": null,
               "new": "No"
             },
             "ext:crossing_warning_signs": {
               "old": null,
               "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "Other visible movement"
-            },
-            "ext:crossing_ped_signal_features": {
-              "old": null,
-              "new": "No pedestrian signal"
-            },
-            "ext:crossing_bike_lane_present": {
-              "old": null,
-              "new": "No"
             }
           },
           "photos": []
@@ -8100,12 +8185,12 @@
         "ext:sidewalk_visible_slope_issue": "No"
       },
       "photos": [],
-      "user": "Participant 11",
+      "user": "Participant 13",
       "timestamp": "2026-10-18T21:45:43Z",
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 11",
+          "user": "Participant 13",
           "timestamp": "2026-10-18T21:44:18Z",
           "changeset": 315,
           "tags": {
@@ -8130,6 +8215,10 @@
             "width": "1.7"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8138,40 +8227,36 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Yes"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;other"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": []
         },
         {
           "action": "modify",
-          "user": "Participant 11",
+          "user": "Participant 13",
           "timestamp": "2026-10-18T21:45:43Z",
           "changeset": 320,
           "tags": {
@@ -8280,9 +8365,17 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -8292,25 +8385,17 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
+            "ext:sidewalk_surface_material": {
+              "old": null,
+              "new": "Asphalt"
+            },
             "ext:sidewalk_picture": {
               "old": null,
               "new": "Take a photo"
             },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -8396,9 +8481,17 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -8408,21 +8501,13 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Asphalt"
+            },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
             }
           },
           "photos": [
@@ -8519,53 +8604,53 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Cannot tell"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "straight_through;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "Not sure"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -8657,6 +8742,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8665,33 +8754,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "concrete_barrier;landscaping"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "concrete_barrier;landscaping"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "No visible problems"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -8812,6 +8897,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -8820,33 +8909,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "debris;utility_poles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -8975,49 +9060,49 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "No light, beacon or stop/yield sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "Vehicles turning left without a separate protected green arrow"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -9111,6 +9196,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9119,33 +9208,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Uneven surface or abrupt height change"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -9279,6 +9364,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9287,33 +9376,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "Not sure"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "Yes"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "cracked;eroded;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -9407,49 +9492,49 @@
             "surface": "concrete"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_picture": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -9538,9 +9623,17 @@
             "width": "1.1"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
+            },
+            "ext:sidewalk_driveway_grade_change_home": {
+              "old": null,
+              "new": "No"
             },
             "ext:sidewalk_coverage_gaps": {
               "old": null,
@@ -9550,18 +9643,6 @@
               "old": null,
               "new": "Grass, planting strip or trees"
             },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:sidewalk_driveway_grade_change_home": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:sidewalk_visible_slope_issue": {
-              "old": null,
-              "new": "No"
-            },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Trash bin"
@@ -9569,6 +9650,10 @@
             "ext:sidewalk_surface_material": {
               "old": null,
               "new": "Asphalt"
+            },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
             }
           },
           "photos": [
@@ -9664,6 +9749,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9672,33 +9761,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Broken or eroded surface"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -9793,53 +9878,53 @@
             "incline": "0.007"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "Another concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Stop sign"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Not sure"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Zebra stripes"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "unsignalized_left;unsignalized_right"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "Another concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Not sure"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "Yes"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Zebra stripes"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": [
@@ -9901,12 +9986,12 @@
       "photos": [
         "https://cdn.kartaview.org/pr:sharp/aHR0cHM6Ly9zdG9yYWdlMTMub3BlbnN0cmVldGNhbS5vcmcvZmlsZXMvcGhvdG8vMjAyNi8xMC8xOC9sdGgvMTE3MjA5MjFfM2E5ZWRfNmFkNTNiOGVlNTkwMS5qcGVn"
       ],
-      "user": "Participant 17",
+      "user": "Participant 16",
       "timestamp": "2026-10-18T21:35:17Z",
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 17",
+          "user": "Participant 16",
           "timestamp": "2026-10-18T21:35:17Z",
           "changeset": 281,
           "tags": {
@@ -9931,6 +10016,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -9939,33 +10028,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "Yes"
+              "new": "Concrete"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "eroded;heaved;uneven"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Concrete"
             }
           },
           "photos": [
@@ -10023,12 +10108,12 @@
         "ext:crossing_warning_signs": "Yes"
       },
       "photos": [],
-      "user": "Participant 12",
+      "user": "Participant 11",
       "timestamp": "2026-10-18T21:36:04Z",
       "versions": [
         {
           "action": "modify",
-          "user": "Participant 12",
+          "user": "Participant 11",
           "timestamp": "2026-10-18T21:36:04Z",
           "changeset": 284,
           "tags": {
@@ -10050,43 +10135,43 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Flashing pedestrian beacon"
             },
+            "ext:crossing_possible_vehicle_conflicts": {
+              "old": null,
+              "new": "Vehicles turning left without a separate protected green arrow"
+            },
+            "ext:crossing_student_concern": {
+              "old": null,
+              "new": "No additional concern"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_bike_lane_present": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:crossing_median_present": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_marking_type": {
               "old": null,
               "new": "Two parallel lines"
             },
-            "ext:crossing_possible_vehicle_conflicts": {
-              "old": null,
-              "new": "Vehicles turning left without a separate protected green arrow"
-            },
-            "ext:crossing_bike_lane_present": {
+            "ext:crossing_warning_signs": {
               "old": null,
               "new": "Yes"
             }
@@ -10179,53 +10264,53 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_marking_worn": {
+            "ext:crossing_curb_extension": {
               "old": null,
               "new": "No"
-            },
-            "ext:crossing_student_concern": {
-              "old": null,
-              "new": "No additional concern"
-            },
-            "ext:crossing_marked_present": {
-              "old": null,
-              "new": "Yes"
             },
             "ext:crossing_control_type": {
               "old": null,
               "new": "Flashing pedestrian beacon"
             },
-            "ext:crossing_median_present": {
+            "ext:crossing_ped_signal_features": {
               "old": null,
-              "new": "No"
-            },
-            "ext:crossing_curb_extension": {
-              "old": null,
-              "new": "No"
-            },
-            "ext:crossing_warning_signs": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:crossing_picture": {
-              "old": null,
-              "new": "Skip photo"
-            },
-            "ext:crossing_marking_type": {
-              "old": null,
-              "new": "Other markings"
+              "new": "No pedestrian signal"
             },
             "ext:crossing_possible_vehicle_conflicts": {
               "old": null,
               "new": "Vehicle entering or leaving a driveway"
             },
-            "ext:crossing_ped_signal_features": {
+            "ext:crossing_student_concern": {
               "old": null,
-              "new": "No pedestrian signal"
+              "new": "No additional concern"
+            },
+            "ext:crossing_picture": {
+              "old": null,
+              "new": "Skip photo"
+            },
+            "ext:crossing_warning_signs": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:crossing_marking_worn": {
+              "old": null,
+              "new": "No"
             },
             "ext:crossing_bike_lane_present": {
               "old": null,
               "new": "No"
+            },
+            "ext:crossing_median_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_marking_type": {
+              "old": null,
+              "new": "Other markings"
+            },
+            "ext:crossing_marked_present": {
+              "old": null,
+              "new": "Yes"
             }
           },
           "photos": []
@@ -10329,6 +10414,10 @@
             "width": "1.6"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10337,33 +10426,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Uneven surface or abrupt height change"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10465,6 +10550,10 @@
             "width": "1.4"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10473,33 +10562,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Uneven surface or abrupt height change"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10593,6 +10678,10 @@
             "width": "1.4"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10601,33 +10690,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "Plants or low branches"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Large cracks"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10721,6 +10806,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10729,33 +10818,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10853,6 +10938,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10861,33 +10950,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "Grass, planting strip or trees"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "Grass, planting strip or trees"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "No obstacles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -10981,6 +11066,10 @@
             "width": "1.8"
           },
           "readable": {
+            "ext:sidewalk_visible_slope_issue": {
+              "old": null,
+              "new": "No"
+            },
             "ext:sidewalk_route_blocked": {
               "old": null,
               "new": "No, a path remains"
@@ -10989,33 +11078,29 @@
               "old": null,
               "new": "No, continuous sidewalk"
             },
-            "ext:sidewalk_buffer_type_home": {
-              "old": null,
-              "new": "concrete_barrier;landscaping"
-            },
-            "ext:sidewalk_picture": {
-              "old": null,
-              "new": "Take a photo"
-            },
             "ext:sidewalk_driveway_grade_change_home": {
               "old": null,
               "new": "No"
             },
-            "ext:sidewalk_visible_slope_issue": {
+            "ext:sidewalk_surface_material": {
               "old": null,
-              "new": "No"
+              "new": "Asphalt"
+            },
+            "ext:sidewalk_buffer_type_home": {
+              "old": null,
+              "new": "concrete_barrier;landscaping"
             },
             "ext:sidewalk_stop_ap_obstructions": {
               "old": null,
               "new": "debris;utility_poles"
             },
+            "ext:sidewalk_picture": {
+              "old": null,
+              "new": "Take a photo"
+            },
             "ext:sidewalk_condition_detail": {
               "old": null,
               "new": "Other visible surface problem"
-            },
-            "ext:sidewalk_surface_material": {
-              "old": null,
-              "new": "Asphalt"
             }
           },
           "photos": [
@@ -11033,5 +11118,9 @@
   "slideshow_images": [],
   "video_url": "",
   "video_embed_url": "",
-  "video_kind": ""
+  "video_kind": "",
+  "event_id": "2026-10-18-srts-john-stanford-intl",
+  "event_name": "SRTS: John Stanford Int'l",
+  "activity_label": "SRTS: John Stanford Int'l (1)",
+  "anonymized": true
 }
