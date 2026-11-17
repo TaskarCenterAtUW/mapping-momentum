@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mapping-momentum"
-version = "1.5.0"
+version = "1.6.0"
 description = "Statistics engine and report generator for mapping participation metrics."
 requires-python = ">=3.14"
 classifiers = [
@@ -28,6 +28,9 @@ packages = [
 [tool.hatch.build.targets.wheel.shared-data]
 "templates/activity_report.html" = "templates/activity_report.html"
 "templates/aggregate_report.html" = "templates/aggregate_report.html"
+"templates/report_theme.css" = "templates/report_theme.css"
+"templates/report_theme_bootstrap.js" = "templates/report_theme_bootstrap.js"
+"templates/report_theme_controls.js" = "templates/report_theme_controls.js"
 
 [dependency-groups]
 dev = [

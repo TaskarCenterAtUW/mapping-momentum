@@ -5,23 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page_title }}</title>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" crossorigin="anonymous">
-  <script>
-    (function () {
-      var savedTheme;
-      try {
-        savedTheme = window.localStorage.getItem('mapping-momentum-theme');
-      } catch (error) {
-        console.warn('Theme preference could not be loaded; using system preference.', error);
-      }
-
-      var prefersDark = window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme = savedTheme === 'light' || savedTheme === 'dark'
-        ? savedTheme
-        : (prefersDark ? 'dark' : 'light');
-      document.documentElement.dataset.theme = theme;
-    }());
-  </script>
+  <script>{% include "report_theme_bootstrap.js" %}</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -285,54 +269,90 @@
       .content-grid { grid-template-columns: 1fr; }
       .contributor-table { min-width: 480px; }
     }
+    {% include "report_theme.css" %}
   </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="page-header" role="banner">
-    <div>
-      <h1>{{ title }}</h1>
-      <p class="report-subtitle">
-        {{ stats.period_label }} · {{ stats.event_count }}
-        event{% if stats.event_count != 1 %}s{% endif %}
-        {% if stats.report_count != stats.event_count %}
-        · {{ stats.report_count }} source reports
-        {% endif %}
-      </p>
+  <header class="report-navbar" role="banner">
+    <div class="report-navbar-inner">
+      <div class="report-brand">
+        <span class="report-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 10.1a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2Z"></path>
+          </svg>
+        </span>
+        <span class="report-brand-copy">
+          <span class="report-brand-title">Mapping Momentum</span>
+          <span class="report-brand-subtitle">Contribution reports</span>
+        </span>
+      </div>
+      <div class="report-nav-actions">
+        <div id="theme-toggle" class="report-theme-group" role="group" aria-label="Color theme">
+          <button type="button" class="report-theme-button" data-theme-mode="light" aria-pressed="false">Light</button>
+          <button type="button" class="report-theme-button" data-theme-mode="dark" aria-pressed="false">Dark</button>
+          <button type="button" class="report-theme-button" data-theme-mode="auto" aria-pressed="true">Auto</button>
+        </div>
+      </div>
     </div>
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">
-      <span>Dark mode</span>
-    </button>
   </header>
 
-  <main id="main-content">
+  <div class="report-breadcrumb-bar">
+    <nav class="report-breadcrumb-inner" aria-label="Breadcrumb">
+      <ol class="report-breadcrumbs">
+        <li>Reports</li>
+        <li>Aggregates</li>
+        <li aria-current="page">{{ aggregate_series_name }}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <main id="main-content" class="report-main">
+    <section class="report-hero" aria-labelledby="report-title">
+      <div class="report-hero-copy">
+        <p class="report-eyebrow">Cross-event contribution report</p>
+        <h1 id="report-title">{{ title }}</h1>
+        <p class="report-subtitle">
+          {{ stats.period_label }} · {{ stats.event_count }}
+          event{% if stats.event_count != 1 %}s{% endif %}
+          {% if stats.report_count != stats.event_count %}
+          · {{ stats.report_count }} source reports
+          {% endif %}
+        </p>
+      </div>
+      <div class="report-hero-meta">
+        <span class="report-pill">{{ stats.event_count }} events</span>
+        <span class="report-pill">{{ stats.report_count }} reports</span>
+      </div>
+    </section>
+
     <section class="summary-grid" aria-label="Aggregate summary">
-      <article class="metric-card">
+      <a class="metric-card" href="#contributors-heading">
         <span class="metric-value">{{ stats.contributor_count }}</span>
         <span class="metric-label">Contributors</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#events-heading">
         <span class="metric-value">{{ stats.quest_answer_count }}</span>
         <span class="metric-label">Quest answers</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#events-heading">
         <span class="metric-value">{{ stats.note_count }}</span>
         <span class="metric-label">Notes</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#map-heading">
         <span class="metric-value">{{ stats.new_feature_count }}</span>
         <span class="metric-label">New map features</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#events-heading">
         <span class="metric-value">{{ stats.event_count }}</span>
         <span class="metric-label">Events</span>
-      </article>
+      </a>
     </section>
 
     <div class="content-grid">
       <section class="section-card" aria-labelledby="events-heading">
         <div class="section-heading">
-          <h2 id="events-heading">Contributions by event</h2>
+          <h2 id="events-heading" tabindex="-1">Contributions by event</h2>
           <span class="card-count">{{ stats.report_count }} reports</span>
         </div>
         {% if stats.events %}
@@ -373,7 +393,7 @@
 
       <section class="section-card" aria-labelledby="mix-heading">
         <div class="section-heading">
-          <h2 id="mix-heading">Contribution mix by element type</h2>
+          <h2 id="mix-heading" tabindex="-1">Contribution mix by element type</h2>
         </div>
         {% if stats.quest_type_breakdown %}
         {% set max_category_count = stats.quest_type_breakdown | map(attribute='count') | max %}
@@ -396,11 +416,15 @@
 
     <section class="section-card" aria-labelledby="map-heading">
       <div class="section-heading">
-        <h2 id="map-heading">Where it happened</h2>
+        <h2 id="map-heading" tabindex="-1">Where it happened</h2>
       </div>
-      <div class="map-wrapper">
+      <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="region" aria-label="Map of aggregated report contributions"></div>
         <div id="map-marker-controls" class="sr-only" role="group" aria-label="Aggregate map locations"></div>
+        <details class="map-legend">
+          <summary>Map legend</summary>
+          <ul class="map-legend-items" id="map-legend-items" aria-label="Map symbols"></ul>
+        </details>
         <label class="sr-only" for="map-style">Basemap style</label>
         <select id="map-style" aria-label="Basemap style">
           <option value="positron" selected>Positron</option>
@@ -409,6 +433,19 @@
           <option value="dark">Dark</option>
           <option value="fiord">Fiord</option>
         </select>
+        <div
+          id="map-resize-handle"
+          class="map-resize-handle"
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Resize map height"
+          aria-controls="map"
+          aria-valuemin="280"
+          aria-valuemax="640"
+          aria-valuenow="450"
+          tabindex="0"
+          title="Drag to resize the map; use the arrow keys when focused"
+        ></div>
       </div>
       <p id="map-fallback" class="no-data" hidden>
         The map could not be loaded. The report totals remain available above.
@@ -417,7 +454,7 @@
 
     <section class="section-card" aria-labelledby="contributors-heading">
       <div class="section-heading">
-        <h2 id="contributors-heading">Contributors</h2>
+        <h2 id="contributors-heading" tabindex="-1">Contributors</h2>
         <span class="card-count">{{ stats.contributor_count }}</span>
       </div>
       {% if stats.contributions_by_user %}
@@ -471,43 +508,24 @@
     </p>
   </main>
 
+  <footer class="report-footer" aria-label="Site footer">
+    <span>© <a href="https://tcat.cs.washington.edu/" target="_blank" rel="noopener noreferrer">Taskar Center for Accessible Technology</a></span>
+    <span aria-hidden="true">•</span>
+    <a href="https://github.com/TaskarCenterAtUW/mapping-momentum" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <span aria-hidden="true">•</span>
+    <a href="https://taskarcenteratuw.github.io/tcat-wiki/workspaces/mapping-momentum/user-manual/" target="_blank" rel="noopener noreferrer">User Manual</a>
+    <span aria-hidden="true">•</span>
+    <span>Mapping Momentum v{{ app_version }}</span>
+  </footer>
+
+  <script>{% include "report_theme_controls.js" %}</script>
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
   <script>
     (function () {
       'use strict';
       const STATS = {{ stats_json | safe }};
-      const themeToggle = document.getElementById('theme-toggle');
       const mapStyle = document.getElementById('map-style');
       const mapFallback = document.getElementById('map-fallback');
-
-      function updateThemeButton() {
-        const isDark = document.documentElement.dataset.theme === 'dark';
-        themeToggle.setAttribute('aria-pressed', String(isDark));
-        themeToggle.querySelector('span').textContent =
-          isDark ? 'Light mode' : 'Dark mode';
-      }
-
-      function syncMapStyle(theme) {
-        const preferredStyle = theme === 'dark' ? 'fiord' : 'positron';
-        if (mapStyle.value === preferredStyle) return;
-        mapStyle.value = preferredStyle;
-        mapStyle.dispatchEvent(new Event('change'));
-      }
-
-      themeToggle.addEventListener('click', function () {
-        const nextTheme =
-          document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = nextTheme;
-        try {
-          window.localStorage.setItem('mapping-momentum-theme', nextTheme);
-        } catch (error) {
-          console.warn('Theme preference could not be saved.', error);
-        }
-        updateThemeButton();
-        syncMapStyle(nextTheme);
-      });
-      updateThemeButton();
-      syncMapStyle(document.documentElement.dataset.theme);
 
       const styles = {
         positron: 'https://tiles.openfreemap.org/styles/positron',
@@ -544,8 +562,15 @@
         }
         return category
           ? 'hsl(' + (Math.abs(hash) % 360) + ',55%,42%)'
-          : '#4b2e83';
+          : '#5f22c9';
       }
+
+      const markers = (STATS.markers || []).filter(function (marker) {
+        return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
+      });
+      const markerShapes = window.MappingMomentumReport.renderMapLegend(markers, function (category) {
+        return markerColor({ kind: 'quest', category: category });
+      });
 
       if (typeof maplibregl === 'undefined') {
         mapStyle.disabled = true;
@@ -553,16 +578,20 @@
         return;
       }
 
-      const markers = (STATS.markers || []).filter(function (marker) {
-        return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
-      });
       const markerSourceId = 'mm-interactive-markers';
+      const circleMarkerLayerId = 'mm-interactive-circle-markers';
       const questMarkerLayerId = 'mm-interactive-quest-markers';
       const noteMarkerLayerId = 'mm-interactive-note-markers';
-      const noteHighlightLayerId = 'mm-interactive-note-highlight';
+      const markerHighlightLayerId = 'mm-interactive-marker-highlight';
       const markerFeatures = {
         type: 'FeatureCollection',
         features: markers.map(function (marker, index) {
+          const category = typeof marker.category === 'string' && marker.category.trim()
+            ? marker.category
+            : '';
+          const kind = marker.kind === 'note' ? 'note' : 'quest';
+          const shape = kind === 'note' ? 'cross' : (markerShapes[category] || 'hexagon');
+          const color = markerColor(marker);
           return {
             type: 'Feature',
             id: index,
@@ -572,8 +601,10 @@
             },
             properties: {
               markerIndex: index,
-              kind: marker.kind === 'note' ? 'note' : 'quest',
-              color: markerColor(marker)
+              kind: kind,
+              color: color,
+              shape: shape,
+              iconImage: window.MappingMomentumReport.markerIconName(shape)
             }
           };
         })
@@ -591,21 +622,6 @@
         ];
       }
 
-      function createNoteMarkerIcon() {
-        const canvas = document.createElement('canvas');
-        canvas.width = 28;
-        canvas.height = 28;
-        const context = canvas.getContext('2d');
-        if (!context) return null;
-
-        context.fillStyle = 'rgba(255,255,255,0.7)';
-        context.fillRect(0, 0, 28, 28);
-        context.fillStyle = '#6c757d';
-        context.fillRect(4, 4, 20, 20);
-        const image = context.getImageData(0, 0, canvas.width, canvas.height);
-        return { width: image.width, height: image.height, data: image.data };
-      }
-
       function addMarkerLayers() {
         if (!map.getSource(markerSourceId)) {
           map.addSource(markerSourceId, {
@@ -613,45 +629,60 @@
             data: markerFeatures
           });
         }
+        window.MappingMomentumReport.registerMarkerImages(map, markerFeatures);
 
         const highlightColor = getComputedStyle(document.documentElement)
-          .getPropertyValue('--mm-accent').trim() || '#4b2e83';
+          .getPropertyValue('--mm-accent').trim() || '#5f22c9';
+
+        if (!map.getLayer(markerHighlightLayerId)) {
+          map.addLayer({
+            id: markerHighlightLayerId,
+            type: 'circle',
+            source: markerSourceId,
+            paint: {
+              'circle-color': 'rgba(0,0,0,0)',
+              'circle-radius': ['case', markerIsHighlighted(), 9, 0],
+              'circle-stroke-color': highlightColor,
+              'circle-stroke-width': ['case', markerIsHighlighted(), 2.5, 0]
+            }
+          });
+        }
+
+        if (!map.getLayer(circleMarkerLayerId)) {
+          map.addLayer({
+            id: circleMarkerLayerId,
+            type: 'circle',
+            source: markerSourceId,
+            filter: ['all', ['!=', ['get', 'kind'], 'note'], ['==', ['get', 'shape'], 'circle']],
+            paint: {
+              'circle-color': ['get', 'color'],
+              'circle-radius': 6,
+              'circle-stroke-color': 'rgba(255,255,255,0.95)',
+              'circle-stroke-width': 2
+            }
+          });
+        }
 
         if (!map.getLayer(questMarkerLayerId)) {
           map.addLayer({
             id: questMarkerLayerId,
-            type: 'circle',
+            type: 'symbol',
             source: markerSourceId,
-            filter: ['!=', ['get', 'kind'], 'note'],
+            filter: ['all', ['!=', ['get', 'kind'], 'note'], ['!=', ['get', 'shape'], 'circle']],
+            layout: {
+              'icon-image': ['get', 'iconImage'],
+              'icon-size': 0.5,
+              'icon-allow-overlap': true,
+              'icon-ignore-placement': true
+            },
             paint: {
-              'circle-color': ['get', 'color'],
-              'circle-radius': ['case', markerIsHighlighted(), 8, 6],
-              'circle-stroke-color': [
-                'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.7)'
+              'icon-color': ['get', 'color'],
+              'icon-halo-color': [
+                'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.95)'
               ],
-              'circle-stroke-width': ['case', markerIsHighlighted(), 3, 2]
+              'icon-halo-width': 2
             }
           });
-        }
-
-        if (!map.getLayer(noteHighlightLayerId)) {
-          map.addLayer({
-            id: noteHighlightLayerId,
-            type: 'circle',
-            source: markerSourceId,
-            filter: ['==', ['get', 'kind'], 'note'],
-            paint: {
-              'circle-color': 'rgba(0,0,0,0)',
-              'circle-radius': 8,
-              'circle-stroke-color': highlightColor,
-              'circle-stroke-width': ['case', markerIsHighlighted(), 2, 0]
-            }
-          });
-        }
-
-        if (!map.hasImage('mm-note-marker-icon')) {
-          const noteIcon = createNoteMarkerIcon();
-          if (noteIcon) map.addImage('mm-note-marker-icon', noteIcon, { pixelRatio: 2 });
         }
 
         if (!map.getLayer(noteMarkerLayerId)) {
@@ -661,11 +692,18 @@
             source: markerSourceId,
             filter: ['==', ['get', 'kind'], 'note'],
             layout: {
-              'icon-image': 'mm-note-marker-icon',
-              'icon-size': 1,
+              'icon-image': ['get', 'iconImage'],
+              'icon-size': 0.5,
               'icon-anchor': 'center',
               'icon-allow-overlap': true,
               'icon-ignore-placement': true
+            },
+            paint: {
+              'icon-color': ['get', 'color'],
+              'icon-halo-color': [
+                'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.95)'
+              ],
+              'icon-halo-width': 2
             }
           });
         }
@@ -686,6 +724,7 @@
 
       function markerFeatureAt(point) {
         const layers = [];
+        if (map.getLayer(circleMarkerLayerId)) layers.push(circleMarkerLayerId);
         if (map.getLayer(questMarkerLayerId)) layers.push(questMarkerLayerId);
         if (map.getLayer(noteMarkerLayerId)) layers.push(noteMarkerLayerId);
         if (layers.length === 0) return null;
@@ -764,9 +803,16 @@
         style: styles[mapStyle.value],
         center: [-98.35, 39.5],
         zoom: 3,
-        attributionControl: true
+        attributionControl: false
       });
+      window.MappingMomentumReport.enableMapResize(map);
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
+      map.addControl(new maplibregl.AttributionControl({
+        customAttribution: [
+          '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>',
+          '© Workspace contributors'
+        ]
+      }), 'bottom-right');
       mapStyle.addEventListener('change', function () {
         const styleUrl = styles[mapStyle.value];
         if (styleUrl) map.setStyle(styleUrl, { diff: false });

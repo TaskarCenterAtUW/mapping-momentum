@@ -466,13 +466,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -523,13 +523,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -580,13 +580,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -637,13 +637,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -744,13 +744,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -801,13 +801,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -858,13 +858,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -915,13 +915,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -972,13 +972,13 @@
             "tactile_paving:aps": "no"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "No, the tactile paving is not truncated domes, or is not high-contrast."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "No, the tactile paving is not truncated domes, or is not high-contrast."
             },
             "kerb": {
               "old": null,
@@ -1029,13 +1029,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1086,13 +1086,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1143,13 +1143,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1200,13 +1200,13 @@
             "tactile_paving:aps": "no"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "No, the tactile paving is not truncated domes, or is not high-contrast."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "No, the tactile paving is not truncated domes, or is not high-contrast."
             },
             "kerb": {
               "old": null,
@@ -1257,13 +1257,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1314,13 +1314,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1371,13 +1371,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1428,13 +1428,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1485,13 +1485,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1592,13 +1592,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1649,13 +1649,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1706,13 +1706,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1763,13 +1763,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1820,13 +1820,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1877,13 +1877,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1934,13 +1934,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -1991,13 +1991,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -2048,13 +2048,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -2105,13 +2105,13 @@
             "tactile_paving:aps": "yes"
           },
           "readable": {
-            "tactile_paving:aps": {
-              "old": null,
-              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
-            },
             "tactile_paving": {
               "old": null,
               "new": "Yes, there is tactile paving present."
+            },
+            "tactile_paving:aps": {
+              "old": null,
+              "new": "Yes, there is high-contrast, truncated dome tactile paving present."
             },
             "kerb": {
               "old": null,
@@ -2305,17 +2305,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -2375,17 +2375,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -2472,21 +2472,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -2495,6 +2491,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -2563,9 +2563,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -2574,18 +2586,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -2654,9 +2654,21 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -2665,18 +2677,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -2736,17 +2736,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -2806,17 +2806,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -2876,17 +2876,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -2946,17 +2946,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -3016,17 +3016,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -3086,17 +3086,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -3165,9 +3165,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -3176,18 +3188,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -3270,21 +3270,17 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Other"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "Yes, overgrown vegetation is present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -3293,6 +3289,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "Yes, overgrown vegetation is present."
             }
           },
           "photos": []
@@ -3375,21 +3375,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -3398,6 +3394,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -3512,7 +3512,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "Yes"
             },
@@ -3520,11 +3520,7 @@
               "old": null,
               "new": "Other"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "Yes"
             },
@@ -3535,6 +3531,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -3617,21 +3617,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -3640,6 +3636,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -3726,21 +3726,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -3749,6 +3745,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -3835,21 +3835,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -3858,6 +3854,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -3926,9 +3926,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -3937,18 +3949,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -4017,9 +4017,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -4028,18 +4040,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -4108,9 +4108,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -4119,18 +4131,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -4213,21 +4213,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -4236,6 +4232,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -4318,7 +4318,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "Yes"
             },
@@ -4326,11 +4326,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "Yes"
             },
@@ -4341,6 +4337,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -4423,21 +4423,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Brick"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -4446,6 +4442,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -4532,7 +4532,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "Yes"
             },
@@ -4540,11 +4540,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "Yes"
             },
@@ -4555,6 +4551,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -4627,9 +4627,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -4638,18 +4650,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -4732,21 +4732,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Brick"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -4755,6 +4751,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -4845,21 +4845,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -4868,6 +4864,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -4936,9 +4936,21 @@
             "surface": "concrete"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -4947,18 +4959,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -5027,9 +5027,21 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -5038,18 +5050,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -5132,21 +5132,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -5155,6 +5151,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -5223,9 +5223,21 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -5234,18 +5246,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -5314,9 +5314,21 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -5325,18 +5337,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -5405,9 +5405,21 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -5416,18 +5428,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -5496,9 +5496,21 @@
             "surface": "asphalt"
           },
           "readable": {
+            "ext:traffic_signals:arrow": {
+              "old": null,
+              "new": "No, there are no tactile arrows present."
+            },
+            "ext:crossing:signals": {
+              "old": null,
+              "new": "Yes, there are signals present."
+            },
             "ext:traffic_signals:vibration": {
               "old": null,
               "new": "No, there are no vibratory signals present."
+            },
+            "crossing:markings": {
+              "old": null,
+              "new": "Yes, there are markings present."
             },
             "ext:crossing:island": {
               "old": null,
@@ -5507,18 +5519,6 @@
             "ext:traffic_signals:sound": {
               "old": null,
               "new": "No, there are no auditory signals present."
-            },
-            "crossing:markings": {
-              "old": null,
-              "new": "Yes, there are markings present."
-            },
-            "ext:traffic_signals:arrow": {
-              "old": null,
-              "new": "No, there are no tactile arrows present."
-            },
-            "ext:crossing:signals": {
-              "old": null,
-              "new": "Yes, there are signals present."
             }
           },
           "photos": []
@@ -5601,21 +5601,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -5624,6 +5620,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -5706,21 +5706,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -5729,6 +5725,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -5811,7 +5811,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -5819,11 +5819,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -5834,6 +5830,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -5916,7 +5916,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -5924,11 +5924,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -5939,6 +5935,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6021,7 +6021,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6029,11 +6029,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6044,6 +6040,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6126,7 +6126,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "Yes"
             },
@@ -6134,11 +6134,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "Yes"
             },
@@ -6149,6 +6145,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6208,17 +6208,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -6301,7 +6301,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6309,11 +6309,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6324,6 +6320,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6406,7 +6406,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6414,11 +6414,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6429,6 +6425,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6511,7 +6511,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6519,11 +6519,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6534,6 +6530,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6620,21 +6620,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -6643,6 +6639,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6733,7 +6733,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6741,11 +6741,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6756,6 +6752,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6838,7 +6838,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6846,11 +6846,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6861,6 +6857,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -6943,7 +6943,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -6951,11 +6951,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -6966,6 +6962,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7048,7 +7048,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7056,11 +7056,7 @@
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7071,6 +7067,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7153,7 +7153,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7161,11 +7161,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7176,6 +7172,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7235,17 +7235,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -7328,7 +7328,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7336,11 +7336,7 @@
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7351,6 +7347,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7433,7 +7433,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7441,11 +7441,7 @@
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7456,6 +7452,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7538,7 +7538,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7546,11 +7546,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7561,6 +7557,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7620,17 +7620,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -7713,7 +7713,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7721,11 +7721,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7736,6 +7732,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7795,17 +7795,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -7888,7 +7888,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -7896,11 +7896,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -7911,6 +7907,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -7993,7 +7993,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -8001,11 +8001,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -8016,6 +8012,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -8098,21 +8098,17 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
             },
             "ext:pathway_surface": {
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             },
             "ext:pathway_narrows": {
               "old": null,
@@ -8121,6 +8117,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -8203,7 +8203,7 @@
               "old": null,
               "new": "No"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "No"
             },
@@ -8211,11 +8211,7 @@
               "old": null,
               "new": "Concrete"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "No"
             },
@@ -8226,6 +8222,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "No"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -8308,7 +8308,7 @@
               "old": null,
               "new": "Yes"
             },
-            "ext:pathway_disruptions_horizontal_small": {
+            "ext:pathway_disruptions_vertical_large": {
               "old": null,
               "new": "Yes"
             },
@@ -8316,11 +8316,7 @@
               "old": null,
               "new": "Asphalt"
             },
-            "ext:pathway_overgrown_vegetation": {
-              "old": null,
-              "new": "No, there is no overgrown vegetation present."
-            },
-            "ext:pathway_disruptions_vertical_large": {
+            "ext:pathway_disruptions_horizontal_small": {
               "old": null,
               "new": "Yes"
             },
@@ -8331,6 +8327,10 @@
             "ext:pathway_disruptions_vertical_small": {
               "old": null,
               "new": "Yes"
+            },
+            "ext:pathway_overgrown_vegetation": {
+              "old": null,
+              "new": "No, there is no overgrown vegetation present."
             }
           },
           "photos": []
@@ -8390,17 +8390,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -8460,17 +8460,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -8530,17 +8530,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []
@@ -8600,17 +8600,17 @@
             "surface": "asphalt"
           },
           "readable": {
-            "crossing:markings": {
+            "ext:crossing:signals": {
               "old": null,
-              "new": "Yes, there are markings present."
+              "new": "No, there are no signals present."
             },
             "ext:crossing:island": {
               "old": null,
               "new": "No, there is not a traffic island present."
             },
-            "ext:crossing:signals": {
+            "crossing:markings": {
               "old": null,
-              "new": "No, there are no signals present."
+              "new": "Yes, there are markings present."
             }
           },
           "photos": []

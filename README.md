@@ -81,6 +81,16 @@ The CSV records each changed quest tag as a row, including its human-readable qu
 
 Add `--anonymize` (or `-a`) to replace contributor names, map edit-history authors, and quote attributions with labels such as `Participant 1`. The anonymized values are used in both `stats.json` and `index.html`, including `--dry-run` output. Known names are also replaced at whole-word boundaries in note and quote text. When used with `--render-from-stats`, a sanitized copy of `stats.json` and the anonymized HTML are written to the output directory; the input stats file is left unchanged unless it is itself the output file. Review other identifying details in free-form content and images before publication; the option cannot infer names that are not present in structured contributor or quote attribution data.
 
+### Regenerate all configured reports
+
+Run the utility below to discover every event config under `configs/events/`, fetch current Workspace data, and regenerate the full report set:
+
+```powershell
+python utilities/generate_all.py
+```
+
+The utility skips the template config, writes non-anonymized event reports and quest-answer logs to `local-output/v<project-version>/`, and builds aggregates for series with multiple event configs. It then writes anonymized event reports, quest-answer logs, and matching aggregates under `output/`. The command uses the configured TDEI credential environment variables or prompts for credentials. If a live request interrupts a run, pass `--resume` to reuse completed local reports and logs while continuing with the remaining configs.
+
 ### Aggregate reports
 
 Generate each source report first without `--anonymize`, then pass its `stats.json` path (or report directory) to the `aggregate` command. Reports must retain their original usernames so the same person is counted once across events; usernames are matched exactly, including case, and quest-answer counts are summed for each matched username. An anonymized source report is rejected. To anonymize the combined output after the identities have been matched, add `--anonymize` to the aggregate command. The aggregate command checks that quest-answer totals reconcile with contributor histories. For legacy reports without per-user totals, complete marker histories can supply the contributor counts; if those counts exceed a legacy report's stored changeset total, the aggregate uses the history total and discloses the difference. It rejects legacy histories that fall short and current reports with inconsistent totals. Legacy reports without note authors retain their overall note totals, with those notes marked as unattributed rather than assigned to a contributor.
@@ -134,6 +144,8 @@ Optional event content can be configured at the event level or inside the `repor
 
 `pictures` accepts a list of relative image paths or a relative directory. Local files are embedded in the report. `slideshow_url` accepts one slideshow or image-directory URL, or a list of individual image URLs. `video_url` accepts a hosted video URL (YouTube and Vimeo links are embedded) or a direct video-file URL. Quote attribution fields are optional.
 
-Large or dense Workspace areas may return large or truncated map XML. The map fetcher accepts map tiles up to 100 MiB, automatically subdivides oversized or truncated responses, and enforces bounded tile-depth and request limits. Workspace data requests use a 120-second timeout to accommodate large workspaces. If a tile still exceeds the size limit or returns truncated XML at the maximum depth, the command exits with a diagnostic error.
+Large or dense Workspace areas may return large, truncated, or server-error map responses. The map fetcher accepts map tiles up to 100 MiB, automatically subdivides oversized or truncated responses, and applies bounded subdivision to server errors. Workspace data requests use a 120-second timeout to accommodate large workspaces. If a tile still exceeds the size limit or returns truncated XML at the maximum depth, the command exits with a diagnostic error.
 
 Reports are self-contained with respect to event data, but the interactive map still loads MapLibre from `unpkg.com` and its selectable Positron (the default), Bright, Liberty, Dark, and Fiord basemaps and tiles from `tiles.openfreemap.org` when viewed online. The report can still display its cards when those network resources are unavailable.
+
+Standalone reports use a responsive layout with a Light, Dark, and Auto theme selector. Auto follows the system color preference, and the map switches between Positron and Fiord to match the resolved theme.

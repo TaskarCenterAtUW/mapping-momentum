@@ -389,17 +389,21 @@
             "ext:highway": "bus_stop"
           },
           "readable": {
-            "ext:bus_stop_braille_signage": {
-              "old": null,
-              "new": "No"
-            },
             "ext:bus_stop_surface_condition": {
               "old": null,
               "new": "Good"
             },
-            "ext:bus_stop_wheelchair_turning_space": {
+            "ext:bus_stop_audible_cues": {
               "old": null,
-              "new": "Yes"
+              "new": "No"
+            },
+            "ext:bus_stop_marked_ped_path": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:bus_stop_tactile_guidance": {
+              "old": null,
+              "new": "No"
             },
             "ext:bus_stop_signage_readable": {
               "old": null,
@@ -409,17 +413,13 @@
               "old": null,
               "new": "No"
             },
-            "ext:bus_stop_marked_ped_path": {
+            "ext:bus_stop_braille_signage": {
               "old": null,
               "new": "No"
             },
-            "ext:bus_stop_audible_cues": {
+            "ext:bus_stop_wheelchair_turning_space": {
               "old": null,
-              "new": "No"
-            },
-            "ext:bus_stop_tactile_guidance": {
-              "old": null,
-              "new": "No"
+              "new": "Yes"
             }
           },
           "photos": []
@@ -573,23 +573,23 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
-              "new": "High"
-            },
-            "ext:crossing_vehicle_yielding": {
-              "old": null,
-              "new": "No"
+              "new": "Unclear"
             },
             "ext:crossing_audible_signal_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_traffic_speed_perception": {
               "old": null,
-              "new": "Unclear"
+              "new": "High"
             },
             "ext:crossing_ped_signal_present": {
+              "old": null,
+              "new": "No"
+            },
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             }
@@ -665,11 +665,7 @@
             "surface": "asphalt"
           },
           "readable": {
-            "ext:crossing_traffic_speed_perception": {
-              "old": null,
-              "new": "Medium"
-            },
-            "ext:crossing_vehicle_yielding": {
+            "ext:crossing_timing_sufficient": {
               "old": null,
               "new": "No"
             },
@@ -677,11 +673,15 @@
               "old": null,
               "new": "No"
             },
-            "ext:crossing_timing_sufficient": {
+            "ext:crossing_traffic_speed_perception": {
+              "old": null,
+              "new": "Medium"
+            },
+            "ext:crossing_ped_signal_present": {
               "old": null,
               "new": "No"
             },
-            "ext:crossing_ped_signal_present": {
+            "ext:crossing_vehicle_yielding": {
               "old": null,
               "new": "No"
             }
@@ -864,15 +864,7 @@
             "width": "3.6"
           },
           "readable": {
-            "ext:sidewalk_wheelchair_navigable": {
-              "old": null,
-              "new": "Yes"
-            },
             "ext:sidewalk_navigation_hazards": {
-              "old": null,
-              "new": "Yes"
-            },
-            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
@@ -880,7 +872,15 @@
               "old": null,
               "new": "Yes"
             },
+            "ext:sidewalk_clear_width_sufficient": {
+              "old": null,
+              "new": "Yes"
+            },
             "ext:sidewalk_vertical_lip": {
+              "old": null,
+              "new": "Yes"
+            },
+            "ext:sidewalk_cross_slope_acceptability": {
               "old": null,
               "new": "Yes"
             },
@@ -892,7 +892,7 @@
               "old": null,
               "new": "Permanent"
             },
-            "ext:sidewalk_clear_width_sufficient": {
+            "ext:sidewalk_wheelchair_navigable": {
               "old": null,
               "new": "Yes"
             }

@@ -66,6 +66,7 @@ _AUTH_BASE_URLS: dict[str, str] = {
 }
 _WORKSPACE_REQUEST_TIMEOUT_SECONDS = 120
 _MAX_MAP_SPLIT_DEPTH = 12
+_MAX_MAP_SERVER_ERROR_SPLIT_DEPTH = 4
 _MAX_MAP_REQUESTS = 20_000
 _MAX_MAP_RESPONSE_BYTES = 100 * 1024 * 1024
 _MAX_MAP_PARSE_ATTEMPTS = 2
@@ -253,7 +254,7 @@ def _fetch_map_xml(
     url = f"{_base_url(env)}/api/0.6/map?bbox={bbox_str}"
     headers = _api_headers(access_token, workspace_id)
     headers["Accept"] = "application/xml, text/xml, */*"
-    split_error: ET.ParseError | ResponseTooLargeError | None = None
+    split_error: ET.ParseError | ResponseTooLargeError | HTTPError | None = None
     for _attempt in range(_MAX_MAP_PARSE_ATTEMPTS):
         request_count[0] += 1
         if request_count[0] > _MAX_MAP_REQUESTS:
@@ -276,6 +277,12 @@ def _fetch_map_xml(
             # The OSM-compatible endpoint uses 404 for an empty tile.
             if str(exc).startswith("HTTP 404"):
                 return b'<?xml version="1.0"?><osm version="0.6" />'
+            # Large workspaces can fail as server errors before returning an
+            # oversized body. Retry by subdividing the map area to a bounded
+            # depth.
+            if str(exc).startswith("HTTP 5"):
+                split_error = exc
+                break
             raise
 
         try:
@@ -285,6 +292,14 @@ def _fetch_map_xml(
             split_error = exc
 
     assert split_error is not None
+    if (
+        isinstance(split_error, HTTPError)
+        and depth >= _MAX_MAP_SERVER_ERROR_SPLIT_DEPTH
+    ):
+        raise ValueError(
+            "Workspace map request kept returning a server error after "
+            f"subdivision to depth {depth} for bbox {bbox!r}: {split_error}"
+        ) from split_error
     if depth >= _MAX_MAP_SPLIT_DEPTH:
         if isinstance(split_error, ResponseTooLargeError):
             raise ValueError(
