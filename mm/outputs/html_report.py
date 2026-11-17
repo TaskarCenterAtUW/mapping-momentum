@@ -17,7 +17,9 @@ from __future__ import annotations
 
 import json
 import sys
+import tomllib
 from datetime import datetime
+from importlib.metadata import PackageNotFoundError, version as distribution_version
 from pathlib import Path
 from typing import Any
 
@@ -36,6 +38,23 @@ _DEFAULT_TEMPLATE_DIR = (
 )
 
 
+def _application_version() -> str:
+    """Return the installed project version, falling back to source metadata."""
+    try:
+        return distribution_version("mapping-momentum")
+    except PackageNotFoundError:
+        project_file = Path(__file__).resolve().parents[2] / "pyproject.toml"
+        try:
+            project = tomllib.loads(project_file.read_text(encoding="utf-8"))
+        except OSError, tomllib.TOMLDecodeError:
+            return "unknown"
+        version_value = project.get("project", {}).get("version")
+        return version_value if isinstance(version_value, str) else "unknown"
+
+
+_APP_VERSION = _application_version()
+
+
 def _safe_json(data: Any) -> str:
     """Serialise *data* to JSON safe for inline embedding in ``<script>`` blocks.
 
@@ -50,6 +69,36 @@ def _safe_json(data: Any) -> str:
         .replace(">", "\\u003e")
         .replace("&", "\\u0026")
     )
+
+
+def _aggregate_series_name(stats: dict[str, Any], title: str) -> str:
+    """Return the event-series label used in aggregate breadcrumbs."""
+    for key in ("series_name", "event_series_name"):
+        value = stats.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+
+    events = stats.get("events")
+    event_names = []
+    if isinstance(events, list):
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            event_name = event.get("event_name")
+            if isinstance(event_name, str) and event_name.strip():
+                event_names.append(event_name.strip())
+
+    prefixes = [name.split(":", 1)[0].strip() for name in event_names if ":" in name]
+    if event_names and len(prefixes) == len(event_names):
+        if len({prefix.casefold() for prefix in prefixes}) == 1:
+            return prefixes[0]
+
+    suffix = " Aggregate Contribution Report"
+    if title.casefold().endswith(suffix.casefold()):
+        series_name = title[: -len(suffix)].strip()
+        if series_name:
+            return series_name
+    return title
 
 
 def _template_environment(template_dir: Path | None) -> Environment:
@@ -116,8 +165,10 @@ def render_report(
     return template.render(
         page_title=title,
         title=title,
+        event_name=config.get("name") or title,
         subtitle=subtitle,
         activity_label=activity_label,
+        app_version=_APP_VERSION,
         stats=stats,
         # Inline the full stats as safe JSON for JavaScript consumption.
         stats_json=_safe_json(stats),
@@ -135,6 +186,8 @@ def render_aggregate_report(
     return template.render(
         page_title=title,
         title=title,
+        aggregate_series_name=_aggregate_series_name(stats, title),
+        app_version=_APP_VERSION,
         stats=stats,
         stats_json=_safe_json(stats),
     )

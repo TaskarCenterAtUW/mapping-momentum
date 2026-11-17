@@ -6,6 +6,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [v1.6.0] - 2026-11-16
+
+### Added
+
+- Added system-following Auto theme selection to standalone reports.
+- Added shared report navigation, breadcrumbs, summary cards, and a branded footer with the current version.
+- Added collapsible map legends and vertically resizable map panes.
+- Added category-specific map symbols and Workspace contributor attribution alongside OpenStreetMap credit.
+- Added `utilities/generate_all.py` to discover configured events and regenerate versioned full reports, quest-answer logs, anonymized copies, and event-series aggregates, with a resume option for interrupted runs.
+
+### Changed
+
+- Reworked activity and aggregate report layouts to follow the Quest Definition Creator's responsive purple theme and panel styling.
+- Linked summary cards to relevant report sections and moved the User Manual link to the TCAT Wiki.
+- Improved map symbol edges and contrast, and set Fiord as the default basemap in dark mode.
+- Extended bounded map subdivision to recover from Workspace server errors on large map requests.
+- Re-rendered published event reports, aggregates, and offline examples with the refreshed UI.
+
 ## [v1.5.0] - 2026-11-15
 
 ### Added

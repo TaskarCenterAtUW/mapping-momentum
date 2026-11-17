@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from collections.abc import Sequence
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, TypeGuard
@@ -297,7 +298,7 @@ def _string_field(
 
 
 def aggregate_reports(
-    report_paths: list[str | Path],
+    report_paths: Sequence[str | Path],
     *,
     title: str = "Aggregate Contribution Report",
 ) -> dict[str, Any]:
