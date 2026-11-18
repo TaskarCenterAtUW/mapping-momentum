@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [v1.7.0] - 2026-11-18
+
+### Changed
+
+- Moved generated anonymized reports and synthetic publication inputs to ignored local-output directories.
+- Removed tracked generated real-event and aggregate output from the source branch.
+
 ## [v1.6.0] - 2026-11-16
 
 ### Added
