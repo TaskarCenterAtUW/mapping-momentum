@@ -380,7 +380,7 @@ def test_aggregate_reports_preserves_notes_without_legacy_authors(
 def test_aggregate_report_places_map_before_contributors_and_syncs_theme(
     tmp_path: Path,
 ) -> None:
-    """Render the map first and select its basemap from the active theme."""
+    """Render the map first, expand its legend, and sync its basemap theme."""
     stats = _report_stats(
         "layout-event",
         "Layout Event",
@@ -395,7 +395,14 @@ def test_aggregate_report_places_map_before_contributors_and_syncs_theme(
     assert html.index('aria-labelledby="map-heading"') < html.index(
         'aria-labelledby="contributors-heading"'
     )
+    assert '<details class="map-legend" open>' in html
+    assert "<summary>Map Legend</summary>" in html
     assert "Source reports must be non-anonymized" not in html
+    assert ".map-wrapper .maplibregl-ctrl-group" in html
+    assert ".maplibregl-popup-close-button {" in html
+    assert "right: 1.25rem;" in html
+    assert "background: var(--mm-surface-strong);" in html
+    assert "filter: invert(1);" in html
     assert re.search(
         r"""theme\s*===\s*["']dark["']\s*\?\s*["']fiord["']\s*:\s*["']positron["']""",
         html,
@@ -407,10 +414,60 @@ def test_aggregate_report_places_map_before_contributors_and_syncs_theme(
     )
 
 
-def test_aggregate_report_has_complete_html_export_control(
+def test_aggregate_report_metric_card_accent_spans_full_height(
     tmp_path: Path,
 ) -> None:
-    """The aggregate nav exposes a keyboard button that downloads the report."""
+    stats = _report_stats(
+        "layout-event",
+        "Layout Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "layout", stats)
+    html = render_aggregate_report(aggregate_reports([stats_path]))
+    accent_rule = re.search(r"\.metric-card::before\s*\{([^}]*)\}", html)
+
+    assert accent_rule is not None
+    assert re.search(r"\binset:\s*0\s+auto\s+0\s+0;", accent_rule.group(1))
+
+
+def test_aggregate_report_has_expected_map_attribution(
+    tmp_path: Path,
+) -> None:
+    """Render the requested data and map provider attribution."""
+    stats = _report_stats(
+        "attribution-event",
+        "Attribution Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "attribution", stats)
+    html = " ".join(render_aggregate_report(aggregate_reports([stats_path])).split())
+    expected_attribution = (
+        'Data: <a href="https://workspaces.sidewalks.washington.edu/" '
+        'target="_blank" rel="noopener noreferrer">TDEI Workspaces</a> '
+        'contributors | Map: <a href="https://openfreemap.org" '
+        'target="_blank" rel="noopener noreferrer">OpenFreeMap</a> • '
+        '<a href="https://www.openmaptiles.org/" target="_blank" '
+        'rel="noopener noreferrer">© OpenMapTiles</a> • '
+        '<a href="https://www.openstreetmap.org/copyright" '
+        'target="_blank" rel="noopener noreferrer">'
+        "© OpenStreetMap contributors</a>"
+    )
+
+    assert expected_attribution in html
+    assert "© Workspace contributors" not in html
+    assert "new maplibregl.AttributionControl(" not in html
+
+
+def test_aggregate_report_has_accessible_export_button(
+    tmp_path: Path,
+) -> None:
+    """Expose an aggregate export button with a decorative download icon."""
     stats = _report_stats(
         "layout-event",
         "Layout Event",
@@ -422,9 +479,18 @@ def test_aggregate_report_has_complete_html_export_control(
     stats_path = _write_report(tmp_path / "layout", stats)
     html = render_aggregate_report(aggregate_reports([stats_path]))
 
+    assert re.search(
+        r'<button type="button"\s+class="report-export-button"',
+        html,
+    )
     assert "data-export-report" in html
     assert "data-export-filename=" in html
-    assert 'aria-label="Save or export the complete report"' in html
+    assert 'aria-label="Export the complete report"' in html
+    assert (
+        '<svg class="report-export-icon" aria-hidden="true" focusable="false"' in html
+    )
+    assert "<span>Export</span>" in html
+    assert html.index('class="report-export-icon"') < html.index("<span>Export</span>")
     assert "URL.createObjectURL(blob)" in html
 
 
@@ -455,10 +521,75 @@ def test_aggregate_report_markers_use_maplibre_layers_and_open_popups(
     assert "type: 'symbol'" in html
     assert "map.on('style.load', function () {" in html
     assert "addMarkerLayers();" in html
+    circle_stroke_color = re.search(r"'circle-stroke-color':\s*(\[[^\]]+\])", html)
+    icon_halo_color = re.search(r"'icon-halo-color':\s*(\[[^\]]+\])", html)
+    assert circle_stroke_color is not None
+    assert icon_halo_color is not None
+    assert re.sub(r"\s+", "", circle_stroke_color.group(1)) == re.sub(
+        r"\s+", "", icon_halo_color.group(1)
+    )
     assert "map.queryRenderedFeatures(point, { layers: layers })" in html
     assert "map.on('click', function (event) {" in html
     assert "const marker = markers[Number(feature.properties.markerIndex)];" in html
     assert "if (marker) openPopup(marker);" in html
+
+
+def test_aggregate_report_resize_handle_is_prominent_and_accessible(
+    tmp_path: Path,
+) -> None:
+    stats = _report_stats(
+        "resize-event",
+        "Resize Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "resize", stats)
+    html = render_aggregate_report(aggregate_reports([stats_path]))
+    handle_rule = re.search(r"\.map-resize-handle\s*\{([^}]*)\}", html)
+    grip_rule = re.search(r"\.map-resize-handle::before\s*\{([^}]*)\}", html)
+
+    assert handle_rule is not None
+    assert "width: 6rem;" in handle_rule.group(1)
+    assert "height: 1.75rem;" in handle_rule.group(1)
+    assert "border: 1px solid var(--mm-border);" in handle_rule.group(1)
+    assert "color-mix(in srgb, var(--mm-surface-strong) 82%, transparent)" in (
+        handle_rule.group(1)
+    )
+    assert grip_rule is not None
+    assert "width: 3rem;" in grip_rule.group(1)
+    assert "height: 0.3rem;" in grip_rule.group(1)
+    assert 'role="separator"' in html
+    assert 'aria-orientation="horizontal"' in html
+    assert 'tabindex="0"' in html
+    assert ".map-resize-handle:active," in html
+    assert ".map-resize-handle:focus-visible" in html
+
+
+def test_aggregate_report_contributor_rows_focus_matching_markers(
+    tmp_path: Path,
+) -> None:
+    stats = _report_stats(
+        "contributor-map-event",
+        "Contributor Map Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "contributor-map", stats)
+    html = render_aggregate_report(aggregate_reports([stats_path]))
+
+    assert "data-contributor-table" in html
+    assert 'data-contributor-user="alice"' in html
+    assert 'aria-label="Show map contributions by alice"' in html
+    assert "contributorTable.addEventListener('click'" in html
+    assert "function markerHasContributor(marker, user)" in html
+    assert "marker.versions.some(function (version)" in html
+    assert "contributorSelected" in html
+    assert "--mm-contributor-highlight" in html
+    assert "map.fitBounds(bounds, { padding: 48, maxZoom: 14 });" in html
 
 
 def test_aggregate_report_marker_controls_are_keyboard_accessible(

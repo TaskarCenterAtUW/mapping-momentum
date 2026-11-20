@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Synthetic Minimal Mapping Event</title>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" crossorigin="anonymous">
-  <script>(function () {
+  <script>/** @format */
+
+(function () {
   var root = document.documentElement;
   var validModes = ["light", "dark", "auto"];
   var mode = "auto";
@@ -21,17 +23,21 @@
       }
     }
   } catch (error) {
-    console.warn("Theme preference could not be loaded; using system preference.", error);
+    console.warn(
+      "Theme preference could not be loaded; using system preference.",
+      error
+    );
   }
 
-  var prefersDark = window.matchMedia &&
+  var prefersDark =
+    window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
   var theme = mode === "auto" ? (prefersDark ? "dark" : "light") : mode;
 
   root.dataset.themeMode = mode;
   root.dataset.theme = theme;
   root.dataset.bsTheme = theme;
-}());</script>
+})();</script>
   <style>
     /* --- Base --- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -183,7 +189,7 @@
     /* MapLibre popup customization */
     .maplibregl-popup-content {
       padding: 0; border-radius: 8px; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-height: 420px; overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
       min-width: 260px; max-width: 340px;
       background: var(--mm-surface); color: var(--mm-text);
     }
@@ -191,9 +197,9 @@
     .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--mm-surface); }
     .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--mm-surface); }
     .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--mm-surface); }
-    .mm-popup { font-size: 0.8125rem; }
+    .mm-popup { font-size: 0.8125rem; max-height: 420px; overflow-y: auto; }
     .mm-popup-header {
-      padding: 0.5rem 0.75rem 0.375rem; background: var(--mm-surface-muted);
+      padding: 0.5rem 3.5rem 0.375rem 0.75rem; background: var(--mm-surface-muted);
       border-bottom: 1px solid var(--mm-border); display: flex; align-items: center; gap: 0.5rem;
     }
     .mm-popup-kind {
@@ -290,7 +296,7 @@
     .cat-summary:focus-visible { outline: 2px solid var(--mm-accent); border-radius: 3px; }
     .cat-name { flex: 1; }
     .cat-total { font-size: 0.8125rem; color: var(--mm-muted); font-weight: 400; }
-    .cat-questions { padding: 0 0 0.25rem 1rem; }
+    .cat-questions { min-width: 0; padding: 0 0 0.25rem 1rem; }
     .q-details { border-top: 1px solid var(--mm-border); }
     .q-summary {
       display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.25rem;
@@ -313,12 +319,25 @@
     .q-gallery-btn:focus-visible { outline: 2px solid var(--mm-accent); }
     .q-gallery-thumb { width: 56px; height: 56px; object-fit: cover; }
 
-    .questions-section { grid-column: 1 / -1; }
-    .question-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .questions-section { grid-column: 1 / -1; min-width: 0; }
+    .question-table {
+      width: 100%;
+      min-width: 0;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .question-table th:first-child,
+    .question-table td:first-child { width: 52%; }
+    .question-table th:nth-child(2),
+    .question-table td:nth-child(2) { width: 20%; }
+    .question-table th,
+    .question-table td { min-width: 0; overflow-wrap: anywhere; }
     .question-table th { text-align: left; color: var(--mm-muted); font-size: 0.75rem; text-transform: uppercase; padding: 0.35rem 0.5rem 0.5rem 0; border-bottom: 1px solid var(--mm-border); }
     .question-table td { padding: 0.35rem 0.5rem 0.35rem 0; vertical-align: middle; }
     .question-table .question-tag { color: var(--mm-muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
     .question-table .question-count { width: 28%; }
+    .question-table .bar-cell { min-width: 0; grid-template-columns: minmax(0, 1fr) auto; }
     .question-table .choice-row td { background: var(--mm-surface-muted); font-size: 0.8125rem; }
     .question-table .choice-label { padding-left: 1.25rem; }
     .question-table .choice-value { color: var(--mm-muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.75rem; }
@@ -367,22 +386,30 @@
       body { padding: 0.75rem; }
       .cards-grid { grid-template-columns: 1fr; }
       .questions-section { grid-column: auto; }
-      .question-table .question-tag { display: none; }
+      .question-table th:nth-child(2),
+      .question-table td:nth-child(2) { display: none; }
+      .question-table th:first-child,
+      .question-table td:first-child { width: 72%; }
       .page-header { padding: 1rem; }
     }
-/* Shared report shell inspired by the Quest Definition Creator. */
+/**
+ * Shared report shell inspired by the Quest Definition Creator.
+ *
+ * @format
+ */
+
 :root {
   color-scheme: light;
-  --mm-font-family: "Open Sans", "Segoe UI", system-ui, -apple-system,
-    BlinkMacSystemFont, sans-serif;
+  --mm-font-family:
+    "Open Sans", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
   --mm-content-width: 1820px;
   --mm-panel-padding: 0.9rem;
-  --mm-panel-background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--mm-surface) 96%, transparent),
-      color-mix(in srgb, var(--mm-surface-muted) 72%, transparent)
-    );
+  --mm-panel-background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mm-surface) 96%, transparent),
+    color-mix(in srgb, var(--mm-surface-muted) 72%, transparent)
+  );
   --mm-bg: #f5f1fb;
   --mm-canvas-alt: #ede5fa;
   --mm-surface: rgba(255, 255, 255, 0.94);
@@ -407,6 +434,7 @@
   --mm-accent: var(--mm-primary);
   --mm-accent-contrast: #ffffff;
   --mm-accent-soft: var(--mm-primary-soft);
+  --mm-contributor-highlight: #007f73;
   --mm-brand-gold: var(--mm-border);
   --mm-panel-shadow:
     0 22px 48px rgba(47, 16, 103, 0.12), 0 3px 12px rgba(29, 16, 58, 0.05);
@@ -416,6 +444,8 @@
   --mm-radius-lg: 0.65rem;
   --mm-radius-xl: 0.8rem;
   --mm-radius-pill: 999px;
+  --mm-nav-control-width: 11.05rem;
+  --mm-nav-control-height: 2.05rem;
 }
 
 :root[data-theme="dark"] {
@@ -444,6 +474,7 @@
   --mm-accent: var(--mm-primary);
   --mm-accent-contrast: #12091d;
   --mm-accent-soft: var(--mm-primary-soft);
+  --mm-contributor-highlight: #4dd7c8;
   --mm-brand-gold: var(--mm-border);
   --mm-panel-shadow:
     0 24px 54px rgba(5, 3, 10, 0.46), 0 3px 12px rgba(0, 0, 0, 0.2);
@@ -620,19 +651,68 @@ a:hover {
 .report-nav-actions {
   display: flex;
   flex: 0 0 auto;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
+  gap: 0.65rem;
 }
 
 .report-theme-group {
   display: inline-flex;
-  height: 2.05rem;
+  width: var(--mm-nav-control-width);
+  height: var(--mm-nav-control-height);
   padding: 0.12rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--mm-radius-sm);
   background: rgba(255, 255, 255, 0.09);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
+}
+
+.report-export-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: fit-content;
+  height: var(--mm-nav-control-height);
+  padding: 0 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--mm-radius-sm);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease;
+}
+
+.report-export-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.report-export-button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.report-export-icon {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .report-theme-button {
@@ -746,8 +826,8 @@ a:hover {
   position: absolute;
   inset: 0 0 auto;
   height: 5px;
-  border-radius:
-    calc(var(--mm-radius-xl) - 1px) calc(var(--mm-radius-xl) - 1px) 0 0;
+  border-radius: calc(var(--mm-radius-xl) - 1px) calc(var(--mm-radius-xl) - 1px)
+    0 0;
   background: linear-gradient(
     90deg,
     var(--mm-primary-700),
@@ -833,6 +913,9 @@ a:hover {
   border-radius: var(--mm-radius-xl);
   background: var(--mm-panel-background);
   box-shadow: var(--mm-panel-shadow);
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
   transition:
     transform 0.16s ease,
     box-shadow 0.16s ease,
@@ -841,10 +924,14 @@ a:hover {
 
 .metric-card::before {
   position: absolute;
-  inset: 0.7rem auto 0.7rem 0;
+  inset: 0 auto 0 0;
   width: 3px;
   border-radius: 0 var(--mm-radius-pill) var(--mm-radius-pill) 0;
-  background: linear-gradient(180deg, var(--mm-primary), rgba(var(--mm-primary-rgb), 0.2));
+  background: linear-gradient(
+    180deg,
+    var(--mm-primary),
+    rgba(var(--mm-primary-rgb), 0.2)
+  );
   content: "";
 }
 
@@ -852,6 +939,32 @@ a:hover {
   transform: translateY(-2px);
   border-color: rgba(var(--mm-primary-rgb), 0.28);
   box-shadow: var(--mm-soft-shadow);
+}
+
+.metric-card:hover,
+.metric-card:focus-visible {
+  color: var(--mm-text);
+}
+
+.metric-card:focus-visible {
+  outline: 3px solid var(--mm-primary);
+  outline-offset: 3px;
+}
+
+.metric-card:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+.report-main h2[id],
+.report-main h3[id] {
+  scroll-margin-top: 1.25rem;
+}
+
+.report-main h2[id]:focus-visible,
+.report-main h3[id]:focus-visible {
+  outline: 2px solid var(--mm-primary);
+  outline-offset: 0.25rem;
+  border-radius: var(--mm-radius-sm);
 }
 
 .metric-value {
@@ -974,7 +1087,12 @@ a:hover {
 
 .map-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  height: var(--mm-map-height, 450px);
+  min-height: 280px;
+  max-height: 80vh;
   margin-bottom: 0.9rem;
   border: 1px solid var(--mm-border);
   border-radius: var(--mm-radius-xl);
@@ -983,19 +1101,227 @@ a:hover {
 }
 
 #map {
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  height: 450px;
+  height: 100%;
 }
 
 .map-wrapper.map-expanded {
   position: fixed;
   inset: 0;
   z-index: 1000;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  resize: none;
   border-radius: 0;
 }
 
 .map-wrapper.map-expanded #map {
+  flex: 1 1 auto;
   height: 100%;
+}
+
+.map-attribution {
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.2rem;
+  z-index: 4;
+  max-width: calc(100% - 0.8rem);
+  color: var(--mm-muted);
+  font-size: 0.625rem;
+  line-height: 1.25;
+  text-align: right;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px var(--mm-surface-strong);
+}
+
+.map-attribution a {
+  color: var(--mm-text);
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+}
+
+.map-wrapper .maplibregl-ctrl-group {
+  overflow: hidden;
+  border: 1px solid var(--mm-border);
+  border-radius: var(--mm-radius-md);
+  background: var(--mm-surface-strong);
+  box-shadow: var(--mm-soft-shadow);
+}
+
+.map-wrapper .maplibregl-ctrl-group button {
+  background-color: transparent;
+}
+
+.map-wrapper .maplibregl-ctrl-group button + button {
+  border-top-color: var(--mm-border);
+}
+
+.map-wrapper .maplibregl-ctrl-group button:not(:disabled):hover {
+  background-color: color-mix(
+    in srgb,
+    var(--mm-primary-soft) 80%,
+    transparent
+  );
+}
+
+.map-wrapper .maplibregl-ctrl-group button:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--mm-primary);
+}
+
+:root[data-theme="dark"] .map-wrapper .maplibregl-ctrl-group .maplibregl-ctrl-icon {
+  filter: invert(1);
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0.65rem;
+  z-index: 4;
+  max-width: calc(100% - 1.3rem);
+}
+
+.map-legend > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-height: 2.2rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--mm-border);
+  border-radius: var(--mm-radius-md);
+  background: color-mix(in srgb, var(--mm-surface-strong) 94%, transparent);
+  box-shadow: 0 6px 16px rgba(24, 13, 43, 0.14);
+  color: var(--mm-text);
+  font-size: 0.8rem;
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.map-legend > summary::-webkit-details-marker {
+  display: none;
+}
+
+.map-legend > summary::after {
+  color: var(--mm-primary);
+  content: "+";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.map-legend[open] > summary::after {
+  content: "−";
+}
+
+.map-legend > summary:focus-visible {
+  outline: 3px solid rgba(var(--mm-primary-rgb), 0.55);
+  outline-offset: 2px;
+}
+
+.map-legend-items {
+  position: absolute;
+  bottom: calc(100% + 0.35rem);
+  left: 0;
+  display: grid;
+  gap: 0.3rem;
+  width: max-content;
+  min-width: 10rem;
+  max-width: min(16rem, calc(100vw - 2rem));
+  max-height: min(45vh, 18rem);
+  overflow: auto;
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--mm-border);
+  border-radius: var(--mm-radius-md);
+  background: color-mix(in srgb, var(--mm-surface-strong) 96%, transparent);
+  box-shadow: var(--mm-panel-shadow);
+  color: var(--mm-text);
+  list-style: none;
+  backdrop-filter: blur(14px);
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.4rem;
+  overflow-wrap: anywhere;
+  color: var(--mm-muted);
+  font-size: 0.78rem;
+}
+
+.map-legend-swatch {
+  display: block;
+  flex: 0 0 0.9rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  overflow: visible;
+}
+
+.map-legend-empty {
+  color: var(--mm-muted);
+  font-size: 0.78rem;
+}
+
+.map-resize-handle {
+  position: absolute;
+  bottom: 0.1rem;
+  left: 50%;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  height: 1.75rem;
+  padding: 0;
+  transform: translateX(-50%);
+  border: 1px solid var(--mm-border);
+  border-radius: var(--mm-radius-pill);
+  background: color-mix(in srgb, var(--mm-surface-strong) 82%, transparent);
+  box-shadow: 0 2px 8px rgba(var(--mm-primary-rgb), 0.16);
+  cursor: ns-resize;
+  touch-action: none;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.map-resize-handle::before {
+  width: 3rem;
+  height: 0.3rem;
+  border-radius: var(--mm-radius-pill);
+  background: rgba(var(--mm-primary-rgb), 0.78);
+  content: "";
+  transition: background-color 0.16s ease;
+}
+
+.map-resize-handle:hover,
+.map-resize-handle:active,
+.map-resize-handle:focus-visible {
+  border-color: var(--mm-primary);
+  background: color-mix(in srgb, var(--mm-primary-soft) 86%, transparent);
+  box-shadow:
+    0 0 0 3px rgba(var(--mm-primary-rgb), 0.16),
+    0 4px 12px rgba(var(--mm-primary-rgb), 0.24);
+}
+
+.map-resize-handle:hover::before,
+.map-resize-handle:active::before,
+.map-resize-handle:focus-visible::before {
+  background: var(--mm-primary);
+}
+
+.map-resize-handle:focus-visible {
+  outline: 3px solid rgba(var(--mm-primary-rgb), 0.55);
+  outline-offset: 2px;
+}
+
+.map-wrapper.map-expanded .map-resize-handle {
+  display: none;
 }
 
 #map-style,
@@ -1040,6 +1366,7 @@ a:hover {
 
 #map-style:focus-visible,
 #btn-expand:focus-visible,
+.map-resize-handle:focus-visible,
 .mm-popup-nav:focus-visible,
 .mm-popup-view-btn:focus-visible,
 .mm-popup-photo-btn:focus-visible,
@@ -1082,6 +1409,37 @@ a:hover {
 .question-table tbody tr:hover td,
 .contributor-table tbody tr:hover td {
   background: color-mix(in srgb, var(--mm-primary-soft) 42%, transparent);
+}
+
+[data-contributor-table] tbody tr {
+  cursor: pointer;
+}
+
+[data-contributor-table] tbody tr:focus-within td {
+  background: color-mix(in srgb, var(--mm-primary-soft) 42%, transparent);
+}
+
+.contributor-map-button {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--mm-link);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  cursor: pointer;
+}
+
+.contributor-map-button:hover {
+  text-decoration-color: currentColor;
+}
+
+.contributor-map-button:focus-visible {
+  border-radius: var(--mm-radius-sm);
+  outline: 2px solid rgba(var(--mm-primary-rgb), 0.55);
+  outline-offset: 2px;
 }
 
 .bar-track {
@@ -1199,6 +1557,32 @@ a:hover {
   background: var(--mm-surface-strong);
   box-shadow: var(--mm-panel-shadow);
   color: var(--mm-text);
+}
+
+.maplibregl-popup-close-button {
+  position: absolute;
+  top: 0.375rem;
+  right: 1.25rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0.25rem;
+  border: 1px solid var(--mm-border);
+  border-radius: var(--mm-radius-sm);
+  background: var(--mm-surface-muted);
+  color: var(--mm-text);
+  font: 600 1rem/1 var(--mm-font-family);
+}
+
+.maplibregl-popup-close-button:hover {
+  background: var(--mm-accent-soft);
+}
+
+.maplibregl-popup-close-button:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
 }
 
 .maplibregl-popup-anchor-top .maplibregl-popup-tip {
@@ -1328,8 +1712,9 @@ a:hover {
     margin-left: 0;
   }
 
-  #map {
-    height: 380px;
+  .map-wrapper {
+    height: var(--mm-map-height, 380px);
+    min-height: 280px;
   }
 
   #map-style {
@@ -1340,7 +1725,6 @@ a:hover {
   #btn-expand {
     right: 9.5rem;
   }
-
 }
 
 @media (max-width: 575.98px) {
@@ -1393,6 +1777,16 @@ a:hover {
           <button type="button" class="report-theme-button" data-theme-mode="dark" aria-pressed="false">Dark</button>
           <button type="button" class="report-theme-button" data-theme-mode="auto" aria-pressed="true">Auto</button>
         </div>
+        <button type="button"
+                class="report-export-button"
+                data-export-report
+                data-export-filename="example-minimal-walkabout-report.html"
+                aria-label="Export the complete report">
+          <svg class="report-export-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v4h14v-4" />
+          </svg>
+          <span>Export</span>
+        </button>
       </div>
     </div>
   </header>
@@ -1401,16 +1795,17 @@ a:hover {
     <nav class="report-breadcrumb-inner" aria-label="Breadcrumb">
       <ol class="report-breadcrumbs">
         <li>Reports</li>
+        <li>Events</li>
         <li aria-current="page">Synthetic Minimal Mapping Event</li>
       </ol>
     </nav>
   </div>
 
   <main id="main-content" class="report-main">
-    <section class="report-hero" aria-labelledby="report-title">
+    <section class="report-hero" aria-label="Synthetic Minimal Mapping Event">
       <div class="report-hero-copy">
         <p class="report-eyebrow">Event contribution report</p>
-        <h1 id="report-title">Synthetic Minimal Mapping Event</h1>
+        <h1>Synthetic Minimal Mapping Event</h1>
         <p class="report-subtitle">October 1, 2026 · Synthetic Minimal Walk</p>
       </div>
       <div class="report-hero-meta">
@@ -1419,26 +1814,26 @@ a:hover {
     </section>
 
     <section class="summary-grid" aria-label="Activity summary">
-      <article class="metric-card">
+      <a class="metric-card" href="#activity-heading">
         <span class="metric-value">1</span>
         <span class="metric-label">Changesets</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#qa-heading">
         <span class="metric-value">1</span>
         <span class="metric-label">Questions answered</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#cb-heading">
         <span class="metric-value">1</span>
         <span class="metric-label">Contributors</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#activity-heading">
         <span class="metric-value">0</span>
         <span class="metric-label">Notes</span>
-      </article>
-      <article class="metric-card">
+      </a>
+      <a class="metric-card" href="#fc-heading">
         <span class="metric-value">1</span>
         <span class="metric-label">New map features</span>
-      </article>
+      </a>
     </section>
 
 
@@ -1449,14 +1844,26 @@ a:hover {
     <section class="activity-section" aria-labelledby="activity-heading">
 
       <div class="activity-header">
-        <h2 id="activity-heading">Synthetic Minimal Walk</h2>
+        <h2 id="activity-heading" tabindex="-1">Synthetic Minimal Walk</h2>
         <span class="badge">1 changesets</span>
         <span class="badge">0 notes</span>
       </div>
 
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <div class="map-attribution">
+          Data:
+          <a href="https://workspaces.sidewalks.washington.edu/" target="_blank" rel="noopener noreferrer">TDEI Workspaces</a>
+          contributors | Map:
+          <a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a>
+          • <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">© OpenMapTiles</a>
+          • <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>
+        </div>
         <div id="map-marker-controls" class="sr-only" role="group" aria-label="Mapping activity locations"></div>
+        <details class="map-legend" open>
+          <summary>Map Legend</summary>
+          <ul class="map-legend-items" id="map-legend-items" aria-label="Map symbols"></ul>
+        </details>
         <select id="map-style" aria-label="Basemap style">
           <option value="positron" selected>Positron</option>
           <option value="bright">Bright</option>
@@ -1469,6 +1876,19 @@ a:hover {
             <path d="M1.5 1h4v1.5H3v2.5H1.5V1zm9 0H15v4h-1.5V2.5H11V1zm-9 9H3v2.5h2.5V14h-4v-4zm11.5 2.5H11V14h4v-4h-1.5v2.5z"/>
           </svg>
         </button>
+        <div
+          id="map-resize-handle"
+          class="map-resize-handle"
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Resize map height"
+          aria-controls="map"
+          aria-valuemin="280"
+          aria-valuemax="640"
+          aria-valuenow="450"
+          tabindex="0"
+          title="Drag to resize the map; use the arrow keys when focused"
+        ></div>
       </div>
 
       <div class="cards-grid">
@@ -1497,7 +1917,7 @@ a:hover {
 
         <section class="card" aria-labelledby="fc-heading">
           <div class="card-header">
-            <h3 id="fc-heading">Features Created</h3>
+            <h3 id="fc-heading" tabindex="-1">Features Created</h3>
             <span class="card-count">1</span>
           </div>
           <table class="breakdown-table" aria-label="Features created breakdown">
@@ -1519,13 +1939,13 @@ a:hover {
 
         <section class="card" aria-labelledby="cb-heading">
           <div class="card-header">
-            <h3 id="cb-heading">Contributors</h3>
+            <h3 id="cb-heading" tabindex="-1">Contributors</h3>
             <span class="card-count">1</span>
           </div>
-          <table class="breakdown-table" aria-label="Contributors breakdown">
+          <table class="breakdown-table" aria-label="Contributors breakdown" data-contributor-table>
             <thead><tr><th>Contributor</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
             <tbody>
-            <tr><td>Participant 1</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:100.0%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
+            <tr data-contributor-user="Participant 1"><td><button class="contributor-map-button" type="button" aria-label="Show map contributions by Participant 1">Participant 1</button></td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:100.0%"></span><strong class="bar-value">1</strong></div></td><td class="photo-cell"><span class="muted">—</span></td></tr>
             </tbody>
           </table>
           <table class="sr-only">
@@ -1540,7 +1960,7 @@ a:hover {
       </div>
       <section class="questions-section" aria-labelledby="qa-heading">
         <div class="section-header">
-          <h3 id="qa-heading">Questions Answered</h3>
+          <h3 id="qa-heading" tabindex="-1">Questions Answered</h3>
           <span class="card-count">1 total</span>
         </div>
         <details class="cat-details">
@@ -1550,7 +1970,7 @@ a:hover {
           </summary>
           <div class="cat-questions">
           <table class="question-table">
-            <thead><tr><th>Question</th><th>Tag</th><th class="question-count">Times answered</th></tr></thead>
+            <thead><tr><th>Question</th><th class="question-tag">Tag</th><th class="question-count">Times answered</th></tr></thead>
             <tbody>
             <tr class="question-row"><td>What surface is present?</td><td class="question-tag">surface</td><td class="question-count"><div class="bar-cell"><span class="bar-track" style="background:#6f42c1;width:100.0%"></span><strong class="bar-value">1</strong></div></td></tr>
             <tr class="choice-row"><td class="choice-label">Asphalt</td><td class="choice-value">asphalt</td><td><div class="bar-cell"><span class="bar-track" style="background:#9d6fe8;width:100.0%"></span><strong class="bar-value">1</strong></div></td></tr>
@@ -1568,9 +1988,9 @@ a:hover {
     <span aria-hidden="true">•</span>
     <a href="https://github.com/TaskarCenterAtUW/mapping-momentum" target="_blank" rel="noopener noreferrer">GitHub</a>
     <span aria-hidden="true">•</span>
-    <a href="https://github.com/TaskarCenterAtUW/mapping-momentum#readme" target="_blank" rel="noopener noreferrer">User Manual</a>
+    <a href="https://taskarcenteratuw.github.io/tcat-wiki/workspaces/mapping-momentum/user-manual/" target="_blank" rel="noopener noreferrer">User Manual</a>
     <span aria-hidden="true">•</span>
-    <span>Mapping Momentum v1.6.0</span>
+    <span>Mapping Momentum v1.8.0</span>
   </footer>
 
   <dialog id="photo-modal" aria-label="Photo gallery">
@@ -1595,7 +2015,9 @@ a:hover {
     </div>
   </dialog>
 
-  <script>(function () {
+  <script>/** @format */
+
+(function () {
   "use strict";
 
   var root = document.documentElement;
@@ -1608,6 +2030,25 @@ a:hover {
     ? window.matchMedia("(prefers-color-scheme: dark)")
     : null;
   var stylePicker = document.getElementById("map-style");
+  var exportButton = document.querySelector("[data-export-report]");
+
+  if (exportButton) {
+    exportButton.addEventListener("click", function () {
+      var html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      var objectUrl = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = objectUrl;
+      link.download =
+        exportButton.dataset.exportFilename || "mapping-momentum-report.html";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(function () {
+        URL.revokeObjectURL(objectUrl);
+      }, 0);
+    });
+  }
 
   function resolveTheme() {
     if (mode !== "auto") return mode;
@@ -1615,7 +2056,7 @@ a:hover {
   }
 
   function syncMapStyle(theme) {
-    var preferredStyle = theme === 'dark' ? 'fiord' : 'positron';
+    var preferredStyle = theme === "dark" ? "fiord" : "positron";
     if (!stylePicker || stylePicker.value === preferredStyle) return;
     stylePicker.value = preferredStyle;
     stylePicker.dispatchEvent(new Event("change"));
@@ -1634,7 +2075,10 @@ a:hover {
     root.dataset.theme = theme;
     root.dataset.bsTheme = theme;
     syncButtons();
-    if (syncMap) syncMapStyle(root.dataset.theme);
+    if (syncMap) {
+      syncMapStyle(root.dataset.theme);
+      syncMapStyle(document.documentElement.dataset.theme);
+    }
   }
 
   buttons.forEach(function (button) {
@@ -1666,9 +2110,432 @@ a:hover {
     }
   }
 
+  var reportUi = window.MappingMomentumReport || {};
+  window.MappingMomentumReport = reportUi;
+
+  var knownCategoryShapes = {
+    "bus stops": "triangle",
+    crossings: "diamond",
+    curbs: "square",
+    sidewalks: "circle",
+    intersections: "pentagon",
+    "street lamps": "star",
+    unknown: "hexagon",
+    "(unknown)": "hexagon",
+    uncategorized: "hexagon",
+  };
+
+  function displayCategory(category) {
+    return typeof category === "string" && category.trim()
+      ? category.trim()
+      : "Uncategorized";
+  }
+
+  function categoryShapeMap(categories) {
+    var labelsByCategory = new Map();
+    (categories || []).forEach(function (category) {
+      var key = typeof category === "string" && category.trim() ? category : "";
+      labelsByCategory.set(key, displayCategory(key));
+    });
+
+    var shapeMap = Object.create(null);
+    var fallbackCategories = [];
+    var usedShapes = new Set();
+    Array.from(labelsByCategory.entries())
+      .sort(function (left, right) {
+        return left[1].localeCompare(right[1]);
+      })
+      .forEach(function (entry) {
+        var normalized = entry[1].toLowerCase();
+        var knownShape = Object.prototype.hasOwnProperty.call(
+          knownCategoryShapes,
+          normalized
+        )
+          ? knownCategoryShapes[normalized]
+          : null;
+        if (knownShape && !usedShapes.has(knownShape)) {
+          shapeMap[entry[0]] = knownShape;
+          usedShapes.add(knownShape);
+        } else {
+          fallbackCategories.push(entry[0]);
+        }
+      });
+
+    fallbackCategories.forEach(function (category, index) {
+      shapeMap[category] = "polygon-" + (7 + index);
+    });
+    return shapeMap;
+  }
+
+  function regularPolygonPoints(sides, radius, rotation) {
+    var points = [];
+    for (var index = 0; index < sides; index += 1) {
+      var angle = rotation + (index * Math.PI * 2) / sides;
+      points.push(
+        (16 + Math.cos(angle) * radius).toFixed(2) +
+          "," +
+          (16 + Math.sin(angle) * radius).toFixed(2)
+      );
+    }
+    return points.join(" ");
+  }
+
+  function starPoints(radius, innerRadius) {
+    var points = [];
+    for (var index = 0; index < 10; index += 1) {
+      var angle = -Math.PI / 2 + (index * Math.PI) / 5;
+      var currentRadius = index % 2 === 0 ? radius : innerRadius;
+      points.push(
+        (16 + Math.cos(angle) * currentRadius).toFixed(2) +
+          "," +
+          (16 + Math.sin(angle) * currentRadius).toFixed(2)
+      );
+    }
+    return points.join(" ");
+  }
+
+  function polygonSides(shape) {
+    if (shape === "triangle") return 3;
+    if (shape === "diamond") return 4;
+    if (shape === "pentagon") return 5;
+    if (shape === "hexagon") return 6;
+    var match = /^polygon-(\d+)$/.exec(shape);
+    return match ? Math.max(3, Number(match[1])) : 6;
+  }
+
+  function makeShapePath(shape, color) {
+    var svgNamespace = "http://www.w3.org/2000/svg";
+    var node;
+    if (shape === "circle") {
+      node = document.createElementNS(svgNamespace, "circle");
+      node.setAttribute("cx", "16");
+      node.setAttribute("cy", "16");
+      node.setAttribute("r", "11.5");
+    } else if (shape === "square") {
+      node = document.createElementNS(svgNamespace, "rect");
+      node.setAttribute("x", "4.5");
+      node.setAttribute("y", "4.5");
+      node.setAttribute("width", "23");
+      node.setAttribute("height", "23");
+      node.setAttribute("rx", "1.5");
+    } else if (shape === "star") {
+      node = document.createElementNS(svgNamespace, "polygon");
+      node.setAttribute("points", starPoints(13, 5.8));
+    } else if (shape === "cross") {
+      node = document.createElementNS(svgNamespace, "path");
+      node.setAttribute("d", "M11 3h10v8h8v10h-8v8H11v-8H3V11h8z");
+    } else {
+      node = document.createElementNS(svgNamespace, "polygon");
+      node.setAttribute(
+        "points",
+        regularPolygonPoints(polygonSides(shape), 12, -Math.PI / 2)
+      );
+    }
+
+    node.setAttribute("fill", color || "#5f22c9");
+    node.setAttribute("stroke", "currentColor");
+    node.setAttribute("stroke-width", "2.5");
+    node.setAttribute("stroke-linejoin", "round");
+    return node;
+  }
+
+  reportUi.renderMapLegend = function (markers, colorForCategory) {
+    var list = document.getElementById("map-legend-items");
+    if (!list) return categoryShapeMap([]);
+
+    while (list.firstChild) list.removeChild(list.firstChild);
+
+    var categories = new Map();
+    var hasNotes = false;
+    (markers || []).forEach(function (marker) {
+      if (!marker) return;
+      if (marker.kind === "note") {
+        hasNotes = true;
+        return;
+      }
+
+      var category = typeof marker.category === "string" ? marker.category : "";
+      var key = category.trim() ? category : "";
+      categories.set(key, displayCategory(key));
+    });
+
+    var shapes = categoryShapeMap(Array.from(categories.keys()));
+
+    function appendItem(label, color, shape) {
+      var item = document.createElement("li");
+      item.className = "map-legend-item";
+
+      var swatch = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
+      swatch.classList.add("map-legend-swatch");
+      swatch.setAttribute("viewBox", "0 0 32 32");
+      swatch.setAttribute("aria-hidden", "true");
+      swatch.setAttribute("focusable", "false");
+      swatch.dataset.shape = shape;
+      swatch.appendChild(makeShapePath(shape, color));
+
+      var text = document.createElement("span");
+      text.textContent = label;
+      item.appendChild(swatch);
+      item.appendChild(text);
+      list.appendChild(item);
+    }
+
+    Array.from(categories.entries())
+      .sort(function (left, right) {
+        return left[1].localeCompare(right[1]);
+      })
+      .forEach(function (entry) {
+        appendItem(entry[1], colorForCategory(entry[0]), shapes[entry[0]]);
+      });
+
+    if (hasNotes) appendItem("Notes", "#6c757d", "cross");
+
+    if (list.childElementCount === 0) {
+      var emptyItem = document.createElement("li");
+      emptyItem.className = "map-legend-empty";
+      emptyItem.textContent = "No map locations";
+      list.appendChild(emptyItem);
+    }
+
+    return shapes;
+  };
+
+  reportUi.markerIconName = function (shape) {
+    return "mm-report-marker-" + shape;
+  };
+
+  function markerShapePoints(shape) {
+    if (shape === "square") {
+      return [
+        [4.5, 4.5],
+        [27.5, 4.5],
+        [27.5, 27.5],
+        [4.5, 27.5],
+      ];
+    }
+    if (shape === "cross") {
+      return [
+        [12, 4],
+        [20, 4],
+        [20, 12],
+        [28, 12],
+        [28, 20],
+        [20, 20],
+        [20, 28],
+        [12, 28],
+        [12, 20],
+        [4, 20],
+        [4, 12],
+        [12, 12],
+      ];
+    }
+    if (shape === "star") {
+      return starPoints(12, 5.2)
+        .split(" ")
+        .map(function (point) {
+          return point.split(",").map(Number);
+        });
+    }
+    return regularPolygonPoints(polygonSides(shape), 12, -Math.PI / 2)
+      .split(" ")
+      .map(function (point) {
+        return point.split(",").map(Number);
+      });
+  }
+
+  function signedPolygonDistance(x, y, points) {
+    var inside = false;
+    var minDistanceSquared = Infinity;
+
+    for (var index = 0; index < points.length; index += 1) {
+      var first = points[index];
+      var second = points[(index + 1) % points.length];
+      var edgeX = second[0] - first[0];
+      var edgeY = second[1] - first[1];
+      var edgeLengthSquared = edgeX * edgeX + edgeY * edgeY;
+      var along = edgeLengthSquared
+        ? Math.max(
+            0,
+            Math.min(
+              1,
+              ((x - first[0]) * edgeX + (y - first[1]) * edgeY) /
+                edgeLengthSquared
+            )
+          )
+        : 0;
+      var nearestX = first[0] + along * edgeX;
+      var nearestY = first[1] + along * edgeY;
+      var deltaX = x - nearestX;
+      var deltaY = y - nearestY;
+      minDistanceSquared = Math.min(
+        minDistanceSquared,
+        deltaX * deltaX + deltaY * deltaY
+      );
+
+      if (first[1] > y !== second[1] > y) {
+        var crossingX =
+          first[0] + ((y - first[1]) * edgeX) / (second[1] - first[1]);
+        if (x < crossingX) inside = !inside;
+      }
+    }
+
+    var distance = Math.sqrt(minDistanceSquared);
+    return inside ? distance : -distance;
+  }
+
+  function createSdfMarkerImage(shape) {
+    var size = 96;
+    var sdfRange = 16;
+    var data = new Uint8Array(size * size * 4);
+    var points = shape === "circle" ? null : markerShapePoints(shape);
+
+    for (var y = 0; y < size; y += 1) {
+      for (var x = 0; x < size; x += 1) {
+        var shapeX = (x + 0.5) / 2 - 8;
+        var shapeY = (y + 0.5) / 2 - 8;
+        var distance =
+          shape === "circle"
+            ? (11.5 - Math.hypot(shapeX - 16, shapeY - 16)) * 2
+            : signedPolygonDistance(shapeX, shapeY, points) * 2;
+        var alpha = Math.max(0, Math.min(1, 0.5 + distance / sdfRange));
+        var offset = (y * size + x) * 4;
+        data[offset] = 255;
+        data[offset + 1] = 255;
+        data[offset + 2] = 255;
+        data[offset + 3] = Math.round(alpha * 255);
+      }
+    }
+
+    return { width: size, height: size, data: data };
+  }
+
+  reportUi.registerMarkerImages = function (map, markerFeatures) {
+    var shapes = new Set();
+    ((markerFeatures && markerFeatures.features) || []).forEach(
+      function (feature) {
+        if (feature && feature.properties && feature.properties.shape) {
+          shapes.add(feature.properties.shape);
+        }
+      }
+    );
+
+    shapes.forEach(function (shape) {
+      if (shape === "circle") return;
+      var imageName = reportUi.markerIconName(shape);
+      if (map.hasImage(imageName)) return;
+      map.addImage(imageName, createSdfMarkerImage(shape), {
+        pixelRatio: 2,
+        sdf: true,
+      });
+    });
+  };
+
+  reportUi.enableMapResize = function (map) {
+    var wrapper = document.getElementById("map-wrapper");
+    var handle = document.getElementById("map-resize-handle");
+    if (!wrapper || !handle) return;
+
+    var minHeight = 280;
+    var pointerStartY = null;
+    var pointerId = null;
+    var startHeight = 0;
+    var resizeFrame = null;
+
+    function maxHeight() {
+      return Math.max(minHeight, Math.floor(window.innerHeight * 0.8));
+    }
+
+    function syncAria() {
+      var maximum = maxHeight();
+      var current = Math.round(wrapper.getBoundingClientRect().height);
+      handle.setAttribute("aria-valuemin", String(minHeight));
+      handle.setAttribute("aria-valuemax", String(maximum));
+      handle.setAttribute("aria-valuenow", String(Math.min(current, maximum)));
+    }
+
+    function requestMapResize() {
+      if (!map || resizeFrame !== null) return;
+      resizeFrame = window.requestAnimationFrame(function () {
+        resizeFrame = null;
+        map.resize();
+      });
+    }
+
+    function setHeight(height) {
+      var nextHeight = Math.round(
+        Math.max(minHeight, Math.min(maxHeight(), height))
+      );
+      wrapper.style.setProperty("--mm-map-height", nextHeight + "px");
+      syncAria();
+      requestMapResize();
+    }
+
+    function finishPointerResize(event) {
+      if (pointerId === null || (event && event.pointerId !== pointerId))
+        return;
+      var finishedPointerId = pointerId;
+      pointerId = null;
+      pointerStartY = null;
+      if (
+        handle.hasPointerCapture &&
+        handle.hasPointerCapture(finishedPointerId)
+      ) {
+        handle.releasePointerCapture(finishedPointerId);
+      }
+    }
+
+    handle.addEventListener("pointerdown", function (event) {
+      if (wrapper.classList.contains("map-expanded")) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+
+      event.preventDefault();
+      pointerId = event.pointerId;
+      pointerStartY = event.clientY;
+      startHeight = wrapper.getBoundingClientRect().height;
+      if (handle.setPointerCapture) handle.setPointerCapture(pointerId);
+    });
+
+    handle.addEventListener("pointermove", function (event) {
+      if (pointerId !== event.pointerId || pointerStartY === null) return;
+      event.preventDefault();
+      setHeight(startHeight + event.clientY - pointerStartY);
+    });
+
+    handle.addEventListener("pointerup", finishPointerResize);
+    handle.addEventListener("pointercancel", finishPointerResize);
+    handle.addEventListener("lostpointercapture", function () {
+      pointerId = null;
+      pointerStartY = null;
+    });
+
+    handle.addEventListener("keydown", function (event) {
+      if (wrapper.classList.contains("map-expanded")) return;
+
+      var current = wrapper.getBoundingClientRect().height;
+      var nextHeight;
+      if (event.key === "ArrowUp") nextHeight = current - 20;
+      else if (event.key === "ArrowDown") nextHeight = current + 20;
+      else if (event.key === "Home") nextHeight = minHeight;
+      else if (event.key === "End") nextHeight = maxHeight();
+      else return;
+
+      event.preventDefault();
+      setHeight(nextHeight);
+    });
+
+    window.addEventListener("resize", function () {
+      syncAria();
+      requestMapResize();
+    });
+    syncAria();
+  };
+
   applyTheme(true);
-}());</script>
-  <script>const STATS = {"activity_id":"walkabout","source_type":"workspace","window_start":"2026-10-01T10:00:00+00:00","window_end":"2026-10-01T11:00:00+00:00","changeset_count":1,"contributor_count":1,"contributors_breakdown":[{"user":"Participant 1","count":1,"photo_count":0}],"elements_edited":1,"features_created":[{"feature_type":"node","count":1}],"node_count":1,"note_count":0,"quest_type_breakdown":[{"category":"Synthetic Paths","count":1,"photo_count":0}],"questions_answered":[{"category":"Synthetic Paths","total":1,"questions":[{"tag":"surface","label":"What surface is present?","times_answered":1,"choices":[{"value":"asphalt","label":"Asphalt","count":1}]}]}],"relation_count":0,"way_count":0,"markers":[{"id":1,"type":"node","kind":"create","category":"Synthetic Paths","lat":47.6001,"lon":-122.3301,"geom":null,"tags":{"surface":"asphalt"},"readable":{"surface":"Asphalt"},"photos":[],"user":"Participant 1","timestamp":"2026-10-01T10:15:00Z","versions":[{"action":"create","user":"Participant 1","timestamp":"2026-10-01T10:15:00Z","changeset":1001,"tags":{"surface":"asphalt"},"readable":{"surface":{"old":null,"new":"Asphalt"}},"photos":[]}],"text":""}],"showcase_photos":[],"pictures":[],"quotes":[],"slideshow_url":null,"slideshow_images":[],"video_url":"","video_embed_url":"","video_kind":""};</script>
+})();</script>
+  <script>const STATS = {"activity_id":"walkabout","source_type":"workspace","window_start":"2026-10-01T10:00:00+00:00","window_end":"2026-10-01T11:00:00+00:00","changeset_count":1,"contributor_count":1,"contributors_breakdown":[{"user":"Participant 1","count":1,"photo_count":0}],"elements_edited":1,"features_created":[{"feature_type":"node","count":1}],"node_count":1,"note_count":0,"quest_type_breakdown":[{"category":"Synthetic Paths","count":1,"photo_count":0}],"questions_answered":[{"category":"Synthetic Paths","total":1,"questions":[{"tag":"surface","label":"What surface is present?","times_answered":1,"choices":[{"value":"asphalt","label":"Asphalt","count":1}]}]}],"relation_count":0,"way_count":0,"contributions_by_user":[{"user":"Participant 1","quest_answer_count":1,"note_count":0}],"markers":[{"id":1,"type":"node","kind":"create","category":"Synthetic Paths","lat":47.6001,"lon":-122.3301,"geom":null,"tags":{"surface":"asphalt"},"readable":{"surface":"Asphalt"},"photos":[],"user":"Participant 1","timestamp":"2026-10-01T10:15:00Z","versions":[{"action":"create","user":"Participant 1","timestamp":"2026-10-01T10:15:00Z","changeset":1001,"tags":{"surface":"asphalt"},"readable":{"surface":{"old":null,"new":"Asphalt"}},"photos":[]}],"text":""}],"showcase_photos":[],"pictures":[],"quotes":[],"slideshow_url":null,"slideshow_images":[],"video_url":"","video_embed_url":"","video_kind":"","event_id":"example-minimal","event_name":"Synthetic Minimal Mapping Event","activity_label":"Synthetic Minimal Walk","anonymized":true};</script>
 
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
 
@@ -1715,11 +2582,13 @@ a:hover {
     var map, activeGeomLayerId = null, activeGeom = null;
     var activeMarkerPopup = null;
     var markerSourceId = 'mm-interactive-markers';
+    var circleMarkerLayerId = 'mm-interactive-circle-markers';
     var questMarkerLayerId = 'mm-interactive-quest-markers';
     var noteMarkerLayerId = 'mm-interactive-note-markers';
-    var noteHighlightLayerId = 'mm-interactive-note-highlight';
+    var markerHighlightLayerId = 'mm-interactive-marker-highlight';
     var hoveredMarkerFeatureId = null;
     var focusedMarkerFeatureId = null;
+    var selectedContributorFeatureIds = [];
     var markerControlsCreated = false;
     var stylePicker = document.getElementById('map-style');
     var OPENFREEMAP_STYLES = {
@@ -1730,10 +2599,21 @@ a:hover {
       fiord: 'https://tiles.openfreemap.org/styles/fiord'
     };
 
+    var markers = (STATS.markers || []).filter(function (marker) {
+      return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
+    });
+    var markerShapes = window.MappingMomentumReport.renderMapLegend(markers, categoryColor);
+
     function createMarkerFeatureCollection(markers) {
       return {
         type: 'FeatureCollection',
         features: markers.map(function (marker, index) {
+          var category = typeof marker.category === 'string' && marker.category.trim()
+            ? marker.category
+            : '';
+          var kind = marker.kind === 'note' ? 'note' : 'quest';
+          var shape = kind === 'note' ? 'cross' : (markerShapes[category] || 'hexagon');
+          var color = kind === 'note' ? '#6c757d' : categoryColor(marker.category);
           return {
             type: 'Feature',
             id: index,
@@ -1743,34 +2623,22 @@ a:hover {
             },
             properties: {
               markerIndex: index,
-              kind: marker.kind === 'note' ? 'note' : 'quest',
-              color: marker.kind === 'note' ? '#6c757d' : categoryColor(marker.category)
+              kind: kind,
+              color: color,
+              shape: shape,
+              iconImage: window.MappingMomentumReport.markerIconName(shape)
             }
           };
         })
       };
     }
 
-    function createNoteMarkerIcon() {
-      var canvas = document.createElement('canvas');
-      canvas.width = 28;
-      canvas.height = 28;
-      var context = canvas.getContext('2d');
-      if (!context) return null;
-
-      context.fillStyle = 'rgba(255,255,255,0.7)';
-      context.fillRect(0, 0, 28, 28);
-      context.fillStyle = '#6c757d';
-      context.fillRect(4, 4, 20, 20);
-      var image = context.getImageData(0, 0, canvas.width, canvas.height);
-      return { width: image.width, height: image.height, data: image.data };
-    }
-
     function markerIsHighlighted() {
       return [
         'any',
         ['boolean', ['feature-state', 'hover'], false],
-        ['boolean', ['feature-state', 'focused'], false]
+        ['boolean', ['feature-state', 'focused'], false],
+        ['boolean', ['feature-state', 'contributorSelected'], false]
       ];
     }
 
@@ -1781,45 +2649,73 @@ a:hover {
           data: markerFeatures
         });
       }
+      window.MappingMomentumReport.registerMarkerImages(map, markerFeatures);
 
       var highlightColor = getComputedStyle(document.documentElement)
         .getPropertyValue('--mm-accent').trim() || '#5f22c9';
+      var contributorHighlightColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--mm-contributor-highlight').trim() || '#007f73';
+
+      function markerHighlightColor() {
+        return [
+          'case',
+          ['boolean', ['feature-state', 'contributorSelected'], false],
+          contributorHighlightColor,
+          highlightColor
+        ];
+      }
+
+      if (!map.getLayer(markerHighlightLayerId)) {
+        map.addLayer({
+          id: markerHighlightLayerId,
+          type: 'circle',
+          source: markerSourceId,
+          paint: {
+            'circle-color': 'rgba(0,0,0,0)',
+            'circle-radius': ['case', markerIsHighlighted(), 9, 0],
+            'circle-stroke-color': markerHighlightColor(),
+            'circle-stroke-width': ['case', markerIsHighlighted(), 2.5, 0]
+          }
+        });
+      }
+
+      if (!map.getLayer(circleMarkerLayerId)) {
+        map.addLayer({
+          id: circleMarkerLayerId,
+          type: 'circle',
+          source: markerSourceId,
+          filter: ['all', ['!=', ['get', 'kind'], 'note'], ['==', ['get', 'shape'], 'circle']],
+          paint: {
+            'circle-color': ['get', 'color'],
+            'circle-radius': 6,
+            'circle-stroke-color': [
+              'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
+            ],
+            'circle-stroke-width': 2
+          }
+        });
+      }
 
       if (!map.getLayer(questMarkerLayerId)) {
         map.addLayer({
           id: questMarkerLayerId,
-          type: 'circle',
+          type: 'symbol',
           source: markerSourceId,
-          filter: ['!=', ['get', 'kind'], 'note'],
+          filter: ['all', ['!=', ['get', 'kind'], 'note'], ['!=', ['get', 'shape'], 'circle']],
+          layout: {
+            'icon-image': ['get', 'iconImage'],
+            'icon-size': 0.5,
+            'icon-allow-overlap': true,
+            'icon-ignore-placement': true
+          },
           paint: {
-            'circle-color': ['get', 'color'],
-            'circle-radius': ['case', markerIsHighlighted(), 8, 6],
-            'circle-stroke-color': [
-              'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.7)'
+            'icon-color': ['get', 'color'],
+            'icon-halo-color': [
+              'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
             ],
-            'circle-stroke-width': ['case', markerIsHighlighted(), 3, 2]
+            'icon-halo-width': 2
           }
         });
-      }
-
-      if (!map.getLayer(noteHighlightLayerId)) {
-        map.addLayer({
-          id: noteHighlightLayerId,
-          type: 'circle',
-          source: markerSourceId,
-          filter: ['==', ['get', 'kind'], 'note'],
-          paint: {
-            'circle-color': 'rgba(0,0,0,0)',
-            'circle-radius': 8,
-            'circle-stroke-color': highlightColor,
-            'circle-stroke-width': ['case', markerIsHighlighted(), 2, 0]
-          }
-        });
-      }
-
-      if (!map.hasImage('mm-note-marker-icon')) {
-        var noteIcon = createNoteMarkerIcon();
-        if (noteIcon) map.addImage('mm-note-marker-icon', noteIcon, { pixelRatio: 2 });
       }
 
       if (!map.getLayer(noteMarkerLayerId)) {
@@ -1829,11 +2725,18 @@ a:hover {
           source: markerSourceId,
           filter: ['==', ['get', 'kind'], 'note'],
           layout: {
-            'icon-image': 'mm-note-marker-icon',
-            'icon-size': 1,
+            'icon-image': ['get', 'iconImage'],
+            'icon-size': 0.5,
             'icon-anchor': 'center',
             'icon-allow-overlap': true,
             'icon-ignore-placement': true
+          },
+          paint: {
+            'icon-color': ['get', 'color'],
+            'icon-halo-color': [
+              'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
+            ],
+            'icon-halo-width': 2
           }
         });
       }
@@ -1850,10 +2753,17 @@ a:hover {
           { focused: true }
         );
       }
+      selectedContributorFeatureIds.forEach(function (featureId) {
+        map.setFeatureState(
+          { source: markerSourceId, id: featureId },
+          { contributorSelected: true }
+        );
+      });
     }
 
     function markerFeatureAt(point) {
       var layers = [];
+      if (map.getLayer(circleMarkerLayerId)) layers.push(circleMarkerLayerId);
       if (map.getLayer(questMarkerLayerId)) layers.push(questMarkerLayerId);
       if (map.getLayer(noteMarkerLayerId)) layers.push(noteMarkerLayerId);
       if (layers.length === 0) return null;
@@ -1880,6 +2790,43 @@ a:hover {
       setMarkerFeatureState(focusedMarkerFeatureId, 'focused', false);
       focusedMarkerFeatureId = featureId;
       setMarkerFeatureState(focusedMarkerFeatureId, 'focused', true);
+    }
+
+    function markerHasContributor(marker, user) {
+      return marker.user === user || (
+        Array.isArray(marker.versions) &&
+        marker.versions.some(function (version) {
+          return version && version.user === user;
+        })
+      );
+    }
+
+    function focusContributorOnMap(user) {
+      var matchingFeatureIds = [];
+      markers.forEach(function (marker, index) {
+        if (markerHasContributor(marker, user)) matchingFeatureIds.push(index);
+      });
+      if (matchingFeatureIds.length === 0) return;
+
+      selectedContributorFeatureIds.forEach(function (featureId) {
+        setMarkerFeatureState(featureId, 'contributorSelected', false);
+      });
+      selectedContributorFeatureIds = matchingFeatureIds;
+      selectedContributorFeatureIds.forEach(function (featureId) {
+        setMarkerFeatureState(featureId, 'contributorSelected', true);
+      });
+
+      var bounds = new maplibregl.LngLatBounds();
+      matchingFeatureIds.forEach(function (featureId) {
+        var marker = markers[featureId];
+        bounds.extend([marker.lon, marker.lat]);
+      });
+      if (matchingFeatureIds.length === 1) {
+        var marker = markers[matchingFeatureIds[0]];
+        map.easeTo({ center: [marker.lon, marker.lat], zoom: 14, duration: 350 });
+      } else {
+        map.fitBounds(bounds, { padding: 48, maxZoom: 14 });
+      }
     }
 
     function markerAriaLabel(marker) {
@@ -1936,9 +2883,6 @@ a:hover {
 
     if (typeof maplibregl !== 'undefined') {
       // Compute map centre from markers bounding box
-      var markers = (STATS.markers || []).filter(function (marker) {
-        return Number.isFinite(marker.lat) && Number.isFinite(marker.lon);
-      });
       var markerFeatures = createMarkerFeatureCollection(markers);
       var mapCenter = [-98.35, 39.50], mapZoom = 3;
       if (markers.length > 0) {
@@ -1956,8 +2900,9 @@ a:hover {
         style: OPENFREEMAP_STYLES[stylePicker.value],
         center: mapCenter,
         zoom: mapZoom,
-        attributionControl: true,
+        attributionControl: false,
       });
+      window.MappingMomentumReport.enableMapResize(map);
 
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
@@ -1993,8 +2938,18 @@ a:hover {
         var marker = markers[Number(feature.properties.markerIndex)];
         if (marker) openMarkerPopup(marker);
       });
+      var contributorTable = document.querySelector('[data-contributor-table]');
+      if (contributorTable) {
+        contributorTable.addEventListener('click', function (event) {
+          var row = event.target.closest('tr[data-contributor-user]');
+          if (row) focusContributorOnMap(row.getAttribute('data-contributor-user'));
+        });
+      }
     } else {
       stylePicker.disabled = true;
+      document.querySelectorAll('.contributor-map-button').forEach(function (button) {
+        button.disabled = true;
+      });
     }
 
     // Build popup HTML for a marker at a given version index.

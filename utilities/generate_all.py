@@ -1,4 +1,4 @@
-"""Regenerate configured event reports, logs, and event-series aggregates.
+"""Regenerate configured event reports, logs, and event aggregates.
 
 Run with the project's virtual environment active. Event configs are discovered
 under ``configs/events``; the ``template`` directory is excluded. Full reports
@@ -194,32 +194,69 @@ def _series_stats_paths(entries: list[EventConfig], output_root: Path) -> list[P
 
 
 def _generate_non_anonymized_aggregates(
-    series_groups: dict[str, list[EventConfig]], full_output_root: Path
+    series_groups: dict[str, list[EventConfig]],
+    full_output_root: Path,
+    configs: list[EventConfig],
 ) -> list[str]:
-    """Generate one non-anonymized aggregate for each multi-event series."""
-    aggregate_series: list[str] = []
+    """Generate non-anonymized series aggregates and one all-events aggregate."""
+    aggregate_ids: list[str] = []
     for series, entries in series_groups.items():
         if len(entries) < 2:
             continue
 
         title = f"{series.upper()} Aggregate Contribution Report"
-        stats = aggregate_reports(
-            _series_stats_paths(entries, full_output_root),
+        _write_non_anonymized_aggregate(
+            entries,
+            full_output_root,
+            report_id=series,
             title=title,
         )
-        html = render_aggregate_report(stats)
-        write_aggregate_report(stats, html, full_output_root / "events", series)
-        aggregate_series.append(series)
+        aggregate_ids.append(series)
         print(f"Non-anonymized {series.upper()} aggregate written.")
-    return aggregate_series
+
+    if configs:
+        _write_non_anonymized_aggregate(
+            configs,
+            full_output_root,
+            report_id="all",
+            title="All Events Aggregate Contribution Report",
+        )
+        aggregate_ids.append("all")
+        print("Non-anonymized all-events aggregate written.")
+    return aggregate_ids
+
+
+def _write_non_anonymized_aggregate(
+    entries: list[EventConfig],
+    full_output_root: Path,
+    *,
+    report_id: str,
+    title: str,
+) -> None:
+    """Aggregate full source stats and write one report."""
+    stats = aggregate_reports(
+        _series_stats_paths(entries, full_output_root),
+        title=title,
+    )
+    html = render_aggregate_report(stats)
+    write_aggregate_report(
+        stats,
+        html,
+        full_output_root / "events",
+        report_id,
+    )
 
 
 def _render_anonymized_aggregates(
-    series_ids: list[str], full_output_root: Path, anonymized_output_root: Path
+    aggregate_ids: list[str],
+    full_output_root: Path,
+    anonymized_output_root: Path,
 ) -> None:
     """Anonymize each full aggregate and write it to the anonymized root."""
-    for series in series_ids:
-        stats_path = full_output_root / "events" / "aggregates" / series / "stats.json"
+    for aggregate_id in aggregate_ids:
+        stats_path = (
+            full_output_root / "events" / "aggregates" / aggregate_id / "stats.json"
+        )
         stats = read_json(stats_path)
         if not _is_json_object(stats):
             raise ValueError(f"aggregate stats must be a JSON object: {stats_path}")
@@ -229,9 +266,9 @@ def _render_anonymized_aggregates(
             anonymized_stats,
             html,
             anonymized_output_root / "events",
-            series,
+            aggregate_id,
         )
-        print(f"Anonymized {series.upper()} aggregate written.")
+        print(f"Anonymized {aggregate_id.upper()} aggregate written.")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -239,7 +276,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Generate full and anonymized reports for every configured event, "
-            "including quest-answer logs and multi-event series aggregates."
+            "including quest-answer logs, series aggregates, and an all-events "
+            "aggregate."
         )
     )
     parser.add_argument(
@@ -277,9 +315,10 @@ def main(argv: list[str] | None = None) -> int:
                 return status
 
         series_groups = _group_event_series(configs)
-        aggregate_series = _generate_non_anonymized_aggregates(
+        aggregate_ids = _generate_non_anonymized_aggregates(
             series_groups,
             full_output_root,
+            configs,
         )
 
         for _, config in configs:
@@ -291,7 +330,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Anonymized reports and quest logs written for {config['id']}.")
 
         _render_anonymized_aggregates(
-            aggregate_series,
+            aggregate_ids,
             full_output_root,
             anonymized_output_root,
         )
@@ -301,7 +340,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print(
         f"Generated {len(configs)} event configs, "
-        f"{len(aggregate_series)} aggregate series, and anonymized copies."
+        f"{len(aggregate_ids)} aggregates, and anonymized copies."
     )
     print(f"Full reports: {full_output_root}")
     print(f"Anonymized reports: {anonymized_output_root}")

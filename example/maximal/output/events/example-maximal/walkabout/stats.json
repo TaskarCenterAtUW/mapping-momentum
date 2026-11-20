@@ -92,6 +92,23 @@
   ],
   "relation_count": 0,
   "way_count": 1,
+  "contributions_by_user": [
+    {
+      "user": "synthetic-mapper-a",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "synthetic-mapper-b",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "synthetic-observer",
+      "quest_answer_count": 0,
+      "note_count": 2
+    }
+  ],
   "markers": [
     {
       "id": 1,
@@ -260,21 +277,21 @@
   ],
   "showcase_photos": [
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNlY2ZjY2IiLz4KICA8Y2lyY2xlIGN4PSIyMjAiIGN5PSIxNzUiIHI9Ijk1IiBmaWxsPSIjNjVhMzBkIi8+CiAgPGNpcmNsZSBjeD0iNDIwIiBjeT0iMTc1IiByPSI5NSIgZmlsbD0iIzBmNzY2ZSIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjMzY1MzE0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHNob3djYXNlIEE8L3RleHQ+Cjwvc3ZnPgo=",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+DQogIDxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiBmaWxsPSIjZWNmY2NiIi8+DQogIDxjaXJjbGUgY3g9IjIyMCIgY3k9IjE3NSIgcj0iOTUiIGZpbGw9IiM2NWEzMGQiLz4NCiAgPGNpcmNsZSBjeD0iNDIwIiBjeT0iMTc1IiByPSI5NSIgZmlsbD0iIzBmNzY2ZSIvPg0KICA8dGV4dCB4PSIzMjAiIHk9IjMzMCIgZmlsbD0iIzM2NTMxNCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlN5bnRoZXRpYyBzaG93Y2FzZSBBPC90ZXh0Pg0KPC9zdmc+DQo=",
       "caption": "Synthetic field team illustration A"
     },
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmY2U3ZjMiLz4KICA8cGF0aCBkPSJNOTAgMjUwIDIxMCA4MGwxMjAgMTcweiIgZmlsbD0iI2RiMjc3NyIvPgogIDxwYXRoIGQ9Ik0zMTAgMjUwIDQzMCA4MGwxMjAgMTcweiIgZmlsbD0iI2JlMTIzYyIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjODMxODQzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHNob3djYXNlIEI8L3RleHQ+Cjwvc3ZnPgo=",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+DQogIDxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiBmaWxsPSIjZmNlN2YzIi8+DQogIDxwYXRoIGQ9Ik05MCAyNTAgMjEwIDgwbDEyMCAxNzB6IiBmaWxsPSIjZGIyNzc3Ii8+DQogIDxwYXRoIGQ9Ik0zMTAgMjUwIDQzMCA4MGwxMjAgMTcweiIgZmlsbD0iI2JlMTIzYyIvPg0KICA8dGV4dCB4PSIzMjAiIHk9IjMzMCIgZmlsbD0iIzgzMTg0MyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlN5bnRoZXRpYyBzaG93Y2FzZSBCPC90ZXh0Pg0KPC9zdmc+DQo=",
       "caption": "Synthetic field team illustration B"
     }
   ],
   "pictures": [
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNkYmVhZmUiLz4KICA8Y2lyY2xlIGN4PSIxODAiIGN5PSIxODAiIHI9IjkwIiBmaWxsPSIjMjU2M2ViIi8+CiAgPHBhdGggZD0iTTMyMCAyNzAgNDMwIDkwbDExMCAxODB6IiBmaWxsPSIjMTZhMzRhIi8+CiAgPHRleHQgeD0iMzIwIiB5PSIzMzAiIGZpbGw9IiMxNzI1NTQiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TeW50aGV0aWMgcGljdHVyZSBBPC90ZXh0Pgo8L3N2Zz4K",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+DQogIDxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiBmaWxsPSIjZGJlYWZlIi8+DQogIDxjaXJjbGUgY3g9IjE4MCIgY3k9IjE4MCIgcj0iOTAiIGZpbGw9IiMyNTYzZWIiLz4NCiAgPHBhdGggZD0iTTMyMCAyNzAgNDMwIDkwbDExMCAxODB6IiBmaWxsPSIjMTZhMzRhIi8+DQogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjMTcyNTU0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHBpY3R1cmUgQTwvdGV4dD4NCjwvc3ZnPg0K",
       "caption": ""
     },
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmZWYzYzciLz4KICA8cmVjdCB4PSI5MCIgeT0iODAiIHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjQiIGZpbGw9IiNkOTc3MDYiLz4KICA8cGF0aCBkPSJNMzUwIDI2MGgxOTBMNDQ1IDgweiIgZmlsbD0iIzkzMzNlYSIvPgogIDx0ZXh0IHg9IjMyMCIgeT0iMzMwIiBmaWxsPSIjNDUxYTAzIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U3ludGhldGljIHBpY3R1cmUgQjwvdGV4dD4KPC9zdmc+Cg==",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgNjQwIDM2MCI+DQogIDxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiBmaWxsPSIjZmVmM2M3Ii8+DQogIDxyZWN0IHg9IjkwIiB5PSI4MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSIyNCIgZmlsbD0iI2Q5NzcwNiIvPg0KICA8cGF0aCBkPSJNMzUwIDI2MGgxOTBMNDQ1IDgweiIgZmlsbD0iIzkzMzNlYSIvPg0KICA8dGV4dCB4PSIzMjAiIHk9IjMzMCIgZmlsbD0iIzQ1MWEwMyIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlN5bnRoZXRpYyBwaWN0dXJlIEI8L3RleHQ+DQo8L3N2Zz4NCg==",
       "caption": ""
     }
   ],
@@ -310,5 +327,8 @@
   ],
   "video_url": "https://video.example.invalid/synthetic-mapping.mp4",
   "video_embed_url": "https://video.example.invalid/synthetic-mapping.mp4",
-  "video_kind": "video"
+  "video_kind": "video",
+  "event_id": "example-maximal",
+  "event_name": "Synthetic Maximal Mapping Event",
+  "activity_label": "Synthetic Maximal Walk"
 }

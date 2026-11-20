@@ -92,6 +92,23 @@
   ],
   "relation_count": 0,
   "way_count": 1,
+  "contributions_by_user": [
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 2,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 3",
+      "quest_answer_count": 1,
+      "note_count": 0
+    },
+    {
+      "user": "Participant 2",
+      "quest_answer_count": 0,
+      "note_count": 2
+    }
+  ],
   "markers": [
     {
       "id": 1,
@@ -310,5 +327,9 @@
   ],
   "video_url": "https://video.example.invalid/synthetic-mapping.mp4",
   "video_embed_url": "https://video.example.invalid/synthetic-mapping.mp4",
-  "video_kind": "video"
+  "video_kind": "video",
+  "event_id": "example-maximal",
+  "event_name": "Synthetic Maximal Mapping Event",
+  "activity_label": "Synthetic Maximal Walk",
+  "anonymized": true
 }

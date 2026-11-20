@@ -582,6 +582,19 @@ def test_render_report_contributors_card_present() -> None:
     assert "Contributors" in html
 
 
+def test_render_report_metric_card_accent_spans_full_height() -> None:
+    html = render_report(
+        _sample_stats(),
+        _minimal_config(),
+        _minimal_config()["activities"][0],
+        template_dir=Path(__file__).resolve().parents[2] / "templates",
+    )
+    accent_rule = re.search(r"\.metric-card::before\s*\{([^}]*)\}", html)
+
+    assert accent_rule is not None
+    assert re.search(r"\binset:\s*0\s+auto\s+0\s+0;", accent_rule.group(1))
+
+
 def test_render_report_questions_answered_present() -> None:
     html = render_report(
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
@@ -644,6 +657,30 @@ def test_render_report_map_container_present() -> None:
     assert 'id="map"' in html
 
 
+def test_render_report_resize_handle_is_prominent_and_accessible() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    handle_rule = re.search(r"\.map-resize-handle\s*\{([^}]*)\}", html)
+    grip_rule = re.search(r"\.map-resize-handle::before\s*\{([^}]*)\}", html)
+
+    assert handle_rule is not None
+    assert "width: 6rem;" in handle_rule.group(1)
+    assert "height: 1.75rem;" in handle_rule.group(1)
+    assert "border: 1px solid var(--mm-border);" in handle_rule.group(1)
+    assert "color-mix(in srgb, var(--mm-surface-strong) 82%, transparent)" in (
+        handle_rule.group(1)
+    )
+    assert grip_rule is not None
+    assert "width: 3rem;" in grip_rule.group(1)
+    assert "height: 0.3rem;" in grip_rule.group(1)
+    assert 'role="separator"' in html
+    assert 'aria-orientation="horizontal"' in html
+    assert 'tabindex="0"' in html
+    assert ".map-resize-handle:active," in html
+    assert ".map-resize-handle:focus-visible" in html
+
+
 def test_render_report_markers_use_maplibre_layers_and_open_popups() -> None:
     """Keep activity markers attached to map rendering and hit testing."""
     config = _minimal_config()
@@ -661,10 +698,70 @@ def test_render_report_markers_use_maplibre_layers_and_open_popups() -> None:
     assert "type: 'symbol'" in html
     assert "map.on('style.load', function () {" in html
     assert "addMarkerLayers(markerFeatures);" in html
+    circle_stroke_color = re.search(r"'circle-stroke-color':\s*(\[[^\]]+\])", html)
+    icon_halo_color = re.search(r"'icon-halo-color':\s*(\[[^\]]+\])", html)
+    assert circle_stroke_color is not None
+    assert icon_halo_color is not None
+    assert re.sub(r"\s+", "", circle_stroke_color.group(1)) == re.sub(
+        r"\s+", "", icon_halo_color.group(1)
+    )
     assert "map.queryRenderedFeatures(point, { layers: layers })" in html
     assert "map.on('click', function (event) {" in html
     assert "var feature = markerFeatureAt(event.point);" in html
     assert "if (marker) openMarkerPopup(marker);" in html
+
+
+def test_render_report_contributor_rows_focus_matching_markers() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+
+    assert "data-contributor-table" in html
+    assert 'data-contributor-user="alice"' in html
+    assert 'aria-label="Show map contributions by alice"' in html
+    assert "contributorTable.addEventListener('click'" in html
+    assert "function markerHasContributor(marker, user)" in html
+    assert "marker.versions.some(function (version)" in html
+    assert "contributorSelected" in html
+    assert "--mm-contributor-highlight" in html
+    assert "map.fitBounds(bounds, { padding: 48, maxZoom: 14 });" in html
+
+
+def test_render_report_popup_scrolls_inside_its_surface() -> None:
+    """Keep long marker popup content scrolling inside one background surface."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+    popup_surface_rules = re.findall(r"\.maplibregl-popup-content\s*\{([^}]*)\}", html)
+    popup_content_rules = re.findall(r"\.mm-popup\s*\{([^}]*)\}", html)
+
+    assert any("overflow: hidden;" in rule for rule in popup_surface_rules)
+    assert not any("overflow-y: auto;" in rule for rule in popup_surface_rules)
+    assert any(
+        "max-height: 420px;" in rule and "overflow-y: auto;" in rule
+        for rule in popup_content_rules
+    )
+
+
+def test_render_report_popup_close_button_has_scrollbar_clearance() -> None:
+    """Keep the padded close button clear of the popup scrollbar."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+    close_button_rules = re.findall(
+        r"\.maplibregl-popup-close-button\s*\{([^}]*)\}", html
+    )
+    popup_header_rules = re.findall(r"\.mm-popup-header\s*\{([^}]*)\}", html)
+
+    assert any(
+        "right: 1.25rem;" in rule
+        and "width: 1.75rem;" in rule
+        and "height: 1.75rem;" in rule
+        and "padding: 0.25rem;" in rule
+        for rule in close_button_rules
+    )
+    assert any(
+        "padding: 0.5rem 3.5rem 0.375rem 0.75rem;" in rule
+        for rule in popup_header_rules
+    )
 
 
 def test_render_report_marker_controls_are_keyboard_accessible() -> None:
@@ -689,6 +786,7 @@ def test_render_report_theme_toggle_uses_tcat_palette() -> None:
         _minimal_config()["activities"][0],
         template_dir=Path(__file__).resolve().parents[2] / "templates",
     )
+    normalized_html = re.sub(r"\s+", " ", html)
 
     assert 'id="theme-toggle"' in html
     assert 'aria-pressed="false"' in html
@@ -697,6 +795,15 @@ def test_render_report_theme_toggle_uses_tcat_palette() -> None:
     assert "--mm-accent: #c9b882;" in html
     assert "prefers-color-scheme: dark" in html
     assert "mapping-momentum-theme" in html
+    assert ".map-wrapper .maplibregl-ctrl-group" in html
+    assert "background: var(--mm-surface-strong);" in html
+    assert "button + button" in html
+    assert "border-top-color: var(--mm-border);" in html
+    assert (
+        ':root[data-theme="dark"] .map-wrapper .maplibregl-ctrl-group '
+        ".maplibregl-ctrl-icon"
+    ) in normalized_html
+    assert "filter: invert(1);" in html
     assert re.search(
         r"""theme\s*===\s*["']dark["']\s*\?\s*["']fiord["']\s*:\s*["']positron["']""",
         html,
@@ -705,17 +812,26 @@ def test_render_report_theme_toggle_uses_tcat_palette() -> None:
     assert "syncMapStyle(nextTheme);" in html
 
 
-def test_render_report_has_complete_html_export_control() -> None:
-    """The report nav exposes a keyboard button that downloads the complete HTML."""
+def test_render_report_has_accessible_export_button() -> None:
+    """Expose a labeled export button with a decorative download icon."""
     html = render_report(
         _sample_stats(),
         _minimal_config(),
         _minimal_config()["activities"][0],
     )
 
+    assert re.search(
+        r'<button type="button"\s+class="report-export-button"',
+        html,
+    )
     assert "data-export-report" in html
     assert 'data-export-filename="test-event-walkabout-report.html"' in html
-    assert 'aria-label="Save or export the complete report"' in html
+    assert 'aria-label="Export the complete report"' in html
+    assert (
+        '<svg class="report-export-icon" aria-hidden="true" focusable="false"' in html
+    )
+    assert "<span>Export</span>" in html
+    assert html.index('class="report-export-icon"') < html.index("<span>Export</span>")
     assert "URL.createObjectURL(blob)" in html
     assert re.search(
         r"link\.download\s*=\s*exportButton\.dataset\.exportFilename",
@@ -736,6 +852,45 @@ def test_render_report_exposes_openfreemap_basemap_styles() -> None:
         assert f"https://tiles.openfreemap.org/styles/{style}" in html
     assert "map.setStyle(styleUrl, { diff: false });" in html
     assert "if (activeGeom) addGeomLayer(activeGeom);" in html
+
+
+def test_render_report_map_legend_is_open_and_title_case() -> None:
+    """Render the map legend expanded with its title-case label."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+
+    assert '<details class="map-legend" open>' in html
+    assert "<summary>Map Legend</summary>" in html
+
+
+def test_render_report_has_expected_map_attribution() -> None:
+    """Render the requested data and map provider attribution."""
+    config = _minimal_config()
+    html = render_report(_sample_stats(), config, config["activities"][0])
+    normalized_html = " ".join(html.split())
+    expected_attribution = (
+        'Data: <a href="https://workspaces.sidewalks.washington.edu/" '
+        'target="_blank" rel="noopener noreferrer">TDEI Workspaces</a> '
+        'contributors | Map: <a href="https://openfreemap.org" '
+        'target="_blank" rel="noopener noreferrer">OpenFreeMap</a> • '
+        '<a href="https://www.openmaptiles.org/" target="_blank" '
+        'rel="noopener noreferrer">© OpenMapTiles</a> • '
+        '<a href="https://www.openstreetmap.org/copyright" '
+        'target="_blank" rel="noopener noreferrer">'
+        "© OpenStreetMap contributors</a>"
+    )
+
+    assert expected_attribution in normalized_html
+    assert "© Workspace contributors" not in html
+    assert "new maplibregl.AttributionControl(" not in html
+    attribution_style = re.search(
+        r"\.map-attribution\s*\{([^}]+)\}",
+        html,
+    )
+    assert attribution_style is not None
+    assert "right: 0.4rem;" in attribution_style.group(1)
+    assert "bottom: 0.2rem;" in attribution_style.group(1)
+    assert "white-space: nowrap;" in attribution_style.group(1)
 
 
 def test_render_report_skip_link_present() -> None:
