@@ -29,12 +29,14 @@ render_report:
   - exactly one <h1> element (S2)
   - page_title appears in <title> and <h1>
   - subtitle appears in output
-  - activity_label appears in h2
-  - changeset_count and note_count badges present
+  - full report description text and links match the approved copy
+  - activity region replaces the redundant header with an accessible summary target
   - stats_json inlined without raw < or > characters
   - Quest Types card present when data available
   - Features Created card present
   - Contributors card present
+  - Contributors column precedes Quest Types in the desktop grid
+  - gallery and popup photo controls overlay the images
   - Questions Answered section present when data available
   - showcase section present only when showcase_photos non-empty
   - photo modal dialog present
@@ -53,6 +55,7 @@ import json
 import math
 import re
 from datetime import datetime, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
@@ -489,10 +492,74 @@ def test_render_report_subtitle_uses_human_readable_date() -> None:
     assert "January 20, 2026" in html
 
 
-def test_render_report_activity_label_in_h2() -> None:
+def test_render_report_activity_region_replaces_redundant_header() -> None:
     config = _minimal_config()
     html = render_report(_sample_stats(), config, config["activities"][0])
-    assert "Test Walk/Roll" in html
+
+    assert 'class="activity-header"' not in html
+    assert 'id="activity-heading"' not in html
+    assert 'class="badge"' not in html
+    assert (
+        '<section class="activity-section" id="activity-section" '
+        'aria-label="Mapping activity for Test Walk/Roll" tabindex="-1">'
+    ) in html
+    assert html.count('href="#activity-section"') == 2
+    assert '<span class="metric-label">Changesets</span>' in html
+    assert '<span class="metric-label">Notes</span>' in html
+
+
+def test_render_report_description_matches_full_copy() -> None:
+    config = _minimal_config()
+    rendered = render_report(_sample_stats(), config, config["activities"][0])
+
+    class DescriptionParser(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__()
+            self.in_description = False
+            self.description_count = 0
+            self.description_parts: list[str] = []
+            self.links: list[str | None] = []
+
+        def handle_starttag(
+            self, tag: str, attrs: list[tuple[str, str | None]]
+        ) -> None:
+            attributes = dict(attrs)
+            class_value = attributes.get("class")
+            if (
+                tag == "p"
+                and class_value is not None
+                and "report-description" in class_value.split()
+            ):
+                self.in_description = True
+                self.description_count += 1
+            elif self.in_description and tag == "a":
+                self.links.append(attributes.get("href"))
+
+        def handle_endtag(self, tag: str) -> None:
+            if self.in_description and tag == "p":
+                self.in_description = False
+
+        def handle_data(self, data: str) -> None:
+            if self.in_description:
+                self.description_parts.append(data)
+
+    parser = DescriptionParser()
+    parser.feed(rendered)
+
+    assert parser.description_count == 1
+    assert " ".join("".join(parser.description_parts).split()) == (
+        "This is an accounting of people's lived experience on location through the "
+        "AVIV ScoutRoute application, collecting data in the OpenSidewalks data "
+        "schema and enhancing OS-CONNECT, the sidewalks inventory and accessibility "
+        "mapping dataset for the state of Washington, developed by the Taskar Center "
+        "for Accessible Technology at the University of Washington."
+    )
+    assert parser.links == [
+        "https://tcat.cs.washington.edu/aviv-scoutroute/",
+        "https://github.com/OpenSidewalks/OpenSidewalks-Schema/",
+        "https://sidewalks.washington.edu/",
+        "https://tcat.cs.washington.edu/",
+    ]
 
 
 def test_render_report_report_title_override() -> None:
@@ -524,20 +591,6 @@ def test_render_report_rejects_invalid_config_values(
         config["name"] = event_name
     with pytest.raises(TypeError, match=message):
         render_report(_sample_stats(), config, config["activities"][0])
-
-
-def test_render_report_changeset_badge_present() -> None:
-    html = render_report(
-        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
-    )
-    assert "changeset" in html
-
-
-def test_render_report_note_badge_present() -> None:
-    html = render_report(
-        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
-    )
-    assert "note" in html
 
 
 def test_render_report_stats_json_inlined() -> None:
@@ -580,6 +633,21 @@ def test_render_report_contributors_card_present() -> None:
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
     )
     assert "Contributors" in html
+
+
+def test_render_report_contributors_column_is_first() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    cards_grid_start = html.index('<div class="cards-grid">')
+    contributors_card = html.index(
+        '<section class="card" aria-labelledby="cb-heading">', cards_grid_start
+    )
+    quest_types_card = html.index(
+        '<section class="card" aria-labelledby="qt-heading">', cards_grid_start
+    )
+
+    assert contributors_card < quest_types_card
 
 
 def test_render_report_metric_card_accent_spans_full_height() -> None:
@@ -650,6 +718,17 @@ def test_render_report_photo_modal_dialog_present() -> None:
     assert "photo-modal" in html
 
 
+def test_render_report_photo_modal_closes_on_backdrop_click() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    assert re.search(
+        r"photoModal\.addEventListener\('click', function \(e\) \{\s*"
+        r"if \(e\.target === photoModal\) photoModal\.close\(\);\s*\}\);",
+        html,
+    )
+
+
 def test_render_report_map_container_present() -> None:
     html = render_report(
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
@@ -657,28 +736,161 @@ def test_render_report_map_container_present() -> None:
     assert 'id="map"' in html
 
 
-def test_render_report_resize_handle_is_prominent_and_accessible() -> None:
+def test_render_report_has_no_map_resize_control_or_interaction() -> None:
     html = render_report(
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
     )
-    handle_rule = re.search(r"\.map-resize-handle\s*\{([^}]*)\}", html)
-    grip_rule = re.search(r"\.map-resize-handle::before\s*\{([^}]*)\}", html)
+    assert "map-resize-handle" not in html
+    assert "enableMapResize" not in html
+    assert "--mm-map-height" not in html
 
-    assert handle_rule is not None
-    assert "width: 6rem;" in handle_rule.group(1)
-    assert "height: 1.75rem;" in handle_rule.group(1)
-    assert "border: 1px solid var(--mm-border);" in handle_rule.group(1)
-    assert "color-mix(in srgb, var(--mm-surface-strong) 82%, transparent)" in (
-        handle_rule.group(1)
+
+def test_render_report_map_and_gallery_keep_matching_fixed_heights() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
     )
-    assert grip_rule is not None
-    assert "width: 3rem;" in grip_rule.group(1)
-    assert "height: 0.3rem;" in grip_rule.group(1)
-    assert 'role="separator"' in html
-    assert 'aria-orientation="horizontal"' in html
-    assert 'tabindex="0"' in html
-    assert ".map-resize-handle:active," in html
-    assert ".map-resize-handle:focus-visible" in html
+    map_rules = re.findall(r"\.map-wrapper\s*\{([^}]*)\}", html)
+    gallery_rules = re.findall(r"\.location-photo-card\s*\{([^}]*)\}", html)
+
+    assert any("height: 450px;" in rule for rule in map_rules)
+    assert any("height: 450px;" in rule for rule in gallery_rules)
+    assert re.search(
+        r"@media \(max-width: 640px\)\s*\{\s*\.map-wrapper,\s*"
+        r"\.location-photo-card\s*\{\s*height: 380px;\s*min-height: 280px;",
+        html,
+    )
+
+
+def test_render_report_gallery_photo_controls_overlay_image() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    item_style = re.search(r"\.location-photo-item\s*\{([^}]*)\}", html)
+    marker_style = re.search(r"\.location-photo-marker\s*\{([^}]*)\}", html)
+    provider_style = next(
+        (
+            rule
+            for rule in re.findall(r"\.location-photo-provider\s*\{([^}]*)\}", html)
+            if "bottom: 0.35rem;" in rule
+        ),
+        None,
+    )
+    locate_style = re.search(r"\.location-photo-locate\s*\{([^}]*)\}", html)
+
+    assert item_style is not None
+    assert "aspect-ratio: 4 / 3;" in item_style.group(1)
+    assert marker_style is not None
+    assert "top: 0.35rem;" in marker_style.group(1)
+    assert "left: 0.35rem;" in marker_style.group(1)
+    assert "color: var(--mm-text);" in marker_style.group(1)
+    assert (
+        "text-shadow: 0 1px 3px rgba(0, 0, 0, 0.92), 0 0 6px rgba(0, 0, 0, 0.76);"
+    ) in marker_style.group(1)
+    assert provider_style is not None
+    assert "right: 0.35rem;" in provider_style
+    assert "color: var(--mm-text);" in provider_style
+    assert locate_style is not None
+    assert "top: 0.3rem;" in locate_style.group(1)
+    assert "right: 0.3rem;" in locate_style.group(1)
+    assert "providerLink.textContent = photo.provider;" in html
+    assert "locateButton.innerHTML = mapPinIcon();" in html
+    assert "providerLink.textContent = 'View on ' + photo.provider;" not in html
+    assert ".location-photo-image[hidden]" in html
+
+
+def test_render_report_popup_photo_controls_overlay_image() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    marker_style = re.search(r"\.mm-popup-photo-marker\s*\{([^}]*)\}", html)
+    provider_style = next(
+        (
+            rule
+            for rule in re.findall(r"\.mm-popup-photo-provider\s*\{([^}]*)\}", html)
+            if "right: 0.2rem;" in rule
+        ),
+        None,
+    )
+    locate_style = re.search(r"\.mm-popup-photo-locate\s*\{([^}]*)\}", html)
+
+    assert marker_style is not None
+    assert "top: 0.2rem;" in marker_style.group(1)
+    assert "left: 0.2rem;" in marker_style.group(1)
+    assert "color: var(--mm-text);" in marker_style.group(1)
+    assert (
+        "text-shadow: 0 1px 3px rgba(0, 0, 0, 0.92), 0 0 6px rgba(0, 0, 0, 0.76);"
+    ) in marker_style.group(1)
+    assert provider_style is not None
+    assert "bottom: 0.2rem;" in provider_style
+    assert "text-decoration: underline;" in provider_style
+    assert locate_style is not None
+    assert "top: 0.15rem;" in locate_style.group(1)
+    assert "right: 0.15rem;" in locate_style.group(1)
+    assert "tags['ext:kartaview_url']" in html
+    assert "tags['ext:street_images']" in html
+    assert 'class="mm-popup-photo-provider"' in html
+    assert 'class="mm-popup-photo-locate"' in html
+    assert 'data-photo-href="' in html
+
+
+def test_render_report_picture_pin_focuses_marker_at_zoom_18() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    focus_function = re.search(
+        r"function focusPhotoMarkerOnMap\(featureId\) \{(.*?)\n    \}",
+        html,
+        re.DOTALL,
+    )
+
+    assert focus_function is not None
+    assert re.search(
+        r"map\.easeTo\(\{\s*center: \[marker\.lon, marker\.lat\],"
+        r"\s*zoom: 18,\s*duration: 350\s*\}\);",
+        focus_function.group(1),
+    )
+
+
+def test_render_report_map_gallery_and_cards_use_consistent_vertical_spacing() -> None:
+    html = render_report(
+        _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
+    )
+    map_layout_rules = re.findall(r"\.activity-map-layout\s*\{([^}]*)\}", html)
+    gallery_layout_rules = re.findall(
+        r"\.activity-map-layout\s*>\s*\.location-photo-card\s*\{([^}]*)\}",
+        html,
+    )
+    cards_grid_rules = re.findall(r"\.cards-grid\s*\{([^}]*)\}", html)
+
+    assert map_layout_rules
+    assert gallery_layout_rules
+    assert cards_grid_rules
+
+    map_layout_rule = next(
+        (rule for rule in map_layout_rules if "margin-bottom:" in rule), None
+    )
+    gallery_layout_rule = next(
+        (rule for rule in gallery_layout_rules if "margin-bottom:" in rule), None
+    )
+    cards_grid_rule = next(
+        (rule for rule in cards_grid_rules if "margin-bottom: 0.9rem;" in rule),
+        None,
+    )
+
+    assert map_layout_rule is not None
+    assert gallery_layout_rule is not None
+    assert cards_grid_rule is not None
+    map_bottom_margin = re.search(r"\bmargin-bottom:\s*([^;]+);", map_layout_rule)
+    gallery_bottom_margin = re.search(
+        r"\bmargin-bottom:\s*([^;]+);", gallery_layout_rule
+    )
+    cards_grid_gap = re.search(r"\bgap:\s*([^;]+);", cards_grid_rule)
+
+    assert map_bottom_margin is not None
+    assert gallery_bottom_margin is not None
+    assert cards_grid_gap is not None
+    assert map_bottom_margin.group(1) == cards_grid_gap.group(1) == "0.9rem"
+    assert gallery_bottom_margin.group(1) == "0"
 
 
 def test_render_report_markers_use_maplibre_layers_and_open_popups() -> None:

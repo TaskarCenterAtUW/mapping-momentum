@@ -534,7 +534,7 @@ def test_aggregate_report_markers_use_maplibre_layers_and_open_popups(
     assert "if (marker) openPopup(marker);" in html
 
 
-def test_aggregate_report_resize_handle_is_prominent_and_accessible(
+def test_aggregate_report_has_no_map_resize_control_or_interaction(
     tmp_path: Path,
 ) -> None:
     stats = _report_stats(
@@ -547,24 +547,9 @@ def test_aggregate_report_resize_handle_is_prominent_and_accessible(
     )
     stats_path = _write_report(tmp_path / "resize", stats)
     html = render_aggregate_report(aggregate_reports([stats_path]))
-    handle_rule = re.search(r"\.map-resize-handle\s*\{([^}]*)\}", html)
-    grip_rule = re.search(r"\.map-resize-handle::before\s*\{([^}]*)\}", html)
-
-    assert handle_rule is not None
-    assert "width: 6rem;" in handle_rule.group(1)
-    assert "height: 1.75rem;" in handle_rule.group(1)
-    assert "border: 1px solid var(--mm-border);" in handle_rule.group(1)
-    assert "color-mix(in srgb, var(--mm-surface-strong) 82%, transparent)" in (
-        handle_rule.group(1)
-    )
-    assert grip_rule is not None
-    assert "width: 3rem;" in grip_rule.group(1)
-    assert "height: 0.3rem;" in grip_rule.group(1)
-    assert 'role="separator"' in html
-    assert 'aria-orientation="horizontal"' in html
-    assert 'tabindex="0"' in html
-    assert ".map-resize-handle:active," in html
-    assert ".map-resize-handle:focus-visible" in html
+    assert "map-resize-handle" not in html
+    assert "enableMapResize" not in html
+    assert "--mm-map-height" not in html
 
 
 def test_aggregate_report_contributor_rows_focus_matching_markers(

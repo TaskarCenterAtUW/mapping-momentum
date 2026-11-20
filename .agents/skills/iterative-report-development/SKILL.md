@@ -13,6 +13,7 @@ Use this workflow to make and preview focused Mapping Momentum report changes wi
 
 - Inspect the relevant template, rendering tests, and event config before changing anything; keep the change limited to the requested report behavior.
 - Classify the change: template, CSS, and client-side interaction edits can be previewed from existing stats; metric or source-data changes require fresh stats for only the affected event(s).
+- Take at most one screenshot per theme during a review; take another only when switching themes.
 - Never use `utilities/generate_all.py` for an interactive iteration, including `--resume`; it still regenerates anonymized reports and aggregates across the configured suite.
 - Keep generated files under the ignored `local-output/v<project-version>/` tree and do not prepare, push, or promote a publication snapshot during design iteration.
 - Treat full stats and reports as identifying data; preview anonymized output by default, but follow explicit requests to inspect full local reports without pasting participant details into chat.

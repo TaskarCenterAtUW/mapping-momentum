@@ -6,6 +6,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [v1.9.0] - 2026-11-20
+
+### Added
+
+- Added a map-side gallery for geolocated photos.
+- Added a linked Mapping Momentum overview to report headers.
+
+### Changed
+
+- Moved the Contributors panel to the left column.
+- Removed the redundant activity heading and count badges above the map.
+- Removed the map height resize control.
+
+### Fixed
+
+- Reduced excess vertical space between the activity map and summary cards.
+
 ## [v1.8.0] - 2026-11-19
 
 ### Added
