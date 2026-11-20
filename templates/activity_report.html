@@ -157,7 +157,7 @@
     /* MapLibre popup customization */
     .maplibregl-popup-content {
       padding: 0; border-radius: 8px; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-height: 420px; overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
       min-width: 260px; max-width: 340px;
       background: var(--mm-surface); color: var(--mm-text);
     }
@@ -165,9 +165,9 @@
     .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--mm-surface); }
     .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--mm-surface); }
     .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--mm-surface); }
-    .mm-popup { font-size: 0.8125rem; }
+    .mm-popup { font-size: 0.8125rem; max-height: 420px; overflow-y: auto; }
     .mm-popup-header {
-      padding: 0.5rem 0.75rem 0.375rem; background: var(--mm-surface-muted);
+      padding: 0.5rem 3.5rem 0.375rem 0.75rem; background: var(--mm-surface-muted);
       border-bottom: 1px solid var(--mm-border); display: flex; align-items: center; gap: 0.5rem;
     }
     .mm-popup-kind {
@@ -386,10 +386,15 @@
           <button type="button" class="report-theme-button" data-theme-mode="auto" aria-pressed="true">Auto</button>
         </div>
         <button type="button"
-                class="report-theme-button"
+                class="report-export-button"
                 data-export-report
                 data-export-filename="{{ export_filename }}"
-                aria-label="Save or export the complete report">Save / Export</button>
+                aria-label="Export the complete report">
+          <svg class="report-export-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v4h14v-4" />
+          </svg>
+          <span>Export</span>
+        </button>
       </div>
     </div>
   </header>
@@ -540,9 +545,17 @@
       {# C4-C8: MapLibre map #}
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
+        <div class="map-attribution">
+          Data:
+          <a href="https://workspaces.sidewalks.washington.edu/" target="_blank" rel="noopener noreferrer">TDEI Workspaces</a>
+          contributors | Map:
+          <a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a>
+          • <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">© OpenMapTiles</a>
+          • <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>
+        </div>
         <div id="map-marker-controls" class="sr-only" role="group" aria-label="Mapping activity locations"></div>
-        <details class="map-legend">
-          <summary>Map legend</summary>
+        <details class="map-legend" open>
+          <summary>Map Legend</summary>
           <ul class="map-legend-items" id="map-legend-items" aria-label="Map symbols"></ul>
         </details>
         <select id="map-style" aria-label="Basemap style">
@@ -647,12 +660,12 @@
             <span class="card-count">{{ stats.contributors_breakdown | length if stats.contributors_breakdown else 0 }}</span>
           </div>
           {% if stats.contributors_breakdown %}
-          <table class="breakdown-table" aria-label="Contributors breakdown">
+          <table class="breakdown-table" aria-label="Contributors breakdown" data-contributor-table>
             <thead><tr><th>Contributor</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
             <tbody>
             {% set contributor_max = stats.contributors_breakdown | map(attribute='count') | max %}
             {% for e in stats.contributors_breakdown %}
-            <tr><td>{{ e.user or '(unknown)' }}</td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:{{ (e.count / contributor_max * 100) if contributor_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td><td class="photo-cell">{% if e.photo_count %}{{ e.photo_count }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>
+            <tr data-contributor-user="{{ e.user or '' }}"><td><button class="contributor-map-button" type="button" aria-label="Show map contributions by {{ e.user or 'unknown contributor' }}">{{ e.user or '(unknown)' }}</button></td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:{{ (e.count / contributor_max * 100) if contributor_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td><td class="photo-cell">{% if e.photo_count %}{{ e.photo_count }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>
             {% endfor %}
             </tbody>
           </table>
@@ -801,6 +814,7 @@
     var markerHighlightLayerId = 'mm-interactive-marker-highlight';
     var hoveredMarkerFeatureId = null;
     var focusedMarkerFeatureId = null;
+    var selectedContributorFeatureIds = [];
     var markerControlsCreated = false;
     var stylePicker = document.getElementById('map-style');
     var OPENFREEMAP_STYLES = {
@@ -849,7 +863,8 @@
       return [
         'any',
         ['boolean', ['feature-state', 'hover'], false],
-        ['boolean', ['feature-state', 'focused'], false]
+        ['boolean', ['feature-state', 'focused'], false],
+        ['boolean', ['feature-state', 'contributorSelected'], false]
       ];
     }
 
@@ -864,6 +879,17 @@
 
       var highlightColor = getComputedStyle(document.documentElement)
         .getPropertyValue('--mm-accent').trim() || '#5f22c9';
+      var contributorHighlightColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--mm-contributor-highlight').trim() || '#007f73';
+
+      function markerHighlightColor() {
+        return [
+          'case',
+          ['boolean', ['feature-state', 'contributorSelected'], false],
+          contributorHighlightColor,
+          highlightColor
+        ];
+      }
 
       if (!map.getLayer(markerHighlightLayerId)) {
         map.addLayer({
@@ -873,7 +899,7 @@
           paint: {
             'circle-color': 'rgba(0,0,0,0)',
             'circle-radius': ['case', markerIsHighlighted(), 9, 0],
-            'circle-stroke-color': highlightColor,
+            'circle-stroke-color': markerHighlightColor(),
             'circle-stroke-width': ['case', markerIsHighlighted(), 2.5, 0]
           }
         });
@@ -888,7 +914,9 @@
           paint: {
             'circle-color': ['get', 'color'],
             'circle-radius': 6,
-            'circle-stroke-color': 'rgba(255,255,255,0.95)',
+            'circle-stroke-color': [
+              'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
+            ],
             'circle-stroke-width': 2
           }
         });
@@ -909,7 +937,7 @@
           paint: {
             'icon-color': ['get', 'color'],
             'icon-halo-color': [
-              'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.95)'
+              'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
             ],
             'icon-halo-width': 2
           }
@@ -932,7 +960,7 @@
           paint: {
             'icon-color': ['get', 'color'],
             'icon-halo-color': [
-              'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.95)'
+              'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
             ],
             'icon-halo-width': 2
           }
@@ -951,6 +979,12 @@
           { focused: true }
         );
       }
+      selectedContributorFeatureIds.forEach(function (featureId) {
+        map.setFeatureState(
+          { source: markerSourceId, id: featureId },
+          { contributorSelected: true }
+        );
+      });
     }
 
     function markerFeatureAt(point) {
@@ -982,6 +1016,43 @@
       setMarkerFeatureState(focusedMarkerFeatureId, 'focused', false);
       focusedMarkerFeatureId = featureId;
       setMarkerFeatureState(focusedMarkerFeatureId, 'focused', true);
+    }
+
+    function markerHasContributor(marker, user) {
+      return marker.user === user || (
+        Array.isArray(marker.versions) &&
+        marker.versions.some(function (version) {
+          return version && version.user === user;
+        })
+      );
+    }
+
+    function focusContributorOnMap(user) {
+      var matchingFeatureIds = [];
+      markers.forEach(function (marker, index) {
+        if (markerHasContributor(marker, user)) matchingFeatureIds.push(index);
+      });
+      if (matchingFeatureIds.length === 0) return;
+
+      selectedContributorFeatureIds.forEach(function (featureId) {
+        setMarkerFeatureState(featureId, 'contributorSelected', false);
+      });
+      selectedContributorFeatureIds = matchingFeatureIds;
+      selectedContributorFeatureIds.forEach(function (featureId) {
+        setMarkerFeatureState(featureId, 'contributorSelected', true);
+      });
+
+      var bounds = new maplibregl.LngLatBounds();
+      matchingFeatureIds.forEach(function (featureId) {
+        var marker = markers[featureId];
+        bounds.extend([marker.lon, marker.lat]);
+      });
+      if (matchingFeatureIds.length === 1) {
+        var marker = markers[matchingFeatureIds[0]];
+        map.easeTo({ center: [marker.lon, marker.lat], zoom: 14, duration: 350 });
+      } else {
+        map.fitBounds(bounds, { padding: 48, maxZoom: 14 });
+      }
     }
 
     function markerAriaLabel(marker) {
@@ -1060,12 +1131,6 @@
       window.MappingMomentumReport.enableMapResize(map);
 
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
-      map.addControl(new maplibregl.AttributionControl({
-        customAttribution: [
-          '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>',
-          '© Workspace contributors'
-        ]
-      }), 'bottom-right');
 
       stylePicker.addEventListener('change', function () {
         var styleUrl = OPENFREEMAP_STYLES[stylePicker.value];
@@ -1099,8 +1164,18 @@
         var marker = markers[Number(feature.properties.markerIndex)];
         if (marker) openMarkerPopup(marker);
       });
+      var contributorTable = document.querySelector('[data-contributor-table]');
+      if (contributorTable) {
+        contributorTable.addEventListener('click', function (event) {
+          var row = event.target.closest('tr[data-contributor-user]');
+          if (row) focusContributorOnMap(row.getAttribute('data-contributor-user'));
+        });
+      }
     } else {
       stylePicker.disabled = true;
+      document.querySelectorAll('.contributor-map-button').forEach(function (button) {
+        button.disabled = true;
+      });
     }
 
     // Build popup HTML for a marker at a given version index.

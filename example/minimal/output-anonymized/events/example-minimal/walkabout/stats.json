@@ -50,6 +50,13 @@
   ],
   "relation_count": 0,
   "way_count": 0,
+  "contributions_by_user": [
+    {
+      "user": "Participant 1",
+      "quest_answer_count": 1,
+      "note_count": 0
+    }
+  ],
   "markers": [
     {
       "id": 1,
@@ -96,5 +103,9 @@
   "slideshow_images": [],
   "video_url": "",
   "video_embed_url": "",
-  "video_kind": ""
+  "video_kind": "",
+  "event_id": "example-minimal",
+  "event_name": "Synthetic Minimal Mapping Event",
+  "activity_label": "Synthetic Minimal Walk",
+  "anonymized": true
 }

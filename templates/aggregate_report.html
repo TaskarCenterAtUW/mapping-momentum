@@ -294,10 +294,15 @@
           <button type="button" class="report-theme-button" data-theme-mode="auto" aria-pressed="true">Auto</button>
         </div>
         <button type="button"
-                class="report-theme-button"
+                class="report-export-button"
                 data-export-report
                 data-export-filename="{{ export_filename }}"
-                aria-label="Save or export the complete report">Save / Export</button>
+                aria-label="Export the complete report">
+          <svg class="report-export-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v4h14v-4" />
+          </svg>
+          <span>Export</span>
+        </button>
       </div>
     </div>
   </header>
@@ -425,9 +430,17 @@
       </div>
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="region" aria-label="Map of aggregated report contributions"></div>
+        <div class="map-attribution">
+          Data:
+          <a href="https://workspaces.sidewalks.washington.edu/" target="_blank" rel="noopener noreferrer">TDEI Workspaces</a>
+          contributors | Map:
+          <a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a>
+          • <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">© OpenMapTiles</a>
+          • <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>
+        </div>
         <div id="map-marker-controls" class="sr-only" role="group" aria-label="Aggregate map locations"></div>
-        <details class="map-legend">
-          <summary>Map legend</summary>
+        <details class="map-legend" open>
+          <summary>Map Legend</summary>
           <ul class="map-legend-items" id="map-legend-items" aria-label="Map symbols"></ul>
         </details>
         <label class="sr-only" for="map-style">Basemap style</label>
@@ -464,7 +477,7 @@
       </div>
       {% if stats.contributions_by_user %}
       <div class="table-scroll">
-        <table class="contributor-table">
+        <table class="contributor-table" data-contributor-table>
           <caption class="sr-only">Combined quest answers and notes by contributor</caption>
           <thead>
             <tr>
@@ -476,8 +489,8 @@
           </thead>
           <tbody>
             {% for contributor in stats.contributions_by_user %}
-            <tr>
-              <td>{{ contributor.user }}</td>
+            <tr data-contributor-user="{{ contributor.user }}">
+              <td><button class="contributor-map-button" type="button" aria-label="Show map contributions by {{ contributor.user }}">{{ contributor.user }}</button></td>
               <td class="numeric">{{ contributor.quest_answer_count }}</td>
               <td class="numeric">{{ contributor.note_count }}</td>
               <td class="numeric">{{ contributor.contribution_count }}</td>
@@ -617,13 +630,15 @@
       let activeMarkerPopup = null;
       let hoveredMarkerFeatureId = null;
       let focusedMarkerFeatureId = null;
+      let selectedContributorFeatureIds = [];
       let markerControlsCreated = false;
 
       function markerIsHighlighted() {
         return [
           'any',
           ['boolean', ['feature-state', 'hover'], false],
-          ['boolean', ['feature-state', 'focused'], false]
+          ['boolean', ['feature-state', 'focused'], false],
+          ['boolean', ['feature-state', 'contributorSelected'], false]
         ];
       }
 
@@ -638,6 +653,17 @@
 
         const highlightColor = getComputedStyle(document.documentElement)
           .getPropertyValue('--mm-accent').trim() || '#5f22c9';
+        const contributorHighlightColor = getComputedStyle(document.documentElement)
+          .getPropertyValue('--mm-contributor-highlight').trim() || '#007f73';
+
+        function markerHighlightColor() {
+          return [
+            'case',
+            ['boolean', ['feature-state', 'contributorSelected'], false],
+            contributorHighlightColor,
+            highlightColor
+          ];
+        }
 
         if (!map.getLayer(markerHighlightLayerId)) {
           map.addLayer({
@@ -647,7 +673,7 @@
             paint: {
               'circle-color': 'rgba(0,0,0,0)',
               'circle-radius': ['case', markerIsHighlighted(), 9, 0],
-              'circle-stroke-color': highlightColor,
+              'circle-stroke-color': markerHighlightColor(),
               'circle-stroke-width': ['case', markerIsHighlighted(), 2.5, 0]
             }
           });
@@ -662,7 +688,9 @@
             paint: {
               'circle-color': ['get', 'color'],
               'circle-radius': 6,
-              'circle-stroke-color': 'rgba(255,255,255,0.95)',
+              'circle-stroke-color': [
+                'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
+              ],
               'circle-stroke-width': 2
             }
           });
@@ -683,7 +711,7 @@
             paint: {
               'icon-color': ['get', 'color'],
               'icon-halo-color': [
-                'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.95)'
+                'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
               ],
               'icon-halo-width': 2
             }
@@ -706,7 +734,7 @@
             paint: {
               'icon-color': ['get', 'color'],
               'icon-halo-color': [
-                'case', markerIsHighlighted(), highlightColor, 'rgba(255,255,255,0.95)'
+                'case', markerIsHighlighted(), markerHighlightColor(), 'rgba(255,255,255,0.95)'
               ],
               'icon-halo-width': 2
             }
@@ -725,6 +753,12 @@
             { focused: true }
           );
         }
+        selectedContributorFeatureIds.forEach(function (featureId) {
+          map.setFeatureState(
+            { source: markerSourceId, id: featureId },
+            { contributorSelected: true }
+          );
+        });
       }
 
       function markerFeatureAt(point) {
@@ -756,6 +790,43 @@
         setMarkerFeatureState(focusedMarkerFeatureId, 'focused', false);
         focusedMarkerFeatureId = featureId;
         setMarkerFeatureState(focusedMarkerFeatureId, 'focused', true);
+      }
+
+      function markerHasContributor(marker, user) {
+        return marker.user === user || (
+          Array.isArray(marker.versions) &&
+          marker.versions.some(function (version) {
+            return version && version.user === user;
+          })
+        );
+      }
+
+      function focusContributorOnMap(user) {
+        const matchingFeatureIds = [];
+        markers.forEach(function (marker, index) {
+          if (markerHasContributor(marker, user)) matchingFeatureIds.push(index);
+        });
+        if (matchingFeatureIds.length === 0) return;
+
+        selectedContributorFeatureIds.forEach(function (featureId) {
+          setMarkerFeatureState(featureId, 'contributorSelected', false);
+        });
+        selectedContributorFeatureIds = matchingFeatureIds;
+        selectedContributorFeatureIds.forEach(function (featureId) {
+          setMarkerFeatureState(featureId, 'contributorSelected', true);
+        });
+
+        const bounds = new maplibregl.LngLatBounds();
+        matchingFeatureIds.forEach(function (featureId) {
+          const marker = markers[featureId];
+          bounds.extend([marker.lon, marker.lat]);
+        });
+        if (matchingFeatureIds.length === 1) {
+          const marker = markers[matchingFeatureIds[0]];
+          map.easeTo({ center: [marker.lon, marker.lat], zoom: 14, duration: 350 });
+        } else {
+          map.fitBounds(bounds, { padding: 48, maxZoom: 14 });
+        }
       }
 
       function openPopup(marker) {
@@ -812,12 +883,6 @@
       });
       window.MappingMomentumReport.enableMapResize(map);
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
-      map.addControl(new maplibregl.AttributionControl({
-        customAttribution: [
-          '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>',
-          '© Workspace contributors'
-        ]
-      }), 'bottom-right');
       mapStyle.addEventListener('change', function () {
         const styleUrl = styles[mapStyle.value];
         if (styleUrl) map.setStyle(styleUrl, { diff: false });
@@ -841,15 +906,27 @@
         const marker = markers[Number(feature.properties.markerIndex)];
         if (marker) openPopup(marker);
       });
+      const contributorTable = document.querySelector('[data-contributor-table]');
+      if (contributorTable) {
+        contributorTable.addEventListener('click', function (event) {
+          const row = event.target.closest('tr[data-contributor-user]');
+          if (row) focusContributorOnMap(row.getAttribute('data-contributor-user'));
+        });
+      }
       map.on('load', function () {
         const bounds = new maplibregl.LngLatBounds();
-        markers.forEach(function (marker) {
+        const initialMarkers = selectedContributorFeatureIds.length > 0
+          ? selectedContributorFeatureIds.map(function (featureId) {
+              return markers[featureId];
+            })
+          : markers;
+        initialMarkers.forEach(function (marker) {
           bounds.extend([marker.lon, marker.lat]);
         });
-        if (markers.length === 1) {
-          map.setCenter([markers[0].lon, markers[0].lat]);
+        if (initialMarkers.length === 1) {
+          map.setCenter([initialMarkers[0].lon, initialMarkers[0].lat]);
           map.setZoom(14);
-        } else if (markers.length > 1) {
+        } else if (initialMarkers.length > 1) {
           map.fitBounds(bounds, { padding: 48, maxZoom: 14 });
         }
       });

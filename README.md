@@ -12,7 +12,6 @@ Mapping Momentum generates deterministic per-activity statistics and self-contai
 
 - Python 3.14
 - `uv`
-- A virtual environment at `.venv/`
 - A TDEI account with access to the target workspace. Live commands require an interactive terminal unless credentials are supplied through environment variables.
 
 For live Workspace requests, the `event` and `capture` commands use a short-lived access token. By default, they prompt for the TDEI username and password, with the password hidden. For programmatic runs, set both environment variables for each activity environment:
@@ -27,17 +26,19 @@ Set both variables for an environment or neither; partial pairs and empty values
 
 ## Setup
 
-Activate the project virtual environment before running commands:
+From the repository root, run the setup utility once:
+
+```powershell
+python utilities/initial_setup.py
+```
+
+It syncs the locked development dependencies into `.venv/`, installs Playwright's Chromium browser, and downloads and verifies the pinned axe-core asset used by local publication checks. It does not access TDEI or require credentials.
+
+Activate the virtual environment before running commands directly with `python` or other installed tools:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 & .\.venv\Scripts\Activate.ps1
-```
-
-Install or refresh the development environment with:
-
-```powershell
-uv sync --group dev
 ```
 
 ## Run tests
@@ -87,7 +88,7 @@ Run the utility below to discover every event config under `configs/events/`, fe
 python utilities/generate_all.py
 ```
 
-The utility skips the template config, writes full event reports and quest-answer logs to `local-output/v<project-version>/full/`, and writes anonymized event reports, logs, and matching aggregates to `local-output/v<project-version>/anonymized/`. It uses configured TDEI credentials or prompts for them. If a live request interrupts a run, pass `--resume` to reuse completed full reports and logs while continuing.
+The utility skips the template config and writes full and anonymized event reports, quest-answer logs, per-series aggregates, and an `all` aggregate across published events under `local-output/v<project-version>/`. It uses configured TDEI credentials or prompts for them. If a live request interrupts a run, pass `--resume` to reuse completed full reports and logs while continuing.
 
 Set `"publish": false` on an event config to exclude that draft from generation, aggregation, publication allowlisting, and the public index. The default is `true`.
 
@@ -131,15 +132,13 @@ Publishing is a manual, two-gate process. Full reports, standalone exports, scre
     mapping-momentum publish prepare
     ```
 
-3. Run the local report checks with the printed full SHA:
+3. Run the report checks with the printed full SHA:
 
     ```powershell
-    python -m playwright install chromium
-    $env:AXE_CORE_ASSET = "C:\absolute\path\to\axe.min.js"
     mapping-momentum publish check --sha <full-beta-sha>
     ```
 
-    Use a locally pinned `axe.min.js` asset. It is injected only by the local check, never loaded by the published pages.
+    The initial setup utility installs axe-core 4.14.0 and its license under `tests/vendor/`. The asset is injected only by the local check, never loaded by the published pages.
 
 4. Inspect the report screenshots, collage, visible content, and embedded HTML data. Confirm supplied images were approved for public use. Treat TDEI Workspace IDs as contextual identifiers, not as proof that a private workspace is publicly accessible.
 

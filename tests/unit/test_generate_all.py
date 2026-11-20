@@ -64,17 +64,19 @@ def test_generate_all_uses_sibling_versioned_output_roots(
         record_anonymized_roots,
     )
 
+    aggregate_titles: list[str] = []
+
     def aggregate_reports(
         paths: list[Path],
         *,
         title: str,
     ) -> dict[str, Any]:
         assert paths == []
-        assert title == "SAMPLE Aggregate Contribution Report"
-        return {}
+        aggregate_titles.append(title)
+        return {"title": title}
 
     def render_aggregate_report(stats: dict[str, Any]) -> str:
-        assert stats == {}
+        assert "title" in stats
         return "<html></html>"
 
     monkeypatch.setattr(generate_all, "aggregate_reports", aggregate_reports)
@@ -129,12 +131,166 @@ def test_generate_all_uses_sibling_versioned_output_roots(
         "2026-01-01-sample-one",
         "2026-01-02-sample-two",
     ]
-    assert aggregate_output_roots == [full_root / "events"]
+    assert aggregate_output_roots == [full_root / "events"] * 2
+    assert aggregate_titles == [
+        "SAMPLE Aggregate Contribution Report",
+        "All Events Aggregate Contribution Report",
+    ]
     assert aggregate_reports_written == [
-        ({}, "<html></html>", full_root / "events", "sample")
+        (
+            {"title": "SAMPLE Aggregate Contribution Report"},
+            "<html></html>",
+            full_root / "events",
+            "sample",
+        ),
+        (
+            {"title": "All Events Aggregate Contribution Report"},
+            "<html></html>",
+            full_root / "events",
+            "all",
+        ),
     ]
     assert anonymized_aggregate_roots == [(full_root, anonymized_root)]
-    assert anonymized_series_ids == [["sample"]]
+    assert anonymized_series_ids == [["sample", "all"]]
+
+
+def test_all_aggregate_includes_configs_without_a_series(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Include standalone configured events in the all-events aggregate."""
+    monkeypatch.setattr(generate_all, "ROOT", tmp_path)
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\nversion = "1.2.3"\n',
+        encoding="utf-8",
+    )
+    config_root = tmp_path / "configs" / "events"
+    series_configs: list[generate_all.EventConfig] = [
+        (
+            config_root / "2026-01-01-srts-one" / "event.json",
+            {"id": "2026-01-01-srts-one", "activities": [{"id": "walkabout"}]},
+        ),
+        (
+            config_root / "2026-01-02-srts-two" / "event.json",
+            {"id": "2026-01-02-srts-two", "activities": [{"id": "walkabout"}]},
+        ),
+    ]
+    standalone_config: generate_all.EventConfig = (
+        config_root / "standalone-event" / "event.json",
+        {"id": "standalone-event", "activities": [{"id": "walkabout"}]},
+    )
+    configs = [*series_configs, standalone_config]
+    configs_by_path: dict[Path, dict[str, Any]] = {}
+    for config_path, config in configs:
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        config_path.write_text("{}\n", encoding="utf-8")
+        configs_by_path[config_path] = config
+
+    def load_config(config_path: Path) -> dict[str, Any]:
+        return configs_by_path[config_path]
+
+    monkeypatch.setattr(generate_all, "load_event_config", load_config)
+
+    def write_event_stats(arguments: list[str]) -> int:
+        config_path = Path(arguments[arguments.index("--config") + 1])
+        output_root = Path(arguments[arguments.index("--output-dir") + 1])
+        config = configs_by_path[config_path]
+        for activity in config["activities"]:
+            stats_path = (
+                output_root / "events" / config["id"] / activity["id"] / "stats.json"
+            )
+            stats_path.parent.mkdir(parents=True, exist_ok=True)
+            stats_path.write_text("{}\n", encoding="utf-8")
+        return 0
+
+    monkeypatch.setattr(generate_all, "run_cli", write_event_stats)
+
+    aggregate_calls: list[tuple[list[Path], str]] = []
+    written_aggregate_ids: list[str] = []
+
+    def aggregate_reports(
+        paths: list[Path],
+        *,
+        title: str,
+    ) -> dict[str, Any]:
+        aggregate_calls.append((paths, title))
+        return {"title": title}
+
+    def render_aggregate_report(stats: dict[str, Any]) -> str:
+        title = stats.get("title")
+        assert isinstance(title, str)
+        return title
+
+    monkeypatch.setattr(generate_all, "aggregate_reports", aggregate_reports)
+    monkeypatch.setattr(
+        generate_all,
+        "render_aggregate_report",
+        render_aggregate_report,
+    )
+
+    def write_aggregate_report(
+        stats: dict[str, Any],
+        html: str,
+        output_dir: Path,
+        report_id: str,
+    ) -> Path:
+        title = stats.get("title")
+        assert isinstance(title, str)
+        assert html == title
+        written_aggregate_ids.append(report_id)
+        return output_dir / "aggregates" / report_id / "index.html"
+
+    monkeypatch.setattr(
+        generate_all,
+        "write_aggregate_report",
+        write_aggregate_report,
+    )
+
+    def skip_anonymized_event(
+        _config: dict[str, Any],
+        _full_root: Path,
+        _anonymized_root: Path,
+    ) -> None:
+        return None
+
+    def skip_anonymized_aggregates(
+        _aggregate_ids: list[str],
+        _full_root: Path,
+        _anonymized_root: Path,
+    ) -> None:
+        return None
+
+    monkeypatch.setattr(
+        generate_all,
+        "_render_anonymized_event",
+        skip_anonymized_event,
+    )
+    monkeypatch.setattr(
+        generate_all,
+        "_render_anonymized_aggregates",
+        skip_anonymized_aggregates,
+    )
+
+    assert generate_all.main([]) == 0
+
+    full_root = tmp_path / "local-output" / "v1.2.3" / "full"
+    stats_paths = [
+        full_root / "events" / config["id"] / activity["id"] / "stats.json"
+        for _, config in configs
+        for activity in config["activities"]
+    ]
+
+    assert aggregate_calls == [
+        (
+            stats_paths[:2],
+            "SRTS Aggregate Contribution Report",
+        ),
+        (
+            stats_paths,
+            "All Events Aggregate Contribution Report",
+        ),
+    ]
+    assert written_aggregate_ids == ["srts", "all"]
 
 
 def test_discovery_excludes_configs_marked_not_for_publication(
@@ -184,6 +340,19 @@ def test_discovery_excludes_configs_marked_not_for_publication(
         generate_all,
         "_render_anonymized_event",
         record_anonymized_event,
+    )
+
+    def skip_aggregates(
+        _groups: dict[str, list[generate_all.EventConfig]],
+        _full_root: Path,
+        _configs: list[generate_all.EventConfig],
+    ) -> list[str]:
+        return []
+
+    monkeypatch.setattr(
+        generate_all,
+        "_generate_non_anonymized_aggregates",
+        skip_aggregates,
     )
 
     assert generate_all.main([]) == 0

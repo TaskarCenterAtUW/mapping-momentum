@@ -6,6 +6,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [v1.8.0] - 2026-11-19
+
+### Added
+
+- Added an "all" aggregate across configured events.
+- Added a one-command initial setup utility.
+- Added an agent skill for iterating on report development.
+
+### Changed
+
+- Linked contributor rows to matching map markers.
+- Replaced Save / Export text controls with a theme-matched Export button.
+- Matched map navigation controls to the active theme.
+- Updated data and map-provider attribution.
+- Renamed "Map legend" to "Map Legend" and expanded it by default.
+- Made the map resize handle easier to see and grab.
+
+### Fixed
+
+- Inset map popup close buttons and separated them from scrollbars.
+- Kept long map popups within a continuous background surface.
+- Matched circle marker hover outlines to other map icons.
+- Extended metric-card accent lines to the full card height.
+
 ## [v1.7.0] - 2026-11-19
 
 ### Added
