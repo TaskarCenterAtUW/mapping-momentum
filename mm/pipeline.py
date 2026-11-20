@@ -14,7 +14,7 @@ from mm.outputs.quest_answer_log import (
     write_quest_answer_log,
 )
 from mm.quests.loader import load_quest_definition
-from mm.sources.base import SourceResult
+from mm.sources.base import Element, SourceResult
 from mm.sources.workspace import (
     build_version_histories,
     enrich_elements,
@@ -46,7 +46,7 @@ def parse_window(activity: dict[str, Any]) -> tuple[datetime, datetime]:
 
 def get_report_feature(config: dict[str, Any], name: str, default: Any) -> Any:
     """Return a report feature, with nested report values taking precedence."""
-    report_config = config.get("report") or {}
+    report_config: dict[str, Any] = config.get("report") or {}
     if name in report_config:
         return report_config[name]
     return config.get(name, default)
@@ -92,7 +92,7 @@ def run_activity(
     metadata = fetch_changesets(
         env, workspace_id, window_start, window_end, access_token
     )
-    actions = []
+    actions: list[tuple[str, Element]] = []
     for item in metadata:
         if "id" in item:
             changeset_xml = fetch_changeset_xml(

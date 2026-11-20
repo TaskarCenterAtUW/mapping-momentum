@@ -1,3 +1,5 @@
+/** @format */
+
 (function () {
   "use strict";
 
@@ -11,6 +13,25 @@
     ? window.matchMedia("(prefers-color-scheme: dark)")
     : null;
   var stylePicker = document.getElementById("map-style");
+  var exportButton = document.querySelector("[data-export-report]");
+
+  if (exportButton) {
+    exportButton.addEventListener("click", function () {
+      var html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      var objectUrl = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = objectUrl;
+      link.download =
+        exportButton.dataset.exportFilename || "mapping-momentum-report.html";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(function () {
+        URL.revokeObjectURL(objectUrl);
+      }, 0);
+    });
+  }
 
   function resolveTheme() {
     if (mode !== "auto") return mode;
@@ -18,7 +39,7 @@
   }
 
   function syncMapStyle(theme) {
-    var preferredStyle = theme === 'dark' ? 'fiord' : 'positron';
+    var preferredStyle = theme === "dark" ? "fiord" : "positron";
     if (!stylePicker || stylePicker.value === preferredStyle) return;
     stylePicker.value = preferredStyle;
     stylePicker.dispatchEvent(new Event("change"));
@@ -37,7 +58,10 @@
     root.dataset.theme = theme;
     root.dataset.bsTheme = theme;
     syncButtons();
-    if (syncMap) syncMapStyle(root.dataset.theme);
+    if (syncMap) {
+      syncMapStyle(root.dataset.theme);
+      syncMapStyle(document.documentElement.dataset.theme);
+    }
   }
 
   buttons.forEach(function (button) {
@@ -81,7 +105,7 @@
     "street lamps": "star",
     unknown: "hexagon",
     "(unknown)": "hexagon",
-    uncategorized: "hexagon"
+    uncategorized: "hexagon",
   };
 
   function displayCategory(category) {
@@ -106,7 +130,10 @@
       })
       .forEach(function (entry) {
         var normalized = entry[1].toLowerCase();
-        var knownShape = Object.prototype.hasOwnProperty.call(knownCategoryShapes, normalized)
+        var knownShape = Object.prototype.hasOwnProperty.call(
+          knownCategoryShapes,
+          normalized
+        )
           ? knownCategoryShapes[normalized]
           : null;
         if (knownShape && !usedShapes.has(knownShape)) {
@@ -128,8 +155,9 @@
     for (var index = 0; index < sides; index += 1) {
       var angle = rotation + (index * Math.PI * 2) / sides;
       points.push(
-        (16 + Math.cos(angle) * radius).toFixed(2) + "," +
-        (16 + Math.sin(angle) * radius).toFixed(2)
+        (16 + Math.cos(angle) * radius).toFixed(2) +
+          "," +
+          (16 + Math.sin(angle) * radius).toFixed(2)
       );
     }
     return points.join(" ");
@@ -141,8 +169,9 @@
       var angle = -Math.PI / 2 + (index * Math.PI) / 5;
       var currentRadius = index % 2 === 0 ? radius : innerRadius;
       points.push(
-        (16 + Math.cos(angle) * currentRadius).toFixed(2) + "," +
-        (16 + Math.sin(angle) * currentRadius).toFixed(2)
+        (16 + Math.cos(angle) * currentRadius).toFixed(2) +
+          "," +
+          (16 + Math.sin(angle) * currentRadius).toFixed(2)
       );
     }
     return points.join(" ");
@@ -177,13 +206,13 @@
       node.setAttribute("points", starPoints(13, 5.8));
     } else if (shape === "cross") {
       node = document.createElementNS(svgNamespace, "path");
-      node.setAttribute(
-        "d",
-        "M11 3h10v8h8v10h-8v8H11v-8H3V11h8z"
-      );
+      node.setAttribute("d", "M11 3h10v8h8v10h-8v8H11v-8H3V11h8z");
     } else {
       node = document.createElementNS(svgNamespace, "polygon");
-      node.setAttribute("points", regularPolygonPoints(polygonSides(shape), 12, -Math.PI / 2));
+      node.setAttribute(
+        "points",
+        regularPolygonPoints(polygonSides(shape), 12, -Math.PI / 2)
+      );
     }
 
     node.setAttribute("fill", color || "#5f22c9");
@@ -219,7 +248,10 @@
       var item = document.createElement("li");
       item.className = "map-legend-item";
 
-      var swatch = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      var swatch = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
       swatch.classList.add("map-legend-swatch");
       swatch.setAttribute("viewBox", "0 0 32 32");
       swatch.setAttribute("aria-hidden", "true");
@@ -260,18 +292,35 @@
 
   function markerShapePoints(shape) {
     if (shape === "square") {
-      return [[4.5, 4.5], [27.5, 4.5], [27.5, 27.5], [4.5, 27.5]];
+      return [
+        [4.5, 4.5],
+        [27.5, 4.5],
+        [27.5, 27.5],
+        [4.5, 27.5],
+      ];
     }
     if (shape === "cross") {
       return [
-        [12, 4], [20, 4], [20, 12], [28, 12], [28, 20], [20, 20],
-        [20, 28], [12, 28], [12, 20], [4, 20], [4, 12], [12, 12]
+        [12, 4],
+        [20, 4],
+        [20, 12],
+        [28, 12],
+        [28, 20],
+        [20, 20],
+        [20, 28],
+        [12, 28],
+        [12, 20],
+        [4, 20],
+        [4, 12],
+        [12, 12],
       ];
     }
     if (shape === "star") {
-      return starPoints(12, 5.2).split(" ").map(function (point) {
-        return point.split(",").map(Number);
-      });
+      return starPoints(12, 5.2)
+        .split(" ")
+        .map(function (point) {
+          return point.split(",").map(Number);
+        });
     }
     return regularPolygonPoints(polygonSides(shape), 12, -Math.PI / 2)
       .split(" ")
@@ -291,7 +340,14 @@
       var edgeY = second[1] - first[1];
       var edgeLengthSquared = edgeX * edgeX + edgeY * edgeY;
       var along = edgeLengthSquared
-        ? Math.max(0, Math.min(1, ((x - first[0]) * edgeX + (y - first[1]) * edgeY) / edgeLengthSquared))
+        ? Math.max(
+            0,
+            Math.min(
+              1,
+              ((x - first[0]) * edgeX + (y - first[1]) * edgeY) /
+                edgeLengthSquared
+            )
+          )
         : 0;
       var nearestX = first[0] + along * edgeX;
       var nearestY = first[1] + along * edgeY;
@@ -302,9 +358,9 @@
         deltaX * deltaX + deltaY * deltaY
       );
 
-      if ((first[1] > y) !== (second[1] > y)) {
-        var crossingX = first[0] +
-          ((y - first[1]) * edgeX) / (second[1] - first[1]);
+      if (first[1] > y !== second[1] > y) {
+        var crossingX =
+          first[0] + ((y - first[1]) * edgeX) / (second[1] - first[1]);
         if (x < crossingX) inside = !inside;
       }
     }
@@ -323,9 +379,10 @@
       for (var x = 0; x < size; x += 1) {
         var shapeX = (x + 0.5) / 2 - 8;
         var shapeY = (y + 0.5) / 2 - 8;
-        var distance = shape === "circle"
-          ? (11.5 - Math.hypot(shapeX - 16, shapeY - 16)) * 2
-          : signedPolygonDistance(shapeX, shapeY, points) * 2;
+        var distance =
+          shape === "circle"
+            ? (11.5 - Math.hypot(shapeX - 16, shapeY - 16)) * 2
+            : signedPolygonDistance(shapeX, shapeY, points) * 2;
         var alpha = Math.max(0, Math.min(1, 0.5 + distance / sdfRange));
         var offset = (y * size + x) * 4;
         data[offset] = 255;
@@ -340,11 +397,13 @@
 
   reportUi.registerMarkerImages = function (map, markerFeatures) {
     var shapes = new Set();
-    ((markerFeatures && markerFeatures.features) || []).forEach(function (feature) {
-      if (feature && feature.properties && feature.properties.shape) {
-        shapes.add(feature.properties.shape);
+    ((markerFeatures && markerFeatures.features) || []).forEach(
+      function (feature) {
+        if (feature && feature.properties && feature.properties.shape) {
+          shapes.add(feature.properties.shape);
+        }
       }
-    });
+    );
 
     shapes.forEach(function (shape) {
       if (shape === "circle") return;
@@ -352,7 +411,7 @@
       if (map.hasImage(imageName)) return;
       map.addImage(imageName, createSdfMarkerImage(shape), {
         pixelRatio: 2,
-        sdf: true
+        sdf: true,
       });
     });
   };
@@ -398,7 +457,8 @@
     }
 
     function finishPointerResize(event) {
-      if (pointerId === null || (event && event.pointerId !== pointerId)) return;
+      if (pointerId === null || (event && event.pointerId !== pointerId))
+        return;
       var finishedPointerId = pointerId;
       pointerId = null;
       pointerStartY = null;
@@ -457,4 +517,4 @@
   };
 
   applyTheme(true);
-}());
+})();

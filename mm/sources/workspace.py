@@ -38,7 +38,7 @@ import xml.etree.ElementTree as ET
 from collections.abc import Iterable
 from datetime import datetime, timedelta, timezone
 from math import isfinite
-from typing import Any
+from typing import Any, cast
 
 from mm.common.http import (
     HTTPError,
@@ -121,7 +121,8 @@ def authenticate(env: str, username: str, password: str) -> str:
     )
     if not isinstance(response, dict):
         raise ValueError("TDEI authentication response must be a JSON object")
-    access_token = response.get("access_token")
+    response_data = cast(dict[str, object], response)
+    access_token = response_data.get("access_token")
     if not isinstance(access_token, str) or not access_token.strip():
         raise ValueError(
             "TDEI authentication response did not contain a non-empty 'access_token'"
@@ -179,12 +180,13 @@ def fetch_bbox(env: str, workspace_id: int, access_token: str) -> BBox:
     )
     if not isinstance(data, dict):
         raise ValueError("Workspace bbox response must be a JSON object")
+    bbox_data = cast(dict[str, object], data)
     try:
         bbox = (
-            float(data["min_lon"]),
-            float(data["min_lat"]),
-            float(data["max_lon"]),
-            float(data["max_lat"]),
+            _coordinate_as_float(bbox_data["min_lon"]),
+            _coordinate_as_float(bbox_data["min_lat"]),
+            _coordinate_as_float(bbox_data["max_lon"]),
+            _coordinate_as_float(bbox_data["max_lat"]),
         )
     except (KeyError, TypeError, ValueError) as exc:
         raise ValueError(
@@ -196,6 +198,15 @@ def fetch_bbox(env: str, workspace_id: int, access_token: str) -> BBox:
     if not (-180 <= left < right <= 180 and -90 <= bottom < top <= 90):
         raise ValueError(f"Workspace bbox coordinates are invalid: {bbox!r}")
     return bbox
+
+
+def _coordinate_as_float(value: object) -> float:
+    """Convert a JSON number or numeric string to a float."""
+    if not isinstance(value, (str, int, float)):
+        raise TypeError(
+            f"coordinate must be a number or numeric string, not {type(value).__name__}"
+        )
+    return float(value)
 
 
 def fetch_osm_xml(
@@ -255,7 +266,7 @@ def _fetch_map_xml(
     headers = _api_headers(access_token, workspace_id)
     headers["Accept"] = "application/xml, text/xml, */*"
     split_error: ET.ParseError | ResponseTooLargeError | HTTPError | None = None
-    for _attempt in range(_MAX_MAP_PARSE_ATTEMPTS):
+    for _ in range(_MAX_MAP_PARSE_ATTEMPTS):
         request_count[0] += 1
         if request_count[0] > _MAX_MAP_REQUESTS:
             raise ValueError(

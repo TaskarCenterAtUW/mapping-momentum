@@ -13,6 +13,7 @@ __pycache__/
 
 # Output
 local-output/
+output/
 dist/
 
 # Environments

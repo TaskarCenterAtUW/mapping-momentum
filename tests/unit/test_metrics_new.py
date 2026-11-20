@@ -58,11 +58,14 @@ from __future__ import annotations
 
 from typing import Any
 
+import pytest
+
 import mm.metrics.contributors_breakdown as contributors_mod
 import mm.metrics.features_created as features_mod
 import mm.metrics.notes as notes_mod
 import mm.metrics.quest_types as quest_types_mod
 import mm.metrics.questions_answered as questions_mod
+from mm.quests.loader import QuestDefinition
 
 # ---------------------------------------------------------------------------
 # Shared test fixtures
@@ -76,9 +79,9 @@ def _elem(
     user: str = "alice",
     kind: str = "quest",
     category: str = "Sidewalks",
-    tags: dict | None = None,
-    readable: dict | None = None,
-    photos: list | None = None,
+    tags: dict[str, str] | None = None,
+    readable: dict[str, str] | None = None,
+    photos: list[str] | None = None,
 ) -> dict[str, Any]:
     return {
         "type": type_,
@@ -118,15 +121,14 @@ def _note(id_: int = 99, user: str = "carol") -> dict[str, Any]:
     }
 
 
-# Minimal quest definition stub
-class _FakeQuestDef:
-    tag_to_title = {
+_QUEST_DEF = QuestDefinition(
+    tag_to_title={
         "ext:surface": "What is this sidewalk's surface type?",
         "ext:crossing_markings": "Does this crossing have markings?",
-    }
-
-
-_QUEST_DEF = _FakeQuestDef()
+    },
+    tag_value_to_label={},
+    tag_to_category={},
+)
 
 # A representative set of enriched elements used across multiple tests:
 #   elem 1 — Sidewalks / quest / alice / ext:surface=asphalt / 1 photo
@@ -285,6 +287,24 @@ def test_quest_types_unknown_category_included() -> None:
     assert "Kerbs" in categories
 
 
+@pytest.mark.parametrize(
+    ("element", "message"),
+    [
+        ({"category": 123}, "element category must be a string"),
+        (
+            {"category": "Sidewalks", "photos": None},
+            "element photos must have a length",
+        ),
+    ],
+)
+def test_quest_types_reject_invalid_fields(
+    element: dict[str, object], message: str
+) -> None:
+    """Malformed category and photo fields produce explicit errors."""
+    with pytest.raises(TypeError, match=message):
+        quest_types_mod.compute([element])
+
+
 # ---------------------------------------------------------------------------
 # contributors_breakdown
 # ---------------------------------------------------------------------------
@@ -293,6 +313,21 @@ def test_quest_types_unknown_category_included() -> None:
 def test_contributors_empty() -> None:
     result = contributors_mod.compute([])
     assert result == {"contributors_breakdown": []}
+
+
+@pytest.mark.parametrize(
+    ("element", "message"),
+    [
+        ({"user": 123}, "element user must be a string"),
+        ({"user": "alice", "photos": None}, "element photos must have a length"),
+    ],
+)
+def test_contributors_reject_invalid_fields(
+    element: dict[str, object], message: str
+) -> None:
+    """Malformed contributor fields produce an explicit error."""
+    with pytest.raises(TypeError, match=message):
+        contributors_mod.compute([element])
 
 
 def test_contributors_includes_note_authors() -> None:
@@ -356,6 +391,19 @@ def test_contributors_single_user() -> None:
 def test_features_created_empty() -> None:
     result = features_mod.compute([])
     assert result == {"features_created": []}
+
+
+def test_features_created_missing_type() -> None:
+    """Created elements without a type are grouped as unknown."""
+    assert features_mod.compute([{"kind": "create"}]) == {
+        "features_created": [{"feature_type": "unknown", "count": 1}]
+    }
+
+
+def test_features_created_rejects_non_string_type() -> None:
+    """Created elements with invalid types fail explicitly."""
+    with pytest.raises(TypeError, match="created element type must be a string"):
+        features_mod.compute([{"kind": "create", "type": 42}])
 
 
 def test_features_created_excludes_quest_elements() -> None:
@@ -528,6 +576,26 @@ def test_questions_answered_questions_sorted_by_tag() -> None:
     result = questions_mod.compute(elements)
     tags = [q["tag"] for q in result["questions_answered"][0]["questions"]]
     assert tags == sorted(tags)
+
+
+@pytest.mark.parametrize(
+    ("element", "message"),
+    [
+        ({"category": 123}, "element category must be a string"),
+        ({"tags": None}, "element tags must map strings to strings"),
+        ({"readable": None}, "element readable must map strings to strings"),
+        (
+            {"tags": {"surface": 123}, "readable": {"surface": "Asphalt"}},
+            "element tags must map strings to strings",
+        ),
+    ],
+)
+def test_questions_answered_reject_invalid_fields(
+    element: dict[str, object], message: str
+) -> None:
+    """Malformed question fields produce explicit errors."""
+    with pytest.raises(TypeError, match=message):
+        questions_mod.compute([element])
 
 
 def test_questions_answered_choices_sorted_by_value() -> None:

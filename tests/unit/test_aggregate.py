@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -395,12 +396,36 @@ def test_aggregate_report_places_map_before_contributors_and_syncs_theme(
         'aria-labelledby="contributors-heading"'
     )
     assert "Source reports must be non-anonymized" not in html
-    assert "theme === 'dark' ? 'fiord' : 'positron'" in html
+    assert re.search(
+        r"""theme\s*===\s*["']dark["']\s*\?\s*["']fiord["']\s*:\s*["']positron["']""",
+        html,
+    )
     assert "syncMapStyle(document.documentElement.dataset.theme);" in html
     assert "syncMapStyle(nextTheme);" in html
     assert html.index("syncMapStyle(document.documentElement.dataset.theme);") < (
         html.index("const map = new maplibregl.Map")
     )
+
+
+def test_aggregate_report_has_complete_html_export_control(
+    tmp_path: Path,
+) -> None:
+    """The aggregate nav exposes a keyboard button that downloads the report."""
+    stats = _report_stats(
+        "layout-event",
+        "Layout Event",
+        start="2026-01-20T00:00:00+00:00",
+        quest_answers=1,
+        notes=0,
+        contributions=[{"user": "alice", "quest_answer_count": 1, "note_count": 0}],
+    )
+    stats_path = _write_report(tmp_path / "layout", stats)
+    html = render_aggregate_report(aggregate_reports([stats_path]))
+
+    assert "data-export-report" in html
+    assert "data-export-filename=" in html
+    assert 'aria-label="Save or export the complete report"' in html
+    assert "URL.createObjectURL(blob)" in html
 
 
 def test_aggregate_report_markers_use_maplibre_layers_and_open_popups(

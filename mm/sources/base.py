@@ -120,4 +120,4 @@ class SourceResult:
     activity_id: str
     window_start: datetime
     window_end: datetime
-    elements: list[Element] = field(default_factory=list)
+    elements: list[Element] = field(default_factory=list[Element])

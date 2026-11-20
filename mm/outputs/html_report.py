@@ -16,12 +16,15 @@ Usage::
 from __future__ import annotations
 
 import json
+import re
 import sys
 import tomllib
+from collections.abc import Mapping
 from datetime import datetime
-from importlib.metadata import PackageNotFoundError, version as distribution_version
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as distribution_version
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -55,6 +58,12 @@ def _application_version() -> str:
 _APP_VERSION = _application_version()
 
 
+def _export_filename(value: str, *, suffix: str) -> str:
+    """Build a filesystem-safe meaningful report download filename."""
+    slug = re.sub(r"[^a-z0-9]+", "-", value.casefold()).strip("-")
+    return f"{slug or 'mapping-momentum'}-{suffix}.html"
+
+
 def _safe_json(data: Any) -> str:
     """Serialise *data* to JSON safe for inline embedding in ``<script>`` blocks.
 
@@ -78,17 +87,20 @@ def _aggregate_series_name(stats: dict[str, Any], title: str) -> str:
         if isinstance(value, str) and value.strip():
             return value.strip()
 
-    events = stats.get("events")
-    event_names = []
-    if isinstance(events, list):
-        for event in events:
-            if not isinstance(event, dict):
+    events_value: object = stats.get("events")
+    event_names: list[str] = []
+    if isinstance(events_value, list):
+        for event_value in cast(list[object], events_value):
+            if not isinstance(event_value, dict):
                 continue
+            event = cast(Mapping[object, object], event_value)
             event_name = event.get("event_name")
             if isinstance(event_name, str) and event_name.strip():
                 event_names.append(event_name.strip())
 
-    prefixes = [name.split(":", 1)[0].strip() for name in event_names if ":" in name]
+    prefixes: list[str] = [
+        name.split(":", 1)[0].strip() for name in event_names if ":" in name
+    ]
     if event_names and len(prefixes) == len(event_names):
         if len({prefix.casefold() for prefix in prefixes}) == 1:
             return prefixes[0]
@@ -142,8 +154,21 @@ def render_report(
     template = _template_environment(template_dir).get_template("activity_report.html")
 
     # Title / subtitle — prefer event.report overrides, fall back to name/date.
-    report_cfg: dict = config.get("report") or {}
-    title: str = report_cfg.get("title") or config.get("name") or "Contribution Report"
+    report_value: object = config.get("report")
+    if report_value is None:
+        report_cfg: Mapping[object, object] = {}
+    elif isinstance(report_value, Mapping):
+        report_cfg = cast(Mapping[object, object], report_value)
+    else:
+        raise TypeError("config.report must be an object")
+
+    report_title = report_cfg.get("title")
+    if report_title is not None and not isinstance(report_title, str):
+        raise TypeError("config.report.title must be a string")
+    event_name_value: object = config.get("name")
+    if event_name_value is not None and not isinstance(event_name_value, str):
+        raise TypeError("config.name must be a string")
+    title = report_title or event_name_value or "Contribution Report"
     date_str: str = config.get("date") or ""
     try:
         date_display = datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %-d, %Y")
@@ -155,21 +180,30 @@ def render_report(
         except ValueError:
             date_display = date_str
     activity_label: str = activity.get("label") or activity.get("id") or ""
+    event_id = str(stats.get("event_id") or config.get("id") or "event")
+    activity_id = str(stats.get("activity_id") or activity.get("id") or "activity")
     default_subtitle = (
         f"{date_display}\u00a0\u00b7\u00a0{activity_label}"
         if date_display and activity_label
         else (date_display or activity_label)
     )
-    subtitle: str = report_cfg.get("subtitle") or default_subtitle
+    report_subtitle = report_cfg.get("subtitle")
+    if report_subtitle is not None and not isinstance(report_subtitle, str):
+        raise TypeError("config.report.subtitle must be a string")
+    subtitle = report_subtitle or default_subtitle
 
     return template.render(
         page_title=title,
         title=title,
-        event_name=config.get("name") or title,
+        event_name=event_name_value or title,
         subtitle=subtitle,
         activity_label=activity_label,
         app_version=_APP_VERSION,
         stats=stats,
+        export_filename=_export_filename(
+            f"{event_id}-{activity_id}",
+            suffix="report",
+        ),
         # Inline the full stats as safe JSON for JavaScript consumption.
         stats_json=_safe_json(stats),
     )
@@ -183,12 +217,17 @@ def render_aggregate_report(
     """Render the aggregate contribution summary as a complete HTML document."""
     template = _template_environment(template_dir).get_template("aggregate_report.html")
     title = stats.get("title") or "Aggregate Contribution Report"
+    aggregate_series_name = _aggregate_series_name(stats, title)
     return template.render(
         page_title=title,
         title=title,
-        aggregate_series_name=_aggregate_series_name(stats, title),
+        aggregate_series_name=aggregate_series_name,
         app_version=_APP_VERSION,
         stats=stats,
+        export_filename=_export_filename(
+            aggregate_series_name,
+            suffix="aggregate-report",
+        ),
         stats_json=_safe_json(stats),
     )
 

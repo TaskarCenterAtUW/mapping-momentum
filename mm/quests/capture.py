@@ -21,6 +21,7 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import cast
 
 from mm.common.http import fetch_bytes
 from mm.common.io import read_json, write_json
@@ -58,17 +59,21 @@ def capture_quest_definition(url: str, dest: Path) -> str:
     """
     raw_bytes = fetch_bytes(url)
     # Validate JSON before writing — raises json.JSONDecodeError on bad input.
-    definition = json.loads(raw_bytes)
-    if not isinstance(definition, dict) or not isinstance(
-        definition.get("elements"), list
-    ):
+    definition: object = json.loads(raw_bytes)
+    if not isinstance(definition, dict):
+        raise ValueError(
+            "quest definition must be a JSON object with an 'elements' list"
+        )
+    # JSON object keys are strings; cast the parsed object to inspect its fields.
+    definition_data = cast(dict[str, object], definition)
+    if not isinstance(definition_data.get("elements"), list):
         raise ValueError(
             "quest definition must be a JSON object with an 'elements' list"
         )
 
     retrieval_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    write_json(dest, definition)
+    write_json(dest, definition_data)
 
     return retrieval_date
 

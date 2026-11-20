@@ -11,11 +11,13 @@ way_count : int
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
+
 from mm.metrics.base import register
 
 
 @register("workspace")
-def compute(elements: list[dict]) -> dict[str, int | float]:
+def compute(elements: Sequence[Mapping[str, object]]) -> dict[str, int]:
     """Compute ``way_count``.
 
     Parameters
@@ -26,7 +28,7 @@ def compute(elements: list[dict]) -> dict[str, int | float]:
 
     Returns
     -------
-    dict[str, int | float]
+    dict[str, int]
         ``{"way_count": <int>}``
     """
     way_count = sum(1 for e in elements if e["type"] == "way")

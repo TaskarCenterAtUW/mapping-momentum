@@ -221,7 +221,7 @@ def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
         )
 
     # Layer 7: quest_definition_url required
-    url = activity.get("quest_definition_url", "")
+    url: str = activity.get("quest_definition_url", "")
     if not url:
         raise ConfigError(f"{prefix}.quest_definition_url is required")
     parsed_url = urlparse(url)
@@ -236,7 +236,7 @@ def _validate_workspace_activity(activity: dict[str, Any], prefix: str) -> None:
         )
 
 
-def _validate_showcase_photos(photos: list, event_dir: Path) -> None:
+def _validate_showcase_photos(photos: list[dict[str, str]], event_dir: Path) -> None:
     """Validate each showcase photo entry and check relative paths exist."""
     for i, photo in enumerate(photos):
         src: str = photo.get("src", "")
@@ -272,7 +272,9 @@ def _validate_report_features(config: dict[str, Any], event_dir: Path) -> None:
             _validate_web_urls(source["video_url"], "video_url", single=True)
 
 
-def _validate_pictures(value: str | list, event_dir: Path, field_name: str) -> None:
+def _validate_pictures(
+    value: str | list[str | dict[str, str]], event_dir: Path, field_name: str
+) -> None:
     """Validate a picture directory or a list of relative picture paths."""
     sources = [value] if isinstance(value, str) else value
     for index, picture in enumerate(sources):
@@ -315,7 +317,7 @@ def _validate_pictures(value: str | list, event_dir: Path, field_name: str) -> N
                     ) from exc
 
 
-def _validate_quotes(quotes: list, field_name: str) -> None:
+def _validate_quotes(quotes: list[str | dict[str, str]], field_name: str) -> None:
     """Validate quote text and optional attribution fields."""
     for index, quote in enumerate(quotes):
         if isinstance(quote, str):

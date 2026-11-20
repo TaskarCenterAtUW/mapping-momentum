@@ -2,7 +2,7 @@
 
 # Mapping Momentum
 
-Statistics engine and report generator for tracking mapping participation metrics.
+Statistics engine and report generator for tracking mapping participation metrics in [TDEI Workspaces](https://workspaces.sidewalks.washington.edu/).
 
 ## Overview
 
@@ -40,17 +40,16 @@ Install or refresh the development environment with:
 uv sync --group dev
 ```
 
-## Run Tests
+## Run tests
 
 Pytest configuration lives in [pyproject.toml](pyproject.toml), so there is no separate `pytest.ini` file.
 
-Run the unit tests with:
-
 ```powershell
-python -m pytest
+python -m pytest tests/unit
+python -m ruff check .
 ```
 
-## Run The CLI
+## Run the CLI
 
 Run these commands from the repository root after completing Setup. The packaged console script is `mapping-momentum`.
 
@@ -69,8 +68,7 @@ Run these commands from the repository root after completing Setup. The packaged
 
 Use `--dry-run` with the `event` command to print stats without writing report files.
 
-Add `--quest-answer-log` to write a `quest-answer-log.csv` beside each activity's
-`stats.json` and `index.html`:
+Add `--quest-answer-log` to write a `quest-answer-log.csv` beside each activity's `stats.json` and `index.html`:
 
 ```powershell
 mapping-momentum event --config configs/events/2026-01-20-nda-vancouver `
@@ -89,19 +87,15 @@ Run the utility below to discover every event config under `configs/events/`, fe
 python utilities/generate_all.py
 ```
 
-The utility skips the template config, writes non-anonymized event reports and quest-answer logs to `local-output/v<project-version>/`, and builds aggregates for series with multiple event configs. It then writes anonymized event reports, quest-answer logs, and matching aggregates under `output/`. The command uses the configured TDEI credential environment variables or prompts for credentials. If a live request interrupts a run, pass `--resume` to reuse completed local reports and logs while continuing with the remaining configs.
+The utility skips the template config, writes full event reports and quest-answer logs to `local-output/v<project-version>/full/`, and writes anonymized event reports, logs, and matching aggregates to `local-output/v<project-version>/anonymized/`. It uses configured TDEI credentials or prompts for them. If a live request interrupts a run, pass `--resume` to reuse completed full reports and logs while continuing.
+
+Set `"publish": false` on an event config to exclude that draft from generation, aggregation, publication allowlisting, and the public index. The default is `true`.
 
 ### Aggregate reports
 
-Generate each source report first without `--anonymize`, then pass its `stats.json` path (or report directory) to the `aggregate` command. Reports must retain their original usernames so the same person is counted once across events; usernames are matched exactly, including case, and quest-answer counts are summed for each matched username. An anonymized source report is rejected. To anonymize the combined output after the identities have been matched, add `--anonymize` to the aggregate command. The aggregate command checks that quest-answer totals reconcile with contributor histories. For legacy reports without per-user totals, complete marker histories can supply the contributor counts; if those counts exceed a legacy report's stored changeset total, the aggregate uses the history total and discloses the difference. It rejects legacy histories that fall short and current reports with inconsistent totals. Legacy reports without note authors retain their overall note totals, with those notes marked as unattributed rather than assigned to a contributor.
+Generate each source report first without `--anonymize`, then pass its `stats.json` path (or report directory) to the `aggregate` command. Reports must retain their original usernames so the same person is counted once across events; usernames are matched exactly, including case, and quest-answer counts are summed for each matched username. An anonymized source report is rejected. To anonymize the combined output after matching identities, add `--anonymize` to the aggregate command. The aggregate command verifies that quest-answer totals reconcile with contributor histories. Legacy behavior for missing note authors and legacy per-user totals remains disclosed in the generated report.
 
 ```powershell
-mapping-momentum event --config configs/events/2026-01-20-nda-vancouver `
-    --output-dir local-output
-
-mapping-momentum event --config configs/events/2026-01-29-nda-spanaway `
-    --output-dir local-output
-
 mapping-momentum aggregate `
     --reports local-output/events/2026-01-20-nda-vancouver/walkabout/stats.json `
               local-output/events/2026-01-29-nda-spanaway/walkabout/stats.json `
@@ -110,7 +104,7 @@ mapping-momentum aggregate `
     --output-dir local-output
 ```
 
-The aggregate report is written to `local-output/aggregates/<report-id>/` as `stats.json` and `index.html`. Use `--reports` with any number of generated report paths. For older `stats.json` files without event labels, the output uses the event id from the standard `events/<event-id>/<activity-id>/` path.
+The aggregate report is written to `local-output/aggregates/<report-id>/` as `stats.json` and `index.html`. For older `stats.json` files without event labels, the event id is read from the standard `events/<event-id>/<activity-id>/` path.
 
 ### Optional: Capture a Workspace fixture
 
@@ -120,6 +114,56 @@ This is for creating an offline test fixture, not a step in report generation. T
 mapping-momentum capture --config configs/events/2026-01-20-nda-vancouver `
     --activity-id walkabout --fixture-name 2026-01-20-nda-vancouver-walkabout
 ```
+
+## Publish to GitHub Pages
+
+Publishing is a manual, two-gate process. Full reports, standalone exports, screenshots, and privacy-check evidence remain local.
+
+1. Generate `local-output/v<project-version>/anonymized/`:
+
+    ```powershell
+    python utilities/generate_all.py
+    ```
+
+2. Prepare the allowlisted beta commit:
+
+    ```powershell
+    mapping-momentum publish prepare
+    ```
+
+3. Run the local report checks with the printed full SHA:
+
+    ```powershell
+    python -m playwright install chromium
+    $env:AXE_CORE_ASSET = "C:\absolute\path\to\axe.min.js"
+    mapping-momentum publish check --sha <full-beta-sha>
+    ```
+
+    Use a locally pinned `axe.min.js` asset. It is injected only by the local check, never loaded by the published pages.
+
+4. Inspect the report screenshots, collage, visible content, and embedded HTML data. Confirm supplied images were approved for public use. Treat TDEI Workspace IDs as contextual identifiers, not as proof that a private workspace is publicly accessible.
+
+5. Push the exact checked SHA:
+
+    ```powershell
+    mapping-momentum publish approve --sha <full-beta-sha>
+    ```
+
+    Before the public push, enter this exact affirmation:
+
+    > Yes, I checked these and confirmed there is nothing that needs redaction or anonymization.
+
+The beta push is immediately public and has no separate Pages site. A maintainer dispatches **Promote reviewed Pages snapshot** from `main` with the full reviewed beta SHA. The Pages job verifies that the exact stable commit built successfully and that the served index and Golden Sample match its files.
+
+The Golden Sample is available directly at `golden-sample/index.html` but is not linked from the public index. Automated PII detection, cross-report pseudonym consistency, upstream image redaction, and fully offline exports remain out of scope.
+
+### GitHub Actions setup
+
+Require the `source-quality` check in `main` branch protection. Configure Pages to deploy from the root of `stable`. Create the `pages-promotion` environment, restrict it to `main`, set `PAGES_PUBLIC_URL` to the public site root, and store the designated maintainer's repository-scoped fine-grained PAT with Contents read/write as `MAPPING_MOMENTUM_PUBLISH_PAT`.
+
+For a first publication, GitHub requires the Pages source branch to exist, but the promotion workflow creates `stable`. After the first reviewed beta is ready, dispatch promotion to create `stable`, configure Pages to deploy from its root, then rerun the same dispatch with the same beta SHA; the initial Pages verification may fail before the source is configured, but the stable push is not rolled back and the repeat promotion is idempotent.
+
+Use rollback only to return to a strictly older beta ancestor. If an existing `stable` lacks recognized `Promoted-Beta-SHA` metadata, stop; a maintainer must preserve and verify a legacy backup ref, then deliberately remove the original before rerunning promotion.
 
 ## Report content
 
@@ -143,6 +187,8 @@ Optional event content can be configured at the event level or inside the `repor
 ```
 
 `pictures` accepts a list of relative image paths or a relative directory. Local files are embedded in the report. `slideshow_url` accepts one slideshow or image-directory URL, or a list of individual image URLs. `video_url` accepts a hosted video URL (YouTube and Vimeo links are embedded) or a direct video-file URL. Quote attribution fields are optional.
+
+Reports include a keyboard-accessible Save/Export control that downloads the complete HTML document. Maps and remote media may still require internet access.
 
 Large or dense Workspace areas may return large, truncated, or server-error map responses. The map fetcher accepts map tiles up to 100 MiB, automatically subdivides oversized or truncated responses, and applies bounded subdivision to server errors. Workspace data requests use a 120-second timeout to accommodate large workspaces. If a tile still exceeds the size limit or returns truncated XML at the maximum depth, the command exits with a diagnostic error.
 

@@ -2,8 +2,8 @@
 
 Run with the project's virtual environment active. Event configs are discovered
 under ``configs/events``; the ``template`` directory is excluded. Full reports
-go to ``local-output/v<project-version>/`` and anonymized copies go to
-``output/``.
+go to ``local-output/v<project-version>/full/`` and anonymized copies go to
+``local-output/v<project-version>/anonymized/``.
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ import sys
 import tomllib
 from collections import defaultdict
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, TypeGuard, cast
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -42,6 +42,11 @@ EventConfig = tuple[Path, dict[str, Any]]
 _EVENT_SERIES_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}-(?P<series>[a-z0-9]+)(?:-|$)")
 
 
+def _is_json_object(value: Any) -> TypeGuard[dict[str, Any]]:
+    """Return whether a decoded JSON value is an object."""
+    return isinstance(value, dict)
+
+
 def _project_version() -> str:
     """Read the report output version from the root project metadata."""
     project_data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
@@ -62,6 +67,8 @@ def _discover_event_configs(config_root: Path) -> list[EventConfig]:
             continue
 
         config = load_event_config(config_path)
+        if config.get("publish", True) is False:
+            continue
         event_id = config["id"]
         if event_id in ids_to_paths:
             raise ValueError(
@@ -132,14 +139,14 @@ def _read_answer_log(path: Path) -> list[dict[str, str]]:
 
 def _render_anonymized_event(
     config: dict[str, Any],
-    local_output_root: Path,
+    full_output_root: Path,
     anonymized_output_root: Path,
 ) -> None:
     """Copy one event's reports and quest-answer logs to anonymized output."""
     event_id = config["id"]
     for activity in config["activities"]:
         activity_id = activity["id"]
-        stats_path = _activity_stats_path(local_output_root, config, activity)
+        stats_path = _activity_stats_path(full_output_root, config, activity)
         log_path = stats_path.parent / QUEST_ANSWER_LOG_FILENAME
         if not stats_path.is_file():
             raise FileNotFoundError(f"event stats not found: {stats_path}")
@@ -147,7 +154,7 @@ def _render_anonymized_event(
             raise FileNotFoundError(f"quest-answer log not found: {log_path}")
 
         stats = read_json(stats_path)
-        if not isinstance(stats, dict):
+        if not _is_json_object(stats):
             raise ValueError(f"event stats must be a JSON object: {stats_path}")
         stats_with_log = dict(stats)
         stats_with_log["quest_answer_log"] = _read_answer_log(log_path)
@@ -174,7 +181,7 @@ def _render_anonymized_event(
 def _series_stats_paths(entries: list[EventConfig], output_root: Path) -> list[Path]:
     paths = [
         _activity_stats_path(output_root, config, activity)
-        for _config_path, config in entries
+        for _, config in entries
         for activity in config["activities"]
     ]
     missing = [path for path in paths if not path.is_file()]
@@ -187,7 +194,7 @@ def _series_stats_paths(entries: list[EventConfig], output_root: Path) -> list[P
 
 
 def _generate_non_anonymized_aggregates(
-    series_groups: dict[str, list[EventConfig]], local_output_root: Path
+    series_groups: dict[str, list[EventConfig]], full_output_root: Path
 ) -> list[str]:
     """Generate one non-anonymized aggregate for each multi-event series."""
     aggregate_series: list[str] = []
@@ -197,24 +204,24 @@ def _generate_non_anonymized_aggregates(
 
         title = f"{series.upper()} Aggregate Contribution Report"
         stats = aggregate_reports(
-            _series_stats_paths(entries, local_output_root),
+            _series_stats_paths(entries, full_output_root),
             title=title,
         )
         html = render_aggregate_report(stats)
-        write_aggregate_report(stats, html, local_output_root / "events", series)
+        write_aggregate_report(stats, html, full_output_root / "events", series)
         aggregate_series.append(series)
         print(f"Non-anonymized {series.upper()} aggregate written.")
     return aggregate_series
 
 
 def _render_anonymized_aggregates(
-    series_ids: list[str], local_output_root: Path, anonymized_output_root: Path
+    series_ids: list[str], full_output_root: Path, anonymized_output_root: Path
 ) -> None:
-    """Anonymize each local aggregate and write it beneath ``output/``."""
+    """Anonymize each full aggregate and write it to the anonymized root."""
     for series in series_ids:
-        stats_path = local_output_root / "events" / "aggregates" / series / "stats.json"
+        stats_path = full_output_root / "events" / "aggregates" / series / "stats.json"
         stats = read_json(stats_path)
-        if not isinstance(stats, dict):
+        if not _is_json_object(stats):
             raise ValueError(f"aggregate stats must be a JSON object: {stats_path}")
         anonymized_stats = anonymize_stats(stats)
         html = render_aggregate_report(anonymized_stats)
@@ -243,15 +250,16 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     config_root = ROOT / "configs" / "events"
-    local_output_root = ROOT / "local-output" / f"v{_project_version()}"
-    anonymized_output_root = ROOT / "output"
+    version_root = ROOT / "local-output" / f"v{_project_version()}"
+    full_output_root = version_root / "full"
+    anonymized_output_root = version_root / "anonymized"
 
     try:
         configs = _discover_event_configs(config_root)
         print(f"Discovered {len(configs)} event configs under {config_root}.")
 
         for config_path, config in configs:
-            if args.resume and _event_outputs_complete(config, local_output_root):
+            if args.resume and _event_outputs_complete(config, full_output_root):
                 print(f"Reusing completed full report for {config['id']}.")
                 continue
             print(f"Generating full report for {config['id']} from {config_path}.")
@@ -261,7 +269,7 @@ def main(argv: list[str] | None = None) -> int:
                     "--config",
                     str(config_path),
                     "--output-dir",
-                    str(local_output_root),
+                    str(full_output_root),
                     "--quest-answer-log",
                 ]
             )
@@ -271,20 +279,20 @@ def main(argv: list[str] | None = None) -> int:
         series_groups = _group_event_series(configs)
         aggregate_series = _generate_non_anonymized_aggregates(
             series_groups,
-            local_output_root,
+            full_output_root,
         )
 
-        for _config_path, config in configs:
+        for _, config in configs:
             _render_anonymized_event(
                 config,
-                local_output_root,
+                full_output_root,
                 anonymized_output_root,
             )
             print(f"Anonymized reports and quest logs written for {config['id']}.")
 
         _render_anonymized_aggregates(
             aggregate_series,
-            local_output_root,
+            full_output_root,
             anonymized_output_root,
         )
     except (OSError, ValueError, KeyError, csv.Error, tomllib.TOMLDecodeError) as exc:
@@ -295,7 +303,7 @@ def main(argv: list[str] | None = None) -> int:
         f"Generated {len(configs)} event configs, "
         f"{len(aggregate_series)} aggregate series, and anonymized copies."
     )
-    print(f"Full reports: {local_output_root}")
+    print(f"Full reports: {full_output_root}")
     print(f"Anonymized reports: {anonymized_output_root}")
     return 0
 

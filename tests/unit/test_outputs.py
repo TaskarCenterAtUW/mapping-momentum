@@ -50,6 +50,8 @@ write_report:
 from __future__ import annotations
 
 import json
+import math
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -57,9 +59,9 @@ from typing import Any
 import pytest
 
 from mm.outputs.anonymize import anonymize_stats
-from mm.outputs.html_report import _safe_json, render_report, write_report
+from mm.outputs.html_report import render_report, write_report
 from mm.outputs.json_stats import build_stats, write_stats
-from mm.sources.base import SourceResult
+from mm.sources.base import Element, SourceResult
 
 UTC = timezone.utc
 
@@ -68,7 +70,7 @@ UTC = timezone.utc
 # ---------------------------------------------------------------------------
 
 
-def _make_source_result(elements: list[dict] | None = None) -> SourceResult:
+def _make_source_result(elements: list[Element] | None = None) -> SourceResult:
     return SourceResult(
         source_type="workspace",
         activity_id="walkabout",
@@ -85,9 +87,9 @@ def _enriched_node(
     category: str = "Sidewalks",
     lat: float = 49.001,
     lon: float = -122.501,
-    tags: dict | None = None,
-    readable: dict | None = None,
-    photos: list | None = None,
+    tags: dict[str, str] | None = None,
+    readable: dict[str, Any] | None = None,
+    photos: list[str] | None = None,
 ) -> dict[str, Any]:
     return {
         "type": "node",
@@ -158,7 +160,7 @@ def _note_element(id_: int = 99, user: str = "carol") -> dict[str, Any]:
     }
 
 
-def _minimal_config(*, showcase: list | None = None) -> dict[str, Any]:
+def _minimal_config(*, showcase: list[dict[str, str]] | None = None) -> dict[str, Any]:
     return {
         "schema_version": "1.1",
         "type": "event",
@@ -223,8 +225,8 @@ def test_build_stats_marker_from_node() -> None:
     stats = build_stats(_make_source_result([node]))
     markers = stats["markers"]
     assert len(markers) == 1
-    assert markers[0]["lat"] == pytest.approx(49.001)
-    assert markers[0]["lon"] == pytest.approx(-122.501)
+    assert math.isclose(markers[0]["lat"], 49.001, rel_tol=0.0, abs_tol=1e-9)
+    assert math.isclose(markers[0]["lon"], -122.501, rel_tol=0.0, abs_tol=1e-9)
     assert markers[0]["kind"] == "quest"
 
 
@@ -234,8 +236,8 @@ def test_build_stats_marker_from_way_geom() -> None:
     markers = stats["markers"]
     assert len(markers) == 1
     # centroid of [[49.001, -122.501], [49.002, -122.502]]
-    assert markers[0]["lat"] == pytest.approx(49.0015)
-    assert markers[0]["lon"] == pytest.approx(-122.5015)
+    assert math.isclose(markers[0]["lat"], 49.0015, rel_tol=0.0, abs_tol=1e-9)
+    assert math.isclose(markers[0]["lon"], -122.5015, rel_tol=0.0, abs_tol=1e-9)
 
 
 def test_build_stats_excludes_unmappable_elements() -> None:
@@ -348,7 +350,7 @@ def test_build_stats_marker_has_version_history() -> None:
 
 
 def test_anonymize_stats_redacts_names_consistently_without_mutating_input() -> None:
-    stats = {
+    stats: dict[str, Any] = {
         "contributors_breakdown": [
             {"user": "alice", "count": 2},
             {"user": "bob", "count": 1},
@@ -426,29 +428,6 @@ def test_write_stats_output_is_valid_json(tmp_path: Path) -> None:
 
 
 # ---------------------------------------------------------------------------
-# _safe_json
-# ---------------------------------------------------------------------------
-
-
-def test_safe_json_escapes_angle_brackets() -> None:
-    result = _safe_json({"k": "<script>alert(1)</script>"})
-    assert "<script>" not in result
-    assert "\\u003cscript\\u003e" in result
-
-
-def test_safe_json_escapes_ampersand() -> None:
-    result = _safe_json({"k": "a & b"})
-    assert "&" not in result or "\\u0026" in result
-
-
-def test_safe_json_valid_json() -> None:
-    data = {"a": 1, "b": [1, 2], "c": True, "d": None}
-    parsed = json.loads(_safe_json(data))
-    assert parsed["a"] == 1
-    assert parsed["c"] is True
-
-
-# ---------------------------------------------------------------------------
 # render_report
 # ---------------------------------------------------------------------------
 
@@ -523,6 +502,30 @@ def test_render_report_report_title_override() -> None:
     assert "Custom Report Title" in html
 
 
+@pytest.mark.parametrize(
+    ("report_value", "event_name", "message"),
+    [
+        ("invalid", None, "config.report must be an object"),
+        ({"title": 123}, None, "config.report.title must be a string"),
+        ({"subtitle": 123}, None, "config.report.subtitle must be a string"),
+        (None, 123, "config.name must be a string"),
+    ],
+)
+def test_render_report_rejects_invalid_config_values(
+    report_value: object,
+    event_name: object | None,
+    message: str,
+) -> None:
+    """Malformed report configuration fails with a clear error."""
+    config = _minimal_config()
+    if report_value is not None:
+        config["report"] = report_value
+    if event_name is not None:
+        config["name"] = event_name
+    with pytest.raises(TypeError, match=message):
+        render_report(_sample_stats(), config, config["activities"][0])
+
+
 def test_render_report_changeset_badge_present() -> None:
     html = render_report(
         _sample_stats(), _minimal_config(), _minimal_config()["activities"][0]
@@ -538,15 +541,24 @@ def test_render_report_note_badge_present() -> None:
 
 
 def test_render_report_stats_json_inlined() -> None:
-    """stats_json must be inlined without raw < or > (XSS prevention)."""
+    """The report embeds hostile stats as safe, valid JSON."""
+    payload = "<script>alert(1)</script> &"
     stats = _sample_stats()
-    html = render_report(stats, _minimal_config(), _minimal_config()["activities"][0])
-    assert "const STATS" in html
-    # Verify that _safe_json was applied: no raw < in the STATS block
-    script_start = html.index("const STATS")
-    script_end = html.index("</script>", script_start)
-    script_block = html[script_start:script_end]
-    assert "<" not in script_block
+    stats["untrusted_text"] = payload
+    config = _minimal_config()
+    html = render_report(stats, config, config["activities"][0])
+
+    json_start = html.index("const STATS = ") + len("const STATS = ")
+    embedded_stats, json_length = json.JSONDecoder().raw_decode(html[json_start:])
+    assert isinstance(embedded_stats, dict)
+    assert embedded_stats["untrusted_text"] == payload
+
+    serialized_stats = html[json_start : json_start + json_length]
+    assert "<" not in serialized_stats
+    assert ">" not in serialized_stats
+    assert "&" not in serialized_stats
+    assert r"\u003cscript\u003e" in serialized_stats
+    assert r"\u0026" in serialized_stats
 
 
 def test_render_report_quest_types_card_present() -> None:
@@ -685,9 +697,30 @@ def test_render_report_theme_toggle_uses_tcat_palette() -> None:
     assert "--mm-accent: #c9b882;" in html
     assert "prefers-color-scheme: dark" in html
     assert "mapping-momentum-theme" in html
-    assert "theme === 'dark' ? 'fiord' : 'positron'" in html
+    assert re.search(
+        r"""theme\s*===\s*["']dark["']\s*\?\s*["']fiord["']\s*:\s*["']positron["']""",
+        html,
+    )
     assert "syncMapStyle(root.dataset.theme);" in html
     assert "syncMapStyle(nextTheme);" in html
+
+
+def test_render_report_has_complete_html_export_control() -> None:
+    """The report nav exposes a keyboard button that downloads the complete HTML."""
+    html = render_report(
+        _sample_stats(),
+        _minimal_config(),
+        _minimal_config()["activities"][0],
+    )
+
+    assert "data-export-report" in html
+    assert 'data-export-filename="test-event-walkabout-report.html"' in html
+    assert 'aria-label="Save or export the complete report"' in html
+    assert "URL.createObjectURL(blob)" in html
+    assert re.search(
+        r"link\.download\s*=\s*exportButton\.dataset\.exportFilename",
+        html,
+    )
 
 
 def test_render_report_exposes_openfreemap_basemap_styles() -> None:

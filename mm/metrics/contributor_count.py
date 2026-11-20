@@ -13,11 +13,13 @@ contributor_count : int
 
 from __future__ import annotations
 
+from typing import Any
+
 from mm.metrics.base import register
 
 
 @register("workspace")
-def compute(elements: list[dict]) -> dict[str, int | float]:
+def compute(elements: list[dict[str, Any]]) -> dict[str, int | float]:
     """Compute ``contributor_count``.
 
     Parameters

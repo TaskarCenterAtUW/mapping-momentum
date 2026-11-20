@@ -228,8 +228,14 @@ def test_build_lookups_missing_elements_raises() -> None:
         build_lookups({"version": "3.0.0"})
 
 
+def test_build_lookups_rejects_non_object_root() -> None:
+    """Non-object JSON roots produce the same validation error."""
+    with pytest.raises(ValueError, match="'elements'"):
+        build_lookups([])
+
+
 def test_build_lookups_rejects_malformed_choice() -> None:
-    raw = {
+    raw: dict[str, Any] = {
         "elements": [
             {
                 "element_type": "Sidewalks",
@@ -248,7 +254,7 @@ def test_build_lookups_rejects_malformed_choice() -> None:
 
 
 def test_build_lookups_preserves_first_definition_for_duplicate_tag() -> None:
-    raw = {
+    raw: dict[str, Any] = {
         "elements": [
             {
                 "element_type": "Footways",
@@ -398,7 +404,7 @@ def test_load_quest_definition_file_not_found() -> None:
 
 def test_capture_writes_valid_json_to_dest(tmp_path: Path) -> None:
     dest = tmp_path / "quest-definition.json"
-    definition = {"version": "3.0.0", "elements": []}
+    definition: dict[str, Any] = {"version": "3.0.0", "elements": []}
     payload = json.dumps(definition).encode()
 
     with patch("mm.quests.capture.fetch_bytes", return_value=payload):

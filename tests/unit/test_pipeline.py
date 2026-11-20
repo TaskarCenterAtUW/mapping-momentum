@@ -2,14 +2,22 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from mm import pipeline
 from mm.quests.loader import QuestDefinition
+from mm.sources.base import Element, SourceResult, Version
+from mm.sources.workspace import BBox
 
 
-def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) -> None:
+def test_run_activity_uses_provided_access_token(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     """Pass the CLI-provided token to every Workspace request."""
     event_dir = tmp_path
     quest_path = event_dir / "quest-definitions" / "walkabout.json"
@@ -19,7 +27,7 @@ def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) ->
         "_event_dir": event_dir,
         "id": "sample-event",
     }
-    activity = {
+    activity: dict[str, Any] = {
         "id": "walkabout",
         "type": "workspace",
         "environment": "stage",
@@ -29,50 +37,12 @@ def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) ->
             "end": "2026-01-21T04:00:00Z",
         },
     }
-    monkeypatch.setattr(
-        pipeline,
-        "load_quest_definition",
-        lambda _path: QuestDefinition({}, {}, {}),
-    )
-    request_calls = []
-
-    def fake_bbox(env: str, workspace_id: int, token: str) -> tuple[float, ...]:
-        request_calls.append(("bbox", env, workspace_id, token))
-        return (-122.5, 49.0, -122.4, 49.1)
-
-    def fake_map(
-        env: str,
-        workspace_id: int,
-        bbox: tuple[float, ...],
-        token: str,
-    ) -> bytes:
-        request_calls.append(("map", env, workspace_id, token))
-        return b"<osm/>"
-
-    def fake_changesets(
-        env: str,
-        workspace_id: int,
-        _start,
-        _end,
-        token: str,
-    ) -> list[dict[str, Any]]:
-        request_calls.append(("changesets", env, workspace_id, token))
-        return []
-
-    def fake_notes(env: str, workspace_id: int, token: str) -> list[dict[str, Any]]:
-        request_calls.append(("notes", env, workspace_id, token))
-        return []
-
-    monkeypatch.setattr(pipeline, "fetch_bbox", fake_bbox)
-    monkeypatch.setattr(pipeline, "fetch_osm_xml", fake_map)
-    monkeypatch.setattr(pipeline, "parse_osm_xml", lambda _payload: [])
-    monkeypatch.setattr(pipeline, "fetch_changesets", fake_changesets)
-    monkeypatch.setattr(pipeline, "build_version_histories", lambda *_a, **_k: {})
-    monkeypatch.setattr(pipeline, "enrich_elements", lambda *_a, **_k: [])
-    monkeypatch.setattr(pipeline, "resolve_way_geometry", lambda *_a, **_k: None)
-    monkeypatch.setattr(pipeline, "fetch_notes", fake_notes)
-    monkeypatch.setattr(pipeline, "parse_notes", lambda *_a, **_k: [])
-    raw_stats = {
+    expected_bbox: BBox = (-122.5, 49.0, -122.4, 49.1)
+    expected_start = datetime(2026, 1, 20, 18, tzinfo=timezone.utc)
+    expected_end = datetime(2026, 1, 21, 4, tzinfo=timezone.utc)
+    quest_definition = QuestDefinition({}, {}, {})
+    request_calls: list[tuple[str, str, int, str]] = []
+    raw_stats: dict[str, Any] = {
         "ok": True,
         "contributors_breakdown": [{"user": "alice", "count": 1, "photo_count": 0}],
         "markers": [
@@ -83,7 +53,120 @@ def test_run_activity_uses_provided_access_token(tmp_path: Path, monkeypatch) ->
             }
         ],
     }
-    monkeypatch.setattr(pipeline, "build_stats", lambda *_a, **_k: raw_stats)
+
+    def fake_load_quest_definition(path: str | Path) -> QuestDefinition:
+        assert path == quest_path
+        return quest_definition
+
+    def fake_bbox(env: str, workspace_id: int, token: str) -> BBox:
+        request_calls.append(("bbox", env, workspace_id, token))
+        return expected_bbox
+
+    def fake_map(
+        env: str,
+        workspace_id: int,
+        bbox: BBox,
+        token: str,
+    ) -> bytes:
+        assert bbox == expected_bbox
+        request_calls.append(("map", env, workspace_id, token))
+        return b"<osm/>"
+
+    def fake_changesets(
+        env: str,
+        workspace_id: int,
+        window_start: datetime,
+        window_end: datetime,
+        token: str,
+    ) -> list[dict[str, Any]]:
+        assert window_start == expected_start
+        assert window_end == expected_end
+        request_calls.append(("changesets", env, workspace_id, token))
+        return []
+
+    def fake_notes(env: str, workspace_id: int, token: str) -> list[dict[str, Any]]:
+        request_calls.append(("notes", env, workspace_id, token))
+        return []
+
+    def fake_parse_osm_xml(payload: bytes) -> list[Element]:
+        assert payload == b"<osm/>"
+        return []
+
+    def fake_build_version_histories(
+        actions: list[tuple[str, Element]],
+        *,
+        quest_def: QuestDefinition,
+    ) -> dict[tuple[str, int], list[Version]]:
+        assert actions == []
+        assert quest_def is quest_definition
+        return {}
+
+    def fake_enrich_elements(
+        map_elements: list[Element],
+        histories: dict[tuple[str, int], list[Version]],
+        *,
+        quest_def: QuestDefinition,
+    ) -> list[Element]:
+        assert map_elements == []
+        assert histories == {}
+        assert quest_def is quest_definition
+        return map_elements
+
+    def fake_resolve_way_geometry(
+        elements: list[Element],
+        *,
+        coordinate_source: Iterable[Element] | None = None,
+    ) -> None:
+        assert elements == []
+        assert coordinate_source is not None
+        assert list(coordinate_source) == []
+
+    def fake_parse_notes(
+        raw_notes: list[dict[str, Any]],
+        window_start: datetime | None = None,
+        window_end: datetime | None = None,
+    ) -> list[Element]:
+        assert raw_notes == []
+        assert window_start == expected_start
+        assert window_end == expected_end
+        return []
+
+    def fake_build_stats(
+        result: SourceResult,
+        *,
+        quest_def: QuestDefinition,
+        showcase_photos: list[dict[str, str]],
+        pictures: str | list[Any] | None,
+        quotes: list[Any] | None,
+        slideshow_url: str | list[str] | None,
+        video_url: str | None,
+        event_dir: Path | None,
+    ) -> dict[str, Any]:
+        assert result.activity_id == "walkabout"
+        assert result.elements == []
+        assert quest_def is quest_definition
+        assert showcase_photos == []
+        assert pictures == []
+        assert quotes == []
+        assert slideshow_url is None
+        assert video_url is None
+        assert event_dir == event_dir_expected
+        return raw_stats
+
+    event_dir_expected = event_dir
+    monkeypatch.setattr(pipeline, "fetch_bbox", fake_bbox)
+    monkeypatch.setattr(pipeline, "fetch_osm_xml", fake_map)
+    monkeypatch.setattr(pipeline, "load_quest_definition", fake_load_quest_definition)
+    monkeypatch.setattr(pipeline, "parse_osm_xml", fake_parse_osm_xml)
+    monkeypatch.setattr(pipeline, "fetch_changesets", fake_changesets)
+    monkeypatch.setattr(
+        pipeline, "build_version_histories", fake_build_version_histories
+    )
+    monkeypatch.setattr(pipeline, "enrich_elements", fake_enrich_elements)
+    monkeypatch.setattr(pipeline, "resolve_way_geometry", fake_resolve_way_geometry)
+    monkeypatch.setattr(pipeline, "fetch_notes", fake_notes)
+    monkeypatch.setattr(pipeline, "parse_notes", fake_parse_notes)
+    monkeypatch.setattr(pipeline, "build_stats", fake_build_stats)
 
     stats = pipeline.run_activity(
         config,
