@@ -606,21 +606,6 @@ def check_committed_snapshot(
                                     f"{relative}: keyboard skip link failed"
                                 )
 
-                        resize_handle = page.query_selector("#map-resize-handle")
-                        if resize_handle:
-                            resize_before = int(
-                                resize_handle.get_attribute("aria-valuenow") or "0"
-                            )
-                            resize_handle.focus()
-                            page.keyboard.press("ArrowDown")
-                            resize_after = int(
-                                resize_handle.get_attribute("aria-valuenow") or "0"
-                            )
-                            if resize_after <= resize_before:
-                                raise PublicationError(
-                                    f"{relative}: keyboard map resize failed"
-                                )
-
                         expand_button = page.query_selector("#btn-expand")
                         if expand_button:
                             expand_button.focus()
@@ -741,7 +726,6 @@ def check_committed_snapshot(
                                 "axe_violation_count": len(violations),
                                 "keyboard_theme": True,
                                 "keyboard_skip_link": bool(skip_link),
-                                "keyboard_map_resize": bool(resize_handle),
                                 "keyboard_map_expand": bool(expand_button),
                                 "keyboard_question_expansion": bool(question_details),
                                 "keyboard_gallery": bool(showcase_button),

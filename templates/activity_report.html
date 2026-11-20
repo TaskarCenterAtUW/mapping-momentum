@@ -118,16 +118,6 @@
     }
     .video-player { width: 100%; max-height: 560px; border-radius: 6px; }
 
-    /* --- Activity header (C2) --- */
-    .activity-header { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
-    .activity-header h2 { font-size: 1.25rem; font-weight: 700; }
-    .badge {
-      display: inline-block; padding: 0.2em 0.65em; border-radius: 999px;
-      font-size: 0.8125rem; font-weight: 600; white-space: nowrap;
-      background: var(--mm-accent-soft); border: 1px solid var(--mm-brand-gold);
-      color: var(--mm-accent);
-    }
-
     /* --- Map (C4-C8) --- */
     .map-wrapper {
       position: relative; margin-bottom: 1.5rem;
@@ -213,11 +203,37 @@
     .mm-popup-diff-new { color: var(--mm-success); }
     .mm-popup-note-text { padding: 0.375rem 0.75rem 0.5rem; font-style: italic; color: var(--mm-muted); }
     .mm-popup-photos { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 0.75rem 0.5rem; }
+    .mm-popup-photo-item { position: relative; flex: 0 0 64px; width: 64px; height: 64px; overflow: hidden; border-radius: 4px; }
     .mm-popup-photo-btn {
+      position: absolute; inset: 0; z-index: 0; width: 64px; height: 64px;
       border: none; padding: 0; cursor: pointer; border-radius: 4px; overflow: hidden;
     }
-    .mm-popup-photo-btn:focus-visible { outline: 2px solid var(--mm-accent); }
-    .mm-popup-photo-thumb { width: 64px; height: 64px; object-fit: cover; }
+    .mm-popup-photo-btn:focus-visible { outline: 2px solid var(--mm-accent); outline-offset: -2px; }
+    .mm-popup-photo-thumb { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .mm-popup-photo-marker, .mm-popup-photo-provider {
+      position: absolute; z-index: 1; overflow: hidden; max-width: calc(100% - 1.5rem);
+      font-size: 0.55rem; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap;
+      text-shadow: 0 1px 2px var(--mm-surface-strong);
+    }
+    .mm-popup-photo-marker {
+      top: 0.2rem; left: 0.2rem; color: var(--mm-text); pointer-events: none;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.92), 0 0 6px rgba(0, 0, 0, 0.76);
+    }
+    .mm-popup-photo-provider {
+      right: 0.2rem; bottom: 0.2rem; color: var(--mm-text);
+      text-decoration: underline; text-underline-offset: 0.1em;
+    }
+    .mm-popup-photo-provider:focus-visible { outline: 2px solid var(--mm-accent); outline-offset: 1px; }
+    .mm-popup-photo-locate {
+      position: absolute; top: 0.15rem; right: 0.15rem; z-index: 2;
+      display: grid; place-items: center; width: 1.125rem; height: 1.125rem; padding: 0.15rem;
+      border: 1px solid var(--mm-border); border-radius: var(--mm-radius-pill);
+      color: var(--mm-text); background: color-mix(in srgb, var(--mm-surface-strong) 82%, transparent);
+      cursor: pointer;
+    }
+    .mm-popup-photo-locate svg { display: block; width: 0.75rem; height: 0.75rem; }
+    .mm-popup-photo-locate:hover { background: var(--mm-primary-soft); }
+    .mm-popup-photo-locate:focus-visible { outline: 2px solid var(--mm-accent); outline-offset: 1px; }
     .mm-no-data-popup { padding: 0.5rem 0.75rem; color: var(--mm-muted); }
 
     /* --- Cards (C10-C12) --- */
@@ -415,6 +431,18 @@
         <p class="report-eyebrow">Event contribution report</p>
         <h1>{{ title }}</h1>
         <p class="report-subtitle">{{ subtitle }}</p>
+        <p class="report-description">
+          This is an accounting of people's lived experience on location through the
+          <a href="https://tcat.cs.washington.edu/aviv-scoutroute/">AVIV ScoutRoute</a>
+          application, collecting data in the
+          <a href="https://github.com/OpenSidewalks/OpenSidewalks-Schema/">OpenSidewalks</a>
+          data schema and enhancing
+          <a href="https://sidewalks.washington.edu/">OS-CONNECT</a>, the sidewalks
+          inventory and accessibility mapping dataset for the state of Washington,
+          developed by the
+          <a href="https://tcat.cs.washington.edu/">Taskar Center for Accessible
+          Technology at the University of Washington</a>.
+        </p>
       </div>
       <div class="report-hero-meta">
         <span class="report-pill">{{ activity_label }}</span>
@@ -424,7 +452,7 @@
     {% set quest_answers_total = stats.questions_answered | sum(attribute='total') if stats.questions_answered else 0 %}
     {% set feature_total = stats.features_created | sum(attribute='count') if stats.features_created else 0 %}
     <section class="summary-grid" aria-label="Activity summary">
-      <a class="metric-card" href="#activity-heading">
+      <a class="metric-card" href="#activity-section">
         <span class="metric-value">{{ stats.changeset_count or 0 }}</span>
         <span class="metric-label">Changesets</span>
       </a>
@@ -436,7 +464,7 @@
         <span class="metric-value">{{ stats.contributors_breakdown | length if stats.contributors_breakdown else 0 }}</span>
         <span class="metric-label">Contributors</span>
       </a>
-      <a class="metric-card" href="#activity-heading">
+      <a class="metric-card" href="#activity-section">
         <span class="metric-value">{{ stats.note_count or 0 }}</span>
         <span class="metric-label">Notes</span>
       </a>
@@ -533,16 +561,10 @@
     </section>
     {% endif %}
 
-    <section class="activity-section" aria-labelledby="activity-heading">
-
-      {# C2: Activity heading + badges #}
-      <div class="activity-header">
-        <h2 id="activity-heading" tabindex="-1">{{ activity_label }}</h2>
-        <span class="badge">{{ stats.changeset_count or 0 }} changesets</span>
-        <span class="badge">{{ stats.note_count or 0 }} notes</span>
-      </div>
+    <section class="activity-section" id="activity-section" aria-label="Mapping activity for {{ activity_label }}" tabindex="-1">
 
       {# C4-C8: MapLibre map #}
+      <div class="activity-map-layout">
       <div class="map-wrapper" id="map-wrapper">
         <div id="map" role="application" aria-label="Interactive map of mapping activity"></div>
         <div class="map-attribution">
@@ -570,23 +592,53 @@
             <path d="M1.5 1h4v1.5H3v2.5H1.5V1zm9 0H15v4h-1.5V2.5H11V1zm-9 9H3v2.5h2.5V14h-4v-4zm11.5 2.5H11V14h4v-4h-1.5v2.5z"/>
           </svg>
         </button>
-        <div
-          id="map-resize-handle"
-          class="map-resize-handle"
-          role="separator"
-          aria-orientation="horizontal"
-          aria-label="Resize map height"
-          aria-controls="map"
-          aria-valuemin="280"
-          aria-valuemax="640"
-          aria-valuenow="450"
-          tabindex="0"
-          title="Drag to resize the map; use the arrow keys when focused"
-        ></div>
+      </div>
+      <aside class="card location-photo-card" aria-labelledby="location-photo-heading">
+        <div class="card-header">
+          <h3 id="location-photo-heading">Picture Gallery</h3>
+          <span class="card-count" id="location-photo-count" aria-live="polite">0</span>
+        </div>
+        <p class="location-photo-description">Geolocated photos linked to event notes and map features.</p>
+        <p class="location-photo-empty" id="location-photo-empty">No tagged location photos are available.</p>
+        <ul class="location-photo-grid" id="location-photo-grid" role="list" aria-label="Geolocated event photos"></ul>
+      </aside>
       </div>
 
       {# C10-C12: Cards grid #}
       <div class="cards-grid">
+
+        <div class="cards-column">
+
+        {# C12: Contributors #}
+        <section class="card" aria-labelledby="cb-heading">
+          <div class="card-header">
+            <h3 id="cb-heading" tabindex="-1">Contributors</h3>
+            <span class="card-count">{{ stats.contributors_breakdown | length if stats.contributors_breakdown else 0 }}</span>
+          </div>
+          {% if stats.contributors_breakdown %}
+          <table class="breakdown-table" aria-label="Contributors breakdown" data-contributor-table>
+            <thead><tr><th>Contributor</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
+            <tbody>
+            {% set contributor_max = stats.contributors_breakdown | map(attribute='count') | max %}
+            {% for e in stats.contributors_breakdown %}
+            <tr data-contributor-user="{{ e.user or '' }}"><td><button class="contributor-map-button" type="button" aria-label="Show map contributions by {{ e.user or 'unknown contributor' }}">{{ e.user or '(unknown)' }}</button></td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:{{ (e.count / contributor_max * 100) if contributor_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td><td class="photo-cell">{% if e.photo_count %}{{ e.photo_count }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <table class="sr-only">
+            <caption>Contributors breakdown</caption>
+            <thead><tr><th>User</th><th>Count</th><th>Photos</th></tr></thead>
+            <tbody>
+              {% for e in stats.contributors_breakdown %}
+              <tr><td>{{ e.user }}</td><td>{{ e.count }}</td><td>{{ e.photo_count or '—' }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="no-data">No data</p>
+          {% endif %}
+        </section>
+        </div>{# /cards-column #}
 
         <div class="cards-column">
 
@@ -642,39 +694,6 @@
             <tbody>
               {% for e in stats.features_created %}
               <tr><td>{{ e.feature_type }}</td><td>{{ e.count }}</td></tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          {% else %}
-          <p class="no-data">No data</p>
-          {% endif %}
-        </section>
-        </div>{# /cards-column #}
-
-        <div class="cards-column">
-
-        {# C12: Contributors #}
-        <section class="card" aria-labelledby="cb-heading">
-          <div class="card-header">
-            <h3 id="cb-heading" tabindex="-1">Contributors</h3>
-            <span class="card-count">{{ stats.contributors_breakdown | length if stats.contributors_breakdown else 0 }}</span>
-          </div>
-          {% if stats.contributors_breakdown %}
-          <table class="breakdown-table" aria-label="Contributors breakdown" data-contributor-table>
-            <thead><tr><th>Contributor</th><th>Count</th><th class="photo-cell">Photos</th></tr></thead>
-            <tbody>
-            {% set contributor_max = stats.contributors_breakdown | map(attribute='count') | max %}
-            {% for e in stats.contributors_breakdown %}
-            <tr data-contributor-user="{{ e.user or '' }}"><td><button class="contributor-map-button" type="button" aria-label="Show map contributions by {{ e.user or 'unknown contributor' }}">{{ e.user or '(unknown)' }}</button></td><td><div class="bar-cell"><span class="bar-track" style="background:#dc3545;width:{{ (e.count / contributor_max * 100) if contributor_max else 0 }}%"></span><strong class="bar-value">{{ e.count }}</strong></div></td><td class="photo-cell">{% if e.photo_count %}{{ e.photo_count }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>
-            {% endfor %}
-            </tbody>
-          </table>
-          <table class="sr-only">
-            <caption>Contributors breakdown</caption>
-            <thead><tr><th>User</th><th>Count</th><th>Photos</th></tr></thead>
-            <tbody>
-              {% for e in stats.contributors_breakdown %}
-              <tr><td>{{ e.user }}</td><td>{{ e.count }}</td><td>{{ e.photo_count or '—' }}</td></tr>
               {% endfor %}
             </tbody>
           </table>
@@ -815,6 +834,7 @@
     var hoveredMarkerFeatureId = null;
     var focusedMarkerFeatureId = null;
     var selectedContributorFeatureIds = [];
+    var selectedPhotoFeatureId = null;
     var markerControlsCreated = false;
     var stylePicker = document.getElementById('map-style');
     var OPENFREEMAP_STYLES = {
@@ -864,7 +884,8 @@
         'any',
         ['boolean', ['feature-state', 'hover'], false],
         ['boolean', ['feature-state', 'focused'], false],
-        ['boolean', ['feature-state', 'contributorSelected'], false]
+        ['boolean', ['feature-state', 'contributorSelected'], false],
+        ['boolean', ['feature-state', 'photoSelected'], false]
       ];
     }
 
@@ -985,6 +1006,12 @@
           { contributorSelected: true }
         );
       });
+      if (selectedPhotoFeatureId !== null) {
+        map.setFeatureState(
+          { source: markerSourceId, id: selectedPhotoFeatureId },
+          { photoSelected: true }
+        );
+      }
     }
 
     function markerFeatureAt(point) {
@@ -1018,6 +1045,30 @@
       setMarkerFeatureState(focusedMarkerFeatureId, 'focused', true);
     }
 
+    function clearSelectedPhotoMarker() {
+      if (selectedPhotoFeatureId === null) return;
+      setMarkerFeatureState(selectedPhotoFeatureId, 'photoSelected', false);
+      selectedPhotoFeatureId = null;
+    }
+
+    function focusPhotoMarkerOnMap(featureId) {
+      if (!map || !Number.isInteger(featureId) || featureId < 0 || featureId >= markers.length) return;
+
+      selectedContributorFeatureIds.forEach(function (contributorFeatureId) {
+        setMarkerFeatureState(contributorFeatureId, 'contributorSelected', false);
+      });
+      selectedContributorFeatureIds = [];
+
+      if (selectedPhotoFeatureId !== featureId) {
+        clearSelectedPhotoMarker();
+        selectedPhotoFeatureId = featureId;
+        setMarkerFeatureState(selectedPhotoFeatureId, 'photoSelected', true);
+      }
+
+      var marker = markers[featureId];
+      map.easeTo({ center: [marker.lon, marker.lat], zoom: 18, duration: 350 });
+    }
+
     function markerHasContributor(marker, user) {
       return marker.user === user || (
         Array.isArray(marker.versions) &&
@@ -1037,6 +1088,7 @@
       selectedContributorFeatureIds.forEach(function (featureId) {
         setMarkerFeatureState(featureId, 'contributorSelected', false);
       });
+      clearSelectedPhotoMarker();
       selectedContributorFeatureIds = matchingFeatureIds;
       selectedContributorFeatureIds.forEach(function (featureId) {
         setMarkerFeatureState(featureId, 'contributorSelected', true);
@@ -1128,8 +1180,6 @@
         zoom: mapZoom,
         attributionControl: false,
       });
-      window.MappingMomentumReport.enableMapResize(map);
-
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
       stylePicker.addEventListener('change', function () {
@@ -1178,6 +1228,36 @@
       });
     }
 
+    function getVersionPhotoEntries(version) {
+      var tags = version.tags || {};
+      var photos = [];
+      var seen = Object.create(null);
+
+      function addPhotoLinks(value, providerHint) {
+        collectPhotoLinks(value).forEach(function (href) {
+          if (seen[href]) return;
+          seen[href] = true;
+          var provider = photoProvider(href, providerHint);
+          photos.push({
+            href: href,
+            src: provider === 'Panoramax' ? panoramaxThumbnail(href) : href,
+            provider: provider
+          });
+        });
+      }
+
+      addPhotoLinks(tags['ext:kartaview_url'], 'KartaView');
+      addPhotoLinks(tags['ext:street_images'], 'Panoramax');
+      if (photos.length === 0) addPhotoLinks(version.photos || [], 'KartaView');
+      return photos;
+    }
+
+    function mapPinIcon() {
+      return '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor">' +
+        '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>' +
+        '</svg>';
+    }
+
     // Build popup HTML for a marker at a given version index.
     // Elements without changeset version history (notes are never
     // changeset-versioned — see mm.sources.workspace.parse_notes) fall back
@@ -1186,7 +1266,8 @@
     // note text are still rendered rather than silently dropped.
     function buildPopupHTML(m, vIdx) {
       var versions = m.versions || [];
-      var v = versions.length > 0 ? versions[vIdx] : (m.user ? {
+      var markerPhotoEntries = getVersionPhotoEntries({ tags: m.tags || {}, photos: m.photos || [] });
+      var v = versions.length > 0 ? versions[vIdx] : ((m.user || markerPhotoEntries.length > 0) ? {
         action: 'note',
         user: m.user,
         timestamp: m.timestamp || '',
@@ -1320,16 +1401,28 @@
           html += '<p class="mm-popup-note-text">' + esc(m.text) + '</p>';
         }
 
-        // Per-version KartaView photos (C9)
-        var vPhotos = v.photos || [];
+        // Per-version KartaView and Panoramax photos (C9)
+        var vPhotos = getVersionPhotoEntries(v);
         if (vPhotos.length > 0) {
-          html += '<div class="mm-popup-photos">';
-          vPhotos.forEach(function (url, idx) {
+          var photoLocationLabel = m.kind === 'note' ? 'Note' : (m.category || 'Map feature');
+          html += '<div class="mm-popup-photos" role="group" aria-label="' + esc(photoLocationLabel) + ' photos">';
+          vPhotos.forEach(function (photo, idx) {
+            var photoCaption = photoLocationLabel + ' · ' + photo.provider;
+            html += '<div class="mm-popup-photo-item">';
             html += '<button type="button" class="mm-popup-photo-btn"' +
-              ' data-photo-url="' + esc(url) + '"' +
-              ' aria-label="View photo ' + (idx + 1) + '">' +
-              '<img src="' + esc(url) + '" alt="" class="mm-popup-photo-thumb" loading="lazy">' +
+              ' data-photo-url="' + esc(photo.src) + '"' +
+              ' data-photo-href="' + esc(photo.href) + '"' +
+              ' data-photo-caption="' + esc(photoCaption) + '"' +
+              ' aria-label="View ' + esc(photoLocationLabel.toLowerCase()) + ' photo ' + (idx + 1) + '">' +
+              '<img src="' + esc(photo.src) + '" alt="" class="mm-popup-photo-thumb" loading="lazy">' +
               '</button>';
+            html += '<span class="mm-popup-photo-marker">' + esc(photoLocationLabel) + '</span>';
+            html += '<a class="mm-popup-photo-provider" href="' + esc(photo.href) + '" target="_blank" rel="noopener noreferrer">' + esc(photo.provider) + '</a>';
+            html += '<button type="button" class="mm-popup-photo-locate"' +
+              ' data-lat="' + esc(String(m.lat)) + '" data-lon="' + esc(String(m.lon)) + '"' +
+              ' aria-label="Show ' + esc(photoLocationLabel.toLowerCase()) + ' photo location on map"' +
+              ' title="Show photo location on map">' + mapPinIcon() + '</button>';
+            html += '</div>';
           });
           html += '</div>';
         }
@@ -1417,11 +1510,27 @@
             if (rawDiv)   rawDiv.hidden   = (view !== 'tags');
             return;
           }
+          // Map pin over a popup photo
+          var locateBtn = e.target.closest('.mm-popup-photo-locate');
+          if (locateBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            var lat = Number(locateBtn.dataset.lat);
+            var lon = Number(locateBtn.dataset.lon);
+            if (map && Number.isFinite(lat) && Number.isFinite(lon)) {
+              focusPhotoMarkerOnMap(markers.indexOf(m));
+            }
+            return;
+          }
           // Photo button
           var photoBtn = e.target.closest('.mm-popup-photo-btn');
           if (photoBtn) {
             var url = photoBtn.dataset.photoUrl;
-            openModal([{ src: url, caption: '' }], 0, photoBtn);
+            openModal([{
+              src: url,
+              href: photoBtn.dataset.photoHref || url,
+              caption: photoBtn.dataset.photoCaption || ''
+            }], 0, photoBtn);
           }
         });
       }, 0);
@@ -1541,7 +1650,8 @@
       var p = modalPhotos[modalIdx];
       modalImg.src = p.src;
       modalImg.alt = p.caption || ('Photo ' + (modalIdx + 1) + ' of ' + modalPhotos.length);
-      modalImageLink.href = p.src;
+      modalImageLink.href = p.href || p.src;
+      modalImageLink.textContent = 'Open photo source in new tab';
       modalCaption.textContent = p.caption || '';
       modalPos.textContent = (modalIdx + 1) + ' of ' + modalPhotos.length;
       modalPrev.disabled = (modalIdx === 0);
@@ -1551,6 +1661,10 @@
     // Return focus to the triggering element when the dialog closes (K7)
     photoModal.addEventListener('close', function () {
       if (modalTrigger && typeof modalTrigger.focus === 'function') modalTrigger.focus();
+    });
+
+    photoModal.addEventListener('click', function (e) {
+      if (e.target === photoModal) photoModal.close();
     });
 
     modalClose.addEventListener('click', function () { photoModal.close(); });
@@ -1567,6 +1681,202 @@
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp')  { e.preventDefault(); if (modalIdx > 0) { modalIdx--; updateModalPhoto(); } }
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (modalIdx < modalPhotos.length - 1) { modalIdx++; updateModalPhoto(); } }
     });
+
+    // -------------------------------------------------------------------------
+    // LOCATION PHOTO GALLERY — only KartaView and Panoramax marker sources
+    // -------------------------------------------------------------------------
+    function isSupportedPhotoHost(host) {
+      host = host.toLowerCase();
+      return host === 'kartaview.org' || host.endsWith('.kartaview.org') ||
+        host === 'openstreetcam.org' || host.endsWith('.openstreetcam.org') ||
+        host === 'panoramax.xyz' || host.endsWith('.panoramax.xyz') ||
+        host === 'panoramax.openstreetmap.fr' || host.endsWith('.panoramax.openstreetmap.fr');
+    }
+
+    function collectPhotoLinks(value) {
+      var links = [];
+      var seen = Object.create(null);
+
+      function visit(item, depth) {
+        if (depth > 4 || item === null || item === undefined) return;
+        if (Array.isArray(item)) {
+          item.forEach(function (child) { visit(child, depth + 1); });
+          return;
+        }
+        if (typeof item === 'object') {
+          Object.keys(item).forEach(function (key) { visit(item[key], depth + 1); });
+          return;
+        }
+        if (typeof item !== 'string') return;
+
+        var source = item.trim();
+        if (!source) return;
+        if (/^[\[{\"]/.test(source)) {
+          try {
+            var parsed = JSON.parse(source);
+            if (parsed !== source) {
+              visit(parsed, depth + 1);
+              return;
+            }
+          } catch (ignore) {}
+        }
+
+        var candidates = source.match(/https?:\/\/[^\s"'<>]+/gi) || [];
+        if (candidates.length === 0 && /^https?:\/\//i.test(source)) candidates = [source];
+        candidates.forEach(function (candidate) {
+          var clean = candidate.replace(/[),.;\]}]+$/, '');
+          try {
+            var url = new URL(clean);
+            if ((url.protocol !== 'http:' && url.protocol !== 'https:') || !isSupportedPhotoHost(url.hostname)) return;
+            if (!seen[url.href]) {
+              seen[url.href] = true;
+              links.push(url.href);
+            }
+          } catch (ignore) {}
+        });
+      }
+
+      visit(value, 0);
+      return links;
+    }
+
+    function photoProvider(url, fallback) {
+      var host = '';
+      try { host = new URL(url).hostname.toLowerCase(); } catch (ignore) {}
+      if (host.indexOf('kartaview.org') !== -1 || host.indexOf('openstreetcam.org') !== -1) return 'KartaView';
+      if (host.indexOf('panoramax') !== -1) return 'Panoramax';
+      return fallback || 'Street imagery';
+    }
+
+    function panoramaxThumbnail(url) {
+      if (/\.(?:avif|gif|jpe?g|png|webp)(?:[?#]|$)/i.test(url)) return url;
+      try {
+        var photoUrl = new URL(url);
+        var pictureMatch = photoUrl.pathname.match(/\/api\/pictures\/([^/]+)/i);
+        var pictureId = pictureMatch ? decodeURIComponent(pictureMatch[1]) : '';
+        if (!pictureId && photoUrl.hash) {
+          var fragment = new URLSearchParams(photoUrl.hash.slice(1));
+          pictureId = fragment.get('pic') || fragment.get('picture') || '';
+        }
+        if (!pictureId) pictureId = photoUrl.searchParams.get('pic') || '';
+        if (!pictureId) return url;
+
+        var apiOrigin = photoUrl.origin;
+        if (!/^api\./i.test(photoUrl.hostname)) {
+          apiOrigin = photoUrl.protocol + '//api.' + photoUrl.hostname.replace(/^www\./i, '');
+        }
+        return apiOrigin + '/api/pictures/' + encodeURIComponent(pictureId) + '/thumb.jpg?size=480';
+      } catch (ignore) {
+        return url;
+      }
+    }
+
+    function renderLocationPhotoGallery() {
+      var gallery = document.getElementById('location-photo-grid');
+      var emptyMessage = document.getElementById('location-photo-empty');
+      var count = document.getElementById('location-photo-count');
+      if (!gallery || !emptyMessage || !count) return;
+
+      var photos = [];
+      var seenAtLocation = Object.create(null);
+      (STATS.markers || []).forEach(function (marker) {
+        var markerTags = marker.tags || {};
+        var locationLabel = marker.kind === 'note' ? 'Note' : (marker.category || 'Map feature');
+        var markerIndex = markers.indexOf(marker);
+
+        function addPhotos(raw, providerHint) {
+          collectPhotoLinks(raw).forEach(function (href) {
+            var locationKey = [marker.type || marker.kind || 'map', marker.id || '', href].join(':');
+            if (seenAtLocation[locationKey]) return;
+            seenAtLocation[locationKey] = true;
+            var provider = photoProvider(href, providerHint);
+            photos.push({
+              src: provider === 'Panoramax' ? panoramaxThumbnail(href) : href,
+              href: href,
+              provider: provider,
+              locationLabel: locationLabel,
+              markerIndex: markerIndex,
+              lat: marker.lat,
+              lon: marker.lon,
+              caption: locationLabel + ' · ' + provider
+            });
+          });
+        }
+
+        addPhotos(markerTags['ext:kartaview_url'], 'KartaView');
+        addPhotos(markerTags['ext:street_images'], 'Panoramax');
+        (marker.versions || []).forEach(function (version) {
+          var versionTags = version.tags || {};
+          addPhotos(versionTags['ext:kartaview_url'], 'KartaView');
+          addPhotos(versionTags['ext:street_images'], 'Panoramax');
+        });
+      });
+
+      gallery.textContent = '';
+      count.textContent = String(photos.length);
+      emptyMessage.hidden = photos.length > 0;
+      gallery.hidden = photos.length === 0;
+
+      photos.forEach(function (photo, index) {
+        var item = document.createElement('li');
+        item.className = 'location-photo-item';
+
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'location-photo-trigger';
+        button.setAttribute('aria-label', 'View ' + photo.locationLabel.toLowerCase() + ' photo ' + (index + 1));
+
+        var image = document.createElement('img');
+        image.className = 'location-photo-image';
+        image.src = photo.src;
+        image.alt = photo.caption;
+        image.loading = 'lazy';
+
+        var unavailable = document.createElement('span');
+        unavailable.className = 'location-photo-unavailable';
+        unavailable.textContent = 'Preview unavailable';
+        unavailable.hidden = true;
+        image.addEventListener('error', function () {
+          image.hidden = true;
+          unavailable.hidden = false;
+        });
+        button.appendChild(image);
+        button.appendChild(unavailable);
+        button.addEventListener('click', function () { openModal(photos, index, button); });
+
+        var location = document.createElement('span');
+        location.className = 'location-photo-marker';
+        location.textContent = photo.locationLabel;
+
+        var providerLink = document.createElement('a');
+        providerLink.className = 'location-photo-provider';
+        providerLink.href = photo.href;
+        providerLink.target = '_blank';
+        providerLink.rel = 'noopener noreferrer';
+        providerLink.textContent = photo.provider;
+
+        var locateButton = document.createElement('button');
+        locateButton.type = 'button';
+        locateButton.className = 'location-photo-locate';
+        locateButton.setAttribute('aria-label', 'Show ' + photo.locationLabel.toLowerCase() + ' photo location on map');
+        locateButton.title = 'Show photo location on map';
+        locateButton.innerHTML = mapPinIcon();
+        locateButton.disabled = !map || photo.markerIndex < 0 ||
+          !Number.isFinite(photo.lat) || !Number.isFinite(photo.lon);
+        locateButton.addEventListener('click', function () {
+          if (!map || !Number.isFinite(photo.lat) || !Number.isFinite(photo.lon)) return;
+          focusPhotoMarkerOnMap(photo.markerIndex);
+        });
+
+        item.appendChild(button);
+        item.appendChild(location);
+        item.appendChild(providerLink);
+        item.appendChild(locateButton);
+        gallery.appendChild(item);
+      });
+    }
+
+    renderLocationPhotoGallery();
 
   }());
   </script>

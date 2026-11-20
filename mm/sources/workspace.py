@@ -1023,11 +1023,43 @@ def fetch_notes(
                     "timestamp": _normalise_note_timestamp(date_created),
                     "user": user,
                     "uid": uid,
+                    "tags": _parse_note_xml_tags(note),
                 }
             )
         except KeyError, TypeError, ValueError:
             continue
     return notes
+
+
+def _parse_note_xml_tags(note: ET.Element) -> dict[str, str]:
+    """Return extension tags attached directly to a note XML element."""
+    tags: dict[str, str] = {}
+    tag_elements = note.findall("./tags/tag") + note.findall("./tag")
+    for tag in tag_elements:
+        key = tag.attrib.get("k", tag.attrib.get("key", ""))
+        value = tag.attrib.get("v", tag.attrib.get("value"))
+        if key and value is not None:
+            tags[key] = value
+    return tags
+
+
+def _normalise_note_tags(raw_tags: Any) -> dict[str, str]:
+    """Convert note tags from dict or OSM-style key/value records."""
+    if isinstance(raw_tags, dict):
+        return {
+            str(key): str(value) for key, value in raw_tags.items() if value is not None
+        }
+
+    tags: dict[str, str] = {}
+    if isinstance(raw_tags, list):
+        for item in raw_tags:
+            if not isinstance(item, dict):
+                continue
+            key = item.get("k", item.get("key"))
+            value = item.get("v", item.get("value"))
+            if key is not None and value is not None:
+                tags[str(key)] = str(value)
+    return tags
 
 
 def _normalise_note_timestamp(value: str) -> str:
@@ -1115,7 +1147,7 @@ def parse_notes(
                 "user": note["user"],
                 "uid": note["uid"],
                 "changeset": 0,
-                "tags": {},
+                "tags": _normalise_note_tags(note.get("tags", {})),
                 "lat": float(note["lat"]),
                 "lon": float(note["lon"]),
                 "text": note["text"],

@@ -329,6 +329,18 @@
           · {{ stats.report_count }} source reports
           {% endif %}
         </p>
+        <p class="report-description">
+          This is an accounting of people's lived experience on location through the
+          <a href="https://tcat.cs.washington.edu/avivscoutroute/">AVIV ScoutRoute</a>
+          application, collecting data in the
+          <a href="https://github.com/OpenSidewalks/OpenSidewalks-Schema/">OpenSidewalks</a>
+          data schema and enhancing
+          <a href="https://sidewalks.washington.edu/">OS-CONNECT</a>, the sidewalks
+          inventory and accessibility mapping dataset for the state of Washington,
+          developed by the
+          <a href="https://tcat.cs.washington.edu/">Taskar Center for Accessible
+          Technology at the University of Washington</a>.
+        </p>
       </div>
       <div class="report-hero-meta">
         <span class="report-pill">{{ stats.event_count }} events</span>
@@ -451,19 +463,6 @@
           <option value="dark">Dark</option>
           <option value="fiord">Fiord</option>
         </select>
-        <div
-          id="map-resize-handle"
-          class="map-resize-handle"
-          role="separator"
-          aria-orientation="horizontal"
-          aria-label="Resize map height"
-          aria-controls="map"
-          aria-valuemin="280"
-          aria-valuemax="640"
-          aria-valuenow="450"
-          tabindex="0"
-          title="Drag to resize the map; use the arrow keys when focused"
-        ></div>
       </div>
       <p id="map-fallback" class="no-data" hidden>
         The map could not be loaded. The report totals remain available above.
@@ -881,7 +880,6 @@
         zoom: 3,
         attributionControl: false
       });
-      window.MappingMomentumReport.enableMapResize(map);
       map.addControl(new maplibregl.NavigationControl(), 'top-left');
       mapStyle.addEventListener('change', function () {
         const styleUrl = styles[mapStyle.value];

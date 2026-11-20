@@ -19,3 +19,4 @@ dist/
 # Environments
 .env
 .venv/
+/tests/vendor
