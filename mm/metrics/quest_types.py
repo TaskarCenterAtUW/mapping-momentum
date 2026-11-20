@@ -24,12 +24,24 @@ quest_type_breakdown : list[dict]
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Mapping, Sequence, Sized
+from typing import TypedDict
 
 from mm.metrics.base import register
 
 
+class QuestTypeCount(TypedDict):
+    """Element and photo counts for one quest category."""
+
+    category: str
+    count: int
+    photo_count: int
+
+
 @register("workspace")
-def compute(elements: list[dict]) -> dict:
+def compute(
+    elements: Sequence[Mapping[str, object]],
+) -> dict[str, list[QuestTypeCount]]:
     """Compute ``quest_type_breakdown``.
 
     Parameters
@@ -40,7 +52,7 @@ def compute(elements: list[dict]) -> dict:
 
     Returns
     -------
-    dict
+    dict[str, list[QuestTypeCount]]
         ``{"quest_type_breakdown": [{"category": str, "count": int,``
         ``"photo_count": int}, …]}``
     """
@@ -50,11 +62,16 @@ def compute(elements: list[dict]) -> dict:
     for elem in elements:
         if elem.get("kind") == "note":
             continue
-        category: str = elem.get("category", "")
+        category = elem.get("category", "")
+        if not isinstance(category, str):
+            raise TypeError("element category must be a string")
+        photos = elem.get("photos", [])
+        if not isinstance(photos, Sized):
+            raise TypeError("element photos must have a length")
         counts[category] += 1
-        photo_counts[category] += len(elem.get("photos", []))
+        photo_counts[category] += len(photos)
 
-    breakdown = [
+    breakdown: list[QuestTypeCount] = [
         {
             "category": category,
             "count": count,

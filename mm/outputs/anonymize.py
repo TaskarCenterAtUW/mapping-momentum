@@ -102,14 +102,14 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
                 label_for(row.get("submitted_by"))
 
     text_names = sorted(
-        ((name, label) for name, label in labels.items() if name != label),
-        key=lambda item: len(item[0]),
+        (name for name, label in labels.items() if name != label),
+        key=len,
         reverse=True,
     )
     text_pattern = (
         re.compile(
             r"(?<!\w)(?:"
-            + "|".join(re.escape(name) for name, _label in text_names)
+            + "|".join(re.escape(name) for name in text_names)
             + r")(?!\w)",
             re.IGNORECASE,
         )
@@ -117,8 +117,8 @@ def anonymize_stats(stats: dict[str, Any]) -> dict[str, Any]:
         else None
     )
     text_labels: dict[str, str] = {}
-    for name, label in text_names:
-        text_labels.setdefault(name.casefold(), label)
+    for name in text_names:
+        text_labels.setdefault(name.casefold(), labels[name])
 
     def replace_known_names(value: Any) -> Any:
         """Replace known identity names in a free-form text value."""

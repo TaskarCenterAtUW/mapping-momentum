@@ -21,12 +21,23 @@ features_created : list[dict]
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Mapping, Sequence
+from typing import TypedDict
 
 from mm.metrics.base import register
 
 
+class CreatedFeatureCount(TypedDict):
+    """Count of created features for an element type."""
+
+    feature_type: str
+    count: int
+
+
 @register("workspace")
-def compute(elements: list[dict]) -> dict:
+def compute(
+    elements: Sequence[Mapping[str, object]],
+) -> dict[str, list[CreatedFeatureCount]]:
     """Compute ``features_created``.
 
     Parameters
@@ -44,10 +55,12 @@ def compute(elements: list[dict]) -> dict:
 
     for elem in elements:
         if elem.get("kind") == "create":
-            feature_type: str = elem.get("type", "unknown")
+            feature_type = elem.get("type", "unknown")
+            if not isinstance(feature_type, str):
+                raise TypeError("created element type must be a string")
             counts[feature_type] += 1
 
-    created = [
+    created: list[CreatedFeatureCount] = [
         {"feature_type": ft, "count": count}
         for ft, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
     ]

@@ -234,9 +234,9 @@ def _guess_image_mime(path: Path) -> str:
 
 
 def _resolve_showcase_photos(
-    photos: list[dict],
+    photos: list[dict[str, str]],
     event_dir: Path | None,
-) -> list[dict]:
+) -> list[dict[str, str]]:
     """Resolve showcase photo ``src`` values for inline HTML embedding.
 
     URL sources are passed through unchanged.  Local paths (relative to
@@ -274,6 +274,7 @@ def _resolve_image_collection(
             path.relative_to(event_root)
         except ValueError:
             continue
+        paths: list[Path]
         if path.is_dir():
             paths = []
             for child in sorted(path.iterdir()):
@@ -367,7 +368,7 @@ def build_stats(
     result: SourceResult,
     *,
     quest_def: Any = None,
-    showcase_photos: list[dict] | None = None,
+    showcase_photos: list[dict[str, str]] | None = None,
     pictures: str | list[Any] | None = None,
     quotes: list[Any] | None = None,
     slideshow_url: str | list[str] | None = None,

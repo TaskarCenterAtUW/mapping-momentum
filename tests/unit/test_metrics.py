@@ -49,7 +49,7 @@ def _node(
     changeset: int = 100,
     timestamp: str = "2026-01-20T20:00:00Z",
     **extra: Any,
-) -> dict:
+) -> dict[str, Any]:
     return {
         "type": "node",
         "id": id_,
@@ -69,7 +69,7 @@ def _way(
     changeset: int = 100,
     timestamp: str = "2026-01-20T21:00:00Z",
     **extra: Any,
-) -> dict:
+) -> dict[str, Any]:
     return {
         "type": "way",
         "id": id_,
@@ -90,7 +90,7 @@ def _relation(
     changeset: int = 100,
     timestamp: str = "2026-01-20T22:00:00Z",
     **extra: Any,
-) -> dict:
+) -> dict[str, Any]:
     return {
         "type": "relation",
         "id": id_,
@@ -379,7 +379,7 @@ def test_relation_count_mixed_types() -> None:
 
 
 def test_element_type_counts_sum_to_elements_edited_empty() -> None:
-    elements: list = []
+    elements: list[dict[str, Any]] = []
     total = elements_edited_mod.compute(elements)["elements_edited"]
     part_sum = (
         node_count_mod.compute(elements)["node_count"]
@@ -498,7 +498,7 @@ def test_registry_compute_results_merge() -> None:
         _way(id_=50, user="alice", changeset=100),
         _relation(id_=200, user="bob", changeset=101),
     ]
-    merged: dict = {}
+    merged: dict[str, Any] = {}
     for compute_fn in get_metrics_for_source("workspace"):
         merged.update(compute_fn(elements))
 

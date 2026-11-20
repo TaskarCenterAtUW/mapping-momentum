@@ -6,12 +6,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
-## [v1.7.0] - 2026-11-18
+## [v1.7.0] - 2026-11-19
+
+### Added
+
+- Introduced a reviewed publication path for a GitHub Pages site, with local tooling to prepare, check, and approve beta snapshots before promoting the exact reviewed snapshot to stable.
+- Added source-quality and stable-promotion GitHub Actions workflows.
+- Added local Playwright, axe-core, screenshot, and report-contract checks for publication snapshots.
+- Added a per-event `publish` setting to exclude drafts from report generation and public releases.
+- Added a keyboard-accessible Save/Export control that downloads complete activity and aggregate HTML reports.
 
 ### Changed
 
-- Moved generated anonymized reports and synthetic publication inputs to ignored local-output directories.
 - Removed tracked generated real-event and aggregate output from the source branch.
+- Moved generated anonymized reports and synthetic publication inputs to ignored local-output directories.
+- Grouped generated full and anonymized reports under the shared versioned `local-output/v<version>/` directory.
 
 ## [v1.6.0] - 2026-11-16
 

@@ -11,6 +11,7 @@ the loader), quest_definition_retrieval_date (optional metadata), report
 """
 
 import re
+from typing import Any
 
 # ---------------------------------------------------------------------------
 # Slug pattern — activity.id and event.id must match this.
@@ -38,7 +39,7 @@ SUPPORTED_ENVIRONMENTS = {"prod", "stage", "dev"}
 # ---------------------------------------------------------------------------
 # JSON Schema — top-level event config
 # ---------------------------------------------------------------------------
-TIME_WINDOW_SCHEMA: dict = {
+TIME_WINDOW_SCHEMA: dict[str, Any] = {
     "type": "object",
     "required": ["start", "end"],
     "additionalProperties": False,
@@ -54,7 +55,7 @@ TIME_WINDOW_SCHEMA: dict = {
     },
 }
 
-WORKSPACE_ACTIVITY_SCHEMA: dict = {
+WORKSPACE_ACTIVITY_SCHEMA: dict[str, Any] = {
     "type": "object",
     "required": [
         "id",
@@ -121,7 +122,7 @@ WORKSPACE_ACTIVITY_SCHEMA: dict = {
 # v1.1 optional top-level objects
 # ---------------------------------------------------------------------------
 
-REPORT_SCHEMA: dict = {
+REPORT_SCHEMA: dict[str, Any] = {
     "type": "object",
     "additionalProperties": False,
     "properties": {
@@ -138,7 +139,7 @@ REPORT_SCHEMA: dict = {
     },
 }
 
-SHOWCASE_PHOTO_SCHEMA: dict = {
+SHOWCASE_PHOTO_SCHEMA: dict[str, Any] = {
     "type": "object",
     "required": ["src"],
     "additionalProperties": False,
@@ -157,7 +158,7 @@ SHOWCASE_PHOTO_SCHEMA: dict = {
     },
 }
 
-PICTURE_SCHEMA: dict = {
+PICTURE_SCHEMA: dict[str, Any] = {
     "oneOf": [
         {
             "type": "string",
@@ -183,7 +184,7 @@ PICTURE_SCHEMA: dict = {
     ]
 }
 
-PICTURES_SCHEMA: dict = {
+PICTURES_SCHEMA: dict[str, Any] = {
     "oneOf": [
         {
             "type": "string",
@@ -198,7 +199,7 @@ PICTURES_SCHEMA: dict = {
     ]
 }
 
-QUOTE_SCHEMA: dict = {
+QUOTE_SCHEMA: dict[str, Any] = {
     "oneOf": [
         {
             "type": "string",
@@ -220,12 +221,12 @@ QUOTE_SCHEMA: dict = {
     ]
 }
 
-QUOTES_SCHEMA: dict = {
+QUOTES_SCHEMA: dict[str, Any] = {
     "type": "array",
     "items": QUOTE_SCHEMA,
 }
 
-SLIDESHOW_URL_SCHEMA: dict = {
+SLIDESHOW_URL_SCHEMA: dict[str, Any] = {
     "oneOf": [
         {
             "type": "string",
@@ -245,7 +246,7 @@ SLIDESHOW_URL_SCHEMA: dict = {
     ]
 }
 
-VIDEO_URL_SCHEMA: dict = {
+VIDEO_URL_SCHEMA: dict[str, Any] = {
     "type": "string",
     "minLength": 1,
     "description": "URL to a hosted video or a video file.",
@@ -264,11 +265,11 @@ REPORT_SCHEMA["properties"].update(
 
 # v1: only workspace activities are allowed; the schema uses oneOf so that
 # future activity types can be added here without restructuring.
-ACTIVITY_SCHEMA: dict = {
+ACTIVITY_SCHEMA: dict[str, Any] = {
     "oneOf": [WORKSPACE_ACTIVITY_SCHEMA],
 }
 
-EVENT_CONFIG_SCHEMA: dict = {
+EVENT_CONFIG_SCHEMA: dict[str, Any] = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "required": ["schema_version", "type", "id", "name", "date", "activities"],
@@ -293,6 +294,10 @@ EVENT_CONFIG_SCHEMA: dict = {
         "date": {
             "type": "string",
             "description": "Primary date of the event in YYYY-MM-DD format.",
+        },
+        "publish": {
+            "type": "boolean",
+            "description": "Include this event and its reports in publication inputs.",
         },
         "activities": {
             "type": "array",

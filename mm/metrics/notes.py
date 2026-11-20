@@ -13,11 +13,13 @@ note_count : int
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
+
 from mm.metrics.base import register
 
 
 @register("workspace")
-def compute(elements: list[dict]) -> dict:
+def compute(elements: Sequence[Mapping[str, object]]) -> dict[str, int]:
     """Compute ``note_count``.
 
     Parameters
@@ -28,7 +30,7 @@ def compute(elements: list[dict]) -> dict:
 
     Returns
     -------
-    dict
+    dict[str, int]
         ``{"note_count": <int>}``
     """
     note_count = sum(1 for e in elements if e.get("kind") == "note")

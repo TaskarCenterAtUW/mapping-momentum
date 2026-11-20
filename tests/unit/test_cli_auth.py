@@ -2,16 +2,21 @@
 
 from __future__ import annotations
 
-import argparse
 import builtins
 import io
 import json
 import warnings
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 import mm.cli as cli
+from mm.publication import (
+    PRIVACY_AFFIRMATION,
+    PublicationError,
+    approve_and_push_publication,
+)
 
 
 class _InteractiveStream(io.StringIO):
@@ -21,75 +26,273 @@ class _InteractiveStream(io.StringIO):
         return True
 
 
-def _mock_interactive_terminal(monkeypatch: pytest.MonkeyPatch) -> None:
+def _mock_interactive_terminal(
+    monkeypatch: pytest.MonkeyPatch,
+) -> tuple[_InteractiveStream, _InteractiveStream, _InteractiveStream]:
     """Provide terminal-like standard streams for prompt tests."""
-    monkeypatch.setattr(cli.sys, "stdin", _InteractiveStream())
-    monkeypatch.setattr(cli.sys, "stdout", _InteractiveStream())
-    monkeypatch.setattr(cli.sys, "stderr", _InteractiveStream())
+    stdin = _InteractiveStream()
+    stdout = _InteractiveStream()
+    stderr = _InteractiveStream()
+    monkeypatch.setattr(cli.sys, "stdin", stdin)
+    monkeypatch.setattr(cli.sys, "stdout", stdout)
+    monkeypatch.setattr(cli.sys, "stderr", stderr)
+    return stdin, stdout, stderr
 
 
-def _mock_noninteractive_terminal(monkeypatch: pytest.MonkeyPatch) -> None:
+def _mock_noninteractive_terminal(
+    monkeypatch: pytest.MonkeyPatch,
+) -> tuple[io.StringIO, io.StringIO, io.StringIO]:
     """Provide non-terminal standard streams for environment credential tests."""
-    monkeypatch.setattr(cli.sys, "stdin", io.StringIO())
-    monkeypatch.setattr(cli.sys, "stdout", io.StringIO())
-    monkeypatch.setattr(cli.sys, "stderr", io.StringIO())
+    stdin = io.StringIO()
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+    monkeypatch.setattr(cli.sys, "stdin", stdin)
+    monkeypatch.setattr(cli.sys, "stdout", stdout)
+    monkeypatch.setattr(cli.sys, "stderr", stderr)
+    return stdin, stdout, stderr
 
 
-def _unexpected_prompt(_prompt: str) -> str:
+def _unexpected_prompt(_: str) -> str:
     """Fail if environment-based authentication tries to prompt."""
     raise AssertionError("Environment credentials must not prompt.")
 
 
-def test_interactive_authentication_hides_password_prompt(
+def _event_config(*environments: str) -> dict[str, Any]:
+    """Create a minimal event config for public CLI tests."""
+    return {
+        "id": "sample-event",
+        "name": "Sample Event",
+        "activities": [
+            {
+                "id": f"activity-{index}",
+                "label": f"Activity {index}",
+                "environment": environment,
+            }
+            for index, environment in enumerate(environments, start=1)
+        ],
+    }
+
+
+def _stub_event_command(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    config: dict[str, Any],
+) -> tuple[Path, list[tuple[str, str, bool, bool]]]:
+    """Stub config loading and activity execution for the public CLI."""
+    event_path = tmp_path / "event.json"
+    event_path.write_text("{}", encoding="utf-8")
+    runs: list[tuple[str, str, bool, bool]] = []
+
+    def load_event_config(path: Path) -> dict[str, Any]:
+        assert path == event_path
+        return config
+
+    def run_activity(
+        event_config: dict[str, Any],
+        activity: dict[str, Any],
+        **kwargs: Any,
+    ) -> dict[str, Any]:
+        assert event_config is config
+        activity_id = activity.get("id")
+        access_token = kwargs.get("access_token")
+        anonymize = kwargs.get("anonymize")
+        include_quest_answer_log = kwargs.get("include_quest_answer_log")
+        assert isinstance(activity_id, str)
+        assert isinstance(access_token, str)
+        assert isinstance(anonymize, bool)
+        assert isinstance(include_quest_answer_log, bool)
+        runs.append((activity_id, access_token, anonymize, include_quest_answer_log))
+        return {"activity_id": activity_id}
+
+    monkeypatch.setattr(
+        "mm.config.loader.load_event_config",
+        load_event_config,
+    )
+    monkeypatch.setattr("mm.pipeline.run_activity", run_activity)
+    return event_path, runs
+
+
+def _stub_publication_api(
+    monkeypatch: pytest.MonkeyPatch,
+    sha: str,
+) -> list[str]:
+    """Stub the successful-check lookup and beta push for CLI tests."""
+    pushed_shas: list[str] = []
+    expected_repo_root = Path(cli.__file__).resolve().parents[1]
+
+    def read_check(repo_root: Path, requested_sha: str) -> dict[str, Any]:
+        assert repo_root == expected_repo_root
+        assert requested_sha == sha
+        return {"sha": requested_sha}
+
+    def approve(
+        repo_root: Path,
+        approved_sha: str,
+        *,
+        affirmation: str,
+        remote_name: str = "origin",
+    ) -> str:
+        assert repo_root == expected_repo_root
+        assert approved_sha == sha
+        assert affirmation == PRIVACY_AFFIRMATION
+        assert remote_name == "origin"
+        pushed_shas.append(approved_sha)
+        return approved_sha
+
+    monkeypatch.setattr("mm.publication.read_successful_check", read_check)
+    monkeypatch.setattr(
+        "mm.publication.approve_and_push_publication",
+        approve,
+    )
+    return pushed_shas
+
+
+@pytest.mark.parametrize("answer", [PRIVACY_AFFIRMATION])
+def test_interactive_beta_approval_accepts_exact_affirmation(
+    answer: str,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """Use getpass for the password and pass credentials directly to auth."""
+    """The public command accepts the exact privacy-review affirmation."""
+    _mock_interactive_terminal(monkeypatch)
+    sha = "a" * 40
+    prompts: list[str] = []
+
+    def answer_prompt(prompt: str) -> str:
+        prompts.append(prompt)
+        return answer
+
+    monkeypatch.setattr(builtins, "input", answer_prompt)
+    pushed_shas = _stub_publication_api(monkeypatch, sha)
+
+    result = cli.run_cli(["publish", "approve", "--sha", sha])
+
+    assert result == 0
+    assert pushed_shas == [sha]
+    assert prompts == [
+        f"Reviewed beta SHA: {sha}\n"
+        "Type the following exactly before the public beta push:\n"
+        f"{PRIVACY_AFFIRMATION}\n> "
+    ]
+
+
+@pytest.mark.parametrize("answer", ["", "y", "yes", f" {PRIVACY_AFFIRMATION}"])
+def test_interactive_beta_approval_defaults_to_no(
+    answer: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Incomplete or altered affirmations cancel without pushing."""
+    _mock_interactive_terminal(monkeypatch)
+    sha = "a" * 40
+    pushed_shas = _stub_publication_api(monkeypatch, sha)
+
+    def answer_prompt(_: str) -> str:
+        return answer
+
+    monkeypatch.setattr(builtins, "input", answer_prompt)
+
+    assert cli.run_cli(["publish", "approve", "--sha", sha]) == 0
+    assert pushed_shas == []
+
+
+def test_interactive_beta_approval_refuses_non_terminal(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The public command fails closed without an interactive terminal."""
+    _, _, stderr = _mock_noninteractive_terminal(monkeypatch)
+    sha = "a" * 40
+    pushed_shas = _stub_publication_api(monkeypatch, sha)
+
+    result = cli.run_cli(["publish", "approve", "--sha", sha])
+
+    assert result == 1
+    assert "interactive terminal" in stderr.getvalue()
+    assert pushed_shas == []
+
+
+def test_publish_approve_rejects_command_line_affirmation() -> None:
+    """The public CLI does not accept a pre-supplied privacy affirmation."""
+    with pytest.raises(SystemExit) as exc_info:
+        cli.run_cli(
+            [
+                "publish",
+                "approve",
+                "--sha",
+                "a" * 40,
+                "--affirmation",
+                PRIVACY_AFFIRMATION,
+            ]
+        )
+
+    assert exc_info.value.code == 2
+
+
+def test_publication_api_rejects_unconfirmed_approval(
+    tmp_path: Path,
+) -> None:
+    """Do not push through the publication API without explicit confirmation."""
+    with pytest.raises(PublicationError, match="exact privacy affirmation"):
+        approve_and_push_publication(
+            tmp_path,
+            "a" * 40,
+            affirmation="yes",
+        )
+
+
+def test_interactive_authentication_hides_password_prompt(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    """The event CLI hides the password and forwards credentials to auth."""
+    event_path, runs = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
     monkeypatch.delenv("MM_TDEI_USERNAME_PROD", raising=False)
     monkeypatch.delenv("MM_TDEI_PASSWORD_PROD", raising=False)
     _mock_interactive_terminal(monkeypatch)
     prompts: list[str] = []
     credentials: list[tuple[str, str, str]] = []
-    monkeypatch.setattr(
-        builtins,
-        "input",
-        lambda prompt: prompts.append(prompt) or " tdei-user ",
-    )
-    monkeypatch.setattr(
-        cli.getpass,
-        "getpass",
-        lambda prompt: prompts.append(prompt) or "tdei-password",
-    )
+
+    def answer_username(prompt: str) -> str:
+        prompts.append(prompt)
+        return " tdei-user "
+
+    def answer_password(prompt: str) -> str:
+        prompts.append(prompt)
+        return "tdei-password"
 
     def fake_authenticate(environment: str, username: str, password: str) -> str:
         credentials.append((environment, username, password))
         return "short-lived-token"
 
+    monkeypatch.setattr(builtins, "input", answer_username)
+    monkeypatch.setattr(cli.getpass, "getpass", answer_password)
     monkeypatch.setattr(cli, "authenticate", fake_authenticate)
 
-    token = cli._get_access_token("prod")
+    result = cli.run_cli(["event", "--config", str(event_path), "--dry-run"])
 
-    assert token == "short-lived-token"
+    assert result == 0
     assert prompts == [
         "TDEI prod username: ",
         "TDEI prod password: ",
     ]
     assert credentials == [("prod", "tdei-user", "tdei-password")]
+    assert runs == [("activity-1", "short-lived-token", False, False)]
 
 
 def test_interactive_authentication_refuses_non_terminal(
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
-    """Fail rather than echo a password when no interactive terminal exists."""
+    """The event CLI refuses credentials when no terminal is available."""
+    event_path, _ = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
     monkeypatch.delenv("MM_TDEI_USERNAME_PROD", raising=False)
     monkeypatch.delenv("MM_TDEI_PASSWORD_PROD", raising=False)
-    monkeypatch.setattr(cli.sys, "stdin", io.StringIO())
-    monkeypatch.setattr(cli.sys, "stdout", io.StringIO())
-    monkeypatch.setattr(cli.sys, "stderr", io.StringIO())
+    _, _, stderr = _mock_noninteractive_terminal(monkeypatch)
 
-    with pytest.raises(ValueError, match="interactive terminal") as exc_info:
-        cli._get_access_token("prod")
-    assert "MM_TDEI_USERNAME_PROD" in str(exc_info.value)
-    assert "MM_TDEI_PASSWORD_PROD" in str(exc_info.value)
+    result = cli.run_cli(["event", "--config", str(event_path), "--dry-run"])
+
+    assert result == 1
+    assert "interactive terminal" in stderr.getvalue()
+    assert "MM_TDEI_USERNAME_PROD" in stderr.getvalue()
+    assert "MM_TDEI_PASSWORD_PROD" in stderr.getvalue()
 
 
 @pytest.mark.parametrize(
@@ -100,8 +303,12 @@ def test_environment_credentials_authenticate_without_terminal(
     environment: str,
     suffix: str,
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
     """Use the matching environment pair without prompting or echoing secrets."""
+    event_path, runs = _stub_event_command(
+        monkeypatch, tmp_path, _event_config(environment)
+    )
     _mock_noninteractive_terminal(monkeypatch)
     monkeypatch.setenv(f"MM_TDEI_USERNAME_{suffix}", " tdei-user ")
     monkeypatch.setenv(f"MM_TDEI_PASSWORD_{suffix}", " tdei-password ")
@@ -115,24 +322,28 @@ def test_environment_credentials_authenticate_without_terminal(
 
     monkeypatch.setattr(cli, "authenticate", fake_authenticate)
 
-    token = cli._get_access_token(environment)
+    result = cli.run_cli(["event", "--config", str(event_path), "--dry-run"])
 
-    assert token == "short-lived-token"
+    assert result == 0
     assert credentials == [(environment, "tdei-user", " tdei-password ")]
+    assert runs == [("activity-1", "short-lived-token", False, False)]
 
 
 def test_environment_credentials_must_be_set_as_pair(
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
     """Reject partial credential pairs rather than mixing env and prompt input."""
-    _mock_interactive_terminal(monkeypatch)
+    event_path, _ = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
     monkeypatch.setenv("MM_TDEI_USERNAME_PROD", "tdei-user")
     monkeypatch.delenv("MM_TDEI_PASSWORD_PROD", raising=False)
+    _, _, stderr = _mock_interactive_terminal(monkeypatch)
 
-    with pytest.raises(ValueError, match="must be set together") as exc_info:
-        cli._get_access_token("prod")
+    result = cli.run_cli(["event", "--config", str(event_path), "--dry-run"])
 
-    assert "tdei-user" not in str(exc_info.value)
+    assert result == 1
+    assert "must be set together" in stderr.getvalue()
+    assert "tdei-user" not in stderr.getvalue()
 
 
 @pytest.mark.parametrize(
@@ -147,107 +358,112 @@ def test_environment_credentials_reject_empty_values(
     password: str,
     empty_variable: str,
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
     """Reject empty environment credentials and identify only the variable."""
+    event_path, _ = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
     monkeypatch.setenv("MM_TDEI_USERNAME_PROD", username)
     monkeypatch.setenv("MM_TDEI_PASSWORD_PROD", password)
+    _, _, stderr = _mock_noninteractive_terminal(monkeypatch)
 
-    with pytest.raises(ValueError, match="cannot be empty") as exc_info:
-        cli._get_access_token("prod")
+    result = cli.run_cli(["event", "--config", str(event_path), "--dry-run"])
 
-    assert empty_variable in str(exc_info.value)
-    assert "tdei-password" not in str(exc_info.value)
+    assert result == 1
+    assert empty_variable in stderr.getvalue()
+    assert "tdei-password" not in stderr.getvalue()
 
 
 def test_interactive_authentication_rejects_echoed_password_fallback(
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
     """Refuse getpass's insecure fallback when terminal echo cannot be disabled."""
+    event_path, _ = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
     monkeypatch.delenv("MM_TDEI_USERNAME_PROD", raising=False)
     monkeypatch.delenv("MM_TDEI_PASSWORD_PROD", raising=False)
-    _mock_interactive_terminal(monkeypatch)
-    monkeypatch.setattr(builtins, "input", lambda _prompt: "tdei-user")
+    _, _, stderr = _mock_interactive_terminal(monkeypatch)
 
-    def echoed_getpass(_prompt: str) -> str:
+    def answer_username(prompt: str) -> str:
+        assert prompt == "TDEI prod username: "
+        return "tdei-user"
+
+    def echoed_getpass(prompt: str) -> str:
+        assert prompt == "TDEI prod password: "
         warnings.warn("echo fallback", cli.getpass.GetPassWarning)
         return "tdei-password"
 
+    monkeypatch.setattr(builtins, "input", answer_username)
     monkeypatch.setattr(cli.getpass, "getpass", echoed_getpass)
 
-    with pytest.raises(ValueError, match="without echo"):
-        cli._get_access_token("prod")
+    result = cli.run_cli(["event", "--config", str(event_path), "--dry-run"])
+
+    assert result == 1
+    assert "without echo" in stderr.getvalue()
 
 
 def test_event_command_authenticates_once_per_environment(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
-    capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Reuse each environment token across activities in the same event."""
-    event_path = tmp_path / "event.json"
-    event_path.write_text("{}", encoding="utf-8")
-    config = {
-        "id": "sample-event",
-        "activities": [
-            {"id": "walkabout", "environment": "prod"},
-            {"id": "rollabout", "environment": "prod"},
-        ],
-    }
-    prompts = []
-    runs = []
-    monkeypatch.setattr(
-        "mm.config.loader.load_event_config",
-        lambda _path: config,
-    )
-    monkeypatch.setattr(
-        cli,
-        "_get_access_token",
-        lambda environment: prompts.append(environment) or "prod-token",
-    )
-    monkeypatch.setattr(
-        "mm.pipeline.run_activity",
-        lambda _config, activity, **kwargs: (
-            runs.append(
-                (
-                    activity["id"],
-                    kwargs["access_token"],
-                    kwargs["anonymize"],
-                    kwargs["include_quest_answer_log"],
-                )
-            )
-            or {"activity_id": activity["id"]}
-        ),
+    config = _event_config("prod", "prod")
+    event_path, runs = _stub_event_command(monkeypatch, tmp_path, config)
+
+    monkeypatch.setenv("MM_TDEI_USERNAME_PROD", "tdei-user")
+    monkeypatch.setenv("MM_TDEI_PASSWORD_PROD", "tdei-password")
+    _mock_noninteractive_terminal(monkeypatch)
+    monkeypatch.setattr(builtins, "input", _unexpected_prompt)
+    monkeypatch.setattr(cli.getpass, "getpass", _unexpected_prompt)
+    credentials: list[tuple[str, str, str]] = []
+
+    def fake_authenticate(environment: str, username: str, password: str) -> str:
+        credentials.append((environment, username, password))
+        return "prod-token"
+
+    monkeypatch.setattr(cli, "authenticate", fake_authenticate)
+
+    result = cli.run_cli(
+        [
+            "event",
+            "--config",
+            str(event_path),
+            "--dry-run",
+            "--anonymize",
+            "--quest-answer-log",
+        ]
     )
 
-    result = cli._cmd_event(
-        argparse.Namespace(
-            config=event_path,
-            output_dir=tmp_path / "output",
-            render_from_stats=None,
-            dry_run=True,
-            anonymize=True,
-            quest_answer_log=True,
-        )
-    )
-
-    capsys.readouterr()
     assert result == 0
-    assert prompts == ["prod"]
+    assert credentials == [("prod", "tdei-user", "tdei-password")]
     assert runs == [
-        ("walkabout", "prod-token", True, True),
-        ("rollabout", "prod-token", True, True),
+        ("activity-1", "prod-token", True, True),
+        ("activity-2", "prod-token", True, True),
     ]
 
 
-def test_event_parser_accepts_quest_answer_log_flag() -> None:
-    """Keep the answer-log export opt-in on the event command."""
-    args = cli._build_parser().parse_args(
-        ["event", "--config", "event.json", "--quest-answer-log"]
-    )
-    assert args.quest_answer_log is True
+def test_event_parser_accepts_quest_answer_log_flag(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The public event command forwards opt-in and default answer-log values."""
+    event_path, runs = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
+    monkeypatch.setenv("MM_TDEI_USERNAME_PROD", "tdei-user")
+    monkeypatch.setenv("MM_TDEI_PASSWORD_PROD", "tdei-password")
+    _mock_noninteractive_terminal(monkeypatch)
 
-    default_args = cli._build_parser().parse_args(["event", "--config", "event.json"])
-    assert default_args.quest_answer_log is False
+    def fake_authenticate(environment: str, username: str, password: str) -> str:
+        assert (environment, username, password) == (
+            "prod",
+            "tdei-user",
+            "tdei-password",
+        )
+        return "prod-token"
+
+    monkeypatch.setattr(cli, "authenticate", fake_authenticate)
+    base_args = ["event", "--config", str(event_path), "--dry-run"]
+    assert cli.run_cli([*base_args, "--quest-answer-log"]) == 0
+    assert cli.run_cli(base_args) == 0
+    assert [run[3] for run in runs] == [True, False]
 
 
 def test_event_command_rejects_answer_log_with_render_from_stats(
@@ -256,41 +472,55 @@ def test_event_command_rejects_answer_log_with_render_from_stats(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Avoid silently omitting the log when only rendering saved stats."""
-    event_path = tmp_path / "event.json"
-    event_path.write_text("{}", encoding="utf-8")
-    monkeypatch.setattr(
-        "mm.config.loader.load_event_config",
-        lambda _path: {"id": "sample-event", "activities": []},
-    )
+    event_path, _ = _stub_event_command(monkeypatch, tmp_path, _event_config())
 
-    result = cli._cmd_event(
-        argparse.Namespace(
-            config=event_path,
-            output_dir=tmp_path / "output",
-            render_from_stats=tmp_path / "stats.json",
-            anonymize=False,
-            quest_answer_log=True,
-        )
+    result = cli.run_cli(
+        [
+            "event",
+            "--config",
+            str(event_path),
+            "--render-from-stats",
+            str(tmp_path / "stats.json"),
+            "--quest-answer-log",
+        ]
     )
 
     assert result == 1
     assert "--quest-answer-log" in capsys.readouterr().err
 
 
-def test_event_parser_accepts_anonymize_flag() -> None:
-    """Support both the long and short anonymization options."""
-    for option in ("--anonymize", "-a"):
-        args = cli._build_parser().parse_args(
-            ["event", "--config", "event.json", option]
+def test_event_parser_accepts_anonymize_flag(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The public event command supports both anonymization options."""
+    event_path, runs = _stub_event_command(monkeypatch, tmp_path, _event_config("prod"))
+    monkeypatch.setenv("MM_TDEI_USERNAME_PROD", "tdei-user")
+    monkeypatch.setenv("MM_TDEI_PASSWORD_PROD", "tdei-password")
+    _mock_noninteractive_terminal(monkeypatch)
+
+    def fake_authenticate(environment: str, username: str, password: str) -> str:
+        assert (environment, username, password) == (
+            "prod",
+            "tdei-user",
+            "tdei-password",
         )
-        assert args.anonymize is True
+        return "prod-token"
+
+    monkeypatch.setattr(cli, "authenticate", fake_authenticate)
+    base_args = ["event", "--config", str(event_path), "--dry-run"]
+    for option in ("--anonymize", "-a"):
+        assert cli.run_cli([*base_args, option]) == 0
+
+    assert [run[2] for run in runs] == [True, True]
 
 
 def test_render_from_stats_anonymizes_report_and_saved_stats(
     tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Keep both rendered artifacts anonymized without changing source stats."""
-    source_stats = {
+    source_stats: dict[str, Any] = {
         "activity_id": "walkabout",
         "contributors_breakdown": [{"user": "alice", "count": 1, "photo_count": 0}],
         "markers": [
@@ -310,19 +540,25 @@ def test_render_from_stats_anonymizes_report_and_saved_stats(
     }
     stats_path = tmp_path / "source-stats.json"
     stats_path.write_text(json.dumps(source_stats), encoding="utf-8")
-    config = {
+    config: dict[str, Any] = {
         "id": "sample-event",
         "name": "Sample Event",
         "activities": [{"id": "walkabout", "label": "Walkabout"}],
     }
+    event_path, runs = _stub_event_command(monkeypatch, tmp_path, config)
     output_dir = tmp_path / "output"
 
-    result = cli._render_from_stats(
-        config,
-        stats_path,
-        output_dir,
-        "sample-event",
-        anonymize=True,
+    result = cli.run_cli(
+        [
+            "event",
+            "--config",
+            str(event_path),
+            "--render-from-stats",
+            str(stats_path),
+            "--output-dir",
+            str(output_dir),
+            "--anonymize",
+        ]
     )
 
     assert result == 0
@@ -336,3 +572,44 @@ def test_render_from_stats_anonymizes_report_and_saved_stats(
     assert "Alex Mapper" not in html
     assert "Participant 2" in html
     assert json.loads(stats_path.read_text(encoding="utf-8")) == source_stats
+    assert runs == []
+
+
+@pytest.mark.parametrize(
+    ("stats_data", "message"),
+    [
+        ("[]", "stats.json must contain a JSON object"),
+        ('{"activity_id": 123}', "stats.json activity_id must be a string"),
+    ],
+)
+def test_render_from_stats_rejects_invalid_stats(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    stats_data: str,
+    message: str,
+) -> None:
+    stats_path = tmp_path / "stats.json"
+    stats_path.write_text(stats_data, encoding="utf-8")
+    config: dict[str, Any] = {
+        "id": "sample-event",
+        "name": "Sample Event",
+        "activities": [{"id": "walkabout", "label": "Walkabout"}],
+    }
+    event_path, runs = _stub_event_command(monkeypatch, tmp_path, config)
+
+    result = cli.run_cli(
+        [
+            "event",
+            "--config",
+            str(event_path),
+            "--render-from-stats",
+            str(stats_path),
+            "--output-dir",
+            str(tmp_path / "output"),
+        ]
+    )
+
+    assert result == 1
+    assert message in capsys.readouterr().err
+    assert runs == []

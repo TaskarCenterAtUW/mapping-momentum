@@ -23,12 +23,24 @@ contributors_breakdown : list[dict]
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Mapping, Sequence, Sized
+from typing import TypedDict
 
 from mm.metrics.base import register
 
 
+class ContributorBreakdown(TypedDict):
+    """Counts for one contributor."""
+
+    user: str
+    count: int
+    photo_count: int
+
+
 @register("workspace")
-def compute(elements: list[dict]) -> dict:
+def compute(
+    elements: Sequence[Mapping[str, object]],
+) -> dict[str, list[ContributorBreakdown]]:
     """Compute ``contributors_breakdown``.
 
     Parameters
@@ -47,13 +59,18 @@ def compute(elements: list[dict]) -> dict:
     photo_counts: Counter[str] = Counter()
 
     for elem in elements:
-        user: str = elem.get("user", "")
+        user = elem.get("user", "")
         if not user:
             continue
+        if not isinstance(user, str):
+            raise TypeError("element user must be a string")
+        photos = elem.get("photos", [])
+        if not isinstance(photos, Sized):
+            raise TypeError("element photos must have a length")
         counts[user] += 1
-        photo_counts[user] += len(elem.get("photos", []))
+        photo_counts[user] += len(photos)
 
-    breakdown = [
+    breakdown: list[ContributorBreakdown] = [
         {
             "user": user,
             "count": count,

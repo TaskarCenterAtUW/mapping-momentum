@@ -63,13 +63,68 @@ Notes
 
 from __future__ import annotations
 
-from typing import Any
+from collections.abc import Mapping, Sequence
+from typing import TypedDict, TypeGuard, cast
 
 from mm.metrics.base import register
+from mm.quests.loader import QuestDefinition
+
+
+class ChoiceData(TypedDict):
+    """Aggregated label and count for one answer value."""
+
+    label: str
+    count: int
+
+
+class TagAnswerData(TypedDict):
+    """Aggregated answers for one quest tag."""
+
+    times_answered: int
+    choices: dict[str, ChoiceData]
+
+
+class AnswerChoice(TypedDict):
+    """One answer choice in the metric output."""
+
+    value: str
+    label: str
+    count: int
+
+
+class AnsweredQuestion(TypedDict):
+    """One answered quest question in the metric output."""
+
+    tag: str
+    label: str
+    times_answered: int
+    choices: list[AnswerChoice]
+
+
+class CategoryAnswers(TypedDict):
+    """Answered questions for one category in the metric output."""
+
+    category: str
+    total: int
+    questions: list[AnsweredQuestion]
+
+
+def _is_string_mapping(value: object) -> TypeGuard[Mapping[str, str]]:
+    """Return whether *value* maps string keys to string values."""
+    if not isinstance(value, Mapping):
+        return False
+    mapping = cast(Mapping[object, object], value)
+    return all(
+        isinstance(key, str) and isinstance(item, str) for key, item in mapping.items()
+    )
 
 
 @register("workspace")
-def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
+def compute(
+    elements: Sequence[Mapping[str, object]],
+    *,
+    quest_def: QuestDefinition | None = None,
+) -> dict[str, list[CategoryAnswers]]:
     """Compute ``questions_answered``.
 
     Parameters
@@ -84,19 +139,25 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
 
     Returns
     -------
-    dict
+    dict[str, list[CategoryAnswers]]
         ``{"questions_answered": [<category_entry>, …]}``
     """
     # category → tag → answer counts and choice labels.
-    data: dict[str, dict[str, Any]] = {}
+    data: dict[str, dict[str, TagAnswerData]] = {}
 
     for elem in elements:
         if elem.get("kind") == "note":
             continue
 
-        category: str = elem.get("category", "")
-        tags: dict[str, str] = elem.get("tags", {})
-        readable: dict[str, str] = elem.get("readable", {})
+        category = elem.get("category", "")
+        if not isinstance(category, str):
+            raise TypeError("element category must be a string")
+        tags = elem.get("tags", {})
+        if not _is_string_mapping(tags):
+            raise TypeError("element tags must map strings to strings")
+        readable = elem.get("readable", {})
+        if not _is_string_mapping(readable):
+            raise TypeError("element readable must map strings to strings")
 
         for tag, decoded_label in readable.items():
             raw_value = tags.get(tag)
@@ -108,23 +169,28 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
             )
             tag_data["times_answered"] += 1
 
-            if raw_value not in tag_data["choices"]:
-                tag_data["choices"][raw_value] = {"label": decoded_label, "count": 0}
-            tag_data["choices"][raw_value]["count"] += 1
+            choice_data = tag_data["choices"].setdefault(
+                raw_value, {"label": decoded_label, "count": 0}
+            )
+            choice_data["count"] += 1
 
-    result = []
+    result: list[CategoryAnswers] = []
     for category in sorted(data):
         tags_data = data[category]
         total = sum(td["times_answered"] for td in tags_data.values())
-        questions = []
+        questions: list[AnsweredQuestion] = []
         for tag in sorted(tags_data):
             td = tags_data[tag]
             label = (
                 quest_def.tag_to_title.get(tag, tag) if quest_def is not None else tag
             )
-            choices = [
-                {"value": v, "label": info["label"], "count": info["count"]}
-                for v, info in sorted(td["choices"].items())
+            choices: list[AnswerChoice] = [
+                {
+                    "value": value,
+                    "label": info["label"],
+                    "count": info["count"],
+                }
+                for value, info in sorted(td["choices"].items())
             ]
             questions.append(
                 {
@@ -134,6 +200,12 @@ def compute(elements: list[dict], *, quest_def: Any = None) -> dict:
                     "choices": choices,
                 }
             )
-        result.append({"category": category, "total": total, "questions": questions})
+        result.append(
+            {
+                "category": category,
+                "total": total,
+                "questions": questions,
+            }
+        )
 
     return {"questions_answered": result}

@@ -53,7 +53,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import cast
 
 from mm.common.io import read_json
 
@@ -114,11 +114,11 @@ def load_quest_definition(path: str | Path) -> QuestDefinition:
     json.JSONDecodeError
         If the file is not valid JSON.
     """
-    raw: dict[str, Any] = read_json(path)
+    raw: object = read_json(path)
     return build_lookups(raw)
 
 
-def build_lookups(raw: dict[str, Any]) -> QuestDefinition:
+def build_lookups(raw: object) -> QuestDefinition:
     """Build lookup tables from a raw quest-definition dict.
 
     This is the pure, I/O-free core of quest decoding.  It can be called
@@ -140,28 +140,34 @@ def build_lookups(raw: dict[str, Any]) -> QuestDefinition:
     ValueError
         If ``raw`` lacks the top-level ``"elements"`` list.
     """
-    if not isinstance(raw, dict) or not isinstance(raw.get("elements"), list):
+    if not isinstance(raw, dict):
+        raise ValueError("quest definition is missing the top-level 'elements' list")
+    raw_data = cast(dict[object, object], raw)
+    elements = raw_data.get("elements")
+    if not isinstance(elements, list):
         raise ValueError("quest definition is missing the top-level 'elements' list")
 
     tag_to_title: dict[str, str] = {}
     tag_value_to_label: dict[str, dict[str, str]] = {}
     tag_to_category: dict[str, str] = {}
 
-    for element_index, element in enumerate(raw["elements"]):
-        if not isinstance(element, dict):
+    for element_index, element_value in enumerate(cast(list[object], elements)):
+        if not isinstance(element_value, dict):
             raise ValueError(f"elements[{element_index}] must be an object")
-        category: str = element.get("element_type", "")
+        element = cast(dict[object, object], element_value)
+        category = element.get("element_type", "")
         if not isinstance(category, str):
             raise ValueError(f"elements[{element_index}].element_type must be a string")
         quests = element.get("quests", [])
         if not isinstance(quests, list):
             raise ValueError(f"elements[{element_index}].quests must be a list")
-        for quest_index, quest in enumerate(quests):
-            if not isinstance(quest, dict):
+        for quest_index, quest_value in enumerate(cast(list[object], quests)):
+            if not isinstance(quest_value, dict):
                 raise ValueError(
                     f"elements[{element_index}].quests[{quest_index}] must be an object"
                 )
-            tag: str = quest.get("quest_tag", "")
+            quest = cast(dict[object, object], quest_value)
+            tag = quest.get("quest_tag", "")
             if not tag:
                 continue
             if not isinstance(tag, str):
@@ -194,16 +200,21 @@ def build_lookups(raw: dict[str, Any]) -> QuestDefinition:
                     "quest_answer_choices must be a list"
                 )
             labels: dict[str, str] = {}
-            for choice_index, choice in enumerate(choices):
-                if not isinstance(choice, dict) or not isinstance(
-                    choice.get("value"), str
-                ):
+            for choice_index, choice_value in enumerate(cast(list[object], choices)):
+                if not isinstance(choice_value, dict):
                     raise ValueError(
                         f"elements[{element_index}].quests[{quest_index}]."
                         f"quest_answer_choices[{choice_index}] must contain a "
                         "string value"
                     )
-                value = choice["value"]
+                choice = cast(dict[object, object], choice_value)
+                value = choice.get("value")
+                if not isinstance(value, str):
+                    raise ValueError(
+                        f"elements[{element_index}].quests[{quest_index}]."
+                        f"quest_answer_choices[{choice_index}] must contain a "
+                        "string value"
+                    )
                 label = choice.get("choice_text", value)
                 if not isinstance(label, str):
                     raise ValueError(

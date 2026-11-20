@@ -109,7 +109,7 @@ def fetch_json(
     *,
     headers: dict[str, str] | None = None,
     timeout: int = 30,
-) -> Any:
+) -> object:
     """Fetch JSON from *url* and return the decoded Python object.
 
     Parameters
@@ -139,7 +139,7 @@ def post_json(
     *,
     headers: dict[str, str] | None = None,
     timeout: float = 30,
-) -> Any:
+) -> object:
     """POST a JSON payload to *url* and decode the JSON response."""
     request_headers = {
         "Accept": "application/json",

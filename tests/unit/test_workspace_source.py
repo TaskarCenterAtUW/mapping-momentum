@@ -39,10 +39,13 @@ import json
 import urllib.error
 from datetime import datetime, timezone
 from email.message import Message
+from math import isclose
 from unittest.mock import MagicMock, patch
+from urllib.request import Request
 
 import pytest
 
+from mm.sources.base import Element
 from mm.sources.workspace import (
     BBox,
     authenticate,
@@ -94,12 +97,13 @@ def _osm(*body_parts: bytes) -> bytes:
     return _OSM_HEADER + b"".join(body_parts) + _OSM_FOOTER
 
 
-def _mock_urlopen(body: bytes, status: int = 200):
+def _mock_urlopen(body: bytes, status: int = 200) -> MagicMock:
     """Return a context-manager mock for ``urllib.request.urlopen``."""
     resp = MagicMock()
     resp.headers = {}
+    resp.status = status
     resp.read.side_effect = [body, b""]
-    resp.__enter__ = lambda s: s
+    resp.__enter__.return_value = resp
     resp.__exit__ = MagicMock(return_value=False)
     return resp
 
@@ -119,8 +123,8 @@ def test_parse_osm_xml_node() -> None:
     assert node["uid"] == 10
     assert node["changeset"] == 100
     assert node["timestamp"] == "2026-01-20T20:00:00Z"
-    assert node["lat"] == pytest.approx(49.001)
-    assert node["lon"] == pytest.approx(-122.501)
+    assert isclose(node["lat"], 49.001)
+    assert isclose(node["lon"], -122.501)
     assert node["tags"] == {"sidewalk": "yes"}
 
 
@@ -175,7 +179,7 @@ def test_parse_osm_xml_ignores_non_element_tags() -> None:
 # filter_by_time
 # ---------------------------------------------------------------------------
 
-_ELEMENTS = [
+_ELEMENTS: list[Element] = [
     {
         "type": "node",
         "id": 1,
@@ -270,7 +274,7 @@ def test_filter_empty_input() -> None:
 
 
 def test_filter_skips_bad_timestamp() -> None:
-    bad = [
+    bad: list[Element] = [
         {
             "type": "node",
             "id": 99,
@@ -300,6 +304,20 @@ def test_fetch_bbox_returns_tuple() -> None:
         bbox = fetch_bbox("prod", 931, "test-key")
     assert bbox == (-122.5, 49.0, -122.4, 49.1)
     assert mock_urlopen.call_args.kwargs["timeout"] == 120
+
+
+def test_fetch_bbox_accepts_numeric_string_coordinates() -> None:
+    body = json.dumps(
+        {
+            "min_lon": "-122.5",
+            "min_lat": "49.0",
+            "max_lon": "-122.4",
+            "max_lat": "49.1",
+        }
+    ).encode()
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(body)):
+        bbox = fetch_bbox("prod", 931, "test-key")
+    assert bbox == (-122.5, 49.0, -122.4, 49.1)
 
 
 def test_fetch_bbox_missing_field_raises() -> None:
@@ -380,19 +398,22 @@ def test_authenticate_uses_environment_and_returns_access_token(
     environment: str, auth_url: str
 ) -> None:
     """Send credentials to the matching environment's login endpoint."""
-    captured_req = []
+    captured_req: list[Request] = []
 
-    def fake_urlopen(req, timeout=30):
+    def fake_urlopen(req: Request, timeout: float = 30) -> MagicMock:
+        assert timeout == 30
         captured_req.append(req)
         return _mock_urlopen(b'{"access_token":"test-access-token"}')
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         token = authenticate(environment, "test-user", "test-password")
 
+    assert captured_req
     req = captured_req[0]
     assert token == "test-access-token"
     assert req.full_url == auth_url
     assert req.get_method() == "POST"
+    assert isinstance(req.data, bytes)
     assert json.loads(req.data) == {
         "username": "test-user",
         "password": "test-password",
@@ -426,9 +447,11 @@ def test_fetch_osm_xml_returns_bytes() -> None:
 
 
 def test_fetch_osm_xml_includes_auth_headers() -> None:
-    captured_req: list = []
+    captured_req: list[Request] = []
 
-    def fake_urlopen(req, timeout=30):
+    def fake_urlopen(req: Request, timeout: float = 30) -> MagicMock:
+        assert timeout == 120
+        assert req.get_method() == "GET"
         captured_req.append(req)
         return _mock_urlopen(b"<osm/>")
 
@@ -440,6 +463,7 @@ def test_fetch_osm_xml_includes_auth_headers() -> None:
             "test-access-token",
         )
 
+    assert captured_req
     req = captured_req[0]
     basic_auth = base64.b64encode(b"931:test-access-token").decode("ascii")
     assert req.get_header("Authorization") == f"Basic {basic_auth}"
@@ -462,9 +486,11 @@ def test_fetch_osm_xml_http_error_propagates() -> None:
 
 
 def test_fetch_osm_xml_bbox_in_url() -> None:
-    captured_req: list = []
+    captured_req: list[Request] = []
 
-    def fake_urlopen(req, timeout=30):
+    def fake_urlopen(req: Request, timeout: float = 30) -> MagicMock:
+        assert timeout == 120
+        assert req.get_method() == "GET"
         captured_req.append(req)
         return _mock_urlopen(b"<osm/>")
 
@@ -472,6 +498,7 @@ def test_fetch_osm_xml_bbox_in_url() -> None:
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         fetch_osm_xml("prod", 931, bbox, "key")
 
+    assert captured_req
     url = captured_req[0].full_url
     assert "bbox=-122.5,49.0,-122.4,49.1" in url
 
@@ -481,7 +508,9 @@ def test_fetch_osm_xml_splits_truncated_tiles_until_valid() -> None:
     valid = _osm(_NODE_ALICE)
     responses = [truncated, truncated, valid, valid, valid, valid]
 
-    def fake_urlopen(req, timeout=30):
+    def fake_urlopen(req: Request, timeout: float = 30) -> MagicMock:
+        assert timeout == 120
+        assert req.get_method() == "GET"
         return _mock_urlopen(responses.pop(0))
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
@@ -496,7 +525,9 @@ def test_fetch_osm_xml_retries_a_truncated_tile() -> None:
     valid = _osm(_NODE_ALICE)
     responses = [truncated, valid]
 
-    def fake_urlopen(req, timeout=30):
+    def fake_urlopen(req: Request, timeout: float = 30) -> MagicMock:
+        assert timeout == 120
+        assert req.get_method() == "GET"
         return _mock_urlopen(responses.pop(0))
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
@@ -511,8 +542,12 @@ def test_fetch_osm_xml_splits_oversized_tiles() -> None:
 
     requests: list[str] = []
 
-    def fake_fetch_bytes(url: str, **_kwargs: object) -> bytes:
+    def fake_fetch_bytes(url: str, **kwargs: object) -> bytes:
         requests.append(url)
+        assert kwargs["timeout"] == 120
+        max_bytes = kwargs["max_bytes"]
+        assert isinstance(max_bytes, int)
+        assert max_bytes > 25 * 1024 * 1024
         if len(requests) == 1:
             raise ResponseTooLargeError("map tile exceeds response limit")
         return b"<osm/>"
@@ -543,10 +578,16 @@ def test_fetch_osm_xml_errors_if_oversized_at_maximum_depth() -> None:
 
 def test_fetch_osm_xml_reports_maximum_tile_depth() -> None:
     truncated = b'<osm version="0.6"><node'
+
+    def fake_urlopen(req: Request, timeout: float = 30) -> MagicMock:
+        assert timeout == 120
+        assert req.get_method() == "GET"
+        return _mock_urlopen(truncated)
+
     with (
         patch(
             "urllib.request.urlopen",
-            side_effect=lambda *args, **kwargs: _mock_urlopen(truncated),
+            side_effect=fake_urlopen,
         ),
         patch("mm.sources.workspace._MAX_MAP_SPLIT_DEPTH", 1),
     ):

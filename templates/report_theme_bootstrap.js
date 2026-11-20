@@ -1,3 +1,5 @@
+/** @format */
+
 (function () {
   var root = document.documentElement;
   var validModes = ["light", "dark", "auto"];
@@ -14,14 +16,18 @@
       }
     }
   } catch (error) {
-    console.warn("Theme preference could not be loaded; using system preference.", error);
+    console.warn(
+      "Theme preference could not be loaded; using system preference.",
+      error
+    );
   }
 
-  var prefersDark = window.matchMedia &&
+  var prefersDark =
+    window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
   var theme = mode === "auto" ? (prefersDark ? "dark" : "light") : mode;
 
   root.dataset.themeMode = mode;
   root.dataset.theme = theme;
   root.dataset.bsTheme = theme;
-}());
+})();

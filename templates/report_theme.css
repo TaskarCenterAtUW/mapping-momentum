@@ -1,16 +1,21 @@
-/* Shared report shell inspired by the Quest Definition Creator. */
+/**
+ * Shared report shell inspired by the Quest Definition Creator.
+ *
+ * @format
+ */
+
 :root {
   color-scheme: light;
-  --mm-font-family: "Open Sans", "Segoe UI", system-ui, -apple-system,
-    BlinkMacSystemFont, sans-serif;
+  --mm-font-family:
+    "Open Sans", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
   --mm-content-width: 1820px;
   --mm-panel-padding: 0.9rem;
-  --mm-panel-background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--mm-surface) 96%, transparent),
-      color-mix(in srgb, var(--mm-surface-muted) 72%, transparent)
-    );
+  --mm-panel-background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mm-surface) 96%, transparent),
+    color-mix(in srgb, var(--mm-surface-muted) 72%, transparent)
+  );
   --mm-bg: #f5f1fb;
   --mm-canvas-alt: #ede5fa;
   --mm-surface: rgba(255, 255, 255, 0.94);
@@ -374,8 +379,8 @@ a:hover {
   position: absolute;
   inset: 0 0 auto;
   height: 5px;
-  border-radius:
-    calc(var(--mm-radius-xl) - 1px) calc(var(--mm-radius-xl) - 1px) 0 0;
+  border-radius: calc(var(--mm-radius-xl) - 1px) calc(var(--mm-radius-xl) - 1px)
+    0 0;
   background: linear-gradient(
     90deg,
     var(--mm-primary-700),
@@ -475,7 +480,11 @@ a:hover {
   inset: 0.7rem auto 0.7rem 0;
   width: 3px;
   border-radius: 0 var(--mm-radius-pill) var(--mm-radius-pill) 0;
-  background: linear-gradient(180deg, var(--mm-primary), rgba(var(--mm-primary-rgb), 0.2));
+  background: linear-gradient(
+    180deg,
+    var(--mm-primary),
+    rgba(var(--mm-primary-rgb), 0.2)
+  );
   content: "";
 }
 
@@ -782,7 +791,8 @@ a:hover {
   height: 0.2rem;
   border-radius: var(--mm-radius-pill);
   background: rgba(var(--mm-primary-rgb), 0.7);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--mm-surface-strong) 82%, transparent);
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--mm-surface-strong) 82%, transparent);
   content: "";
 }
 
@@ -1144,7 +1154,6 @@ a:hover {
   #btn-expand {
     right: 9.5rem;
   }
-
 }
 
 @media (max-width: 575.98px) {

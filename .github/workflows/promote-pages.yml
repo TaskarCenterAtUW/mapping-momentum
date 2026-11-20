@@ -1,0 +1,45 @@
+# @format
+
+name: Promote reviewed Pages snapshot
+on:
+  workflow_dispatch:
+    inputs:
+      beta_sha:
+        description: Full reviewed beta commit SHA
+        required: true
+        type: string
+      rollback:
+        description: Allow promotion of an older ancestor
+        default: false
+        type: boolean
+permissions:
+  contents: read
+  pages: read
+concurrency:
+  group: pages-stable-promotion
+  cancel-in-progress: false
+jobs:
+  promote:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: pages-promotion
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Promote exact snapshot
+        id: promote
+        env:
+          BETA_SHA: ${{ inputs.beta_sha }}
+          ROLLBACK: ${{ inputs.rollback }}
+          MAPPING_MOMENTUM_PUBLISH_PAT: ${{ secrets.MAPPING_MOMENTUM_PUBLISH_PAT }}
+        run: |
+          test -n "$MAPPING_MOMENTUM_PUBLISH_PAT"
+          python3 utilities/promote_snapshot.py
+      - name: Verify exact Pages deployment
+        env:
+          STABLE_SHA: ${{ steps.promote.outputs.stable_sha }}
+          PUBLIC_URL: ${{ vars.PAGES_PUBLIC_URL }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 utilities/verify_pages.py

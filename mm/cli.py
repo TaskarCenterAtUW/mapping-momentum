@@ -7,6 +7,7 @@ Entry point: the ``mapping-momentum`` console script delegates to ``run_cli``.
 from __future__ import annotations
 
 import argparse
+import builtins
 import getpass
 import json
 import os
@@ -15,6 +16,7 @@ import sys
 import tempfile
 import warnings
 from pathlib import Path
+from typing import Any, cast
 
 from mm.config.schema import SLUG_PATTERN
 from mm.outputs.quest_answer_log import QUEST_ANSWER_LOG_FILENAME
@@ -118,6 +120,48 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Anonymize merged contributor identities in the aggregate output.",
     )
 
+    publish_parser = subparsers.add_parser(
+        "publish",
+        help="Prepare, check, or approve a public GitHub Pages snapshot.",
+    )
+    publish_subparsers = publish_parser.add_subparsers(
+        dest="publish_command",
+        metavar="PUBLISH_COMMAND",
+    )
+    publish_subparsers.required = True
+
+    prepare_parser = publish_subparsers.add_parser(
+        "prepare",
+        help="Create a local beta snapshot commit from anonymized reports.",
+    )
+    prepare_parser.add_argument(
+        "--anonymized-root",
+        type=Path,
+        help="Anonymized HTML root (default: local-output/v<VERSION>/anonymized).",
+    )
+
+    check_parser = publish_subparsers.add_parser(
+        "check",
+        help="Run report contract, accessibility, export, and screenshot checks.",
+    )
+    check_parser.add_argument(
+        "--sha",
+        required=True,
+        metavar="SHA",
+        help="Full hexadecimal SHA of the prepared beta commit.",
+    )
+
+    approve_parser = publish_subparsers.add_parser(
+        "approve",
+        help="Push an exact, checked SHA to the beta branch.",
+    )
+    approve_parser.add_argument(
+        "--sha",
+        required=True,
+        metavar="SHA",
+        help="Full hexadecimal SHA of the prepared beta commit.",
+    )
+
     # --- capture-quests subcommand ---
     cq_parser = subparsers.add_parser(
         "capture-quests",
@@ -149,6 +193,8 @@ def run_cli(argv: list[str] | None = None) -> int:
         return _cmd_event(args)
     if args.command == "aggregate":
         return _cmd_aggregate(args)
+    if args.command == "publish":
+        return _cmd_publish(args)
     if args.command == "capture-quests":
         return _cmd_capture_quests(args)
     if args.command == "capture":
@@ -290,6 +336,118 @@ def _cmd_event(args: argparse.Namespace) -> int:
     return 0
 
 
+def _confirm_beta_publication(sha: str) -> bool:
+    """Prompt interactively before publishing a reviewed beta snapshot."""
+    from mm.publication import PRIVACY_AFFIRMATION, PublicationError
+
+    if not (sys.stdin.isatty() and sys.stdout.isatty() and sys.stderr.isatty()):
+        raise PublicationError(
+            "beta publication approval requires an interactive terminal"
+        )
+
+    try:
+        answer = builtins.input(
+            f"Reviewed beta SHA: {sha}\n"
+            f"Type the following exactly before the public beta push:\n"
+            f"{PRIVACY_AFFIRMATION}\n> "
+        )
+    except EOFError, KeyboardInterrupt:
+        return False
+    return answer == PRIVACY_AFFIRMATION
+
+
+def _cmd_publish(args: argparse.Namespace) -> int:
+    """Prepare, check, or approve a public report snapshot."""
+    from mm.common.io import write_json
+    from mm.publication import (
+        PRIVACY_AFFIRMATION,
+        PublicationError,
+        approve_and_push_publication,
+        candidate_check_path,
+        default_anonymized_root,
+        prepare_publication,
+        read_successful_check,
+    )
+
+    repo_root = Path(__file__).resolve().parents[1]
+
+    if args.publish_command == "prepare":
+        anonymized_root = (
+            Path(args.anonymized_root).resolve()
+            if args.anonymized_root
+            else default_anonymized_root(repo_root)
+        )
+        try:
+            prepared = prepare_publication(repo_root, anonymized_root)
+        except PublicationError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        print(f"Prepared beta snapshot commit: {prepared.sha}")
+        print("Review this committed snapshot, then run:")
+        print(f"  mapping-momentum publish check --sha {prepared.sha}")
+        print(
+            "Pushed beta is immediately public. Do not push until manual "
+            "privacy review is complete."
+        )
+        return 0
+
+    if args.publish_command == "check":
+        try:
+            from mm.report_checks import check_committed_snapshot
+
+            result = check_committed_snapshot(repo_root, args.sha)
+        except PublicationError as exc:
+            try:
+                sha = args.sha.lower()
+                write_json(
+                    candidate_check_path(repo_root, sha),
+                    {
+                        "success": False,
+                        "sha": sha,
+                        "error": str(exc),
+                    },
+                )
+            except PublicationError:
+                pass
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        print(f"Report checks passed for {result['sha']}.")
+        print(
+            "Inspect the screenshots and HTML in "
+            f"{repo_root / 'local-storage' / 'report-checks' / result['sha']}."
+        )
+        print(
+            "Before approving, inspect visible content and embedded HTML data "
+            "for identifiers, links, and sensitive content."
+        )
+        return 0
+
+    if args.publish_command == "approve":
+        try:
+            check = read_successful_check(repo_root, args.sha)
+            sha = check["sha"]
+            if not _confirm_beta_publication(sha):
+                print("Approval cancelled; no beta push was made.")
+                return 0
+            sha = approve_and_push_publication(
+                repo_root,
+                sha,
+                affirmation=PRIVACY_AFFIRMATION,
+            )
+        except PublicationError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        print(f"Pushed reviewed beta commit: {sha}")
+        print(
+            "Verify the public beta ref before any stable promotion. "
+            "beta does not have a public preview site."
+        )
+        return 0
+
+    print("error: unknown publish command", file=sys.stderr)
+    return 1
+
+
 def _cmd_aggregate(args: argparse.Namespace) -> int:
     """Create an aggregate report from existing non-anonymized stats files."""
     from mm.outputs.aggregate import aggregate_reports, write_aggregate_report
@@ -399,7 +557,7 @@ def _cmd_capture(args: argparse.Namespace) -> int:
 
 
 def _render_from_stats(
-    config: dict,
+    config: dict[str, Any],
     stats_path: Path,
     output_dir: Path,
     event_id: str,
@@ -420,24 +578,38 @@ def _render_from_stats(
         return 1
 
     try:
-        stats: dict = read_json(stats_path)
+        stats_value: object = read_json(stats_path)
     except Exception as exc:
         print(f"error: could not read {stats_path}: {exc}", file=sys.stderr)
         return 1
+    if not isinstance(stats_value, dict):
+        print(
+            f"error: stats.json must contain a JSON object: {stats_path}",
+            file=sys.stderr,
+        )
+        return 1
+    stats: dict[str, Any] = cast(dict[str, Any], stats_value)
     if anonymize:
         from mm.outputs.anonymize import anonymize_stats
 
         stats = anonymize_stats(stats)
 
-    activity_id: str = stats.get("activity_id", "")
+    activity_id_value = stats.get("activity_id", "")
+    if not isinstance(activity_id_value, str):
+        print(
+            "error: stats.json activity_id must be a string",
+            file=sys.stderr,
+        )
+        return 1
+    activity_id = activity_id_value
     # Find matching activity config
+    activities: list[dict[str, Any]] = config.get("activities", [])
     activity = next(
-        (a for a in config.get("activities", []) if a.get("id") == activity_id),
+        (a for a in activities if a.get("id") == activity_id),
         None,
     )
     if activity is None:
         # Fall back to first activity if activity_id doesn't match
-        activities = config.get("activities", [])
         activity = activities[0] if activities else {}
 
     html = render_report(stats, config, activity)

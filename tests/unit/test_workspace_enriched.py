@@ -59,6 +59,8 @@ from __future__ import annotations
 import base64
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
+from math import isclose
+from typing import Any
 from unittest.mock import patch
 
 import pytest
@@ -206,8 +208,8 @@ def test_parse_osmchange_delete_action() -> None:
 def test_parse_osmchange_node_lat_lon() -> None:
     result = parse_osmchange(_osmchange(_CREATE_NODE))
     _, elem = result[0]
-    assert elem["lat"] == pytest.approx(49.001)
-    assert elem["lon"] == pytest.approx(-122.501)
+    assert isclose(elem["lat"], 49.001)
+    assert isclose(elem["lon"], -122.501)
 
 
 def test_parse_osmchange_way_nd_refs() -> None:
@@ -332,7 +334,7 @@ def test_build_version_histories_multiple_elements() -> None:
 def _make_map_node(
     node_id: int = 1,
     timestamp: str = "2026-01-20T20:00:00Z",
-    tags: dict | None = None,
+    tags: dict[str, str] | None = None,
 ) -> Element:
     return {
         "type": "node",
@@ -347,8 +349,10 @@ def _make_map_node(
     }
 
 
-def _make_history(actions_and_tags: list[tuple[str, dict]]) -> list[Version]:
-    versions = []
+def _make_history(
+    actions_and_tags: list[tuple[str, dict[str, str]]],
+) -> list[Version]:
+    versions: list[Version] = []
     timestamps = [
         "2026-01-20T19:00:00Z",
         "2026-01-20T20:00:00Z",
@@ -484,7 +488,7 @@ def test_enrich_elements_multiple_elements() -> None:
 # ---------------------------------------------------------------------------
 
 
-_SAMPLE_NOTES = [
+_SAMPLE_NOTES: list[dict[str, Any]] = [
     {
         "id": 1,
         "lat": 49.001,
@@ -513,8 +517,8 @@ def test_parse_notes_basic_fields() -> None:
     assert n["kind"] == "note"
     assert n["type"] == "note"
     assert n["text"] == "Broken curb ramp here"
-    assert n["lat"] == pytest.approx(49.001)
-    assert n["lon"] == pytest.approx(-122.501)
+    assert isclose(n["lat"], 49.001)
+    assert isclose(n["lon"], -122.501)
     assert n["user"] == "alice"
     assert n["uid"] == 10
     assert n["id"] == 1
@@ -531,15 +535,29 @@ def test_parse_notes_standard_enriched_fields() -> None:
 
 
 def test_parse_notes_skips_missing_lat() -> None:
-    bad = [
-        {"id": 1, "lon": -122.5, "text": "x", "user": "a", "uid": 1, "timestamp": ""}
+    bad: list[dict[str, Any]] = [
+        {
+            "id": 1,
+            "lon": -122.5,
+            "text": "x",
+            "user": "a",
+            "uid": 1,
+            "timestamp": "",
+        }
     ]
     assert parse_notes(bad) == []
 
 
 def test_parse_notes_skips_missing_text() -> None:
-    bad = [
-        {"id": 1, "lat": 49.0, "lon": -122.5, "user": "a", "uid": 1, "timestamp": ""}
+    bad: list[dict[str, Any]] = [
+        {
+            "id": 1,
+            "lat": 49.0,
+            "lon": -122.5,
+            "user": "a",
+            "uid": 1,
+            "timestamp": "",
+        }
     ]
     assert parse_notes(bad) == []
 
@@ -570,7 +588,16 @@ def test_parse_notes_window_filtering_end_exclusive() -> None:
 
 
 def test_parse_notes_excludes_missing_timestamp_in_window() -> None:
-    raw = [{"id": 1, "lat": 1, "lon": 2, "text": "note", "user": "a", "uid": 1}]
+    raw: list[dict[str, Any]] = [
+        {
+            "id": 1,
+            "lat": 1,
+            "lon": 2,
+            "text": "note",
+            "user": "a",
+            "uid": 1,
+        }
+    ]
     result = parse_notes(
         raw,
         datetime(2026, 1, 1, tzinfo=UTC),
@@ -693,7 +720,7 @@ def test_extract_photos_empty_tags() -> None:
 def test_fetch_changesets_constructs_correct_url() -> None:
     t_start = datetime(2026, 1, 20, 18, 0, 0, tzinfo=UTC)
     t_end = datetime(2026, 1, 21, 4, 0, 0, tzinfo=UTC)
-    expected = [
+    expected: list[dict[str, Any]] = [
         {
             "id": 100,
             "user": "alice",

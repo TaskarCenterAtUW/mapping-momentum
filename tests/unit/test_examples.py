@@ -138,7 +138,7 @@ def test_offline_example_filters_changesets_to_activity_window(tmp_path: Path) -
 
 
 def test_nested_report_features_override_event_scope() -> None:
-    config = {
+    config: dict[str, Any] = {
         "pictures": ["event.jpg"],
         "report": {"pictures": ["report.jpg"]},
     }
