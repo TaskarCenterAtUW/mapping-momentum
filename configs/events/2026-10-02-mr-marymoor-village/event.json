@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.1",
+  "type": "event",
+  "id": "2026-10-02-mr-marymoor-village",
+  "name": "Move Redmond: Marymoor Village Walk & Talk",
+  "date": "2026-10-02",
+  "report": {
+    "title": "Move Redmond: Marymoor Village Walk & Talk — Contribution Report"
+  },
+  "activities": [
+    {
+      "id": "walkabout",
+      "type": "workspace",
+      "label": "Move Redmond: Marymoor Village Walk & Talk",
+      "project_group_id": "fb667b77-9aca-4b92-ac46-1a110fbecf4e",
+      "workspace_id": 2404,
+      "environment": "prod",
+      "quest_definition_url": "https://raw.githubusercontent.com/TaskarCenterAtUW/asr-quests/refs/heads/main/quests/prod/OpenThePaths%202026/2026-10-29_OpenThePaths_2026.json",
+      "time_window": {
+        "start": "2026-10-02T20:02:01Z",
+        "end": "2026-10-03T01:00:00Z"
+      },
+      "quest_definition_retrieval_date": "2026-11-04T04:28:37Z"
+    }
+  ]
+}

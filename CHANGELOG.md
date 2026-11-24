@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [v1.10.0] - 2026-11-23
+
+### Added
+
+- Added Move Redmond event configs.
+
 ## [v1.9.0] - 2026-11-20
 
 ### Added
